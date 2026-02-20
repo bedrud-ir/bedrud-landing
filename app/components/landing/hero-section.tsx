@@ -54,7 +54,7 @@ export function HeroSection() {
           >
             <Button size="lg" className="h-11 rounded-full px-7" asChild>
               <a
-                href="https://github.com/themadorg/bedrud"
+                href="https://bedrud-ir.github.io/bedrud/getting-started/installation/"
                 target="_blank"
                 rel="noreferrer"
               >

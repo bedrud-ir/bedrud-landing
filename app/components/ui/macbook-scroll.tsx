@@ -27,7 +27,7 @@ import {
   useTransform,
 } from "motion/react";
 import type React from "react";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { cn } from "~/lib/utils";
 
 export const MacbookScroll = ({
@@ -47,31 +47,15 @@ export const MacbookScroll = ({
     offset: ["start start", "end start"],
   });
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (window && window.innerWidth < 768) {
-      setIsMobile(true);
-    }
-  }, []);
-
-  const scaleX = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [1.2, isMobile ? 1 : 1.5],
-  );
-  const scaleY = useTransform(
-    scrollYProgress,
-    [0, 0.3],
-    [0.6, isMobile ? 1 : 1.5],
-  );
+  const scaleX = useTransform(scrollYProgress, [0, 0.3], [1.2, 1.5]);
+  const scaleY = useTransform(scrollYProgress, [0, 0.3], [0.6, 1.5]);
   const translate = useTransform(scrollYProgress, [0, 0.6], [0, 800]);
   const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
 
   return (
     <div
       ref={ref}
-      className="pointer-events-none flex min-h-[120vh] shrink-0 scale-[0.35] transform flex-col items-center justify-start py-0 [perspective:800px] sm:scale-50 md:-mt-[30vh] md:scale-100 md:pb-0 md:pt-96"
+      className="pointer-events-none flex min-h-[120vh] shrink-0 flex-col items-center justify-start py-0 [perspective:800px] -mt-[30vh] pb-0 pt-96"
     >
       {/* Lid */}
       <Lid
