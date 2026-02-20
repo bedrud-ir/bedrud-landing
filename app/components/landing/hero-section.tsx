@@ -101,7 +101,9 @@ export function HeroSection() {
         </div>
 
         {/* ---- Device showcase ---- */}
-        <DeviceShowcase />
+        <div className="mt-12 sm:mt-16">
+          <DeviceShowcase />
+        </div>
       </div>
     </section>
   );
