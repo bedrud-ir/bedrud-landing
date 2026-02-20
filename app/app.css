@@ -75,6 +75,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --spotlight-a: oklch(0.7 0.15 260 / 0.08);
+  --spotlight-b: oklch(0.7 0.15 300 / 0.06);
 }
 
 .dark {
@@ -109,13 +111,56 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+  --spotlight-a: oklch(0.6 0.2 260 / 0.15);
+  --spotlight-b: oklch(0.6 0.2 300 / 0.12);
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Hero glow animation */
+@keyframes hero-glow {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.hero-glow {
+  animation: hero-glow 6s ease-in-out infinite;
+}
+
+/* Spotlight beam animation */
+@keyframes spotlight-drift {
+  0% {
+    transform: rotate(var(--spotlight-rotate, 15deg)) translateY(0);
+  }
+  50% {
+    transform: rotate(var(--spotlight-rotate, 15deg)) translateY(-3%);
+  }
+  100% {
+    transform: rotate(var(--spotlight-rotate, 15deg)) translateY(0);
+  }
+}
+
+.spotlight-beam {
+  background: radial-gradient(
+    ellipse at center,
+    var(--spotlight-a) 0%,
+    var(--spotlight-b) 40%,
+    transparent 70%
+  );
+  animation: spotlight-drift 8s ease-in-out infinite;
 }

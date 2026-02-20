@@ -15,7 +15,21 @@
       "Bash(bun run format:*)",
       "Bash(bun run check:*)",
       "Bash(bunx biome check:*)",
-      "Bash(bunx react-router typegen:*)"
+      "Bash(bunx react-router typegen:*)",
+      "Bash(bunx create-react-router@latest:*)",
+      "Bash(/bin/cp:*)",
+      "WebFetch(domain:bedrud-ir.github.io)",
+      "Bash(bunx shadcn@latest add:*)",
+      "Bash(timeout 15 bun dev:*)",
+      "Bash(bun -e:*)",
+      "WebFetch(domain:ui.aceternity.com)",
+      "WebFetch(domain:aceternity.sveltekit.io)",
+      "WebFetch(domain:motion.dev)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:21st.dev)",
+      "Bash(curl:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:registry.aceternity.com)"
     ]
   }
 }
