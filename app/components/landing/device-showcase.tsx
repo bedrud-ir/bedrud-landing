@@ -9,14 +9,14 @@ import {
 
 export function DeviceShowcase() {
   return (
-    <div className="relative">
+    <div className="relative pb-[40vh]">
       <div className="pointer-events-none absolute inset-0 z-10 hidden items-end justify-center gap-0 lg:flex">
         <motion.div
           initial={{ opacity: 0, x: -60 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-200px" }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-20 w-32 shrink-0 xl:w-40"
+          className="w-32 shrink-0 xl:w-40"
         >
           <IPhoneMockup>
             <IPhoneMeetingPreview />
@@ -30,7 +30,7 @@ export function DeviceShowcase() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-200px" }}
           transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-20 w-32 shrink-0 xl:w-40"
+          className="w-32 shrink-0 xl:w-40"
         >
           <AndroidMockup>
             <AndroidMeetingPreview />

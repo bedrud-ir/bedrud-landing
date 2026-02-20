@@ -29,7 +29,7 @@ export function HeroSection() {
       {/* Content */}
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-24 lg:pt-28 xl:pt-32">
         {/* ---- Centered text ---- */}
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="relative z-10 mx-auto max-w-2xl text-center">
           <TextGenerateEffect
             words={t("hero.headline")}
             as="h1"
@@ -101,7 +101,7 @@ export function HeroSection() {
         </div>
 
         {/* ---- Device showcase ---- */}
-        <div className="mt-12 sm:mt-16">
+        <div className="relative z-0 mt-12 sm:mt-16">
           <DeviceShowcase />
         </div>
       </div>

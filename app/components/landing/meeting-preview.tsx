@@ -180,14 +180,11 @@ function ControlBtn({
 
 export function MeetingPreview() {
   return (
-    <div aria-hidden="true" className="relative w-full select-none">
-      {/* Ambient glow */}
-      <div className="hero-glow absolute -inset-6 rounded-3xl bg-gradient-to-br from-primary/20 via-primary/5 to-transparent blur-3xl" />
-
+    <div aria-hidden="true" className="relative flex h-full w-full select-none flex-col">
       {/* App window */}
-      <div className="relative overflow-hidden rounded-xl border border-white/[0.08] bg-[#111127] shadow-2xl shadow-black/50 sm:rounded-2xl">
+      <div className="relative flex h-full flex-col overflow-hidden bg-[#111127]">
         {/* ---- Title bar ---- */}
-        <div className="flex h-9 items-center border-b border-white/[0.05] bg-[#0c0c20] px-3 sm:h-10 sm:px-4">
+        <div className="flex h-9 shrink-0 items-center border-b border-white/[0.05] bg-[#0c0c20] px-3 sm:h-10 sm:px-4">
           {/* Traffic lights */}
           <div className="flex gap-1.5">
             <div className="size-2 rounded-full bg-[#ff5f57] sm:size-2.5" />
@@ -234,13 +231,13 @@ export function MeetingPreview() {
         </div>
 
         {/* ---- Content: grid + chat ---- */}
-        <div className="flex">
+        <div className="flex min-h-0 flex-1">
           {/* Video grid + reactions + PiP */}
-          <div className="relative flex-1 p-1 sm:p-1.5">
+          <div className="relative flex flex-1 flex-col p-1 sm:p-1.5">
             {/* 2x2 grid */}
-            <div className="grid grid-cols-2 gap-1 sm:gap-1.5">
+            <div className="grid flex-1 grid-cols-2 grid-rows-2 gap-1 sm:gap-1.5">
               {gridParticipants.map((p) => (
-                <div key={p.name} className="aspect-video">
+                <div key={p.name} className="min-h-0">
                   <Tile participant={p} />
                 </div>
               ))}
@@ -325,7 +322,7 @@ export function MeetingPreview() {
         </div>
 
         {/* ---- Controls bar ---- */}
-        <div className="flex items-center justify-center gap-1.5 border-t border-white/[0.05] bg-[#0c0c20] py-2 sm:gap-2 sm:py-2.5">
+        <div className="flex shrink-0 items-center justify-center gap-1.5 border-t border-white/[0.05] bg-[#0c0c20] py-2 sm:gap-2 sm:py-2.5">
           <ControlBtn active label="Microphone on">
             <Mic className="size-3.5 sm:size-4" />
           </ControlBtn>

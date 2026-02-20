@@ -7,6 +7,7 @@ import { cn } from "~/lib/utils";
 import { GitHubIcon } from "./github-icon";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
+import { ThemeToggle } from "./theme-toggle";
 
 export const navLinks = [
   { key: "nav.features", href: "#features" },
@@ -78,6 +79,7 @@ export function Navbar() {
 
             {/* Desktop actions */}
             <div className="hidden shrink-0 items-center gap-0.5 lg:flex">
+              <ThemeToggle />
               <LanguageSwitcher />
               <Button variant="ghost" size="icon" asChild>
                 <a
@@ -102,6 +104,7 @@ export function Navbar() {
 
             {/* Mobile: lang + hamburger */}
             <div className="flex items-center gap-0.5 lg:hidden">
+              <ThemeToggle />
               <LanguageSwitcher />
               <Button
                 variant="ghost"

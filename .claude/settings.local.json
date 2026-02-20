@@ -29,7 +29,10 @@
       "WebFetch(domain:21st.dev)",
       "Bash(curl:*)",
       "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:registry.aceternity.com)"
+      "WebFetch(domain:registry.aceternity.com)",
+      "Bash(ls:*)",
+      "Bash(gh api:*)",
+      "Bash(python3:*)"
     ]
   }
 }
