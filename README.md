@@ -1,87 +1,61 @@
-# Welcome to React Router!
+# Bedrud
 
-A modern, production-ready template for building full-stack React applications using React Router.
+An open source project by [theMadOrg](https://github.com/theMadOrg).
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/remix-run/react-router-templates/tree/main/default)
+## Tech Stack
 
-## Features
-
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+- [React Router 7](https://reactrouter.com/) - Full-stack React framework
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS 4](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI components
+- [Bun](https://bun.sh/) - Runtime and package manager
+- [Vite](https://vite.dev/) - Build tool
+- [Biome](https://biomejs.dev/) - Linter and formatter
+- [i18next](https://www.i18next.com/) - Internationalization (en, fa)
 
 ## Getting Started
 
-### Installation
+```bash
+bun install
+bun dev
+```
 
-Install the dependencies:
+Open [http://localhost:5173](http://localhost:5173).
+
+## Scripts
+
+| Command              | Description             |
+| -------------------- | ----------------------- |
+| `bun dev`            | Start dev server        |
+| `bun run build`      | Production build        |
+| `bun run start`      | Start production server |
+| `bun test`           | Run tests               |
+| `bun run typecheck`  | Type check              |
+| `bun run check`      | Biome lint + format     |
+| `bun run format`     | Auto-format with Biome  |
+| `bun run lint`       | Lint with Biome         |
+
+## i18n
+
+The app supports multiple languages with URL-based routing:
+
+- `/en/` - English
+- `/fa/` - فارسی (Farsi, RTL)
+- `/` redirects to `/en`
+
+Translations are in `app/locales/`. RTL direction is automatically set for Farsi.
+
+## Docker
 
 ```bash
-npm install
+docker build -t bedrud .
+docker run -p 3000:3000 bedrud
 ```
 
-### Development
+## Contributing
 
-Start the development server with HMR:
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-```bash
-npm run dev
-```
+## License
 
-Your application will be available at `http://localhost:5173`.
-
-## Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-## Deployment
-
-### Docker Deployment
-
-To build and run using Docker:
-
-```bash
-docker build -t my-app .
-
-# Run the container
-docker run -p 3000:3000 my-app
-```
-
-The containerized application can be deployed to any platform that supports Docker, including:
-
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
-
-### DIY Deployment
-
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
-
----
-
-Built with ❤️ using React Router.
+MIT

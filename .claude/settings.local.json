@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bun add:*)",
+      "Bash(bun test)",
+      "Bash(bun run build:*)",
+      "Bash(bun run typecheck:*)",
+      "WebSearch",
+      "WebFetch(domain:sergiodxa.github.io)",
+      "WebFetch(domain:stn-dts.github.io)",
+      "WebFetch(domain:react.i18next.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.enaut.dev)",
+      "Bash(git *)",
+      "Bash(bun run format:*)",
+      "Bash(bun run check:*)",
+      "Bash(bunx biome check:*)",
+      "Bash(bunx react-router typegen:*)"
+    ]
+  }
+}
