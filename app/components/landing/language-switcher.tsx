@@ -10,14 +10,15 @@ interface LangMeta {
 }
 
 const langMeta: Record<Locale, LangMeta> = {
-  en: { flag: "\u{1F1EC}\u{1F1E7}", label: "English" },
-  de: { flag: "\u{1F1E9}\u{1F1EA}", label: "Deutsch" },
-  fr: { flag: "\u{1F1EB}\u{1F1F7}", label: "Français" },
-  fa: { flag: "\u{1F1EE}\u{1F1F7}", label: "\u0641\u0627\u0631\u0633\u06CC" },
-  ar: {
-    flag: "\u{1F1F8}\u{1F1E6}",
-    label: "\u0627\u0644\u0639\u0631\u0628\u064A\u0629",
-  },
+  en: { flag: "🇬🇧", label: "English" },
+  de: { flag: "🇩🇪", label: "Deutsch" },
+  fr: { flag: "🇫🇷", label: "Français" },
+  es: { flag: "🇪🇸", label: "Español" },
+  zh: { flag: "🇨🇳", label: "中文" },
+  ja: { flag: "🇯🇵", label: "日本語" },
+  tr: { flag: "🇹🇷", label: "Türkçe" },
+  fa: { flag: "🇮🇷", label: "فارسی" },
+  ar: { flag: "🇸🇦", label: "العربية" },
 };
 
 export function LanguageSwitcher({ className }: { className?: string }) {

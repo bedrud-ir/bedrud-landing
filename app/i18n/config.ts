@@ -1,4 +1,14 @@
-export const supportedLngs = ["en", "de", "fr", "fa", "ar"] as const;
+export const supportedLngs = [
+  "en",
+  "de",
+  "fr",
+  "es",
+  "zh",
+  "ja",
+  "tr",
+  "fa",
+  "ar",
+] as const;
 export const defaultLng = "en";
 
 export type Locale = (typeof supportedLngs)[number];
