@@ -26,7 +26,7 @@ export function MobilePhoneScroll({
   return (
     <div
       ref={ref}
-      className="pointer-events-none flex min-h-[27vh] shrink-0 flex-col items-center justify-start pt-10 [perspective:800px] md:hidden"
+      className="pointer-events-none flex min-h-[15rem] shrink-0 flex-col items-center justify-start pt-10 [perspective:800px] md:hidden"
     >
       <PhoneFrame
         scale={scale}

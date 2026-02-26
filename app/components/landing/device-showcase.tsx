@@ -10,7 +10,7 @@ import {
 
 export function DeviceShowcase() {
   return (
-    <div className="relative pb-[10vh] md:pb-[40vh]">
+    <div className="relative pb-[6rem] md:pb-[32rem]">
       {/* Desktop: MacBook + flanking phones (md+) */}
       <div className="hidden md:block">
         <div className="pointer-events-none absolute inset-0 z-10 hidden items-end justify-center gap-0 lg:flex">

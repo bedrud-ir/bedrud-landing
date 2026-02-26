@@ -55,7 +55,7 @@ export const MacbookScroll = ({
   return (
     <div
       ref={ref}
-      className="pointer-events-none flex min-h-[120vh] shrink-0 flex-col items-center justify-start py-0 [perspective:800px] -mt-[30vh] pb-0 pt-96"
+      className="pointer-events-none flex min-h-[80rem] shrink-0 flex-col items-center justify-start py-0 [perspective:800px] -mt-[17rem] pb-0 pt-96"
     >
       {/* Lid */}
       <Lid
