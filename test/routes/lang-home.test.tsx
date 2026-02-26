@@ -11,14 +11,17 @@ describe("LangHome route", () => {
   describe("meta for en", () => {
     test("returns English title", () => {
       const result = callMeta("en");
-      expect(result).toContainEqual({ title: "Bedrud" });
+      expect(result).toContainEqual({
+        title: "Bedrud — Video Meetings, Your Way",
+      });
     });
 
     test("returns English description", () => {
       const result = callMeta("en");
       expect(result).toContainEqual({
         name: "description",
-        content: "Bedrud - An open source project by theMadOrg",
+        content:
+          "Bedrud is an open-source video meeting platform. Self-host it or use our cloud — a single binary packaging web UI, REST API, and WebRTC media server.",
       });
     });
   });
@@ -26,14 +29,17 @@ describe("LangHome route", () => {
   describe("meta for fa", () => {
     test("returns Farsi title", () => {
       const result = callMeta("fa");
-      expect(result).toContainEqual({ title: "بدرود" });
+      expect(result).toContainEqual({
+        title: "بدرود — جلسات ویدیویی، به سلیقه شما",
+      });
     });
 
     test("returns Farsi description", () => {
       const result = callMeta("fa");
       expect(result).toContainEqual({
         name: "description",
-        content: "بدرود - یک پروژه متن‌باز از theMadOrg",
+        content:
+          "بدرود یک پلتفرم جلسات ویدیویی متن‌باز است. خودمیزبان کنید یا از فضای ابری ما استفاده کنید — یک فایل باینری شامل رابط کاربری وب، API و سرور رسانه WebRTC.",
       });
     });
   });

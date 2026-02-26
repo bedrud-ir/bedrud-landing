@@ -20,12 +20,13 @@ describe("i18n config", () => {
     test("returns true for supported locales", () => {
       expect(isValidLocale("en")).toBe(true);
       expect(isValidLocale("fa")).toBe(true);
+      expect(isValidLocale("de")).toBe(true);
     });
 
     test("returns false for unsupported locales", () => {
-      expect(isValidLocale("de")).toBe(false);
       expect(isValidLocale("")).toBe(false);
       expect(isValidLocale("english")).toBe(false);
+      expect(isValidLocale("xx")).toBe(false);
     });
   });
 
@@ -39,7 +40,7 @@ describe("i18n config", () => {
     });
 
     test("returns ltr for unknown languages", () => {
-      expect(getDir("de")).toBe("ltr");
+      expect(getDir("xx")).toBe("ltr");
     });
   });
 });
