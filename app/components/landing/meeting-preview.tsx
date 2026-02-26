@@ -180,7 +180,10 @@ function ControlBtn({
 
 export function MeetingPreview() {
   return (
-    <div aria-hidden="true" className="relative flex h-full w-full select-none flex-col">
+    <div
+      aria-hidden="true"
+      className="relative flex h-full w-full select-none flex-col"
+    >
       {/* App window */}
       <div className="relative flex h-full flex-col overflow-hidden bg-[#111127]">
         {/* ---- Title bar ---- */}

@@ -20,7 +20,11 @@ export function MobilePhoneScroll({
   });
 
   const scale = useTransform(scrollYProgress, [0, 0.4], [0.8, 1]);
-  const rotateX = useTransform(scrollYProgress, [0.1, 0.15, 0.4], [-20, -20, 0]);
+  const rotateX = useTransform(
+    scrollYProgress,
+    [0.1, 0.15, 0.4],
+    [-20, -20, 0],
+  );
   const translate = useTransform(scrollYProgress, [0, 0.7], [0, 100]);
 
   return (
@@ -28,11 +32,7 @@ export function MobilePhoneScroll({
       ref={ref}
       className="pointer-events-none flex min-h-[15rem] shrink-0 flex-col items-center justify-start pt-10 [perspective:800px] md:hidden"
     >
-      <PhoneFrame
-        scale={scale}
-        rotateX={rotateX}
-        translate={translate}
-      >
+      <PhoneFrame scale={scale} rotateX={rotateX} translate={translate}>
         {children}
       </PhoneFrame>
     </div>
