@@ -51,4 +51,63 @@ describe("LangHome route", () => {
       content: "index, follow",
     });
   });
+
+  describe("SEO meta", () => {
+    test("returns og:url for en", () => {
+      const result = callMeta("en");
+      expect(result).toContainEqual({
+        property: "og:url",
+        content: "https://bedrud.org/en",
+      });
+    });
+
+    test("returns og:image", () => {
+      const result = callMeta("en");
+      expect(result).toContainEqual({
+        property: "og:image",
+        content: "https://bedrud.org/og-image.png",
+      });
+    });
+
+    test("returns og:site_name", () => {
+      const result = callMeta("en");
+      expect(result).toContainEqual({
+        property: "og:site_name",
+        content: "Bedrud",
+      });
+    });
+
+    test("returns canonical link", () => {
+      const result = callMeta("en");
+      expect(result).toContainEqual({
+        tagName: "link",
+        rel: "canonical",
+        href: "https://bedrud.org/en",
+      });
+    });
+
+    test("returns hreflang alternates", () => {
+      const result = callMeta("en");
+      expect(result).toContainEqual({
+        tagName: "link",
+        rel: "alternate",
+        hrefLang: "fa",
+        href: "https://bedrud.org/fa",
+      });
+      expect(result).toContainEqual({
+        tagName: "link",
+        rel: "alternate",
+        hrefLang: "x-default",
+        href: "https://bedrud.org/en",
+      });
+    });
+
+    test("returns correct og:url for fa", () => {
+      const result = callMeta("fa");
+      expect(result).toContainEqual({
+        property: "og:url",
+        content: "https://bedrud.org/fa",
+      });
+    });
+  });
 });

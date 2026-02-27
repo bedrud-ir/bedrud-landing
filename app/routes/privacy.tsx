@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { LegalLayout } from "~/components/legal/legal-layout";
 import { isValidLocale } from "~/i18n/config";
 import { createI18nInstance } from "~/i18n/instance";
+import { seoMeta } from "~/lib/seo";
 import type { Route } from "./+types/privacy";
 
 export function meta({ params }: Route.MetaArgs) {
@@ -20,6 +21,7 @@ export function meta({ params }: Route.MetaArgs) {
     },
     { property: "og:type", content: "website" },
     { name: "robots", content: "index, follow" },
+    ...seoMeta(validLang, "/privacy"),
   ];
 }
 

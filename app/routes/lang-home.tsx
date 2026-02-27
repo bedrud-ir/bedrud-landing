@@ -6,6 +6,7 @@ import { OpenSourceSection } from "~/components/landing/opensource-section";
 import { PlatformsSection } from "~/components/landing/platforms-section";
 import { isValidLocale } from "~/i18n/config";
 import { createI18nInstance } from "~/i18n/instance";
+import { seoMeta } from "~/lib/seo";
 import type { Route } from "./+types/lang-home";
 
 export function meta({ params }: Route.MetaArgs) {
@@ -26,6 +27,7 @@ export function meta({ params }: Route.MetaArgs) {
       content: i18n.t("meta.description"),
     },
     { name: "robots", content: "index, follow" },
+    ...seoMeta(validLang, ""),
   ];
 }
 

@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://bedrud.org/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://bedrud.org/en</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/de</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/es</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/zh</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ja</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/tr</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fa</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ar</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/en/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/de/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fr/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/es/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/zh/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ja/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/tr/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fa/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ar/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/privacy" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/privacy" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/privacy" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/privacy" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/en/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/de/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fr/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/es/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/zh/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ja/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/tr/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/fa/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/ar/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/terms" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/terms" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/terms" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/terms" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/terms" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/terms" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/terms" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/terms" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
+  </url>
+</urlset>
