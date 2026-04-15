@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@source "../../content/**/*.mdx";
+@source "../content/**/*.mdx";
 
 @layer base {
   .prose {
@@ -318,4 +318,23 @@
     transparent 70%
   );
   animation: spotlight-drift 8s ease-in-out infinite;
+}
+
+.scroll-area {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
 }
