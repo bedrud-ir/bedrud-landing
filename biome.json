@@ -6,8 +6,10 @@
       "**/*.tsx",
       "**/*.js",
       "**/*.json",
+      "**/*.astro",
       "!**/node_modules",
       "!**/build",
+      "!**/dist",
       "!**/.react-router"
     ]
   },
