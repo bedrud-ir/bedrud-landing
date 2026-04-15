@@ -1,4 +1,115 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@source "../../content/**/*.mdx";
+
+@layer base {
+  .prose {
+    --tw-prose-body: var(--color-foreground);
+    --tw-prose-headings: var(--color-foreground);
+    --tw-prose-links: var(--color-primary);
+    --tw-prose-bold: var(--color-foreground);
+    --tw-prose-code: var(--color-foreground);
+    --tw-prose-pre-bg: var(--color-muted);
+    --tw-prose-pre-code: inherit;
+    --tw-prose-th-borders: var(--color-border);
+    --tw-prose-td-borders: var(--color-border);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-muted-foreground);
+    --tw-prose-quote-borders: var(--color-border);
+  }
+
+  .dark .prose {
+    --tw-prose-body: var(--color-foreground);
+    --tw-prose-headings: var(--color-foreground);
+    --tw-prose-links: var(--color-primary);
+    --tw-prose-bold: var(--color-foreground);
+    --tw-prose-code: var(--color-foreground);
+    --tw-prose-pre-bg: var(--color-muted);
+    --tw-prose-pre-code: inherit;
+    --tw-prose-th-borders: var(--color-border);
+    --tw-prose-td-borders: var(--color-border);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-muted-foreground);
+    --tw-prose-quote-borders: var(--color-border);
+  }
+
+  .prose h5 {
+    font-size: 1.125em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .prose h6 {
+    font-size: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  figure[data-rehype-pretty-code-figure] {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+  }
+
+  figure[data-rehype-pretty-code-figure] pre {
+    background: none;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  figure[data-rehype-pretty-code-figure] pre code {
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    font-weight: inherit;
+    color: inherit;
+  }
+
+  figure[data-rehype-pretty-code-figure] pre code::before,
+  figure[data-rehype-pretty-code-figure] pre code::after {
+    content: none;
+  }
+
+  figure[data-rehype-pretty-code-figure] pre [data-line] {
+    padding: 0 1rem;
+  }
+
+  figure[data-rehype-pretty-code-figure] [data-highlighted-line] {
+    background: var(--color-accent);
+    border-radius: 0.25rem;
+  }
+
+  figure[data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  figure[data-rehype-pretty-code-figure] [data-rehype-pretty-code-title] + pre {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  figure[data-rehype-pretty-code-figure] code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  figure[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1rem;
+    margin-right: 1.5rem;
+    text-align: right;
+    color: var(--color-muted-foreground);
+  }
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -151,6 +262,23 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .skip-link {
+    position: fixed;
+    top: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    padding: 0.75rem 1.5rem;
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: top 0.2s ease-in-out;
+  }
+  .skip-link:focus {
+    top: 0.5rem;
   }
 }
 

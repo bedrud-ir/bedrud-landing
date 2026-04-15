@@ -411,4 +411,34 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/terms" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/terms" />
   </url>
+  <url>
+    <loc>https://bedrud.org/en/docs/getting-started</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/docs/getting-started" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/docs/getting-started" />
+  </url>
+  <url>
+    <loc>https://bedrud.org/en/docs/installation</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://bedrud.org/en/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://bedrud.org/de/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://bedrud.org/fr/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://bedrud.org/es/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://bedrud.org/zh/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://bedrud.org/ja/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://bedrud.org/tr/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="fa" href="https://bedrud.org/fa/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://bedrud.org/ar/docs/installation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://bedrud.org/en/docs/installation" />
+  </url>
 </urlset>
