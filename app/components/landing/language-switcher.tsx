@@ -17,15 +17,15 @@ const langMeta: Record<Locale, LangMeta> = {
   zh: { flag: "🇨🇳", label: "中文" },
   ja: { flag: "🇯🇵", label: "日本語" },
   tr: { flag: "🇹🇷", label: "Türkçe" },
-  fa: { flag: "🇮🇷", label: "فارسی" },
-  ar: { flag: "🇸🇦", label: "العربية" },
+  fa: { flag: "🇮🇷", label: "فارسی ⟵" },
+  ar: { flag: "🇸🇦", label: "العربية ⟵" },
 };
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const { lang } = useParams();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   const currentLang = (lang as Locale) ?? "en";
   const current = langMeta[currentLang];
@@ -34,13 +34,14 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     (locale: Locale) => {
       setOpen(false);
       if (locale !== currentLang) {
-        navigate(`/${locale}/`, { replace: true });
+        const path = window.location.pathname;
+        const rest = path.replace(`/${currentLang}`, "");
+        navigate(`/${locale}${rest}`, { replace: true });
       }
     },
     [currentLang, navigate],
   );
 
-  // Close on outside click
   useEffect(() => {
     if (!open) return;
     function handleClick(e: MouseEvent) {
@@ -55,7 +56,6 @@ export function LanguageSwitcher({ className }: { className?: string }) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
-  // Close on Escape
   useEffect(() => {
     if (!open) return;
     function handleKey(e: KeyboardEvent) {
