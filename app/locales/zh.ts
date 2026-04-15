@@ -5,9 +5,12 @@ export default {
       "Bedrud 是一个开源视频会议平台。自行托管或使用我们的云服务——一个集成了 Web 界面、REST API 和 WebRTC 媒体服务器的单一二进制文件。",
   },
   nav: {
+    home: "首页",
     features: "功能",
     platforms: "平台",
     openSource: "开源",
+    docs: "文档",
+    demo: "演示",
     getStarted: "立即开始",
   },
   hero: {
@@ -94,16 +97,19 @@ export default {
     features: "功能",
     platforms: "平台",
     openSource: "开源",
+    demo: "演示",
     resources: "资源",
     docs: "文档",
     github: "GitHub",
     releases: "版本发布",
+    discord: "Discord",
     legal: "法律",
     license: "许可证",
     privacy: "隐私政策",
     terms: "服务条款",
     madeBy: "用心制作，来自",
     backToTop: "回到顶部",
+    languages: "语言",
   },
   privacy: {
     meta: {
@@ -214,5 +220,20 @@ export default {
       content:
         "如果你对本服务条款有任何疑问，请通过我们的 GitHub 仓库联系我们，或发送邮件至 legal@bedrud.com。",
     },
+  },
+  docs: {
+    documentation: "文档",
+    onThisPage: "本页",
+    previous: "上一页",
+    next: "下一页",
+    backToHome: "返回首页",
+    searchDocs: "搜索...",
+    notFound: "文档未找到",
+  },
+  skipToContent: "跳到内容",
+  mobileNav: {
+    navigation: "导航",
+    language: "语言",
+    tryDemo: "试用演示",
   },
 };

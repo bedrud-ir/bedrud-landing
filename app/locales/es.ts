@@ -5,9 +5,12 @@ export default {
       "Bedrud es una plataforma de videollamadas de código abierto. Alójala tú mismo o usa nuestra nube — un solo binario que empaqueta interfaz web, API REST y servidor de medios WebRTC.",
   },
   nav: {
+    home: "Inicio",
     features: "Características",
     platforms: "Plataformas",
     openSource: "Código Abierto",
+    docs: "Documentación",
+    demo: "Demo",
     getStarted: "Comenzar",
   },
   hero: {
@@ -98,16 +101,19 @@ export default {
     features: "Características",
     platforms: "Plataformas",
     openSource: "Código Abierto",
+    demo: "Demo",
     resources: "Recursos",
     docs: "Documentación",
     github: "GitHub",
     releases: "Versiones",
+    discord: "Discord",
     legal: "Legal",
     license: "Licencia",
     privacy: "Política de privacidad",
     terms: "Términos de servicio",
     madeBy: "Hecho con cariño por",
     backToTop: "Volver arriba",
+    languages: "Idiomas",
   },
   privacy: {
     meta: {
@@ -220,5 +226,20 @@ export default {
       content:
         "Si tienes alguna pregunta sobre estos Términos de Servicio, contáctanos a través de nuestro repositorio de GitHub o escríbenos a legal@bedrud.com.",
     },
+  },
+  docs: {
+    documentation: "Documentación",
+    onThisPage: "En esta página",
+    previous: "Anterior",
+    next: "Siguiente",
+    backToHome: "Volver al inicio",
+    searchDocs: "Buscar...",
+    notFound: "Documento no encontrado",
+  },
+  skipToContent: "Saltar al contenido",
+  mobileNav: {
+    navigation: "Navegación",
+    language: "Idioma",
+    tryDemo: "Probar la demo",
   },
 };

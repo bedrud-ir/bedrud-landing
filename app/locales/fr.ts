@@ -5,9 +5,12 @@ export default {
       "Bedrud est une plateforme de visioconférence open source. Auto-hébergez-la ou utilisez notre cloud — un seul binaire incluant l'interface web, l'API REST et le serveur multimédia WebRTC.",
   },
   nav: {
+    home: "Accueil",
     features: "Fonctionnalités",
     platforms: "Plateformes",
     openSource: "Open Source",
+    docs: "Documentation",
+    demo: "Démo",
     getStarted: "Commencer",
   },
   hero: {
@@ -98,16 +101,19 @@ export default {
     features: "Fonctionnalités",
     platforms: "Plateformes",
     openSource: "Open Source",
+    demo: "Démo",
     resources: "Ressources",
     docs: "Documentation",
     github: "GitHub",
     releases: "Versions",
+    discord: "Discord",
     legal: "Juridique",
     license: "Licence",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation",
     madeBy: "Créé avec soin par",
     backToTop: "Retour en haut",
+    languages: "Langues",
   },
   privacy: {
     meta: {
@@ -220,5 +226,20 @@ export default {
       content:
         "Si vous avez des questions concernant ces conditions d'utilisation, contactez-nous via notre dépôt GitHub ou écrivez-nous à legal@bedrud.com.",
     },
+  },
+  docs: {
+    documentation: "Documentation",
+    onThisPage: "Sur cette page",
+    previous: "Précédent",
+    next: "Suivant",
+    backToHome: "Retour à l'accueil",
+    searchDocs: "Rechercher...",
+    notFound: "Document non trouvé",
+  },
+  skipToContent: "Aller au contenu",
+  mobileNav: {
+    navigation: "Navigation",
+    language: "Langue",
+    tryDemo: "Essayer la démo",
   },
 };

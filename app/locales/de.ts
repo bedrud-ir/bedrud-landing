@@ -5,9 +5,12 @@ export default {
       "Bedrud ist eine quelloffene Videokonferenz-Plattform. Selbst hosten oder unsere Cloud nutzen — eine einzelne Binärdatei mit Web-UI, REST-API und WebRTC-Medienserver.",
   },
   nav: {
+    home: "Startseite",
     features: "Funktionen",
     platforms: "Plattformen",
     openSource: "Open Source",
+    docs: "Dokumentation",
+    demo: "Demo",
     getStarted: "Loslegen",
   },
   hero: {
@@ -98,16 +101,19 @@ export default {
     features: "Funktionen",
     platforms: "Plattformen",
     openSource: "Open Source",
+    demo: "Demo",
     resources: "Ressourcen",
     docs: "Dokumentation",
     github: "GitHub",
     releases: "Versionen",
+    discord: "Discord",
     legal: "Rechtliches",
     license: "Lizenz",
     privacy: "Datenschutzrichtlinie",
     terms: "Nutzungsbedingungen",
     madeBy: "Mit Sorgfalt erstellt von",
     backToTop: "Nach oben",
+    languages: "Sprachen",
   },
   privacy: {
     meta: {
@@ -220,5 +226,20 @@ export default {
       content:
         "Wenn Sie Fragen zu diesen Nutzungsbedingungen haben, kontaktieren Sie uns über unser GitHub-Repository oder schreiben Sie uns an legal@bedrud.com.",
     },
+  },
+  docs: {
+    documentation: "Dokumentation",
+    onThisPage: "Auf dieser Seite",
+    previous: "Zurück",
+    next: "Weiter",
+    backToHome: "Zurück zur Startseite",
+    searchDocs: "Suchen...",
+    notFound: "Dokument nicht gefunden",
+  },
+  skipToContent: "Zum Inhalt springen",
+  mobileNav: {
+    navigation: "Navigation",
+    language: "Sprache",
+    tryDemo: "Demo ausprobieren",
   },
 };

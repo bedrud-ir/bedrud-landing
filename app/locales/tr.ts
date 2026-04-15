@@ -5,9 +5,12 @@ export default {
       "Bedrud, açık kaynaklı bir video toplantı platformudur. Kendi sunucunuzda barındırın veya bulutumuzda kullanın — web arayüzü, REST API ve WebRTC medya sunucusunu tek bir dosyada sunar.",
   },
   nav: {
+    home: "Ana Sayfa",
     features: "Özellikler",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
+    docs: "Belgeler",
+    demo: "Demo",
     getStarted: "Başlayın",
   },
   hero: {
@@ -98,16 +101,19 @@ export default {
     features: "Özellikler",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
+    demo: "Demo",
     resources: "Kaynaklar",
     docs: "Belgeler",
     github: "GitHub",
     releases: "Sürümler",
+    discord: "Discord",
     legal: "Hukuki",
     license: "Lisans",
     privacy: "Gizlilik Politikası",
     terms: "Hizmet Şartları",
     madeBy: "Özenle yapılmıştır,",
     backToTop: "Başa dön",
+    languages: "Diller",
   },
   privacy: {
     meta: {
@@ -220,5 +226,20 @@ export default {
       content:
         "Bu Hizmet Şartları hakkında sorularınız varsa, lütfen GitHub deposu üzerinden bize ulaşın veya legal@bedrud.com adresinden iletişime geçin.",
     },
+  },
+  docs: {
+    documentation: "Belgeler",
+    onThisPage: "Bu sayfada",
+    previous: "Önceki",
+    next: "Sonraki",
+    backToHome: "Ana sayfaya dön",
+    searchDocs: "Ara...",
+    notFound: "Belge bulunamadı",
+  },
+  skipToContent: "İçeriğe geç",
+  mobileNav: {
+    navigation: "Navigasyon",
+    language: "Dil",
+    tryDemo: "Demoyu dene",
   },
 };

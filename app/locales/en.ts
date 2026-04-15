@@ -1,25 +1,86 @@
 export default {
   meta: {
-    title: "Bedrud — Video Meetings, Your Way",
+    title: "Bedrud — Talk to people, not the platform",
     description:
-      "Bedrud is an open-source video meeting platform. Self-host it or use our cloud — a single binary packaging web UI, REST API, and WebRTC media server.",
+      "Self-hosted video meetings. Single binary. 200MB RAM. Open source under Apache 2.0.",
   },
   nav: {
+    home: "Home",
     features: "Features",
     platforms: "Platforms",
     openSource: "Open Source",
+    docs: "Docs",
+    demo: "Demo",
     getStarted: "Get Started",
   },
   hero: {
-    badge: "Open Source · AGPLv3",
-    headline: "Video Meetings You Actually Own",
+    badge: "Open Source · Apache 2.0",
+    headline: "Talk to people, not the platform.",
     subtitle:
-      "A single binary that packages a web UI, REST API, and WebRTC media server. Self-host it or let us run it for you.",
-    getStarted: "Get Started",
+      "Self-hosted video meetings. Single binary. 200MB RAM. No vendor lock-in, no per-seat pricing.",
+    tryDemo: "Try Demo",
+    installNow: "Install Now",
     viewOnGithub: "View on GitHub",
+    copied: "Copied!",
     stars: "1.2k",
     starsLabel: "GitHub stars",
-    license: "AGPLv3 Licensed",
+    contributorsLabel: "contributors",
+    license: "Apache 2.0 Licensed",
+  },
+  whyBedrud: {
+    noLockIn: {
+      title: "No Vendor Lock-In",
+      description:
+        "Your servers, your rules. Full control over data, config, and deployment. No cloud dependency.",
+    },
+    singleBinary: {
+      title: "Single Binary",
+      description:
+        "Download, run, done. No Docker, no Kubernetes, no 12-step setup guides.",
+    },
+    noPerSeat: {
+      title: "No Per-Seat Pricing",
+      description:
+        "Unlimited users, zero cost. Open source means no license meters, no surprise invoices.",
+    },
+  },
+  comparison: {
+    title: "How Bedrud Compares",
+    subtitle: "Self-hosted video meetings without the complexity.",
+    feature: "Feature",
+    bedrud: "Bedrud",
+    jitsi: "Jitsi Meet",
+    bbb: "BigBlueButton",
+    rows: {
+      deploy: "Deploy Complexity",
+      deployBedrud: "Single binary",
+      deployJitsi: "Docker Compose (8+ containers)",
+      deployBbb: "Minimum 8GB RAM server",
+      ram: "RAM Usage",
+      ramBedrud: "~200MB",
+      ramJitsi: "~2GB",
+      ramBbb: "~4GB+",
+      install: "Install Time",
+      installBedrud: "< 1 minute",
+      installJitsi: "~15 minutes",
+      installBbb: "~30 minutes + config",
+      nativeClients: "Native Clients",
+      nativeBedrud: "Web, Android, iOS",
+      nativeJitsi: "Web, Android, iOS",
+      nativeBbb: "Web only",
+      guestJoin: "Guest Join (No Account)",
+      guestBedrud: "Yes",
+      guestJitsi: "Yes",
+      guestBbb: "Yes (moderator approval)",
+      audioProcessing: "Audio Processing (Noise Cancel)",
+      audioBedrud: "RNNoise / Krisp",
+      audioJitsi: "Basic",
+      audioBbb: "Basic",
+      license: "License",
+      licenseBedrud: "Apache 2.0",
+      licenseJitsi: "Apache 2.0",
+      licenseBbb: "LGPL 3.0",
+    },
   },
   features: {
     title: "Everything You Need",
@@ -56,6 +117,17 @@ export default {
         "Self-host for full control over your data, or use Bedrud Cloud and let us handle the ops. Your choice.",
     },
   },
+  install: {
+    title: "One Command. Done.",
+    subtitle: "Get Bedrud running in under a minute.",
+    command: "curl -fsSL https://get.bedrud.org | bash",
+    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    or: "or",
+    copy: "Copy",
+    copied: "Copied!",
+    requirements:
+      "Requires: 64-bit Linux, macOS, or Windows. 200MB RAM minimum.",
+  },
   platforms: {
     title: "One Platform, Every Device",
     subtitle:
@@ -85,10 +157,17 @@ export default {
   openSource: {
     title: "Open Source, Open Future",
     subtitle:
-      "Bedrud is fully open source under the AGPLv3 license. Inspect the code, contribute, or fork it — it's yours.",
-    license: "AGPLv3",
+      "Bedrud is fully open source under the Apache 2.0 license. Inspect the code, contribute, or fork it — it's yours.",
+    license: "Apache 2.0",
     github: "View on GitHub",
     docs: "Read the Docs",
+  },
+  cta: {
+    title: "Ready to Own Your Meetings?",
+    subtitle: "Star us on GitHub, read the docs, or join the community.",
+    starGithub: "Star on GitHub",
+    readDocs: "Read the Docs",
+    joinCommunity: "Join Community",
   },
   footer: {
     brand: "Bedrud",
@@ -98,16 +177,141 @@ export default {
     features: "Features",
     platforms: "Platforms",
     openSource: "Open Source",
+    demo: "Live Demo",
     resources: "Resources",
     docs: "Documentation",
+    changelog: "Changelog",
+    contributors: "Contributors",
+    discord: "Discord",
     github: "GitHub",
     releases: "Releases",
     legal: "Legal",
     license: "License",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
+    community: "Community",
+    contact: "Contact",
     madeBy: "Made with care by",
     backToTop: "Back to top",
+    languages: "Languages",
+  },
+  featuresPage: {
+    meta: {
+      title: "Features — Bedrud",
+      description:
+        "Explore Bedrud's features: single binary, WebRTC quality, guest join, passkeys, admin controls, audio processing, bot agents, and multi-platform support.",
+    },
+    title: "Features",
+    subtitle: "Every feature solves a real pain point.",
+    ready: "Ready?",
+    readyCta: "Get Started",
+    guestJoin: {
+      pain: "Tired of forcing guests to create accounts just for a 15-minute call?",
+      title: "Guest Join — No Account Needed",
+      description:
+        "Share a link, they click, they're in. No sign-up forms, no passwords, no friction. Optional passcode for security.",
+    },
+    singleBinary: {
+      pain: "Setting up video infrastructure shouldn't take a DevOps degree.",
+      title: "Single Binary Deploy",
+      description:
+        "One download, one command, running. No Docker Compose, no Kubernetes manifests, no 12-step guides. Just a binary that works.",
+    },
+    webrtc: {
+      pain: "Video calls that lag, freeze, or drop ruin meetings.",
+      title: "WebRTC Quality",
+      description:
+        "Built-in WebRTC media server with adaptive bitrate, simulcast, and SVC. Crystal-clear video and audio on any connection.",
+    },
+    passkeys: {
+      pain: "Passwords get leaked. MFA tokens get phished.",
+      title: "Passkeys + OAuth",
+      description:
+        "FIDO2 passkeys for passwordless auth. OAuth 2.0 / OIDC for SSO with your existing identity provider. No password databases to breach.",
+    },
+    admin: {
+      pain: "Managing a meeting platform without good tools is painful.",
+      title: "Admin Dashboard",
+      description:
+        "Room management, user management, usage analytics, and configuration — all from a clean web UI. No CLI guesswork.",
+    },
+    audio: {
+      pain: "Background noise in meetings is distracting and unprofessional.",
+      title: "Audio Processing",
+      description:
+        "Built-in noise suppression powered by RNNoise. Optional Krisp integration for premium AI noise cancellation. Clean audio, every call.",
+    },
+    bots: {
+      pain: "Manual meeting tasks waste time — recording, transcription, notes.",
+      title: "Bot Agents",
+      description:
+        "Programmable bots join meetings via Go SDK. Automate transcription, translation, recording, CRM integrations, and custom workflows.",
+    },
+    multiPlatform: {
+      pain: "Your team uses different devices. Your meeting platform should too.",
+      title: "Multi-Platform",
+      description:
+        "Native apps for Web (React), Android (Kotlin), and iOS (Swift). Consistent experience, platform-native performance.",
+    },
+  },
+  demoPage: {
+    meta: {
+      title: "Live Demo — Bedrud",
+      description:
+        "Try Bedrud without installing anything. Join a live demo meeting right now.",
+    },
+    title: "Try Without Installing",
+    subtitle: "Join a live Bedrud meeting right now. No account needed.",
+    tryNow: "Open Demo",
+    noInstall:
+      "No installation, no account, no commitment. Just click and meet.",
+    orSelfHost: "Prefer self-hosting?",
+    installCta: "Read the install guide",
+  },
+  changelogPage: {
+    meta: {
+      title: "Changelog — Bedrud",
+      description: "Release history and updates for Bedrud.",
+    },
+    title: "Changelog",
+    subtitle: "What's new in Bedrud. Activity = trust.",
+    viewOnGithub: "View on GitHub",
+    noReleases: "No releases yet. Check back soon!",
+  },
+  contributorsPage: {
+    meta: {
+      title: "Contributors — Bedrud",
+      description: "Meet the people building Bedrud.",
+    },
+    title: "Contributors",
+    subtitle: "Bedrud is built by the community.",
+    joinThem: "Join Them",
+    joinCta: "Contribute on GitHub",
+    contributions: "contributions",
+  },
+  contactPage: {
+    meta: {
+      title: "Contact — Bedrud",
+      description: "Get in touch with the Bedrud team.",
+    },
+    title: "Contact",
+    subtitle: "Reach out through any of these channels.",
+    github: {
+      title: "GitHub Issues",
+      description: "Bug reports, feature requests, and code contributions.",
+      cta: "Open an Issue",
+    },
+    discord: {
+      title: "Community Chat",
+      description:
+        "Ask questions, share ideas, and get help from the community.",
+      cta: "Join Discord",
+    },
+    email: {
+      title: "Email",
+      description: "For partnerships, security issues, or private inquiries.",
+      cta: "Send Email",
+    },
   },
   privacy: {
     meta: {
@@ -193,12 +397,12 @@ export default {
     intellectualProperty: {
       title: "Intellectual Property",
       content:
-        "Bedrud is open-source software licensed under the AGPLv3 license. Your use of the software is subject to the terms of that license. The Bedrud name, logo, and branding are trademarks of theMadOrg and may not be used without permission.",
+        "Bedrud is open-source software licensed under the Apache 2.0 license. Your use of the software is subject to the terms of that license. The Bedrud name, logo, and branding are trademarks of theMadOrg and may not be used without permission.",
     },
     termination: {
       title: "Termination",
       content:
-        "We may terminate or suspend your access to the cloud service at any time for violation of these terms. Upon termination, your right to use the service will immediately cease. For self-hosted instances, you retain access to the software under the AGPLv3 license terms.",
+        "We may terminate or suspend your access to the cloud service at any time for violation of these terms. Upon termination, your right to use the service will immediately cease. For self-hosted instances, you retain access to the software under the Apache 2.0 license terms.",
     },
     liability: {
       title: "Limitation of Liability",
@@ -220,5 +424,20 @@ export default {
       content:
         "If you have any questions about these Terms of Service, please reach out to us through our GitHub repository or contact us at legal@bedrud.com.",
     },
+  },
+  docs: {
+    documentation: "Documentation",
+    onThisPage: "On this page",
+    previous: "Previous",
+    next: "Next",
+    backToHome: "Back to home",
+    searchDocs: "Search docs...",
+    notFound: "Doc not found",
+  },
+  skipToContent: "Skip to content",
+  mobileNav: {
+    navigation: "Navigation",
+    language: "Language",
+    tryDemo: "Try Demo",
   },
 };

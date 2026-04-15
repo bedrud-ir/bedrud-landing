@@ -5,9 +5,12 @@ export default {
       "بدرود هي منصة اجتماعات فيديو مفتوحة المصدر. استضف ذاتياً أو استخدم سحابتنا — ملف ثنائي واحد يتضمن واجهة الويب وواجهة برمجة التطبيقات وخادم وسائط WebRTC.",
   },
   nav: {
+    home: "الرئيسية",
     features: "الميزات",
     platforms: "المنصات",
     openSource: "مفتوح المصدر",
+    docs: "التوثيق",
+    demo: "تجريبي",
     getStarted: "ابدأ الآن",
   },
   hero: {
@@ -95,16 +98,19 @@ export default {
     features: "الميزات",
     platforms: "المنصات",
     openSource: "مفتوح المصدر",
+    demo: "تجريبي",
     resources: "الموارد",
     docs: "التوثيق",
     github: "GitHub",
     releases: "الإصدارات",
+    discord: "ديسكورد",
     legal: "قانوني",
     license: "الرخصة",
     privacy: "سياسة الخصوصية",
     terms: "شروط الخدمة",
     madeBy: "صُنع بعناية بواسطة",
     backToTop: "العودة للأعلى",
+    languages: "اللغات",
   },
   privacy: {
     meta: {
@@ -216,5 +222,20 @@ export default {
       content:
         "إذا كانت لديك أي أسئلة حول شروط الخدمة هذه، يرجى التواصل معنا عبر مستودع GitHub الخاص بنا أو مراسلتنا على legal@bedrud.com.",
     },
+  },
+  docs: {
+    documentation: "التوثيق",
+    onThisPage: "في هذه الصفحة",
+    previous: "السابق",
+    next: "التالي",
+    backToHome: "العودة للرئيسية",
+    searchDocs: "البحث...",
+    notFound: "المستند غير موجود",
+  },
+  skipToContent: "تخطي إلى المحتوى",
+  mobileNav: {
+    navigation: "التنقل",
+    language: "اللغة",
+    tryDemo: "جرب النسخة التجريبية",
   },
 };

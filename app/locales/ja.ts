@@ -5,9 +5,12 @@ export default {
       "Bedrud はオープンソースのビデオ会議プラットフォームです。セルフホストまたはクラウドで利用可能。Web UI、REST API、WebRTC メディアサーバーを単一バイナリに統合。",
   },
   nav: {
+    home: "ホーム",
     features: "機能",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
+    docs: "ドキュメント",
+    demo: "デモ",
     getStarted: "はじめる",
   },
   hero: {
@@ -98,16 +101,19 @@ export default {
     features: "機能",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
+    demo: "デモ",
     resources: "リソース",
     docs: "ドキュメント",
     github: "GitHub",
     releases: "リリース",
+    discord: "Discord",
     legal: "法的情報",
     license: "ライセンス",
     privacy: "プライバシーポリシー",
     terms: "利用規約",
     madeBy: "心を込めて制作",
     backToTop: "トップに戻る",
+    languages: "言語",
   },
   privacy: {
     meta: {
@@ -220,5 +226,20 @@ export default {
       content:
         "本利用規約についてご質問がある場合は、GitHub リポジトリからお問い合わせいただくか、legal@bedrud.com までご連絡ください。",
     },
+  },
+  docs: {
+    documentation: "ドキュメント",
+    onThisPage: "このページ",
+    previous: "前へ",
+    next: "次へ",
+    backToHome: "ホームに戻る",
+    searchDocs: "検索...",
+    notFound: "ドキュメントが見つかりません",
+  },
+  skipToContent: "コンテンツへスキップ",
+  mobileNav: {
+    navigation: "ナビゲーション",
+    language: "言語",
+    tryDemo: "デモを試す",
   },
 };
