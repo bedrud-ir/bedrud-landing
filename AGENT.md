@@ -2,7 +2,7 @@
 
 ## Overview
 
-Bedrud is an open source web application built with React Router 7, TypeScript, Tailwind CSS 4, and shadcn/ui. It uses Bun as the runtime and package manager. Biome is used for linting and formatting. i18next provides multilingual support (en, fa).
+Bedrud: open source web app. React Router 7, TypeScript, Tailwind CSS 4, shadcn/ui. Bun runtime/pkg manager. Biome for lint/format. i18next for multilingual (en, fa).
 
 ## Development
 
@@ -13,32 +13,32 @@ Bedrud is an open source web application built with React Router 7, TypeScript, 
 
 ## Code Style
 
-- TypeScript strict mode is enabled
-- Biome enforces formatting: double quotes, semicolons, 2-space indent, 80 char line width
-- Use path alias `~/` for imports from `app/`
-- Follow existing patterns for new routes and components
-- Use shadcn/ui components from `~/components/ui`
-- Use `cn()` from `~/lib/utils` for conditional class names
+- TypeScript strict mode enabled
+- Biome: double quotes, semicolons, 2-space indent, 80 char width
+- Path alias `~/` → `app/`
+- Follow existing patterns for new routes/components
+- Use shadcn/ui from `~/components/ui`
+- Use `cn()` from `~/lib/utils` for conditional classes
 
 ## Testing
 
-- Tests use `bun:test`
-- Test files go in `test/` directory mirroring `app/` structure
-- Name test files with `.test.ts` or `.test.tsx` extension
+- `bun:test` framework
+- Test files in `test/`, mirroring `app/` structure
+- Extensions: `.test.ts` or `.test.tsx`
 
 ## Routes
 
-- Route files go in `app/routes/`
-- All user-facing routes are under `/:lang/` prefix
+- Route files in `app/routes/`
+- All user routes under `/:lang/` prefix
 - `/` redirects to `/en`
-- `lang-layout.tsx` validates the `:lang` param and provides `I18nextProvider`
-- Each localized route should export a `meta` function using i18n for SEO
-- Route config is in `app/routes.ts`
+- `lang-layout.tsx` validates `:lang`, provides `I18nextProvider`
+- Each localized route exports `meta` function using i18n for SEO
+- Route config in `app/routes.ts`
 
 ## i18n
 
-- Translations live in `app/locales/{lang}.ts` (en.ts, fa.ts)
-- Config in `app/i18n/config.ts` (supported languages, RTL detection)
+- Translations in `app/locales/{lang}.ts` (en.ts, fa.ts)
+- Config in `app/i18n/config.ts` (supported langs, RTL detection)
 - Instance factory in `app/i18n/instance.ts` (SSR-safe, per-request)
-- Use `useTranslation()` hook in components for translated strings
-- Use `createI18nInstance()` in `meta()` functions for localized SEO
+- `useTranslation()` hook in components
+- `createI18nInstance()` in `meta()` for localized SEO
