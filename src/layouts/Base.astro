@@ -1,0 +1,84 @@
+---
+import {
+  type Locale,
+  getDir,
+  isValidLocale,
+  supportedLocales,
+} from "../i18n/utils";
+import "../styles/global.css";
+
+interface Props {
+  lang?: string;
+  title?: string;
+  description?: string;
+}
+
+const {
+  lang: rawLang = "en",
+  title = "Bedrud — Talk to people, not the platform",
+  description = "Self-hosted video meetings. Single binary. 200MB RAM. Open source under Apache 2.0.",
+} = Astro.props;
+
+const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const dir = getDir(lang);
+---
+
+<html lang={lang} dir={dir} suppressHydrationWarning>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090b" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    />
+    <script is:inline>
+      (function () {
+        var stored = localStorage.getItem("theme");
+        if (
+          stored === "dark" ||
+          (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <slot />
+    <script is:inline>
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      document
+        .querySelectorAll("[data-animate]")
+        .forEach(function (el) {
+          observer.observe(el);
+        });
+    </script>
+  </body>
+</html>

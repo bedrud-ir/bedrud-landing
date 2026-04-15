@@ -1,0 +1,25 @@
+---
+import Base from "./Base.astro";
+import Navbar from "../components/landing/navbar";
+import Footer from "../components/landing/footer";
+import { type Locale, isValidLocale } from "../i18n/utils";
+
+interface Props {
+  lang: string;
+  narrow?: boolean;
+  title?: string;
+  description?: string;
+}
+
+const { lang: rawLang = "en", narrow = false, title, description } = Astro.props;
+const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+---
+
+<Base lang={lang} title={title} description={description}>
+  <Navbar client:load lang={lang} />
+  <div class="h-16" />
+  <main id="main-content" class:narrow={narrow ? "mx-auto max-w-3xl px-6 py-16" : undefined}>
+    <slot />
+  </main>
+  <Footer client:load lang={lang} />
+</Base>

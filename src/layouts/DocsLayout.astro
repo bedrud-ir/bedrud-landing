@@ -1,0 +1,65 @@
+---
+import Base from "./Base.astro";
+import { type Locale, isValidLocale, t } from "../i18n/utils";
+
+interface Props {
+  lang: string;
+  title?: string;
+  description?: string;
+}
+
+const { lang: rawLang = "en", title, description } = Astro.props;
+const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const year = new Date().getFullYear();
+---
+
+<Base lang={lang} title={title} description={description}>
+  <div class="min-h-screen bg-background">
+    <header class="fixed inset-x-0 top-0 z-40 border-b bg-background/80 backdrop-blur-sm">
+      <div class="mx-auto flex h-14 items-center gap-4 px-4 lg:max-w-5xl lg:px-6">
+        <div class="flex items-center gap-3">
+          <a href={`/${lang}`} class="gap-2 text-sm">
+            <span class="font-semibold">Bedrud</span>
+          </a>
+          <span class="text-sm text-muted-foreground">{t(lang, "nav.docs")}</span>
+        </div>
+        <div class="ms-auto flex items-center gap-1">
+          <slot name="header-actions" />
+        </div>
+      </div>
+    </header>
+
+    <div class="pt-14">
+      <div class="mx-auto max-w-5xl">
+        <div class="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5">
+          <div class="hidden lg:block lg:col-span-1">
+            <slot name="sidebar" />
+          </div>
+          <div class="lg:col-span-3 xl:col-span-3">
+            <main id="main-content" class="min-h-screen flex-1 py-8 lg:py-12">
+              <slot />
+            </main>
+          </div>
+          <div class="hidden xl:block xl:col-span-1">
+            <slot name="toc" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="border-t">
+      <div class="mx-auto flex h-14 max-w-5xl items-center gap-6 px-4 lg:px-6">
+        <p class="text-sm text-muted-foreground">
+          &copy; {year} themadorg · MIT
+        </p>
+        <div class="flex gap-4 text-sm text-muted-foreground">
+          <a href={`/${lang}/privacy`} class="hover:text-foreground">{t(lang, "footer.privacy")}</a>
+          <span>·</span>
+          <a href={`/${lang}/terms`} class="hover:text-foreground">{t(lang, "footer.terms")}</a>
+          <span>·</span>
+          <a href={`/${lang}/contact`} class="hover:text-foreground">{t(lang, "footer.contact")}</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</Base>
