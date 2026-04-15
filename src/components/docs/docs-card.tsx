@@ -1,5 +1,4 @@
 import type * as React from "react";
-import { Link, useParams } from "react-router";
 import { cn } from "~/lib/utils";
 
 interface CardProps {
@@ -9,7 +8,6 @@ interface CardProps {
 }
 
 function Card({ children, className, href }: CardProps) {
-  const { lang } = useParams<{ lang: string }>();
   const content = (
     <div
       className={cn(
@@ -23,11 +21,7 @@ function Card({ children, className, href }: CardProps) {
   );
 
   if (href) {
-    const targetHref =
-      lang && !href.startsWith(`/${lang}/`)
-        ? `/${lang}${href.replace(/^\/[a-z]{2}(\/|$)/, "/")}`
-        : href;
-    return <Link to={targetHref}>{content}</Link>;
+    return <a href={href}>{content}</a>;
   }
 
   return content;

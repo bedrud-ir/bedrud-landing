@@ -1,43 +1,30 @@
-import {
-  isRouteErrorResponse,
-  Link,
-  useParams,
-  useRouteError,
-} from "react-router";
+import type { Locale } from "../../i18n/utils";
 
-export function DocsErrorBoundary() {
-  const { lang } = useParams<{ lang: string }>();
-  const error = useRouteError();
+interface DocsErrorBoundaryProps {
+  lang: Locale;
+}
 
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  }
-
+export function DocsErrorBoundary({ lang }: DocsErrorBoundaryProps) {
   return (
     <div className="flex flex-1 items-center justify-center py-24">
       <div className="text-center">
-        <h1 className="text-6xl font-bold">{message}</h1>
-        <p className="mt-4 text-lg text-muted-foreground">{details}</p>
+        <h1 className="text-6xl font-bold">Oops!</h1>
+        <p className="mt-4 text-lg text-muted-foreground">
+          An unexpected error occurred.
+        </p>
         <div className="mt-8 flex items-center justify-center gap-4">
-          <Link
-            to={`/${lang}/docs/getting-started`}
+          <a
+            href={`/${lang}/docs/getting-started`}
             className="text-sm font-medium text-primary underline underline-offset-4 hover:text-primary/80"
           >
             Back to Docs
-          </Link>
-          <Link
-            to={`/${lang}`}
+          </a>
+          <a
+            href={`/${lang}`}
             className="text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground"
           >
             Home
-          </Link>
+          </a>
         </div>
       </div>
     </div>

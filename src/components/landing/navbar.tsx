@@ -1,11 +1,9 @@
 import { Menu } from "lucide-react";
-import { AnimatePresence } from "motion/react";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router";
 import { Button } from "~/components/ui/button";
 import { GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
+import { t, type Locale } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 import { LanguageSwitcher } from "./language-switcher";
 import { MobileMenu } from "./mobile-menu";
@@ -21,9 +19,7 @@ export const navRouteLinks = [{ key: "nav.docs", route: "docs" }] as const;
 
 const SCROLL_THRESHOLD = 50;
 
-export function Navbar() {
-  const { t } = useTranslation();
-  const { lang } = useParams<{ lang: string }>();
+export function Navbar({ lang }: { lang: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -52,7 +48,7 @@ export function Navbar() {
               scrolled ? "h-12 px-4" : "h-16 max-w-5xl px-6",
             )}
           >
-            <Link to={`/${lang}`} className="flex shrink-0 items-center gap-2">
+            <a href={`/${lang}`} className="flex shrink-0 items-center gap-2">
               <div className="flex size-7 items-center justify-center rounded-lg bg-primary">
                 <span className="text-xs font-bold text-primary-foreground">
                   B
@@ -61,7 +57,7 @@ export function Navbar() {
               <span className="text-base font-semibold tracking-tight">
                 Bedrud
               </span>
-            </Link>
+            </a>
 
             <div className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
               {navLinks.map((link) => (
@@ -70,23 +66,23 @@ export function Navbar() {
                   href={`/${lang}/${link.href}`}
                   className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
-                  {t(link.key)}
+                  {t(lang, link.key)}
                 </a>
               ))}
               {navRouteLinks.map((link) => (
-                <Link
+                <a
                   key={link.key}
-                  to={`/${lang}/${link.route}`}
+                  href={`/${lang}/${link.route}`}
                   className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
-                  {t(link.key)}
-                </Link>
+                  {t(lang, link.key)}
+                </a>
               ))}
             </div>
 
             <div className="hidden shrink-0 items-center gap-0.5 lg:flex">
               <ThemeToggle />
-              <LanguageSwitcher />
+              <LanguageSwitcher lang={lang} />
               <Button variant="ghost" size="icon" asChild>
                 <a
                   href={GITHUB_URL}
@@ -98,13 +94,13 @@ export function Navbar() {
                 </a>
               </Button>
               <Button size="sm" className="ms-1.5 rounded-md px-4" asChild>
-                <a href={`/${lang}/demo`}>{t("nav.demo")}</a>
+                <a href={`/${lang}/demo`}>{t(lang, "nav.demo")}</a>
               </Button>
             </div>
 
             <div className="flex items-center gap-0.5 lg:hidden">
               <ThemeToggle />
-              <LanguageSwitcher />
+              <LanguageSwitcher lang={lang} />
               <Button
                 variant="ghost"
                 size="icon"
@@ -118,9 +114,9 @@ export function Navbar() {
         </div>
       </header>
 
-      <AnimatePresence>
-        {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} />}
-      </AnimatePresence>
+      {mobileOpen && (
+        <MobileMenu onClose={() => setMobileOpen(false)} lang={lang} />
+      )}
     </>
   );
 }

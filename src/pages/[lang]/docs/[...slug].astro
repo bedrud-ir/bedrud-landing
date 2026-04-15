@@ -1,0 +1,128 @@
+---
+import { getCollection } from "astro:content";
+import DocsLayout from "../../../layouts/DocsLayout.astro";
+import {
+  type Locale,
+  isValidLocale,
+  supportedLocales,
+  t,
+} from "../../../i18n/utils";
+import {
+  sections,
+  getPreviousDoc,
+  getNextDoc,
+} from "../../../content/docs/sidebar";
+
+export async function getStaticPaths() {
+  const docs = await getCollection("docs");
+  return supportedLocales.flatMap((lang) =>
+    docs.map((doc) => ({
+      params: { lang, slug: doc.slug },
+      props: { doc },
+    })),
+  );
+}
+
+const { lang: rawLang, slug } = Astro.params;
+const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const { doc } = Astro.props;
+const { Content } = await doc.render();
+const title = `${doc.data.title} - Bedrud`;
+const description = doc.data.description || t(lang, "meta.description");
+
+let sectionTitle: string | undefined;
+for (const section of sections) {
+  if (section.items.some((item) => item.slug === slug)) {
+    sectionTitle = section.title;
+    break;
+  }
+}
+
+const previous = getPreviousDoc(slug ?? "");
+const next = getNextDoc(slug ?? "");
+---
+
+<DocsLayout lang={lang} title={title} description={description} currentSlug={slug}>
+  <nav
+    class="mb-4 flex items-center gap-1.5 text-sm text-muted-foreground"
+    aria-label="Breadcrumb"
+  >
+    <ol class="flex items-center gap-1.5">
+      <li>
+        <a
+          href={`/${lang}`}
+          class="transition-colors hover:text-foreground"
+        >
+          Home
+        </a>
+      </li>
+      <li>/</li>
+      <li>
+        <a
+          href={`/${lang}/docs`}
+          class="transition-colors hover:text-foreground"
+        >
+          {t(lang, "nav.docs")}
+        </a>
+      </li>
+      {sectionTitle && (
+        <>
+          <li>/</li>
+          <li>{sectionTitle}</li>
+        </>
+      )}
+      <li>/</li>
+      <li class="text-foreground" aria-current="page">
+        {doc.data.title}
+      </li>
+    </ol>
+  </nav>
+
+  <article class="prose prose-neutral dark:prose-invert max-w-none">
+    <Content />
+  </article>
+
+  <nav
+    class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2"
+    aria-label="Article navigation"
+  >
+    {previous && (
+      <a
+        href={`/${lang}/docs/${previous.slug}`}
+        rel="prev"
+        class="group relative rounded-lg border bg-card p-6 text-card-foreground transition-all hover:border-primary/50 hover:shadow-md"
+      >
+        <div class="flex items-center gap-2 text-muted-foreground">
+          <span class="text-sm">{t(lang, "docs.previous")}</span>
+        </div>
+        <h3 class="mt-2 text-lg font-semibold leading-none tracking-tight">
+          {previous.title}
+        </h3>
+        {previous.description && (
+          <p class="mt-2 text-sm text-muted-foreground">
+            {previous.description}
+          </p>
+        )}
+      </a>
+    )}
+    {next && (
+      <a
+        href={`/${lang}/docs/${next.slug}`}
+        rel="next"
+        class="group relative rounded-lg border bg-card p-6 text-card-foreground transition-all hover:border-primary/50 hover:shadow-md"
+      >
+        <div class="flex items-center gap-2 text-muted-foreground">
+          <span class="text-sm">{t(lang, "docs.next")}</span>
+        </div>
+        <h3 class="mt-2 text-lg font-semibold leading-none tracking-tight">
+          {next.title}
+        </h3>
+        {next.description && (
+          <p class="mt-2 text-sm text-muted-foreground">
+            {next.description}
+          </p>
+        )}
+      </a>
+    )}
+  </nav>
+</DocsLayout>

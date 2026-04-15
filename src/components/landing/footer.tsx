@@ -1,39 +1,28 @@
-import { motion } from "motion/react";
 import { useCallback } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate, useParams } from "react-router";
 import { Button } from "~/components/ui/button";
-import { type Locale, supportedLngs } from "~/i18n/config";
+import { supportedLocales, type Locale } from "../../i18n/utils";
 import { DISCORD_URL, GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
+import { t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 
-export function Footer() {
-  const { t } = useTranslation();
-  const { lang } = useParams();
-  const navigate = useNavigate();
-  const currentLang = (lang as Locale) ?? "en";
+export function Footer({ lang }: { lang: Locale }) {
+  const currentLang = lang;
 
   const switchLocale = useCallback(
     (locale: Locale) => {
       if (locale !== currentLang) {
         const path = window.location.pathname;
         const rest = path.replace(`/${currentLang}`, "");
-        navigate(`/${locale}${rest}`, { replace: true });
+        window.location.href = `/${locale}${rest}`;
       }
     },
-    [currentLang, navigate],
+    [currentLang],
   );
 
   return (
     <footer className="bg-muted/30 px-6 pt-16 pb-8">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="mx-auto max-w-5xl"
-      >
+      <div className="mx-auto max-w-5xl">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
           <div className="sm:col-span-2 lg:col-span-5">
             <div className="flex items-center gap-2.5">
@@ -43,11 +32,11 @@ export function Footer() {
                 </span>
               </div>
               <span className="text-lg font-bold tracking-tight">
-                {t("footer.brand")}
+                {t(lang, "footer.brand")}
               </span>
             </div>
             <p className="mt-3 max-w-xs text-sm text-muted-foreground">
-              {t("footer.tagline")}
+              {t(lang, "footer.tagline")}
             </p>
             <div className="mt-4 flex items-center gap-1">
               <Button variant="ghost" size="icon-sm" asChild>
@@ -64,22 +53,24 @@ export function Footer() {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="text-sm font-semibold">{t("footer.product")}</h4>
+            <h4 className="text-sm font-semibold">
+              {t(lang, "footer.product")}
+            </h4>
             <ul className="mt-3 space-y-3">
               <li>
-                <Link
-                  to={`/${lang}/features`}
+                <a
+                  href={`/${lang}/features`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.features")}
-                </Link>
+                  {t(lang, "footer.features")}
+                </a>
               </li>
               <li>
                 <a
                   href={`/${lang}/#platforms`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.platforms")}
+                  {t(lang, "footer.platforms")}
                 </a>
               </li>
               <li>
@@ -87,46 +78,48 @@ export function Footer() {
                   href={`/${lang}/#open-source`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.openSource")}
+                  {t(lang, "footer.openSource")}
                 </a>
               </li>
               <li>
-                <Link
-                  to={`/${lang}/demo`}
+                <a
+                  href={`/${lang}/demo`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.demo")}
-                </Link>
+                  {t(lang, "footer.demo")}
+                </a>
               </li>
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="text-sm font-semibold">{t("footer.resources")}</h4>
+            <h4 className="text-sm font-semibold">
+              {t(lang, "footer.resources")}
+            </h4>
             <ul className="mt-3 space-y-3">
               <li>
-                <Link
-                  to={`/${lang}/docs`}
+                <a
+                  href={`/${lang}/docs`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.docs")}
-                </Link>
+                  {t(lang, "footer.docs")}
+                </a>
               </li>
               <li>
-                <Link
-                  to={`/${lang}/changelog`}
+                <a
+                  href={`/${lang}/changelog`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.changelog")}
-                </Link>
+                  {t(lang, "footer.changelog")}
+                </a>
               </li>
               <li>
-                <Link
-                  to={`/${lang}/contributors`}
+                <a
+                  href={`/${lang}/contributors`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.contributors")}
-                </Link>
+                  {t(lang, "footer.contributors")}
+                </a>
               </li>
               <li>
                 <a
@@ -135,7 +128,7 @@ export function Footer() {
                   rel="noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.releases")}
+                  {t(lang, "footer.releases")}
                 </a>
               </li>
               <li>
@@ -145,30 +138,30 @@ export function Footer() {
                   rel="noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.discord")}
+                  {t(lang, "footer.discord")}
                 </a>
               </li>
             </ul>
           </div>
 
           <div className="lg:col-span-3">
-            <h4 className="text-sm font-semibold">{t("footer.legal")}</h4>
+            <h4 className="text-sm font-semibold">{t(lang, "footer.legal")}</h4>
             <ul className="mt-3 space-y-3">
               <li>
-                <Link
-                  to={`/${lang}/privacy`}
+                <a
+                  href={`/${lang}/privacy`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.privacy")}
-                </Link>
+                  {t(lang, "footer.privacy")}
+                </a>
               </li>
               <li>
-                <Link
-                  to={`/${lang}/terms`}
+                <a
+                  href={`/${lang}/terms`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.terms")}
-                </Link>
+                  {t(lang, "footer.terms")}
+                </a>
               </li>
               <li>
                 <a
@@ -177,16 +170,16 @@ export function Footer() {
                   rel="noreferrer"
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.license")}
+                  {t(lang, "footer.license")}
                 </a>
               </li>
               <li>
-                <Link
-                  to={`/${lang}/contact`}
+                <a
+                  href={`/${lang}/contact`}
                   className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  {t("footer.contact")}
-                </Link>
+                  {t(lang, "footer.contact")}
+                </a>
               </li>
             </ul>
           </div>
@@ -197,7 +190,7 @@ export function Footer() {
             &copy; {new Date().getFullYear()} themadorg · MIT License
           </p>
           <div className="flex flex-wrap gap-1.5">
-            {supportedLngs.map((locale) => {
+            {supportedLocales.map((locale) => {
               const isActive = locale === currentLang;
               return (
                 <button
@@ -217,7 +210,7 @@ export function Footer() {
             })}
           </div>
         </div>
-      </motion.div>
+      </div>
     </footer>
   );
 }

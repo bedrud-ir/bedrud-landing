@@ -1,7 +1,5 @@
-import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { type Locale, supportedLngs } from "~/i18n/config";
+import { supportedLocales, type Locale } from "../../i18n/utils";
 import { cn } from "~/lib/utils";
 
 interface LangMeta {
@@ -21,13 +19,17 @@ const langMeta: Record<Locale, LangMeta> = {
   ar: { flag: "🇸🇦", label: "العربية ⟵" },
 };
 
-export function LanguageSwitcher({ className }: { className?: string }) {
-  const { lang } = useParams();
-  const navigate = useNavigate();
+export function LanguageSwitcher({
+  className,
+  lang,
+}: {
+  className?: string;
+  lang: Locale;
+}) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const currentLang = (lang as Locale) ?? "en";
+  const currentLang = lang;
   const current = langMeta[currentLang];
 
   const switchTo = useCallback(
@@ -36,10 +38,10 @@ export function LanguageSwitcher({ className }: { className?: string }) {
       if (locale !== currentLang) {
         const path = window.location.pathname;
         const rest = path.replace(`/${currentLang}`, "");
-        navigate(`/${locale}${rest}`, { replace: true });
+        window.location.href = `/${locale}${rest}`;
       }
     },
-    [currentLang, navigate],
+    [currentLang],
   );
 
   useEffect(() => {
@@ -78,44 +80,38 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         {current.flag}
       </button>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: -4 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: -4 }}
-            transition={{ duration: 0.15, ease: "easeOut" }}
-            role="listbox"
-            tabIndex={-1}
-            aria-activedescendant={`lang-${currentLang}`}
-            className="absolute inset-e-0 top-full z-50 mt-1.5 min-w-36 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg"
-          >
-            {supportedLngs.map((locale) => {
-              const meta = langMeta[locale];
-              const isActive = locale === currentLang;
-              return (
-                <button
-                  key={locale}
-                  id={`lang-${locale}`}
-                  type="button"
-                  role="option"
-                  aria-selected={isActive}
-                  onClick={() => switchTo(locale)}
-                  className={cn(
-                    "flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm transition-colors",
-                    isActive
-                      ? "bg-accent font-medium text-accent-foreground"
-                      : "text-popover-foreground hover:bg-accent/50",
-                  )}
-                >
-                  <span className="text-base leading-none">{meta.flag}</span>
-                  <span>{meta.label}</span>
-                </button>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {open && (
+        <div
+          role="listbox"
+          tabIndex={-1}
+          aria-activedescendant={`lang-${currentLang}`}
+          className="absolute inset-e-0 top-full z-50 mt-1.5 min-w-36 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg"
+        >
+          {supportedLocales.map((locale) => {
+            const meta = langMeta[locale];
+            const isActive = locale === currentLang;
+            return (
+              <button
+                key={locale}
+                id={`lang-${locale}`}
+                type="button"
+                role="option"
+                aria-selected={isActive}
+                onClick={() => switchTo(locale)}
+                className={cn(
+                  "flex w-full items-center gap-2.5 rounded-md px-2.5 py-1.5 text-sm transition-colors",
+                  isActive
+                    ? "bg-accent font-medium text-accent-foreground"
+                    : "text-popover-foreground hover:bg-accent/50",
+                )}
+              >
+                <span className="text-base leading-none">{meta.flag}</span>
+                <span>{meta.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

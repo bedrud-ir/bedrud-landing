@@ -1,6 +1,5 @@
 import * as React from "react";
-import { useTranslation } from "react-i18next";
-import { ScrollArea } from "~/components/ui/scroll-area";
+import { t, type Locale } from "../../i18n/utils";
 import { cn } from "~/lib/utils";
 
 interface TocItem {
@@ -10,11 +9,11 @@ interface TocItem {
 }
 
 interface TocProps {
+  lang: Locale;
   className?: string;
 }
 
-function Toc({ className }: TocProps) {
-  const { t } = useTranslation();
+function Toc({ lang, className }: TocProps) {
   const [items, setItems] = React.useState<TocItem[]>([]);
   const [activeId, setActiveId] = React.useState<string>("");
 
@@ -75,10 +74,10 @@ function Toc({ className }: TocProps) {
 
   return (
     <aside className={cn("hidden xl:block", className)}>
-      <ScrollArea className="h-[calc(100vh-4rem)] py-6">
+      <div className="scroll-area h-[calc(100vh-4rem)] py-6">
         <div className="space-y-2">
           <h4 className="text-sm font-semibold text-muted-foreground">
-            {t("docs.onThisPage")}
+            {t(lang, "docs.onThisPage")}
           </h4>
           <nav className="space-y-1">
             {items.map((item) => (
@@ -98,7 +97,7 @@ function Toc({ className }: TocProps) {
             ))}
           </nav>
         </div>
-      </ScrollArea>
+      </div>
     </aside>
   );
 }

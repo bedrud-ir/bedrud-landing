@@ -1,16 +1,14 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { t, type Locale } from "../../i18n/utils";
 import type { SidebarItem } from "@/content/docs/sidebar";
 
 interface PagerProps {
   previous?: SidebarItem;
   next?: SidebarItem;
-  lang: string;
+  lang: Locale;
 }
 
 function Pager({ previous, next, lang }: PagerProps) {
-  const { t } = useTranslation();
-
   return (
     <nav
       className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2"
@@ -24,7 +22,7 @@ function Pager({ previous, next, lang }: PagerProps) {
         >
           <div className="flex items-center gap-2 text-muted-foreground">
             <ArrowLeft className="size-4" aria-hidden="true" />
-            <span className="text-sm">{t("docs.previous")}</span>
+            <span className="text-sm">{t(lang, "docs.previous")}</span>
           </div>
           <h3 className="mt-2 text-lg font-semibold leading-none tracking-tight">
             {previous.title}
@@ -44,7 +42,7 @@ function Pager({ previous, next, lang }: PagerProps) {
           className="group relative rounded-lg border bg-card p-6 text-card-foreground transition-all hover:border-primary/50 hover:shadow-md cursor-pointer"
         >
           <div className="flex items-center gap-2 text-muted-foreground">
-            <span className="text-sm">{t("docs.next")}</span>
+            <span className="text-sm">{t(lang, "docs.next")}</span>
             <ArrowRight className="size-4" aria-hidden="true" />
           </div>
           <h3 className="mt-2 text-lg font-semibold leading-none tracking-tight">

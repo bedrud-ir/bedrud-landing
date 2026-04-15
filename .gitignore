@@ -11,3 +11,4 @@ build/
 *.swp
 *.swo
 .idea/
+dist/

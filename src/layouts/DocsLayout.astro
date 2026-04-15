@@ -1,14 +1,19 @@
 ---
 import Base from "./Base.astro";
 import { type Locale, isValidLocale, t } from "../i18n/utils";
+import { Sidebar } from "../components/docs/sidebar";
+import { Toc } from "../components/docs/toc";
+import { ThemeToggle } from "../components/landing/theme-toggle";
+import { LanguageSwitcher } from "../components/landing/language-switcher";
 
 interface Props {
   lang: string;
   title?: string;
   description?: string;
+  currentSlug?: string;
 }
 
-const { lang: rawLang = "en", title, description } = Astro.props;
+const { lang: rawLang = "en", title, description, currentSlug = "" } = Astro.props;
 const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
 const year = new Date().getFullYear();
 ---
@@ -24,7 +29,8 @@ const year = new Date().getFullYear();
           <span class="text-sm text-muted-foreground">{t(lang, "nav.docs")}</span>
         </div>
         <div class="ms-auto flex items-center gap-1">
-          <slot name="header-actions" />
+          <ThemeToggle client:load />
+          <LanguageSwitcher client:load />
         </div>
       </div>
     </header>
@@ -33,7 +39,7 @@ const year = new Date().getFullYear();
       <div class="mx-auto max-w-5xl">
         <div class="grid grid-cols-1 lg:grid-cols-4 xl:grid-cols-5">
           <div class="hidden lg:block lg:col-span-1">
-            <slot name="sidebar" />
+            <Sidebar client:idle lang={lang} currentSlug={currentSlug} />
           </div>
           <div class="lg:col-span-3 xl:col-span-3">
             <main id="main-content" class="min-h-screen flex-1 py-8 lg:py-12">
@@ -41,7 +47,7 @@ const year = new Date().getFullYear();
             </main>
           </div>
           <div class="hidden xl:block xl:col-span-1">
-            <slot name="toc" />
+            <Toc client:idle />
           </div>
         </div>
       </div>

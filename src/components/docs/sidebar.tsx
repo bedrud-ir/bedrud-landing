@@ -1,6 +1,5 @@
 import { ArrowLeft } from "lucide-react";
-import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router";
+import { t, type Locale } from "../../i18n/utils";
 import { sections } from "@/content/docs/sidebar";
 import {
   Accordion,
@@ -8,38 +7,34 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "~/components/ui/accordion";
-import { ScrollArea } from "~/components/ui/scroll-area";
 import { cn } from "~/lib/utils";
 
 interface SidebarProps {
-  lang: string;
+  lang: Locale;
+  currentSlug?: string;
 }
 
-function Sidebar({ lang }: SidebarProps) {
-  const location = useLocation();
-  const { t } = useTranslation();
-  const currentSlug = location.pathname.split("/").slice(4).join("/");
-
+function Sidebar({ lang, currentSlug = "" }: SidebarProps) {
   const activeSection = sections.find((section) =>
     section.items.some((item) => item.slug === currentSlug),
   );
 
   return (
     <aside className="border-e">
-      <ScrollArea className="h-[calc(100vh-4rem)] py-6 pe-4">
+      <div className="scroll-area h-[calc(100vh-4rem)] py-6 pe-4">
         <div className="space-y-4">
           <div className="pb-4">
-            <Link
-              to={`/${lang}`}
+            <a
+              href={`/${lang}`}
               className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
               <ArrowLeft className="size-4" />
-              <span>{t("docs.backToHome")}</span>
-            </Link>
+              <span>{t(lang, "docs.backToHome")}</span>
+            </a>
           </div>
           <div className="pb-4">
             <h3 className="px-4 text-sm font-semibold">
-              {t("docs.documentation")}
+              {t(lang, "docs.documentation")}
             </h3>
           </div>
           <Accordion
@@ -57,9 +52,9 @@ function Sidebar({ lang }: SidebarProps) {
                     {section.items.map((item) => {
                       const isActive = item.slug === currentSlug;
                       return (
-                        <Link
+                        <a
                           key={item.slug}
-                          to={`/${lang}/docs/${item.slug}`}
+                          href={`/${lang}/docs/${item.slug}`}
                           className={cn(
                             "block ps-6 pe-4 py-2 text-sm transition-colors",
                             isActive
@@ -68,7 +63,7 @@ function Sidebar({ lang }: SidebarProps) {
                           )}
                         >
                           {item.title}
-                        </Link>
+                        </a>
                       );
                     })}
                   </nav>
@@ -77,7 +72,7 @@ function Sidebar({ lang }: SidebarProps) {
             ))}
           </Accordion>
         </div>
-      </ScrollArea>
+      </div>
     </aside>
   );
 }

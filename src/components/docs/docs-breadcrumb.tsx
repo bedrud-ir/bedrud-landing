@@ -1,15 +1,12 @@
-import { useTranslation } from "react-i18next";
-import { Link, useParams } from "react-router";
+import { t, type Locale } from "../../i18n/utils";
 import { sections } from "@/content/docs/sidebar";
 
 interface BreadcrumbProps {
+  lang: Locale;
   slug: string;
 }
 
-export function DocsBreadcrumb({ slug }: BreadcrumbProps) {
-  const { lang } = useParams();
-  const { t } = useTranslation();
-
+export function DocsBreadcrumb({ lang, slug }: BreadcrumbProps) {
   let sectionTitle: string | undefined;
   let docTitle: string | undefined;
   for (const section of sections) {
@@ -29,21 +26,21 @@ export function DocsBreadcrumb({ slug }: BreadcrumbProps) {
     >
       <ol className="flex items-center gap-1.5">
         <li>
-          <Link
-            to={`/${lang}`}
+          <a
+            href={`/${lang}`}
             className="transition-colors hover:text-foreground"
           >
             Home
-          </Link>
+          </a>
         </li>
         <li>/</li>
         <li>
-          <Link
-            to={`/${lang}/docs`}
+          <a
+            href={`/${lang}/docs`}
             className="transition-colors hover:text-foreground"
           >
-            {t("nav.docs")}
-          </Link>
+            {t(lang, "nav.docs")}
+          </a>
         </li>
         {sectionTitle && (
           <>

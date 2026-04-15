@@ -1,36 +1,32 @@
 import { X } from "lucide-react";
-import { motion } from "motion/react";
 import { useCallback, useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router";
 import { Button } from "~/components/ui/button";
-import { type Locale, supportedLngs } from "~/i18n/config";
+import { supportedLocales, type Locale } from "../../i18n/utils";
 import { GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
+import { t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 import { navLinks, navRouteLinks } from "./navbar";
 
 interface MobileMenuProps {
   onClose: () => void;
+  lang: Locale;
 }
 
-export function MobileMenu({ onClose }: MobileMenuProps) {
-  const { t } = useTranslation();
-  const { lang } = useParams();
-  const navigate = useNavigate();
+export function MobileMenu({ onClose, lang }: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const firstFocusRef = useRef<HTMLButtonElement | null>(null);
-  const currentLang = (lang as Locale) ?? "en";
+  const currentLang = lang;
 
   const switchTo = useCallback(
     (locale: Locale) => {
       if (locale !== currentLang) {
         const path = window.location.pathname;
         const rest = path.replace(`/${currentLang}`, "");
-        navigate(`/${locale}${rest}`, { replace: true });
+        window.location.href = `/${locale}${rest}`;
       }
     },
-    [currentLang, navigate],
+    [currentLang],
   );
 
   useEffect(() => {
@@ -90,13 +86,7 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
   }, [onClose]);
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-50 lg:hidden"
-    >
+    <div className="fixed inset-0 z-50 lg:hidden">
       {/* Backdrop */}
       <button
         type="button"
@@ -106,15 +96,11 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
       />
 
       {/* Panel */}
-      <motion.div
+      <div
         ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        initial={{ x: "-100%" }}
-        animate={{ x: 0 }}
-        exit={{ x: "-100%" }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
         className="absolute inset-y-0 start-0 flex w-full max-w-sm flex-col bg-background shadow-xl"
       >
         <div className="flex h-full flex-col px-6 py-4">
@@ -137,40 +123,34 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
           {/* Nav links */}
           <nav
             className="mt-8 flex flex-col gap-1"
-            aria-label={t("mobileNav.navigation")}
+            aria-label={t(lang, "mobileNav.navigation")}
           >
-            {navLinks.map((link, i) => (
-              <motion.a
+            {navLinks.map((link) => (
+              <a
                 key={link.key}
                 href={`/${lang}/${link.href}`}
                 onClick={onClose}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.05 }}
                 className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
               >
-                {t(link.key)}
-              </motion.a>
+                {t(lang, link.key)}
+              </a>
             ))}
-            {navRouteLinks.map((link, i) => (
-              <motion.a
+            {navRouteLinks.map((link) => (
+              <a
                 key={link.key}
                 href={`/${lang}/${link.route}`}
                 onClick={onClose}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + (navLinks.length + i) * 0.05 }}
                 className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
               >
-                {t(link.key)}
-              </motion.a>
+                {t(lang, link.key)}
+              </a>
             ))}
           </nav>
 
           {/* CTA */}
           <div className="mt-auto flex flex-col gap-3">
             <Button size="lg" asChild>
-              <a href={`/${lang}/demo`}>{t("mobileNav.tryDemo")}</a>
+              <a href={`/${lang}/demo`}>{t(lang, "mobileNav.tryDemo")}</a>
             </Button>
           </div>
 
@@ -187,10 +167,10 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
             {/* Language grid */}
             <div className="mt-4">
               <div className="mb-2 text-sm font-medium text-muted-foreground">
-                {t("mobileNav.language")}
+                {t(lang, "mobileNav.language")}
               </div>
               <div className="grid grid-cols-3 gap-2">
-                {supportedLngs.map((locale) => {
+                {supportedLocales.map((locale) => {
                   const isActive = locale === currentLang;
                   return (
                     <button
@@ -212,7 +192,7 @@ export function MobileMenu({ onClose }: MobileMenuProps) {
             </div>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }

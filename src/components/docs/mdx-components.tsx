@@ -1,6 +1,4 @@
-import { MDXProvider } from "@mdx-js/react";
 import type * as React from "react";
-import { Link, useParams } from "react-router";
 import {
   Accordion,
   AccordionContent,
@@ -41,6 +39,18 @@ function CodeBlock({
   );
 }
 
+function MdxLink({
+  href,
+  children,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  return (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  );
+}
+
 const components = {
   Callout,
   Card,
@@ -60,45 +70,11 @@ const components = {
   SystemdServices,
   CreateAdmin,
   pre: CodeBlock,
+  a: MdxLink,
   hr: (props: React.HTMLAttributes<HTMLHRElement>) => (
     <Separator className="my-6" {...props} />
   ),
 };
-
-function MdxLink({
-  href,
-  children,
-  ...props
-}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
-  const { lang } = useParams<{ lang: string }>();
-
-  if (href?.startsWith("/")) {
-    const targetHref =
-      lang && !href.startsWith(`/${lang}/`)
-        ? `/${lang}${href.replace(/^\/[a-z]{2}(\/|$)/, "/")}`
-        : href;
-
-    return (
-      <Link to={targetHref} {...props}>
-        {children}
-      </Link>
-    );
-  }
-
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
-      {children}
-    </a>
-  );
-}
-
-function MdxProvider({ children }: { children: React.ReactNode }) {
-  return (
-    <MDXProvider components={{ ...components, a: MdxLink }}>
-      {children}
-    </MDXProvider>
-  );
-}
 
 function MdxContent({ children }: { children: React.ReactNode }) {
   return (
@@ -108,12 +84,4 @@ function MdxContent({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Mdx({ children }: { children: React.ReactNode }) {
-  return (
-    <MdxProvider>
-      <MdxContent>{children}</MdxContent>
-    </MdxProvider>
-  );
-}
-
-export { Mdx, MdxProvider };
+export { components, MdxContent, MdxLink, CodeBlock };

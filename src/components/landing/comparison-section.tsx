@@ -1,6 +1,5 @@
 import { Check, Minus, X } from "lucide-react";
-import { motion } from "motion/react";
-import { useTranslation } from "react-i18next";
+import { t, type Locale } from "../../i18n/utils";
 import {
   Table,
   TableBody,
@@ -32,9 +31,7 @@ function ValueCell({ value }: { value: CellValue }) {
   return <span>{value}</span>;
 }
 
-export function ComparisonSection() {
-  const { t } = useTranslation();
-
+export function ComparisonSection({ lang }: { lang: Locale }) {
   return (
     <section
       id="comparison"
@@ -42,66 +39,50 @@ export function ComparisonSection() {
     >
       <div className="mx-auto max-w-5xl">
         <div className="max-w-lg">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-3xl font-bold tracking-tight sm:text-4xl"
-          >
-            {t("comparison.title")}
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="mt-4 text-lg text-muted-foreground"
-          >
-            {t("comparison.subtitle")}
-          </motion.p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t(lang, "comparison.title")}
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            {t(lang, "comparison.subtitle")}
+          </p>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.5, delay: 0.16 }}
-          className="mt-14 overflow-hidden rounded-xl border"
-        >
+        <div className="mt-14 overflow-hidden rounded-xl border">
           <Table>
             <TableHeader>
               <TableRow className="hover:bg-transparent">
                 <TableHead className="w-[180px]">
-                  {t("comparison.feature")}
+                  {t(lang, "comparison.feature")}
                 </TableHead>
                 <TableHead className="font-semibold text-foreground">
-                  {t("comparison.bedrud")}
+                  {t(lang, "comparison.bedrud")}
                 </TableHead>
-                <TableHead>{t("comparison.jitsi")}</TableHead>
-                <TableHead>{t("comparison.bbb")}</TableHead>
+                <TableHead>{t(lang, "comparison.jitsi")}</TableHead>
+                <TableHead>{t(lang, "comparison.bbb")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {rows.map((row) => (
                 <TableRow key={row}>
                   <TableCell className="font-medium">
-                    {t(`comparison.rows.${row}`)}
+                    {t(lang, `comparison.rows.${row}`)}
                   </TableCell>
                   <TableCell>
-                    <ValueCell value={t(`comparison.rows.${row}Bedrud`)} />
+                    <ValueCell
+                      value={t(lang, `comparison.rows.${row}Bedrud`)}
+                    />
                   </TableCell>
                   <TableCell>
-                    <ValueCell value={t(`comparison.rows.${row}Jitsi`)} />
+                    <ValueCell value={t(lang, `comparison.rows.${row}Jitsi`)} />
                   </TableCell>
                   <TableCell>
-                    <ValueCell value={t(`comparison.rows.${row}Bbb`)} />
+                    <ValueCell value={t(lang, `comparison.rows.${row}Bbb`)} />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
