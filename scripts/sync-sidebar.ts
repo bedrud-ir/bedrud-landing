@@ -1,11 +1,11 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Glob } from "bun";
-import { extractMeta } from "../content/docs/meta";
-import { sections } from "../content/docs/sections";
+import { extractMeta } from "../src/content/docs/meta";
+import { sections } from "../src/content/docs/sections";
 
-const DOCS_DIR = resolve(import.meta.dir, "../content/docs");
-const SIDEBAR_PATH = resolve(import.meta.dir, "../content/docs/sidebar.ts");
+const DOCS_DIR = resolve(import.meta.dir, "../src/content/docs");
+const SIDEBAR_PATH = resolve(import.meta.dir, "../src/content/docs/sidebar.ts");
 
 interface DocMeta {
   title: string;

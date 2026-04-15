@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { Glob } from "bun";
-import { extractMeta } from "../content/docs/meta";
+import { extractMeta } from "../src/content/docs/meta";
 
-const DOCS_DIR = resolve(import.meta.dir, "../content/docs");
+const DOCS_DIR = resolve(import.meta.dir, "../src/content/docs");
 
 interface AuditResult {
   filename: string;
