@@ -1,9 +1,14 @@
+import { ComparisonSection } from "~/components/landing/comparison-section";
+import { CtaSection } from "~/components/landing/cta-section";
 import { FeaturesSection } from "~/components/landing/features-section";
 import { Footer } from "~/components/landing/footer";
 import { HeroSection } from "~/components/landing/hero-section";
+import { InstallSection } from "~/components/landing/install-section";
 import { Navbar } from "~/components/landing/navbar";
 import { OpenSourceSection } from "~/components/landing/opensource-section";
 import { PlatformsSection } from "~/components/landing/platforms-section";
+import { SocialProofBar } from "~/components/landing/social-proof-bar";
+import { WhyBedrudSection } from "~/components/landing/why-bedrud-section";
 import { isValidLocale } from "~/i18n/config";
 import { createI18nInstance } from "~/i18n/instance";
 import { seoMeta } from "~/lib/seo";
@@ -36,11 +41,16 @@ export default function LangHome() {
     <>
       <Navbar />
       <div className="h-16" />
-      <main>
+      <main id="main-content">
         <HeroSection />
+        <SocialProofBar />
+        <WhyBedrudSection />
+        <ComparisonSection />
         <FeaturesSection />
+        <InstallSection />
         <PlatformsSection />
         <OpenSourceSection />
+        <CtaSection />
       </main>
       <Footer />
     </>

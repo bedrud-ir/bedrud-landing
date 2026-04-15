@@ -1,9 +1,11 @@
 import { ArrowRight, Star } from "lucide-react";
 import { motion } from "motion/react";
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "~/components/ui/button";
 import { Spotlight } from "~/components/ui/spotlight";
 import { TextGenerateEffect } from "~/components/ui/text-generate-effect";
+import { DEMO_URL } from "~/lib/config";
 import { DeviceShowcase } from "./device-showcase";
 import { GitHubIcon } from "./github-icon";
 
@@ -14,10 +16,18 @@ const fadeUp = {
 
 export function HeroSection() {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
+
+  const copyInstall = useCallback(async () => {
+    await navigator.clipboard.writeText(
+      "curl -fsSL https://get.bedrud.org | bash",
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, []);
 
   return (
     <section className="relative">
-      {/* Ambient background */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
@@ -26,9 +36,7 @@ export function HeroSection() {
         <div className="hero-glow absolute left-1/2 top-0 h-[40rem] w-[80rem] -translate-x-1/2 rounded-full bg-gradient-to-b from-primary/8 to-transparent blur-3xl" />
       </div>
 
-      {/* Content */}
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-24 lg:pt-28 xl:pt-32">
-        {/* ---- Centered text ---- */}
         <div className="relative z-10 mx-auto max-w-2xl text-center">
           <TextGenerateEffect
             words={t("hero.headline")}
@@ -46,26 +54,29 @@ export function HeroSection() {
             {t("hero.subtitle")}
           </motion.p>
 
-          {/* CTAs */}
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.6, delay: 0.35 }}
             className="mt-8 flex flex-wrap items-center justify-center gap-3"
           >
-            <Button size="lg" className="h-11 rounded-full px-7" asChild>
-              <a
-                href="https://bedrud-ir.github.io/bedrud/getting-started/installation/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {t("hero.getStarted")}
+            <Button size="lg" className="h-11 rounded-md px-7" asChild>
+              <a href={DEMO_URL} target="_blank" rel="noreferrer">
+                {t("hero.tryDemo")}
                 <ArrowRight className="size-4" />
               </a>
             </Button>
             <Button
               variant="outline"
               size="lg"
-              className="h-11 rounded-full px-7"
+              className="h-11 rounded-md px-7 font-mono text-sm"
+              onClick={copyInstall}
+            >
+              {copied ? t("hero.copied") : t("hero.installNow")}
+            </Button>
+            <Button
+              variant="ghost"
+              size="lg"
+              className="h-11 rounded-md px-5"
               asChild
             >
               <a
@@ -79,7 +90,6 @@ export function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Social proof */}
           <motion.div
             {...fadeUp}
             transition={{ duration: 0.6, delay: 0.45 }}
@@ -100,7 +110,6 @@ export function HeroSection() {
           </motion.div>
         </div>
 
-        {/* ---- Device showcase ---- */}
         <div className="relative z-0 mt-12 sm:mt-16">
           <DeviceShowcase />
         </div>
