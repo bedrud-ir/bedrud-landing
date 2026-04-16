@@ -4,14 +4,13 @@ An open source project by [theMadOrg](https://github.com/theMadOrg).
 
 ## Tech Stack
 
-- [React Router 7](https://reactrouter.com/) - Full-stack React framework
+- [Astro](https://astro.build/) - Static site generator (SSG)
+- [React](https://react.dev/) - Interactive islands
 - [TypeScript](https://www.typescriptlang.org/) - Type safety
 - [Tailwind CSS 4](https://tailwindcss.com/) - Styling
 - [shadcn/ui](https://ui.shadcn.com/) - UI components
 - [Bun](https://bun.sh/) - Runtime and package manager
-- [Vite](https://vite.dev/) - Build tool
 - [Biome](https://biomejs.dev/) - Linter and formatter
-- [i18next](https://www.i18next.com/) - Internationalization (en, fa)
 
 ## Getting Started
 
@@ -20,15 +19,15 @@ bun install
 bun dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173).
+Open [http://localhost:4321](http://localhost:4321).
 
 ## Scripts
 
 | Command              | Description             |
 | -------------------- | ----------------------- |
 | `bun dev`            | Start dev server        |
-| `bun run build`      | Production build        |
-| `bun run start`      | Start production server |
+| `bun run build`      | Production build (SSG)  |
+| `bun run preview`    | Preview production build|
 | `bun test`           | Run tests               |
 | `bun run typecheck`  | Type check              |
 | `bun run check`      | Biome lint + format     |
@@ -37,20 +36,19 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## i18n
 
-The app supports multiple languages with URL-based routing:
+Build-time i18n with 9 locales. All routes under `/:lang/` prefix:
 
 - `/en/` - English
-- `/fa/` - فارسی (Farsi, RTL)
-- `/` redirects to `/en`
+- `/de/` - Deutsch
+- `/fr/` - Français
+- `/es/` - Español
+- `/zh/` - 中文
+- `/ja/` - 日本語
+- `/tr/` - Türkçe
+- `/fa/` - فارسی (RTL)
+- `/ar/` - العربية (RTL)
 
-Translations are in `app/locales/`. RTL direction is automatically set for Farsi.
-
-## Docker
-
-```bash
-docker build -t bedrud .
-docker run -p 3000:3000 bedrud
-```
+`/` redirects to `/en`. RTL direction set automatically from locale.
 
 ## Contributing
 

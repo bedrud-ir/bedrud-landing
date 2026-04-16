@@ -12,3 +12,6 @@ build/
 *.swo
 .idea/
 dist/
+
+# Generated
+public/search-index-*.json
