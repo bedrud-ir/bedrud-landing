@@ -1,12 +1,7 @@
 ---
-import Landing from "../../layouts/Landing.astro";
-import ChangelogSection from "../../components/landing/changelog-section";
-import {
-  type Locale,
-  isValidLocale,
-  supportedLocales,
-  t,
-} from "../../i18n/utils";
+import ChangelogSection from "~/components/landing/changelog-section";
+import Landing from "~/layouts/Landing.astro";
+import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
 export function getStaticPaths() {
   return supportedLocales.map((lang) => ({ params: { lang } }));

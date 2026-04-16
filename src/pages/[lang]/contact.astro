@@ -1,12 +1,12 @@
 ---
-import Landing from "../../layouts/Landing.astro";
+import Landing from "~/layouts/Landing.astro";
 import {
-  type Locale,
   isValidLocale,
+  type Locale,
   supportedLocales,
   t,
 } from "../../i18n/utils";
-import { GITHUB_URL, DISCORD_URL, CONTACT_EMAIL } from "../../lib/config";
+import { CONTACT_EMAIL, DISCORD_URL, GITHUB_URL } from "../../lib/config";
 
 export function getStaticPaths() {
   return supportedLocales.map((lang) => ({ params: { lang } }));
@@ -45,14 +45,14 @@ const channels = [
   <section class="py-20">
     <div class="mx-auto max-w-3xl px-6 text-center">
       <h1
-        data-animate
-        class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 text-4xl font-bold tracking-tight sm:text-5xl"
+        data-animate="fade-up"
+        class="text-4xl font-bold tracking-tight sm:text-5xl"
       >
         {t(lang, "contactPage.title")}
       </h1>
       <p
-        data-animate
-        class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 mt-4 text-lg text-muted-foreground"
+        data-animate="fade-up"
+        class="mt-4 text-lg text-muted-foreground"
         style="transition-delay: 80ms"
       >
         {t(lang, "contactPage.subtitle")}
@@ -65,8 +65,8 @@ const channels = [
       <div class="grid gap-6 sm:grid-cols-3">
         {channels.map((ch, i) => (
           <div
-            data-animate
-            class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 rounded-lg border bg-card p-6 text-center"
+            data-animate="fade-up"
+            class="rounded-lg border bg-card p-6 text-center"
             style={`transition-delay: ${(i + 1) * 100}ms`}
           >
             <h3 class="font-semibold">{ch.title}</h3>

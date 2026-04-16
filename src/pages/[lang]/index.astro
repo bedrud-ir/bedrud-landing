@@ -1,20 +1,17 @@
 ---
-import Landing from "../../layouts/Landing.astro";
-import { HeroSection } from "../../components/landing/hero-section";
-import { SocialProofBar } from "../../components/landing/social-proof-bar";
-import { WhyBedrudSection } from "../../components/landing/why-bedrud-section";
-import { ComparisonSection } from "../../components/landing/comparison-section";
-import { FeaturesSection } from "../../components/landing/features-section";
-import { InstallSection } from "../../components/landing/install-section";
-import { PlatformsSection } from "../../components/landing/platforms-section";
-import { OpenSourceSection } from "../../components/landing/opensource-section";
-import { CtaSection } from "../../components/landing/cta-section";
-import {
-  type Locale,
-  isValidLocale,
-  supportedLocales,
-  t,
-} from "../../i18n/utils";
+import { ComparisonSection } from "~/components/landing/comparison-section";
+import { CtaSection } from "~/components/landing/cta-section";
+import { FaqSection } from "~/components/landing/faq-section";
+import { FeaturesSection } from "~/components/landing/features-section";
+import { HeroSection } from "~/components/landing/hero-section";
+import { InstallSection } from "~/components/landing/install-section";
+import Landing from "~/layouts/Landing.astro";
+import { OpenSourceSection } from "~/components/landing/opensource-section";
+import { PlatformsSection } from "~/components/landing/platforms-section";
+import { JourneyStepper } from "~/components/landing/journey-stepper";
+import { TestimonialsSection } from "~/components/landing/testimonials-section";
+import { WhyBedrudSection } from "~/components/landing/why-bedrud-section";
+import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
 export function getStaticPaths() {
   return supportedLocales.map((lang) => ({ params: { lang } }));
@@ -22,20 +19,34 @@ export function getStaticPaths() {
 
 const { lang: rawLang } = Astro.params;
 const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <Landing
   lang={lang}
   title={t(lang, "meta.title")}
   description={t(lang, "meta.description")}
+  jsonLd={[
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "Bedrud",
+      url: canonicalURL.href,
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Linux",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+  ]}
 >
   <HeroSection client:load lang={lang} />
-  <SocialProofBar client:idle lang={lang} />
   <WhyBedrudSection client:visible lang={lang} />
+  <JourneyStepper client:visible lang={lang} />
   <ComparisonSection client:visible lang={lang} />
+  <FaqSection client:visible lang={lang} />
+  <TestimonialsSection client:visible lang={lang} />
   <FeaturesSection client:visible lang={lang} />
-  <InstallSection client:visible lang={lang} />
   <PlatformsSection client:visible lang={lang} />
   <OpenSourceSection client:visible lang={lang} />
+  <InstallSection client:visible lang={lang} />
   <CtaSection client:visible lang={lang} />
 </Landing>

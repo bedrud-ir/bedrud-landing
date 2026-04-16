@@ -1,11 +1,6 @@
 ---
-import Landing from "../../layouts/Landing.astro";
-import {
-  type Locale,
-  isValidLocale,
-  supportedLocales,
-  t,
-} from "../../i18n/utils";
+import Landing from "~/layouts/Landing.astro";
+import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
 export function getStaticPaths() {
   return supportedLocales.map((lang) => ({ params: { lang } }));
@@ -35,21 +30,21 @@ const sections = [
   description={t(lang, "terms.meta.description")}
 >
   <h1
-    data-animate
-    class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 text-4xl font-bold tracking-tight"
+    data-animate="fade-up"
+    class="text-4xl font-bold tracking-tight"
   >
     {t(lang, "terms.title")}
   </h1>
   <p
-    data-animate
-    class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 mt-2 text-sm text-muted-foreground"
+    data-animate="fade-up"
+    class="mt-2 text-sm text-muted-foreground"
     style="transition-delay: 80ms"
   >
     {t(lang, "terms.lastUpdated")}
   </p>
   <p
-    data-animate
-    class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0 mt-6 text-muted-foreground leading-relaxed"
+    data-animate="fade-up"
+    class="mt-6 text-muted-foreground leading-relaxed"
     style="transition-delay: 120ms"
   >
     {t(lang, "terms.intro")}
@@ -58,8 +53,7 @@ const sections = [
   <div class="mt-10 space-y-10">
     {sections.map((key, i) => (
       <section
-        data-animate
-        class="opacity-0 translate-y-5 transition-all duration-500 [&.in-view]:opacity-100 [&.in-view]:translate-y-0"
+        data-animate="fade-up"
         style={`transition-delay: ${160 + i * 80}ms`}
       >
         <h2 class="text-xl font-semibold">{t(lang, `terms.${key}.title`)}</h2>
