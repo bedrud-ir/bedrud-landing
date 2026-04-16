@@ -31,30 +31,3 @@ interface GitHubRepo {
 export async function fetchRepoInfo() {
   return fetchJSON<GitHubRepo>(`/repos/${GITHUB_REPO}`);
 }
-
-interface GitHubRelease {
-  tag_name: string;
-  published_at: string;
-  body: string;
-  html_url: string;
-}
-
-export async function fetchReleases(count = 10) {
-  return fetchJSON<GitHubRelease[]>(
-    `/repos/${GITHUB_REPO}/releases?per_page=${count}`,
-  );
-}
-
-interface GitHubContributor {
-  id: number;
-  login: string;
-  avatar_url: string;
-  html_url: string;
-  contributions: number;
-}
-
-export async function fetchContributors(count = 50) {
-  return fetchJSON<GitHubContributor[]>(
-    `/repos/${GITHUB_REPO}/contributors?per_page=${count}`,
-  );
-}

@@ -32,7 +32,6 @@ export const supportedLocales: Locale[] = [
   "fa",
   "ar",
 ];
-export const defaultLocale: Locale = "en";
 export const rtlLocales = new Set(["fa", "ar"]);
 
 function getNestedValue(obj: Record<string, unknown>, path: string): string {
