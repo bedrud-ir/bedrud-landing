@@ -1,13 +1,24 @@
-import { BookOpen, MessageSquare } from "lucide-react";
+import { BookOpen, Copy } from "lucide-react";
+import { useCallback, useState } from "react";
 import { Button } from "~/components/ui/button";
-import { DISCORD_URL, DOCS_URL, GITHUB_URL } from "~/lib/config";
-import { t, type Locale } from "../../i18n/utils";
+import { GITHUB_URL } from "~/lib/config";
+import { type Locale, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 
+const INSTALL_CMD = "curl -fsSL https://get.bedrud.org | bash";
+
 export function CtaSection({ lang }: { lang: Locale }) {
+  const [copied, setCopied] = useState(false);
+
+  const copyInstall = useCallback(async () => {
+    await navigator.clipboard.writeText(INSTALL_CMD);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, []);
+
   return (
-    <section className="scroll-mt-20 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="cta" className="scroll-mt-20 section-y">
+      <div className="section-container">
         <div className="text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t(lang, "cta.title")}
@@ -17,25 +28,34 @@ export function CtaSection({ lang }: { lang: Locale }) {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <Button size="lg" asChild>
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-              <GitHubIcon className="size-4" />
-              {t(lang, "cta.starGithub")}
-            </a>
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <Button
+            size="lg"
+            className="h-12 rounded-md px-8 font-mono text-sm"
+            onClick={copyInstall}
+          >
+            <Copy className="size-4" />
+            {copied ? "Copied!" : t(lang, "cta.installNow")}
           </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href={DOCS_URL} target="_blank" rel="noreferrer">
-              <BookOpen className="size-4" />
+
+          <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
+            <a
+              href={`/${lang}/docs`}
+              className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <BookOpen className="size-3.5" />
               {t(lang, "cta.readDocs")}
             </a>
-          </Button>
-          <Button variant="outline" size="lg" asChild>
-            <a href={DISCORD_URL} target="_blank" rel="noreferrer">
-              <MessageSquare className="size-4" />
-              {t(lang, "cta.joinCommunity")}
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <GitHubIcon className="size-3.5" />
+              {t(lang, "cta.starGithub")}
             </a>
-          </Button>
+          </div>
         </div>
       </div>
     </section>

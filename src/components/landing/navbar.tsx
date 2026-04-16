@@ -1,21 +1,13 @@
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
-import { GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
-import { t, type Locale } from "../../i18n/utils";
+import { type Locale, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 import { LanguageSwitcher } from "./language-switcher";
+import { navExternalLinks, navLinks, navRouteLinks } from "./nav-links";
 import { MobileMenu } from "./mobile-menu";
 import { ThemeToggle } from "./theme-toggle";
-
-export const navLinks = [
-  { key: "nav.features", href: "#features" },
-  { key: "nav.platforms", href: "#platforms" },
-  { key: "nav.openSource", href: "#open-source" },
-] as const;
-
-export const navRouteLinks = [{ key: "nav.docs", route: "docs" }] as const;
 
 const SCROLL_THRESHOLD = 50;
 
@@ -38,7 +30,7 @@ export function Navbar({ lang }: { lang: Locale }) {
           className={cn(
             "transition-all duration-300",
             scrolled
-              ? "mx-3 mt-3 rounded-2xl border border-border/40 bg-background/92 shadow-lg shadow-black/[0.03] backdrop-blur-xl saturate-[1.4] sm:mx-auto sm:max-w-3xl dark:border-border/30 dark:shadow-black/20"
+              ? "mx-3 mt-3 rounded-2xl border border-border/40 bg-background/92 shadow-lg shadow-black/[0.03] backdrop-blur-xl saturate-[1.4] sm:mx-auto sm:max-w-4xl dark:border-border/30 dark:shadow-black/20"
               : "border-b border-border/40 bg-background/92 backdrop-blur-xl saturate-[1.4]",
           )}
         >
@@ -63,7 +55,7 @@ export function Navbar({ lang }: { lang: Locale }) {
               {navLinks.map((link) => (
                 <a
                   key={link.key}
-                  href={`/${lang}/${link.href}`}
+                  href={link.href}
                   className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
                   {t(lang, link.key)}
@@ -78,23 +70,24 @@ export function Navbar({ lang }: { lang: Locale }) {
                   {t(lang, link.key)}
                 </a>
               ))}
+              {navExternalLinks.map((link) => (
+                <a
+                  key={link.key}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                >
+                  {t(lang, link.key)}
+                </a>
+              ))}
             </div>
 
             <div className="hidden shrink-0 items-center gap-0.5 lg:flex">
               <ThemeToggle />
               <LanguageSwitcher lang={lang} />
-              <Button variant="ghost" size="icon" asChild>
-                <a
-                  href={GITHUB_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                >
-                  <GitHubIcon className="size-4" />
-                </a>
-              </Button>
               <Button size="sm" className="ms-1.5 rounded-md px-4" asChild>
-                <a href={`/${lang}/demo`}>{t(lang, "nav.demo")}</a>
+                <a href={`/${lang}/docs`}>{t(lang, "nav.getStarted")}</a>
               </Button>
             </div>
 

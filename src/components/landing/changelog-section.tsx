@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { type Locale, t } from "../../i18n/utils";
-import { GITHUB_URL, GITHUB_REPO } from "../../lib/config";
+import { GITHUB_REPO, GITHUB_URL } from "../../lib/config";
 
 interface Release {
   tag_name: string;
@@ -36,62 +36,64 @@ export default function ChangelogSection({ lang }: ChangelogSectionProps) {
   }, []);
 
   return (
-    <section class="py-20">
-      <div class="mx-auto max-w-4xl px-6">
-        <div class="text-center">
-          <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">
+    <section className="py-20">
+      <div className="mx-auto max-w-4xl px-6">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
             {t(lang, "changelogPage.title")}
           </h1>
-          <p class="mt-4 text-lg text-muted-foreground">
+          <p className="mt-4 text-lg text-muted-foreground">
             {t(lang, "changelogPage.subtitle")}
           </p>
         </div>
 
-        <div class="mt-12">
+        <div className="mt-12">
           {loading && (
-            <div class="flex justify-center py-12">
-              <div class="size-8 animate-spin rounded-full border-4 border-muted-foreground border-t-transparent" />
+            <div className="flex justify-center py-12">
+              <div className="size-8 animate-spin rounded-full border-4 border-muted-foreground border-t-transparent" />
             </div>
           )}
 
           {error && (
-            <div class="rounded-lg border bg-destructive/10 p-6 text-center">
-              <p class="text-sm text-destructive">Failed to load releases.</p>
+            <div className="rounded-lg border bg-destructive/10 p-6 text-center">
+              <p className="text-sm text-destructive">
+                Failed to load releases.
+              </p>
             </div>
           )}
 
           {!loading && !error && releases.length === 0 && (
-            <p class="text-center text-muted-foreground">
+            <p className="text-center text-muted-foreground">
               {t(lang, "changelogPage.noReleases")}
             </p>
           )}
 
           {!loading && !error && releases.length > 0 && (
-            <div class="space-y-8">
+            <div className="space-y-8">
               {releases.map((release) => (
                 <article
                   key={release.tag_name}
-                  class="rounded-lg border bg-card p-6"
+                  className="rounded-lg border bg-card p-6"
                 >
-                  <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-semibold">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold">
                       {release.name || release.tag_name}
                     </h2>
-                    <time class="text-sm text-muted-foreground">
+                    <time className="text-sm text-muted-foreground">
                       {new Date(release.published_at).toLocaleDateString()}
                     </time>
                   </div>
                   {release.body && (
-                    <div class="mt-4 prose prose-sm prose-neutral dark:prose-invert max-w-none whitespace-pre-wrap">
+                    <div className="mt-4 prose prose-sm prose-neutral dark:prose-invert max-w-none whitespace-pre-wrap">
                       {release.body}
                     </div>
                   )}
-                  <div class="mt-4">
+                  <div className="mt-4">
                     <a
                       href={release.html_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      class="text-sm text-primary hover:underline"
+                      className="text-sm text-primary hover:underline"
                     >
                       View on GitHub →
                     </a>
@@ -102,12 +104,12 @@ export default function ChangelogSection({ lang }: ChangelogSectionProps) {
           )}
         </div>
 
-        <div class="mt-12 text-center">
+        <div className="mt-12 text-center">
           <a
             href={`${GITHUB_URL}/releases`}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center justify-center rounded-md border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center rounded-md border px-6 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
           >
             {t(lang, "changelogPage.viewOnGithub")}
           </a>

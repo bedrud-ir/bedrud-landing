@@ -1,14 +1,15 @@
 import { BookOpen } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { Spotlight } from "~/components/ui/spotlight";
-import { t, type Locale } from "../../i18n/utils";
+import { GITHUB_URL } from "~/lib/config";
+import { type Locale, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 
 export function OpenSourceSection({ lang }: { lang: Locale }) {
   return (
     <section
       id="open-source"
-      className="relative scroll-mt-20 overflow-hidden px-6 py-24 sm:py-32"
+      className="relative scroll-mt-20 overflow-hidden section-y"
     >
       {/* Subtle spotlight background */}
       <div
@@ -18,7 +19,7 @@ export function OpenSourceSection({ lang }: { lang: Locale }) {
         <Spotlight />
       </div>
 
-      <div className="mx-auto max-w-5xl">
+      <div className="section-container">
         <div className="items-end gap-16 lg:flex">
           {/* Left — text */}
           <div className="max-w-lg flex-1">
@@ -38,21 +39,13 @@ export function OpenSourceSection({ lang }: { lang: Locale }) {
           {/* Right — CTAs */}
           <div className="mt-10 flex shrink-0 flex-wrap gap-3 lg:mt-0">
             <Button size="lg" asChild>
-              <a
-                href="https://github.com/themadorg/bedrud"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                 <GitHubIcon className="size-4" />
                 {t(lang, "openSource.github")}
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a
-                href="https://github.com/themadorg/bedrud"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href={`/${lang}/docs`}>
                 <BookOpen className="size-4" />
                 {t(lang, "openSource.docs")}
               </a>

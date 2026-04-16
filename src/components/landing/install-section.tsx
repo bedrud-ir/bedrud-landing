@@ -1,6 +1,6 @@
 import { Check, Copy } from "lucide-react";
 import { useCallback, useState } from "react";
-import { t, type Locale } from "../../i18n/utils";
+import { type Locale, t } from "../../i18n/utils";
 
 export function InstallSection({ lang }: { lang: Locale }) {
   const [copied, setCopied] = useState(false);
@@ -16,8 +16,8 @@ export function InstallSection({ lang }: { lang: Locale }) {
   );
 
   return (
-    <section className="scroll-mt-20 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="install" className="scroll-mt-20 section-y">
+      <div className="section-container">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t(lang, "install.title")}
@@ -31,7 +31,8 @@ export function InstallSection({ lang }: { lang: Locale }) {
           <button
             type="button"
             onClick={() => copy(t(lang, "install.command"), setCopied)}
-            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-5 text-start transition-colors hover:border-border/80"
+            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-6 text-start transition-colors hover:border-border/80"
+            dir="ltr"
           >
             <code className="font-mono text-sm text-muted-foreground">
               <span className="text-emerald-500">$</span>{" "}
@@ -57,7 +58,8 @@ export function InstallSection({ lang }: { lang: Locale }) {
             onClick={() =>
               copy(t(lang, "install.dockerCommand"), setCopiedDocker)
             }
-            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-5 text-start transition-colors hover:border-border/80"
+            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-6 text-start transition-colors hover:border-border/80"
+            dir="ltr"
           >
             <code className="font-mono text-sm text-muted-foreground">
               <span className="text-blue-500">$</span>{" "}

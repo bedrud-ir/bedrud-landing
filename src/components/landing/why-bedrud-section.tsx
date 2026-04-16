@@ -1,5 +1,5 @@
 import { Ban, Binary, Lock } from "lucide-react";
-import { t, type Locale } from "../../i18n/utils";
+import { type Locale, t } from "../../i18n/utils";
 
 const cards = [
   {
@@ -24,9 +24,18 @@ const cards = [
 
 export function WhyBedrudSection({ lang }: { lang: Locale }) {
   return (
-    <section className="scroll-mt-20 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-5 sm:grid-cols-3">
+    <section id="why-bedrud" className="relative scroll-mt-20 section-y">
+      <div className="section-container">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {t(lang, "whyBedrud.title")}
+          </h2>
+          <p className="mt-4 text-lg text-muted-foreground">
+            {t(lang, "whyBedrud.subtitle")}
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-5 sm:grid-cols-3">
           {cards.map(({ key, icon: Icon, color, bg }) => (
             <div
               key={key}

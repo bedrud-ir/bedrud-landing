@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
-import { Binary, Bot, Cloud, Monitor, ShieldCheck, Video } from "lucide-react";
-import { t, type Locale } from "../../i18n/utils";
+import { Bot, Cloud, Lock, Monitor, ShieldCheck, Video } from "lucide-react";
+import { type Locale, t } from "../../i18n/utils";
 
 interface Feature {
   key: string;
@@ -11,8 +11,8 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    key: "singleBinary",
-    icon: Binary,
+    key: "e2eEncryption",
+    icon: Lock,
     iconBg: "bg-blue-500/10 dark:bg-blue-500/15",
     iconColor: "text-blue-600 dark:text-blue-400",
   },
@@ -50,8 +50,8 @@ const features: Feature[] = [
 
 export function FeaturesSection({ lang }: { lang: Locale }) {
   return (
-    <section id="features" className="scroll-mt-20 px-6 py-24 sm:py-32">
-      <div className="mx-auto max-w-5xl">
+    <section id="features" className="relative scroll-mt-20 section-y">
+      <div className="section-container">
         <div className="max-w-lg">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
             {t(lang, "features.title")}
@@ -79,15 +79,6 @@ export function FeaturesSection({ lang }: { lang: Locale }) {
               <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
                 {t(lang, `features.${key}.description`)}
               </p>
-
-              {key === "singleBinary" && (
-                <div
-                  aria-hidden="true"
-                  className="mt-5 inline-flex items-center gap-2 rounded-lg bg-foreground/[0.03] px-4 py-2.5 font-mono text-sm text-muted-foreground dark:bg-foreground/[0.06]"
-                >
-                  <span className="text-emerald-500">$</span> ./bedrud
-                </div>
-              )}
 
               {key === "selfHosted" && (
                 <div className="mt-5 flex flex-wrap gap-2">

@@ -1,12 +1,11 @@
 import { X } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { Button } from "~/components/ui/button";
-import { supportedLocales, type Locale } from "../../i18n/utils";
 import { GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
-import { t } from "../../i18n/utils";
+import { type Locale, supportedLocales, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
-import { navLinks, navRouteLinks } from "./navbar";
+import { navExternalLinks, navLinks, navRouteLinks } from "./nav-links";
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -15,7 +14,6 @@ interface MobileMenuProps {
 
 export function MobileMenu({ onClose, lang }: MobileMenuProps) {
   const panelRef = useRef<HTMLDivElement>(null);
-  const firstFocusRef = useRef<HTMLButtonElement | null>(null);
   const currentLang = lang;
 
   const switchTo = useCallback(
@@ -76,7 +74,6 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
       ) as HTMLElement;
       if (focusable) {
         focusable.focus();
-        firstFocusRef.current = focusable as HTMLButtonElement;
       }
     }
   }, []);
@@ -84,6 +81,8 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
   const backdropClickHandler = useCallback(() => {
     onClose();
   }, [onClose]);
+
+  const starCount = t(lang, "hero.stars");
 
   return (
     <div className="fixed inset-0 z-50 lg:hidden">
@@ -128,7 +127,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
             {navLinks.map((link) => (
               <a
                 key={link.key}
-                href={`/${lang}/${link.href}`}
+                href={link.href}
                 onClick={onClose}
                 className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
               >
@@ -145,12 +144,24 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
                 {t(lang, link.key)}
               </a>
             ))}
+            {navExternalLinks.map((link) => (
+              <a
+                key={link.key}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                onClick={onClose}
+                className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
+              >
+                {t(lang, link.key)}
+              </a>
+            ))}
           </nav>
 
           {/* CTA */}
           <div className="mt-auto flex flex-col gap-3">
             <Button size="lg" asChild>
-              <a href={`/${lang}/demo`}>{t(lang, "mobileNav.tryDemo")}</a>
+              <a href={`/${lang}/docs`}>{t(lang, "mobileNav.getStarted")}</a>
             </Button>
           </div>
 
@@ -160,7 +171,8 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
             <Button variant="outline" asChild>
               <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                 <GitHubIcon className="size-4" />
-                GitHub ↗
+                GitHub{" "}
+                <span className="ml-2 text-xs opacity-70">⭐ {starCount}</span>
               </a>
             </Button>
 

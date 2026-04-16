@@ -1,7 +1,7 @@
 import { Star, Users } from "lucide-react";
 import { useEffect, useState } from "react";
 import { fetchRepoInfo } from "~/lib/github";
-import { t, type Locale } from "../../i18n/utils";
+import { type Locale, t } from "../../i18n/utils";
 
 interface RepoInfo {
   stargazers_count: number;
@@ -27,7 +27,7 @@ export function SocialProofBar({ lang }: { lang: Locale }) {
     : t(lang, "hero.stars");
 
   return (
-    <section className="border-t px-6 py-8">
+    <section className="border-t py-8">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <Star className="size-4 fill-amber-400 text-amber-400" />

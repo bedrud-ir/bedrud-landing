@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { supportedLocales, type Locale } from "../../i18n/utils";
 import { cn } from "~/lib/utils";
+import { type Locale, supportedLocales } from "../../i18n/utils";
 
 interface LangMeta {
   flag: string;

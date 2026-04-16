@@ -1,6 +1,6 @@
 import * as React from "react";
-import { t, type Locale } from "../../i18n/utils";
 import { cn } from "~/lib/utils";
+import { type Locale, t } from "../../i18n/utils";
 
 interface TocItem {
   id: string;
@@ -79,14 +79,14 @@ function Toc({ lang, className }: TocProps) {
           <h4 className="text-sm font-semibold text-muted-foreground">
             {t(lang, "docs.onThisPage")}
           </h4>
-          <nav className="space-y-1">
+          <nav className="space-y-2">
             {items.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
                 className={cn(
-                  "block text-sm transition-colors",
-                  item.level === 3 ? "ps-4" : "",
+                  "block py-0.5 text-sm transition-colors",
+                  item.level === 3 ? "ps-6" : "",
                   activeId === item.id
                     ? "text-foreground font-medium"
                     : "text-muted-foreground hover:text-foreground",
