@@ -5,8 +5,14 @@ const docs = defineCollection({
   loader: glob({ pattern: "**/*.mdx", base: "./src/content/docs" }),
   schema: z.object({
     title: z.string(),
-    description: z.string().optional(),
+    description: z.string(),
     order: z.number().optional(),
+    date: z.coerce.date().optional(),
+    lastModified: z.coerce.date().optional(),
+    author: z.string().optional(),
+    image: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    draft: z.boolean().default(false).optional(),
   }),
 });
 
