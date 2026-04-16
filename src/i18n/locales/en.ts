@@ -7,19 +7,22 @@ export default {
   nav: {
     home: "Home",
     features: "Features",
+    compare: "Compare",
     platforms: "Platforms",
     openSource: "Open Source",
     docs: "Docs",
+    community: "Community",
     demo: "Demo",
     getStarted: "Get Started",
   },
   hero: {
     badge: "Open Source · Apache 2.0",
-    headline: "Talk to people, not the platform.",
+    kicker: "Self-hosted video meetings. 200MB RAM. One binary.",
+    headline: "Self-Hosted Video Meetings in Under a Minute",
     subtitle:
-      "Self-hosted video meetings. Single binary. 200MB RAM. No vendor lock-in, no per-seat pricing.",
-    tryDemo: "Try Demo",
-    installNow: "Install Now",
+      "One binary, 200MB RAM, unlimited users. Your server, your rules, your data.",
+    tryDemo: "Try Demo Now",
+    installNow: "Copy Install Command",
     viewOnGithub: "View on GitHub",
     copied: "Copied!",
     stars: "1.2k",
@@ -27,55 +30,77 @@ export default {
     contributorsLabel: "contributors",
     license: "Apache 2.0 Licensed",
   },
+  journey: {
+    title: "From Zero to Meeting in Minutes",
+    subtitle:
+      "Install. Share a link. Start talking. Here's what that looks like.",
+    install: {
+      title: "Install",
+      description:
+        "One command. Zero config. Running in under 60 seconds on any 64-bit Linux, macOS, or Windows machine.",
+    },
+    meet: {
+      title: "Meet",
+      description:
+        "Share a link — no accounts, no app installs, no extensions. They click, they're in. WebRTC-powered video and audio with built-in noise suppression, even on slow connections.",
+    },
+    scale: {
+      title: "Scale",
+      description:
+        "Run it on your server for total control, or let Bedrud Cloud handle the ops. Either way: unlimited users, no per-seat pricing, no usage caps.",
+    },
+  },
   whyBedrud: {
+    title: "Built Different",
+    subtitle: "No lock-in. No bloat. No billing surprises.",
     noLockIn: {
       title: "No Vendor Lock-In",
       description:
-        "Your servers, your rules. Full control over data, config, and deployment. No cloud dependency.",
+        "Your infrastructure. Your data. Your rules. Deploy on any server, migrate whenever you want. No proprietary formats, no exit fees, no cloud dependency.",
     },
     singleBinary: {
       title: "Single Binary",
       description:
-        "Download, run, done. No Docker, no Kubernetes, no 12-step setup guides.",
+        "One file. One command. Zero dependencies. No Docker, no Kubernetes, no Friday-afternoon deployment nightmares.",
     },
     noPerSeat: {
       title: "No Per-Seat Pricing",
       description:
-        "Unlimited users, zero cost. Open source means no license meters, no surprise invoices.",
+        "Add 5 users or 5,000. The price is the same: zero. No license keys, no seat counters, no 'contact sales' buttons.",
     },
   },
   comparison: {
-    title: "How Bedrud Compares",
-    subtitle: "Self-hosted video meetings without the complexity.",
+    title: "See How Bedrud Compares",
+    subtitle: "One binary. A fraction of the resources. All the features.",
     feature: "Feature",
     bedrud: "Bedrud",
     jitsi: "Jitsi Meet",
     bbb: "BigBlueButton",
     rows: {
-      deploy: "Deploy Complexity",
+      deploy: "Setup",
       deployBedrud: "Single binary",
       deployJitsi: "Docker Compose (8+ containers)",
       deployBbb: "Minimum 8GB RAM server",
       ram: "RAM Usage",
-      ramBedrud: "~200MB",
-      ramJitsi: "~2GB",
-      ramBbb: "~4GB+",
+      ramBedrud: "~200 MB",
+      ramJitsi: "~2 GB",
+      ramBbb: "~4 GB+",
       install: "Install Time",
       installBedrud: "< 1 minute",
       installJitsi: "~15 minutes",
       installBbb: "~30 minutes + config",
-      nativeClients: "Native Clients",
-      nativeBedrud: "Web, Android, iOS",
-      nativeJitsi: "Web, Android, iOS",
-      nativeBbb: "Web only",
-      guestJoin: "Guest Join (No Account)",
-      guestBedrud: "Yes",
-      guestJitsi: "Yes",
-      guestBbb: "Yes (moderator approval)",
-      audioProcessing: "Audio Processing (Noise Cancel)",
-      audioBedrud: "RNNoise / Krisp",
-      audioJitsi: "Basic",
-      audioBbb: "Basic",
+      nativeClients: "Platforms",
+      nativeClientsBedrud: "Web, Android, iOS",
+      nativeClientsJitsi: "Web, Android, iOS",
+      nativeClientsBbb: "Web only",
+      guestJoin: "Instant Guest Access",
+      guestJoinBedrud: "Instant",
+      guestJoinJitsi: "Yes",
+      guestJoinBbb: "Moderator approval needed",
+      audioProcessing: "Noise Cancellation",
+      audioProcessingBedrud: "Advanced",
+      audioProcessingJitsi: "Basic",
+      audioProcessingBbb: "Basic",
       license: "License",
       licenseBedrud: "Apache 2.0",
       licenseJitsi: "Apache 2.0",
@@ -83,55 +108,53 @@ export default {
     },
   },
   features: {
-    title: "Everything You Need",
+    title: "Everything Ships in the Box",
     subtitle:
-      "Bedrud ships as a single, self-contained binary with everything built in.",
-    singleBinary: {
-      title: "Single Binary",
+      "Video, audio, auth, bots — all included. No microservices architecture required.",
+    e2eEncryption: {
+      title: "Encrypted by Default",
       description:
-        "One binary, zero dependencies. Download, run, done. No Docker, no Kubernetes, no fuss.",
+        "All media encrypted in transit via DTLS and SRTP. Your data stays on your servers in self-hosted mode. No third-party telemetry, no data harvesting.",
     },
     webrtcVideo: {
       title: "WebRTC Video",
       description:
-        "Low-latency, peer-to-peer video and audio powered by a built-in WebRTC media server.",
+        "Sub-second latency video calls powered by a built-in WebRTC media server. Adaptive bitrate handles spotty connections without dropping anyone.",
     },
     multiPlatform: {
       title: "Multi-Platform",
       description:
-        "Native clients for Web, Android, and iOS — plus server-side bots for automation.",
+        "Native apps for Web, Android, and iOS. Not wrappers — real native apps. Plus a server-side SDK for automation.",
     },
     flexibleAuth: {
       title: "Flexible Auth",
       description:
-        "Built-in authentication with support for SSO, OAuth, and custom identity providers.",
+        "Built-in auth that works out of the box, plus SSO and OAuth integration for when you need it. Connect to your existing identity provider in minutes, not days.",
     },
     botAgents: {
       title: "Bot Agents",
       description:
-        "Programmable bots that can join meetings, transcribe, translate, and integrate with your tools.",
+        "Bots join meetings as participants. Transcribe conversations, translate in real-time, push to your CRM, or build custom workflows with the Go SDK.",
     },
     selfHosted: {
       title: "Your Infrastructure or Ours",
       description:
-        "Self-host for full control over your data, or use Bedrud Cloud and let us handle the ops. Your choice.",
+        "Run it on your servers and keep full control. Or use Bedrud Cloud and never think about ops. Same product, same features, your choice.",
     },
   },
   install: {
     title: "One Command. Done.",
-    subtitle: "Get Bedrud running in under a minute.",
+    subtitle: "One command. Sixty seconds. You're in.",
     command: "curl -fsSL https://get.bedrud.org | bash",
     dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
     or: "or",
-    copy: "Copy",
-    copied: "Copied!",
     requirements:
-      "Requires: 64-bit Linux, macOS, or Windows. 200MB RAM minimum.",
+      "Works on any 64-bit Linux, macOS, or Windows machine with 200MB RAM.",
   },
   platforms: {
-    title: "One Platform, Every Device",
+    title: "Native Apps, Not Web Wrappers",
     subtitle:
-      "Native experiences across all platforms, built with modern tech stacks.",
+      "Real native apps — React on web, Kotlin on Android, Swift on iOS, Go on the server. No Electron, no Cordova, no compromises.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -155,19 +178,74 @@ export default {
     status: "Production",
   },
   openSource: {
-    title: "Open Source, Open Future",
+    title: "Read the Source. Run the Show.",
     subtitle:
-      "Bedrud is fully open source under the Apache 2.0 license. Inspect the code, contribute, or fork it — it's yours.",
+      "Every line of code is public. Inspect it, audit it, contribute to it, or fork it and build your own. Apache 2.0 licensed — use it commercially or otherwise.",
     license: "Apache 2.0",
     github: "View on GitHub",
     docs: "Read the Docs",
   },
   cta: {
     title: "Ready to Own Your Meetings?",
-    subtitle: "Star us on GitHub, read the docs, or join the community.",
-    starGithub: "Star on GitHub",
+    subtitle:
+      "Join thousands of developers who got tired of per-seat pricing and vendor lock-in. Get started in under a minute.",
+    installNow: "Copy Install Command",
     readDocs: "Read the Docs",
-    joinCommunity: "Join Community",
+    starGithub: "Star on GitHub",
+  },
+  faq: {
+    title: "Frequently Asked Questions",
+    subtitle: "Technical questions, answered directly.",
+    updates: {
+      question: "How do updates work?",
+      answer:
+        "Re-run the install command. Bedrud replaces the binary in-place — no package managers, no dependency chains. You can also enable automatic updates via a single config flag.",
+    },
+    encryption: {
+      question: "Is it end-to-end encrypted?",
+      answer:
+        "All media is encrypted in transit via DTLS and SRTP (the WebRTC standard). For self-hosted deployments, you control the server and all data. End-to-end encryption for peer-to-peer calls is on the roadmap.",
+    },
+    network: {
+      question: "What are the network and port requirements?",
+      answer:
+        "Port 80/443 for HTTP/WebSocket and a configurable UDP range (default 50000–60000) for WebRTC media. Behind NAT, set up a STUN/TURN server — Bedrud includes docs for coturn setup.",
+    },
+    proxy: {
+      question: "Can I run it behind a reverse proxy?",
+      answer:
+        "Yes. Nginx, Caddy, Traefik — all work. The docs include copy-paste configs for each. Just forward WebSocket connections and set the appropriate headers.",
+    },
+    cloudVsSelfHosted: {
+      question: "What's the difference between self-hosted and Bedrud Cloud?",
+      answer:
+        "Same product, same features. Self-hosted runs on your infrastructure with full data control. Bedrud Cloud handles ops, updates, and scaling for you. No vendor lock-in — migrate between them at any time.",
+    },
+  },
+  testimonials: {
+    title: "Trusted by Developers",
+    subtitle: "What people are saying about Bedrud.",
+    one: {
+      quote:
+        "We replaced our Jitsi setup with Bedrud in an afternoon. One binary, 200MB RAM, and our meetings actually sound better now.",
+      name: "Lena K.",
+      role: "DevOps Lead at a European SaaS company",
+      initials: "LK",
+    },
+    two: {
+      quote:
+        "No per-seat pricing sealed it for us. We went from 20 to 200 users without a single license email.",
+      name: "Marcus T.",
+      role: "CTO at a remote-first startup",
+      initials: "MT",
+    },
+    three: {
+      quote:
+        "I deployed Bedrud on a $5 VPS and it just worked. The bot SDK let us wire meeting transcripts into our CRM in a day.",
+      name: "Priya S.",
+      role: "Senior Engineer at a fintech company",
+      initials: "PS",
+    },
   },
   footer: {
     brand: "Bedrud",
@@ -175,21 +253,29 @@ export default {
       "Video meetings for teams that care about privacy. Self-hosted or cloud.",
     product: "Product",
     features: "Features",
+    compare: "Comparison",
     platforms: "Platforms",
     openSource: "Open Source",
+    selfHosted: "Self-Hosted vs. Cloud",
     demo: "Live Demo",
-    resources: "Resources",
-    docs: "Documentation",
     changelog: "Changelog",
+    developers: "Developers",
+    quickstart: "QuickStart Guide",
+    docs: "Documentation",
+    architecture: "Architecture Guide",
+    api: "API Reference",
+    openSourceSection: "Open Source",
+    contribute: "Contribute",
+    reportIssue: "Report an Issue",
+    resources: "Resources",
     contributors: "Contributors",
-    discord: "Discord",
     github: "GitHub",
     releases: "Releases",
+    discord: "Discord",
     legal: "Legal",
     license: "License",
     privacy: "Privacy Policy",
     terms: "Terms of Service",
-    community: "Community",
     contact: "Contact",
     madeBy: "Made with care by",
     backToTop: "Back to top",
@@ -431,13 +517,27 @@ export default {
     previous: "Previous",
     next: "Next",
     backToHome: "Back to home",
-    searchDocs: "Search docs...",
-    notFound: "Doc not found",
+    searchPlaceholder: "Search docs\u2026",
+    searchButton: "Search",
+    noResults: "No results found",
+    loading: "Loading\u2026",
+    pressShortcut: "Press",
+    clearSearch: "Clear search",
+    searchDocs: "Search documentation",
+    notFound: "Document not found",
+    sections: {
+      gettingStarted: "Getting Started",
+      architecture: "Architecture",
+      backend: "Backend",
+      api: "API",
+      guides: "Guides",
+      contributing: "Contributing",
+    },
   },
   skipToContent: "Skip to content",
   mobileNav: {
     navigation: "Navigation",
     language: "Language",
-    tryDemo: "Try Demo",
+    getStarted: "Get Started",
   },
 };

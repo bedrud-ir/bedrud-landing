@@ -7,62 +7,161 @@ export default {
   nav: {
     home: "Ana Sayfa",
     features: "Özellikler",
+    compare: "Karşılaştır",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
     docs: "Belgeler",
+    community: "Topluluk",
     demo: "Demo",
     getStarted: "Başlayın",
   },
   hero: {
-    badge: "Açık Kaynak · AGPLv3",
-    headline: "Gerçekten size ait video toplantıları",
+    badge: "Açık Kaynak · Apache 2.0",
+    kicker: "Self-hosted video toplantıları. 200MB RAM. Tek binary.",
+    headline: "Bir dakikadan kısa sürede kendi sunucunuzda video toplantıları",
     subtitle:
-      "Web arayüzü, REST API ve WebRTC medya sunucusunu tek bir dosyada sunar. Kendi sunucunuzda barındırın veya bize bırakın.",
+      "Tek bir ikili dosya, 200MB RAM, sınırsız kullanıcı. Sizin sunucunuz, sizin kurallarınız, sizin verileriniz.",
+    tryDemo: "Demoyu Dene",
+    installNow: "Kurulum komutunu kopyala",
     getStarted: "Başlayın",
     viewOnGithub: "GitHub'da Görüntüle",
+    copied: "Kopyalandı!",
     stars: "1.2k",
     starsLabel: "GitHub yıldızları",
-    license: "AGPLv3 Lisanslı",
+    contributorsLabel: "katkıda bulunan",
+    license: "Apache 2.0 Lisanslı",
   },
-  features: {
-    title: "İhtiyacınız olan her şey",
+  journey: {
+    title: "Sıfırdan Dakikalar İçinde Toplantı",
     subtitle:
-      "Bedrud, her şeyi içinde barındıran tek bir bağımsız dosya olarak sunulur.",
+      "Kurun. Bir bağlantı paylaşın. Konuşmaya başlayın. İşte böyle görünüyor.",
+    install: {
+      title: "Yükle",
+      description:
+        "Tek bir dosya indirin veya Docker imajı çekin. Bir komut, sıfır bağımlılık. Bir dakikadan kısa sürede çalışıyor.",
+    },
+    invite: {
+      title: "Davet et",
+      description:
+        "Bir bağlantı paylaşın. Kayıt yok, indirme yok, sürtünme yok. Misafirler herhangi bir tarayıcıdan anında katılır.",
+    },
+    meet: {
+      title: "Toplan",
+      description:
+        "Yerleşik gürültü engelleme ile kristal netliğinde WebRTC video ve ses. Sadece konuşun.",
+    },
+    scale: {
+      title: "Ölçekle",
+      description:
+        "Tam kontrol için kendi sunucunuzda barındırın veya Bedrud Cloud kullanın. Sınırsız kullanıcı, asla koltuk başı fiyatlandırma.",
+    },
+  },
+  whyBedrud: {
+    title: "Farklı İnşa Edildi",
+    subtitle: "Bağlılık yok. Şişirme yok. Fatura sürprizi yok.",
+    noLockIn: {
+      title: "Satıcı Kilidi Yok",
+      description:
+        "Altyapınız. Verileriniz. Kurallarınız. Herhangi bir sunucuya dağıtın, istediğiniz zaman taşıyın. Özel format yok, çıkış ücreti yok, bulut bağımlılığı yok.",
+    },
     singleBinary: {
       title: "Tek Dosya",
       description:
-        "Tek dosya, sıfır bağımlılık. İndirin, çalıştırın, bitti. Docker yok, Kubernetes yok, karmaşıklık yok.",
+        "Bir dosya. Bir komut. Sıfır bağımlılık. Docker yok, Kubernetes yok, Cuma öğleden sonra dağıtım kabusları yok.",
+    },
+    noPerSeat: {
+      title: "Koltuk Başı Fiyatlandırma Yok",
+      description:
+        "5 kullanıcı veya 5.000. Fiyat aynı: sıfır. Lisans anahtarı yok, kullanıcı sayacı yok, 'satış ekibiyle iletişime geçin' butonu yok.",
+    },
+  },
+  comparison: {
+    title: "Bedrud Karşılaştırmasını Gör",
+    subtitle:
+      "Karmaşıklık olmadan kendi sunucunuzda barındırılan video toplantıları.",
+    feature: "Özellik",
+    bedrud: "Bedrud",
+    jitsi: "Jitsi Meet",
+    bbb: "BigBlueButton",
+    rows: {
+      deploy: "Dağıtım Karmaşıklığı",
+      deployBedrud: "Tek dosya",
+      deployJitsi: "Docker Compose (8+ konteyner)",
+      deployBbb: "Minimum 8GB RAM sunucu",
+      ram: "RAM Kullanımı",
+      ramBedrud: "~200MB",
+      ramJitsi: "~2GB",
+      ramBbb: "~4GB+",
+      install: "Yükleme Süresi",
+      installBedrud: "< 1 dakika",
+      installJitsi: "~15 dakika",
+      installBbb: "~30 dakika + yapılandırma",
+      nativeClients: "Yerel İstemciler",
+      nativeBedrud: "Web, Android, iOS",
+      nativeJitsi: "Web, Android, iOS",
+      nativeBbb: "Sadece Web",
+      guestJoin: "Misafir Katılımı (Hesapsız)",
+      guestBedrud: "Evet",
+      guestJitsi: "Evet",
+      guestBbb: "Evet (moderatör onayı)",
+      audioProcessing: "Ses İşleme (Gürültü Engelleme)",
+      audioBedrud: "RNNoise / Krisp",
+      audioJitsi: "Temel",
+      audioBbb: "Temel",
+      license: "Lisans",
+      licenseBedrud: "Apache 2.0",
+      licenseJitsi: "Apache 2.0",
+      licenseBbb: "LGPL 3.0",
+    },
+  },
+  features: {
+    title: "Her Şey Dahil",
+    subtitle:
+      "Video, ses, kimlik doğrulama, botlar — hepsi dahil. Mikroservis mimarisi gerekmez.",
+    e2eEncryption: {
+      title: "Varsayılan Olarak Şifreli",
+      description:
+        "Tüm medya DTLS ve SRTP üzerinden şifrelenerek iletilir. Self-hosted modunda verileriniz kendi sunucularınızda kalır. Üçüncü taraf telemetri yok, veri toplama yok.",
     },
     webrtcVideo: {
       title: "WebRTC Video",
       description:
-        "Yerleşik WebRTC medya sunucusuyla güçlendirilmiş düşük gecikmeli, eşler arası video ve ses.",
+        "Dahili WebRTC medya sunucusuyla bir saniyenin altında gecikmeli video aramaları. Kararsız bağlantılarda uyumlu bit hızı.",
     },
     multiPlatform: {
       title: "Çoklu Platform",
       description:
-        "Web, Android ve iOS için yerel istemciler — artı otomasyon için sunucu tarafı botlar.",
+        "Web, Android ve iOS için yerel uygulamalar. Sadece sarmalayıcı değil — gerçek yerel uygulamalar. Otomasyon için sunucu tarafı SDK dahil.",
     },
     flexibleAuth: {
       title: "Esnek Kimlik Doğrulama",
       description:
-        "SSO, OAuth ve özel kimlik sağlayıcıları desteğiyle yerleşik kimlik doğrulama.",
+        "Kutudan çıktığı gibi çalışan yerleşik kimlik doğrulama, artı SSO ve OAuth entegrasyonu. Mevcut kimlik sağlayıcınıza dakikalar içinde bağlanın.",
     },
     botAgents: {
       title: "Bot Ajanları",
       description:
-        "Toplantılara katılabilen, yazıya dökebilen, çevirebilen ve araçlarınızla entegre olabilen programlanabilir botlar.",
+        "Botlar katılımcı olarak toplantılara katılır. Görüşmeleri transkribe eder, gerçek zamanlı çevirir, CRM'nize gönderir veya Go SDK ile özel iş akışları oluşturur.",
     },
     selfHosted: {
       title: "Sizin altyapınız veya bizimki",
       description:
-        "Verileriniz üzerinde tam kontrol için kendi sunucunuzda barındırın veya Bedrud Cloud'u kullanın ve operasyonları bize bırakın. Seçim sizin.",
+        "Kendi sunucularınızda tam kontrolle çalıştırın. Veya Bedrud Cloud kullanın ve ops hakkında düşünmeyin. Aynı ürün, aynı özellikler.",
     },
   },
+  install: {
+    title: "Tek Komut. Bitti.",
+    subtitle: "Kopyala. Yapıştır. Çalışıyor. Kurulum bu kadar.",
+    command: "curl -fsSL https://get.bedrud.org | bash",
+    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    or: "veya",
+    requirements:
+      "200MB RAM ile herhangi bir 64-bit Linux, macOS veya Windows'ta çalışır.",
+  },
   platforms: {
-    title: "Tek platform, her cihaz",
+    title: "Web Sarıcı Değil, Yerel Uygulamalar",
     subtitle:
-      "Modern teknoloji yığınlarıyla oluşturulmuş, tüm platformlarda yerel deneyimler.",
+      "Gerçek yerel uygulamalar — Web'de React, Android'de Kotlin, iOS'ta Swift, sunucuda Go. Electron yok, Cordova yok.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -86,12 +185,74 @@ export default {
     status: "Üretim",
   },
   openSource: {
-    title: "Açık kaynak, açık gelecek",
+    title: "Kaynak kodu oku. Kontrolü ele al.",
     subtitle:
-      "Bedrud, AGPLv3 lisansı altında tamamen açık kaynaktır. Kodu inceleyin, katkıda bulunun veya çatallayın — sizin.",
-    license: "AGPLv3",
+      "Her kod satırı kamu açık. İnceleyin, denetleyin, katkıda bulunun veya çatallayın. Apache 2.0 lisanslı — ticari veya başka şekilde kullanın.",
+    license: "Apache 2.0",
     github: "GitHub'da Görüntüle",
     docs: "Belgeleri Oku",
+  },
+  cta: {
+    title: "Toplantılarınızı Sahiplenmeye Hazır Mısınız?",
+    subtitle:
+      "Kullanıcı başı fiyatlandırma ve satıcı bağlılığından bıkan binlerce geliştiriciye katılın. Bir dakikadan kısa sürede başlayın.",
+    installNow: "Kurulum komutunu kopyala",
+    readDocs: "Belgeleri Oku",
+    starGithub: "GitHub'da Yıldız Ver",
+  },
+  faq: {
+    title: "Sıkça Sorulan Sorular",
+    subtitle: "Teknik sorular, doğrudan cevaplar.",
+    updates: {
+      question: "Güncellemeler nasıl çalışır?",
+      answer:
+        "Kurulum komutunu tekrar çalıştırın. Bedrud ikili dosyayı yerinde değiştirir — paket yöneticisi yok, bağımlılık zincirleri yok. Tek bir yapılandırma bayrağıyla otomatik güncellemeleri de etkinleştirebilirsiniz.",
+    },
+    encryption: {
+      question: "Uçtan uca şifreli mi?",
+      answer:
+        "Tüm medya DTLS ve SRTP (WebRTC standardı) üzerinden şifrelenerek iletilir. Self-hosted dağıtımlarında sunucuyu ve tüm verileri siz kontrol edersiniz. Eşler arası aramalar için uçtan uca şifreleme yol haritasındadır.",
+    },
+    network: {
+      question: "Ağ ve port gereksinimleri nelerdir?",
+      answer:
+        "HTTP/WebSocket için 80/443 portları ve WebRTC medyası için yapılandırılabilir UDP aralığı (varsayılan 50000–60000). NAT arkasında STUN/TURN sunucusu kurun — Bedrud coturn kurulum belgelerini içerir.",
+    },
+    proxy: {
+      question: "Ters proxy arkasında çalıştırabilir miyim?",
+      answer:
+        "Evet. Nginx, Caddy, Traefik — hepsi çalışır. Belgeler her biri için kopyala-yapıştır yapılandırmaları içerir. WebSocket bağlantılarını iletmeniz ve uygun başlıkları ayarlamanız yeterli.",
+    },
+    cloudVsSelfHosted: {
+      question: "Self-hosted ve Bedrud Cloud arasındaki fark nedir?",
+      answer:
+        "Aynı ürün, aynı özellikler. Self-hosted altyapınızda tam veri kontrolüyle çalışır. Bedrud Cloud operasyon, güncelleme ve ölçeklendirmeyi sizin için halleder. Satıcı kilidi yok — istediğiniz zaman geçiş yapın.",
+    },
+  },
+  testimonials: {
+    title: "Geliştiricilerin Güvendiği",
+    subtitle: "İnsanlar Bedrud hakkında ne diyor.",
+    one: {
+      quote:
+        "Jitsi kurulumumuzu bir öğleden sonra Bedrud ile değiştirdik. Tek ikili dosya, 200MB RAM ve toplantılarımız artık daha iyi sesleniyor.",
+      name: "Lena K.",
+      role: "Avrupalı bir SaaS şirketinde DevOps Lideri",
+      initials: "LK",
+    },
+    two: {
+      quote:
+        "Kullanıcı başı fiyat yok bizi ikna etti. 20'den 200 kullanıcıya tek bir lisans e-postası almadan geçtik.",
+      name: "Marcus T.",
+      role: "Uzaktan çalışan bir startup'ın CTO'su",
+      initials: "MT",
+    },
+    three: {
+      quote:
+        "Bedrud'u $5 VPS'e dağıttım ve hemen çalıştı. Bot SDK ile bir günde toplantı transkriptlerini CRM'imize entegre ettik.",
+      name: "Priya S.",
+      role: "Bir fintech şirketinde Kıdemli Mühendis",
+      initials: "PS",
+    },
   },
   footer: {
     brand: "Bedrud",
@@ -99,11 +260,22 @@ export default {
       "Gizliliğe önem veren ekipler için video toplantıları. Kendi sunucunuzda veya bulutta.",
     product: "Ürün",
     features: "Özellikler",
+    compare: "Karşılaştırma",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
-    demo: "Demo",
-    resources: "Kaynaklar",
+    selfHosted: "Kendi Sunucunuz vs. Bulut",
+    demo: "Canlı Demo",
+    changelog: "Değişiklik Günlüğü",
+    developers: "Geliştiriciler",
+    quickstart: "Hızlı Başlangıç Kılavuzu",
     docs: "Belgeler",
+    architecture: "Mimari Kılavuzu",
+    api: "API Referansı",
+    openSourceSection: "Açık Kaynak",
+    contribute: "Katkıda Bulun",
+    reportIssue: "Sorun Bildir",
+    resources: "Kaynaklar",
+    contributors: "Katkıda Bulunanlar",
     github: "GitHub",
     releases: "Sürümler",
     discord: "Discord",
@@ -111,6 +283,7 @@ export default {
     license: "Lisans",
     privacy: "Gizlilik Politikası",
     terms: "Hizmet Şartları",
+    contact: "İletişim",
     madeBy: "Özenle yapılmıştır,",
     backToTop: "Başa dön",
     languages: "Diller",
@@ -233,13 +406,145 @@ export default {
     previous: "Önceki",
     next: "Sonraki",
     backToHome: "Ana sayfaya dön",
-    searchDocs: "Ara...",
+    searchPlaceholder: "Doküman ara…",
+    searchButton: "Ara",
+    noResults: "Sonuç bulunamadı",
+    loading: "Yükleniyor…",
+    pressShortcut: "Basın",
+    clearSearch: "Aramayı temizle",
+    searchDocs: "Doküman ara",
     notFound: "Belge bulunamadı",
+    sections: {
+      gettingStarted: "Başlarken",
+      architecture: "Mimari",
+      backend: "Backend",
+      api: "API",
+      guides: "Kılavuzlar",
+      contributing: "Katkıda Bulunma",
+    },
   },
   skipToContent: "İçeriğe geç",
   mobileNav: {
-    navigation: "Navigasyon",
-    language: "Dil",
-    tryDemo: "Demoyu dene",
+    navigation: "Navigation",
+    language: "Language",
+    getStarted: "Başlayın",
+  },
+  featuresPage: {
+    meta: {
+      title: "Özellikler — Bedrud",
+      description:
+        "Bedrud'un özelliklerini keşfedin: tek binary, WebRTC kalitesi, misafir katılımı, passkeys, yönetici kontrolleri, ses işleme, bot ajanları ve çoklu platform desteği.",
+    },
+    title: "Özellikler",
+    subtitle: "Her özellik gerçek bir sorunu çözer.",
+    ready: "Hazır mısınız?",
+    readyCta: "Başlayın",
+    guestJoin: {
+      pain: "Sadece 15 dakikalık bir arama için misafirleri hesap oluşturmaya zorlamaktan yoruldunuz mu?",
+      title: "Misafir Katılımı — Hesap Gerekmez",
+      description:
+        "Bir bağlantı paylaşın, tıklayınlar, içeride. Kayıt formu yok, şifre yok, sürtünme yok. Güvenlik için isteğe bağlı şifre.",
+    },
+    singleBinary: {
+      pain: "Video altyapısı kurmak bir DevOps diploması gerektirmemeli.",
+      title: "Tek Binary Dağıtımı",
+      description:
+        "Tek indirme, tek komut, çalışıyor. Docker Compose yok, Kubernetes manifesti yok, 12 adımlı rehberler yok. Sadece çalışan bir dosya.",
+    },
+    webrtc: {
+      pain: "Yavaşlayan, donan veya kesilen video aramaları toplantıları mahveder.",
+      title: "WebRTC Kalitesi",
+      description:
+        "Uyarlanabilir bit hızı, simultan yayın ve SVC içeren yerleşik WebRTC medya sunucusu. Her bağlantıda kristal netliğinde video ve ses.",
+    },
+    passkeys: {
+      pain: "Şifreler sızar. MFA tokenları phishing'e uğrar.",
+      title: "Passkeys + OAuth",
+      description:
+        "Şifresiz kimlik doğrulama için FIDO2 passkeys. Mevcut kimlik sağlayıcınızla SSO için OAuth 2.0 / OIDC. İhlal edilecek şifre veritabanı yok.",
+    },
+    admin: {
+      pain: "İyi araçlar olmadan bir toplantı platformunu yönetmek acı vericidir.",
+      title: "Yönetici Paneli",
+      description:
+        "Oda yönetimi, kullanıcı yönetimi, kullanım analitiği ve yapılandırma — hepsi temiz bir web arayüzünden. CLI tahmini yok.",
+    },
+    audio: {
+      pain: "Toplantılarda arka plan gürültüsü dikkati dağıtır ve profesyonel değildir.",
+      title: "Ses İşleme",
+      description:
+        "RNNoise ile çalışan yerleşik gürültü engelleme. Premium AI gürültü engelleme için isteğe bağlı Krisp entegrasyonu. Her aramada temiz ses.",
+    },
+    bots: {
+      pain: "Manuel toplantı görevleri zamanı boşa harcar — kayıt, transkripsiyon, notlar.",
+      title: "Bot Ajanları",
+      description:
+        "Programlanabilir botlar Go SDK aracılığıyla toplantılara katılır. Transkripsiyon, çeviri, kayıt, CRM entegrasyonları ve özel iş akışlarını otomatikleştirir.",
+    },
+    multiPlatform: {
+      pain: "Ekibiniz farklı cihazlar kullanıyor. Toplantı platformunuz da öyle olmalı.",
+      title: "Çoklu Platform",
+      description:
+        "Web (React), Android (Kotlin) ve iOS (Swift) için yerel uygulamalar. Tutarlı deneyim, platform yerel performansı.",
+    },
+  },
+  demoPage: {
+    meta: {
+      title: "Canlı Demo — Bedrud",
+      description:
+        "Bedrud'u kurmadan deneyin. Şimdi canlı bir demo toplantısına katılın.",
+    },
+    title: "Kurulmadan Deneyin",
+    subtitle: "Şimdi canlı bir Bedrud toplantısına katılın. Hesap gerekmez.",
+    tryNow: "Demoyu Aç",
+    noInstall:
+      "Kurulum yok, hesap yok, taahhüt yok. Sadece tıklayın ve toplanın.",
+    orSelfHost: "Kendi sunucunuzda barındırmayı mı tercih edersiniz?",
+    installCta: "Kurulum rehberini okuyun",
+  },
+  changelogPage: {
+    meta: {
+      title: "Değişiklik Günlüğü — Bedrud",
+      description: "Bedrud için sürüm geçmişi ve güncellemeler.",
+    },
+    title: "Değişiklik Günlüğü",
+    subtitle: "Bedrud'da yeni olanlar. Aktivite = güven.",
+    viewOnGithub: "GitHub'da Görüntüle",
+    noReleases: "Henüz sürüm yok. Yakında tekrar kontrol edin!",
+  },
+  contributorsPage: {
+    meta: {
+      title: "Katkıda Bulunanlar — Bedrud",
+      description: "Bedrud'u geliştiren insanlarla tanışın.",
+    },
+    title: "Katkıda Bulunanlar",
+    subtitle: "Bedrud topluluk tarafından geliştirilir.",
+    joinThem: "Onlara Katılın",
+    joinCta: "GitHub'da Katkıda Bulunun",
+    contributions: "katkı",
+  },
+  contactPage: {
+    meta: {
+      title: "İletişim — Bedrud",
+      description: "Bedrud ekibiyle iletişime geçin.",
+    },
+    title: "İletişim",
+    subtitle: "Bu kanallardan herhangi birinden bizimle iletişime geçin.",
+    github: {
+      title: "GitHub Sorunları",
+      description: "Hata raporları, özellik istekleri ve kod katkıları.",
+      cta: "Bir Sorun Açın",
+    },
+    discord: {
+      title: "Topluluk Sohbeti",
+      description:
+        "Sorular sorun, fikirleri paylaşın ve topluluktan yardım alın.",
+      cta: "Discord'a Katılın",
+    },
+    email: {
+      title: "E-posta",
+      description: "Ortaklıklar, güvenlik sorunları veya özel sorular için.",
+      cta: "E-posta Gönder",
+    },
   },
 };

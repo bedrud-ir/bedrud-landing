@@ -7,62 +7,159 @@ export default {
   nav: {
     home: "ホーム",
     features: "機能",
+    compare: "比較",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
     docs: "ドキュメント",
+    community: "コミュニティ",
     demo: "デモ",
     getStarted: "はじめる",
   },
   hero: {
-    badge: "オープンソース · AGPLv3",
-    headline: "あなたが本当に所有するビデオ会議",
+    badge: "オープンソース · Apache 2.0",
+    kicker: "セルフホスト動画会議。200MB RAM。バイナリ1つ。",
+    headline: "1分未満で立ち上げるセルフホスト型ビデオ会議",
     subtitle:
-      "Web UI、REST API、WebRTC メディアサーバーを単一バイナリに統合。セルフホストまたはお任せください。",
+      "単一バイナリ、200MB RAM、ユーザー無制限。あなたのサーバー、あなたのルール、あなたのデータ。",
+    tryDemo: "デモを試す",
+    installNow: "インストールコマンドをコピー",
     getStarted: "はじめる",
     viewOnGithub: "GitHub で見る",
+    copied: "コピーしました!",
     stars: "1.2k",
     starsLabel: "GitHub スター",
-    license: "AGPLv3 ライセンス",
+    contributorsLabel: "貢献者",
+    license: "Apache 2.0 ライセンス",
   },
-  features: {
-    title: "必要なものすべてが揃っています",
-    subtitle:
-      "Bedrud はすべてを内蔵した単一の自己完結型バイナリとして提供されます。",
+  journey: {
+    title: "ゼロからミーティングまで数分で",
+    subtitle: "インストール。リンクを共有。通話開始。実際の流れはこちら。",
+    install: {
+      title: "インストール",
+      description:
+        "単一バイナリをダウンロードするか、Dockerイメージをプルします。1つのコマンド、依存関係ゼロ。1分以内で実行。",
+    },
+    invite: {
+      title: "招待",
+      description:
+        "リンクを共有。登録なし、ダウンロードなし、摩擦なし。ゲストは任意のブラウザから即座に参加。",
+    },
+    meet: {
+      title: "ミーティング",
+      description:
+        "ノイズキャンセル内蔵のクリスタルクリアなWebRTCビデオとオーディオ。ただ話すだけ。",
+    },
+    scale: {
+      title: "スケール",
+      description:
+        "完全制御のためにセルフホスト、またはBedrud Cloudを使用。無制限ユーザー、シートごとの課金はなし、いつでも。",
+    },
+  },
+  whyBedrud: {
+    title: "異なる設計",
+    subtitle: "ロックインなし。無駄なし。請求の驚きなし。",
+    noLockIn: {
+      title: "ベンダーロックインなし",
+      description:
+        "あなたのインフラ。あなたのデータ。あなたのルール。任意のサーバーにデプロイ、いつでも移行可能。独自フォーマットなし、退出費用なし、クラウド依存なし。",
+    },
     singleBinary: {
       title: "単一バイナリ",
       description:
-        "1つのバイナリ、依存関係ゼロ。ダウンロードして実行するだけ。Docker も Kubernetes も不要。",
+        "ファイル1つ。コマンド1つ。依存関係ゼロ。Dockerなし、Kubernetesなし、金曜午後のデプロイ悪夢なし。",
+    },
+    noPerSeat: {
+      title: "シートごとの課金なし",
+      description:
+        "5ユーザーでも5,000ユーザーでも。価格は同じ：ゼロ。ライセンスキーなし、シートカウンターなし、「営業に連絡」ボタンなし。",
+    },
+  },
+  comparison: {
+    title: "Bedrudの比較を見る",
+    subtitle: "複雑さのないセルフホストビデオ会議。",
+    feature: "機能",
+    bedrud: "Bedrud",
+    jitsi: "Jitsi Meet",
+    bbb: "BigBlueButton",
+    rows: {
+      deploy: "デプロイの複雑さ",
+      deployBedrud: "単一バイナリ",
+      deployJitsi: "Docker Compose (8+コンテナ)",
+      deployBbb: "最小8GB RAMサーバー",
+      ram: "RAM使用量",
+      ramBedrud: "~200MB",
+      ramJitsi: "~2GB",
+      ramBbb: "~4GB+",
+      install: "インストール時間",
+      installBedrud: "< 1分",
+      installJitsi: "~15分",
+      installBbb: "~30分 + 設定",
+      nativeClients: "ネイティブクライアント",
+      nativeBedrud: "Web、Android、iOS",
+      nativeJitsi: "Web、Android、iOS",
+      nativeBbb: "Webのみ",
+      guestJoin: "ゲスト参加（アカウント不要）",
+      guestBedrud: "はい",
+      guestJitsi: "はい",
+      guestBbb: "はい（モデレーター承認）",
+      audioProcessing: "オーディオ処理（ノイズキャンセル）",
+      audioBedrud: "RNNoise / Krisp",
+      audioJitsi: "基本",
+      audioBbb: "基本",
+      license: "ライセンス",
+      licenseBedrud: "Apache 2.0",
+      licenseJitsi: "Apache 2.0",
+      licenseBbb: "LGPL 3.0",
+    },
+  },
+  features: {
+    title: "すべて同梱",
+    subtitle:
+      "ビデオ、音声、認証、ボット — すべて含まれています。マイクロサービスアーキテクチャ不要。",
+    e2eEncryption: {
+      title: "デフォルトで暗号化",
+      description:
+        "すべてのメディアはDTLSとSRTPで暗号化されて転送されます。セルフホストモードではデータはあなたのサーバーに留まります。サードパーティのテレメトリなし、データ収集なし。",
     },
     webrtcVideo: {
       title: "WebRTC ビデオ",
       description:
-        "内蔵 WebRTC メディアサーバーによる低遅延のピアツーピアビデオ・オーディオ通信。",
+        "内蔵WebRTCメディアサーバーによるサブ秒レイテンシのビデオ通話。不安定な接続でも適応ビットレートで対応。",
     },
     multiPlatform: {
       title: "マルチプラットフォーム",
       description:
-        "Web、Android、iOS のネイティブクライアントに加え、自動化のためのサーバーサイドボット。",
+        "Web、Android、iOSのネイティブアプリ。ラッパーではなく、本当のネイティブアプリ。自動化用のサーバーサイドSDKも付属。",
     },
     flexibleAuth: {
       title: "柔軟な認証",
       description:
-        "SSO、OAuth、カスタム ID プロバイダーをサポートする組み込み認証。",
+        "すぐに使える内蔵認証に、SSO・OAuth統合をプラス。既存のIDプロバイダーに数分で接続。",
     },
     botAgents: {
       title: "ボットエージェント",
       description:
-        "会議への参加、文字起こし、翻訳、ツール連携が可能なプログラマブルボット。",
+        "ボットが参加者としてミーティングに参加。会話の文字起こし、リアルタイム翻訳、CRM連携、Go SDKでカスタムワークフローを構築。",
     },
     selfHosted: {
       title: "あなたのインフラ、または私たちのインフラ",
       description:
-        "データを完全にコントロールするためにセルフホスト、または Bedrud Cloud で運用をお任せください。あなたが選べます。",
+        "自社サーバーでフルコントロールで運用。またはBedrud Cloudで運用を気にせず。同じ製品、同じ機能。",
     },
   },
+  install: {
+    title: "1つのコマンド。完了。",
+    subtitle: "コピー。ペースト。実行中。セットアップはこれだけ。",
+    command: "curl -fsSL https://get.bedrud.org | bash",
+    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    or: "または",
+    requirements:
+      "任意の64ビット Linux、macOS、Windowsで動作。200MB RAMのみ必要。",
+  },
   platforms: {
-    title: "1つのプラットフォーム、すべてのデバイス",
+    title: "Webラッパーではないネイティブアプリ",
     subtitle:
-      "モダンな技術スタックで構築された、すべてのプラットフォームでのネイティブ体験。",
+      "本当のネイティブアプリ — WebはReact、AndroidはKotlin、iOSはSwift、サーバーはGo。Electronなし、Cordovaなし。",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -86,12 +183,74 @@ export default {
     status: "本番環境",
   },
   openSource: {
-    title: "オープンソース、オープンな未来",
+    title: "ソースコードを読む。主導権を握る。",
     subtitle:
-      "Bedrud は AGPLv3 ライセンスの完全なオープンソースです。コードを検査し、貢献し、フォークしてください — あなたのものです。",
-    license: "AGPLv3",
+      "すべてのコードが公開されています。検査、監査、貢献、またはフォーク可能。Apache 2.0ライセンス — 商用・個人利用自由。",
+    license: "Apache 2.0",
     github: "GitHub で見る",
     docs: "ドキュメントを読む",
+  },
+  cta: {
+    title: "ミーティングを所有する準備はできましたか？",
+    subtitle:
+      "シート課金とベンダーロックインにうんざりした何千もの開発者に参加。1分未満で始められます。",
+    installNow: "インストールコマンドをコピー",
+    readDocs: "ドキュメントを読む",
+    starGithub: "GitHubでスター",
+  },
+  faq: {
+    title: "よくある質問",
+    subtitle: "技術的な質問に直接お答えします。",
+    updates: {
+      question: "アップデートはどうやって行いますか？",
+      answer:
+        "インストールコマンドを再実行してください。Bedrudはバイナリをその場で置き換えます — パッケージマネージャーなし、依存関係チェーンなし。単一の設定フラグで自動アップデートを有効にすることもできます。",
+    },
+    encryption: {
+      question: "エンドツーエンド暗号化されていますか？",
+      answer:
+        "すべてのメディアはDTLSとSRTP（WebRTC標準）により転送中に暗号化されます。セルフホストデプロイメントでは、サーバーとすべてのデータをあなたが管理します。ピアツーピア通話のエンドツーエンド暗号化はロードマップにあります。",
+    },
+    network: {
+      question: "ネットワークとポートの要件は？",
+      answer:
+        "HTTP/WebSocket用にポート80/443、WebRTCメディア用に設定可能なUDP範囲（デフォルト50000–60000）。NATの背後ではSTUN/TURNサーバーを設定してください — Bedrudにはcoturnのセットアップドキュメントが含まれています。",
+    },
+    proxy: {
+      question: "リバースプロキシの背後で実行できますか？",
+      answer:
+        "はい。Nginx、Caddy、Traefik — すべて対応。ドキュメントにはそれぞれのコピペ設定が含まれています。WebSocket接続を転送し、適切なヘッダーを設定してください。",
+    },
+    cloudVsSelfHosted: {
+      question: "セルフホストとBedrud Cloudの違いは？",
+      answer:
+        "同じ製品、同じ機能。セルフホストはお客様のインフラでフルデータコントロール。Bedrud Cloudは運用、アップデート、スケーリングを代行。ベンダーロックインなし — いつでも移行可能。",
+    },
+  },
+  testimonials: {
+    title: "開発者に選ばれています",
+    subtitle: "Bedrudについての声。",
+    one: {
+      quote:
+        "Jitsiのセットアップを午後だけでBedrudに置き換えました。バイナリ1つ、200MB RAMで、ミーティングの音質まで良くなりました。",
+      name: "Lena K.",
+      role: "ヨーロッパのSaaS企業 DevOpsリード",
+      initials: "LK",
+    },
+    two: {
+      quote:
+        "シート課金なし — これが決め手でした。20人から200人に増えてもライセンスメールは1通も来ませんでした。",
+      name: "Marcus T.",
+      role: "リモートファーストスタートアップ CTO",
+      initials: "MT",
+    },
+    three: {
+      quote:
+        "$5のVPSにBedrudをデプロイしたら、すぐ動きました。Bot SDKで1日でミーティングの文字起こしをCRMに連携できました。",
+      name: "Priya S.",
+      role: "フィンテック企業 シニアエンジニア",
+      initials: "PS",
+    },
   },
   footer: {
     brand: "Bedrud",
@@ -99,11 +258,22 @@ export default {
       "プライバシーを大切にするチームのためのビデオ会議。セルフホストまたはクラウド。",
     product: "製品",
     features: "機能",
+    compare: "比較",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
-    demo: "デモ",
-    resources: "リソース",
+    selfHosted: "セルフホスト vs クラウド",
+    demo: "ライブデモ",
+    changelog: "変更履歴",
+    developers: "開発者",
+    quickstart: "クイックスタートガイド",
     docs: "ドキュメント",
+    architecture: "アーキテクチャガイド",
+    api: "APIリファレンス",
+    openSourceSection: "オープンソース",
+    contribute: "貢献する",
+    reportIssue: "問題を報告",
+    resources: "リソース",
+    contributors: "貢献者",
     github: "GitHub",
     releases: "リリース",
     discord: "Discord",
@@ -111,6 +281,7 @@ export default {
     license: "ライセンス",
     privacy: "プライバシーポリシー",
     terms: "利用規約",
+    contact: "お問い合わせ",
     madeBy: "心を込めて制作",
     backToTop: "トップに戻る",
     languages: "言語",
@@ -233,13 +404,146 @@ export default {
     previous: "前へ",
     next: "次へ",
     backToHome: "ホームに戻る",
-    searchDocs: "検索...",
+    searchPlaceholder: "ドキュメントを検索…",
+    searchButton: "検索",
+    noResults: "結果なし",
+    loading: "読み込み中…",
+    pressShortcut: "押す",
+    clearSearch: "検索をクリア",
+    searchDocs: "ドキュメントを検索",
     notFound: "ドキュメントが見つかりません",
+    sections: {
+      gettingStarted: "はじめに",
+      architecture: "アーキテクチャ",
+      backend: "バックエンド",
+      api: "API",
+      guides: "ガイド",
+      contributing: "貢献する",
+    },
   },
   skipToContent: "コンテンツへスキップ",
   mobileNav: {
-    navigation: "ナビゲーション",
-    language: "言語",
-    tryDemo: "デモを試す",
+    navigation: "Navigation",
+    language: "Language",
+    getStarted: "はじめる",
+  },
+  featuresPage: {
+    meta: {
+      title: "機能 — Bedrud",
+      description:
+        "Bedrud の機能をご紹介：単一バイナリ、WebRTC 品質、ゲスト参加、パスキー、管理者コントロール、オーディオ処理、ボットエージェント、マルチプラットフォーム対応。",
+    },
+    title: "機能",
+    subtitle: "各機能が本当の問題を解決します。",
+    ready: "準備完了？",
+    readyCta: "始める",
+    guestJoin: {
+      pain: "15分の通話のためにゲストにアカウント作成を強要するのにうんざりしていませんか？",
+      title: "ゲスト参加 — アカウント不要",
+      description:
+        "リンクを共有、クリック、参加完了。登録フォームなし、パスワードなし、摩擦なし。セキュリティ用オプションのパスコード。",
+    },
+    singleBinary: {
+      pain: "ビデオインフラのセットアップにDevOpsの学位が必要なはずがありません。",
+      title: "単一バイナリデプロイ",
+      description:
+        "1回のダウンロード、1つのコマンド、実行中。Docker Composeなし、Kubernetesマニフェストなし、12ステップガイドなし。動作するバイナリだけ。",
+    },
+    webrtc: {
+      pain: "ラグ、フリーズ、または切断するビデオ通話はミーティングを台無しにします。",
+      title: "WebRTC品質",
+      description:
+        "アダプティブビットレート、simulcast、SVC内蔵のWebRTCメディアサーバー。どの接続でもクリスタルクリアなビデオとオーディオ。",
+    },
+    passkeys: {
+      pain: "パスワードは漏洩します。MFAトークンはフィッシングされます。",
+      title: "パスキー + OAuth",
+      description:
+        "パスワードレス認証用のFIDO2パスキー。既存のIDプロバイダーでのSSO用のOAuth 2.0 / OIDC。侵害されるパスワードデータベースなし。",
+    },
+    admin: {
+      pain: "良いツールなしで会議プラットフォームを管理するのは苦痛です。",
+      title: "管理ダッシュボード",
+      description:
+        "ルーム管理、ユーザー管理、使用分析、設定 — すべてクリーンなWeb UIから。CLI推測なし。",
+    },
+    audio: {
+      pain: "ミーティングの背景ノイズは気を散らし、非プロフェッショナルです。",
+      title: "オーディオ処理",
+      description:
+        "RNNoise駆動の内蔵ノイズ抑制。プレミアムAIノイズ抑制用のオプションKrisp統合。すべての通話でクリーンなオーディオ。",
+    },
+    bots: {
+      pain: "手動の会議タスクは時間を浪費します — 録画、文字起こし、メモ。",
+      title: "ボットエージェント",
+      description:
+        "プログラマブルボットがGo SDK経由で会議に参加。文字起こし、翻訳、録画、CRM統合、カスタムワークフローを自動化。",
+    },
+    multiPlatform: {
+      pain: "チームは異なるデバイスを使用しています。会議プラットフォームもそうあるべきです。",
+      title: "マルチプラットフォーム",
+      description:
+        "Web (React)、Android (Kotlin)、iOS (Swift) のネイティブアプリ。一貫したエクスペリエンス、プラットフォームネイティブパフォーマンス。",
+    },
+  },
+  demoPage: {
+    meta: {
+      title: "ライブデモ — Bedrud",
+      description:
+        "インストール不要で Bedrud をお試しください。今すぐライブデモ会議に参加できます。",
+    },
+    title: "インストールなしで試す",
+    subtitle: "今すぐライブBedrud会議に参加。アカウント不要。",
+    tryNow: "デモを開く",
+    noInstall:
+      "インストールなし、アカウントなし、コミットメントなし。クリックして会議するだけ。",
+    orSelfHost: "セルフホストをお好み？",
+    installCta: "インストールガイドを読む",
+  },
+  changelogPage: {
+    meta: {
+      title: "変更履歴 — Bedrud",
+      description: "Bedrud のリリース履歴とアップデート情報。",
+    },
+    title: "変更履歴",
+    subtitle: "Bedrudの新機能。アクティビティ = 信頼。",
+    viewOnGithub: "GitHub で見る",
+    noReleases: "リリースはまだありません。すぐにお戻りください！",
+  },
+  contributorsPage: {
+    meta: {
+      title: "コントリビューター — Bedrud",
+      description: "Bedrud を開発している人々を紹介します。",
+    },
+    title: "コントリビューター",
+    subtitle: "Bedrud はコミュニティによって構築されています。",
+    joinThem: "彼らに参加",
+    joinCta: "GitHubで貢献",
+    contributions: "貢献",
+  },
+  contactPage: {
+    meta: {
+      title: "お問い合わせ — Bedrud",
+      description: "Bedrud チームにお問い合わせください。",
+    },
+    title: "お問い合わせ",
+    subtitle: "これらのチャネルのいずれかからお問い合わせください。",
+    github: {
+      title: "GitHub Issues",
+      description: "バグ報告、機能リクエスト、コード貢献。",
+      cta: "Issueを開く",
+    },
+    discord: {
+      title: "コミュニティチャット",
+      description:
+        "質問をし、アイデアを共有し、コミュニティから助けを得てください。",
+      cta: "Discordに参加",
+    },
+    email: {
+      title: "メール",
+      description:
+        "パートナーシップ、セキュリティ問題、またはプライベートなお問い合わせ用。",
+      cta: "メール送信",
+    },
   },
 };
