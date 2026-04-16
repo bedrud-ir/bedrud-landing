@@ -1,0 +1,76 @@
+---
+---
+
+<div class="my-6">
+	<h2 class="text-2xl font-semibold tracking-tight scroll-m-20">
+		What the Installer Does
+	</h2>
+	<p class="mt-4 leading-7 text-muted-foreground">
+		When you run <code class="font-mono">bedrud install</code>, the
+		following happens:
+	</p>
+	<table class="my-6 w-full border-collapse">
+		<thead class="border-b border-border">
+			<tr>
+				<th class="px-4 py-2 text-left text-sm font-semibold">Step</th>
+				<th class="px-4 py-2 text-left text-sm font-semibold">
+					Action
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">1</td>
+				<td class="px-5 py-3 text-sm">
+					Creates directories:{" "}
+					<code class="font-mono">/etc/bedrud</code>,{" "}
+					<code class="font-mono">/var/lib/bedrud</code>,{" "}
+					<code class="font-mono">/var/log/bedrud</code>
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">2</td>
+				<td class="px-5 py-3 text-sm">
+					Copies binary to{" "}
+					<code class="font-mono">/usr/local/bin/bedrud</code>
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">3</td>
+				<td class="px-5 py-3 text-sm">
+					Generates{" "}
+					<code class="font-mono">/etc/bedrud/config.yaml</code> with
+					your settings
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">4</td>
+				<td class="px-5 py-3 text-sm">
+					Generates{" "}
+					<code class="font-mono">/etc/bedrud/livekit.yaml</code> for
+					media server
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">5</td>
+				<td class="px-5 py-3 text-sm">
+					Creates two systemd services:{" "}
+					<code class="font-mono">bedrud.service</code> and{" "}
+					<code class="font-mono">livekit.service</code>
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">6</td>
+				<td class="px-5 py-3 text-sm">
+					Enables and starts both services
+				</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">7</td>
+				<td class="px-5 py-3 text-sm">
+					Initializes SQLite database and certificate cache
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

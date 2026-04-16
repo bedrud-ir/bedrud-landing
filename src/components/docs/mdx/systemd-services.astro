@@ -1,0 +1,50 @@
+---
+---
+
+<div class="my-6">
+	<h2 class="text-2xl font-semibold tracking-tight scroll-m-20">
+		Systemd Services
+	</h2>
+	<p class="mt-4 leading-7 text-muted-foreground">
+		The installer creates two systemd services:
+	</p>
+	<table class="my-6 w-full border-collapse">
+		<thead class="border-b border-border">
+			<tr>
+				<th class="px-4 py-2 text-left text-sm font-semibold">
+					Service
+				</th>
+				<th class="px-4 py-2 text-left text-sm font-semibold">
+					Command
+				</th>
+				<th class="px-4 py-2 text-left text-sm font-semibold">
+					Purpose
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">
+					<code class="font-mono">bedrud.service</code>
+				</td>
+				<td class="px-5 py-3 text-sm">
+					<code class="font-mono">
+						bedrud --run --config /etc/bedrud/config.yaml
+					</code>
+				</td>
+				<td class="px-5 py-3 text-sm">API + web</td>
+			</tr>
+			<tr class="border-t border-border">
+				<td class="px-5 py-3 text-sm">
+					<code class="font-mono">livekit.service</code>
+				</td>
+				<td class="px-5 py-3 text-sm">
+					<code class="font-mono">
+						bedrud --livekit --config /etc/bedrud/livekit.yaml
+					</code>
+				</td>
+				<td class="px-5 py-3 text-sm">Media server</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
