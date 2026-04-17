@@ -1,5 +1,8 @@
 ---
 import { DEMO_URL, DOCS_URL } from "../../lib/config";
+import { DemoFaqSection } from "~/components/landing/demo-faq-section";
+import DemoFeaturesSection from "~/components/landing/demo-features-section.astro";
+import MeetingPreview from "~/components/landing/meeting-preview.astro";
 import Landing from "~/layouts/Landing.astro";
 import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
@@ -22,14 +25,14 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
         data-animate="fade-up"
         class="text-4xl font-bold tracking-tight sm:text-5xl"
       >
-        {t(lang, "demoPage.title")}
+        {t(lang, "demoPage.hero.headline")}
       </h1>
       <p
         data-animate="fade-up"
         class="mt-4 text-lg text-muted-foreground"
         style="transition-delay: 80ms"
       >
-        {t(lang, "demoPage.subtitle")}
+        {t(lang, "demoPage.hero.subtitle")}
       </p>
 
       <div
@@ -43,7 +46,7 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center rounded-md bg-primary px-8 py-4 text-lg font-medium text-primary-foreground transition-colors hover:bg-primary/90"
         >
-          {t(lang, "demoPage.tryNow")}
+          {t(lang, "demoPage.cta.tryNow")}
         </a>
       </div>
 
@@ -52,22 +55,38 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
         class="mt-6 text-sm text-muted-foreground"
         style="transition-delay: 240ms"
       >
-        {t(lang, "demoPage.noInstall")}
+        {t(lang, "demoPage.cta.noInstall")}
       </p>
+    </div>
+  </section>
 
-      <div
-        data-animate="fade-up"
-        class="mt-12 border-t pt-8"
-        style="transition-delay: 320ms"
-      >
-        <p class="text-muted-foreground">{t(lang, "demoPage.orSelfHost")}</p>
-        <a
-          href={DOCS_URL}
-          class="mt-2 inline-flex items-center text-primary underline-offset-4 hover:underline"
-        >
-          {t(lang, "demoPage.installCta")}
-        </a>
+  <section
+    data-animate="fade-up"
+    class="mx-auto max-w-5xl px-6"
+    style="transition-delay: 100ms"
+  >
+    <div class="overflow-hidden rounded-2xl border shadow-2xl dark:shadow-none">
+      <div class="aspect-video">
+        <MeetingPreview />
       </div>
+    </div>
+  </section>
+
+  <DemoFeaturesSection lang={lang} />
+  <DemoFaqSection client:visible lang={lang} />
+
+  <section class="pb-20">
+    <div
+      data-animate="fade-up"
+      class="mx-auto max-w-3xl border-t px-6 pt-8 text-center"
+    >
+      <p class="text-muted-foreground">{t(lang, "demoPage.selfHost.text")}</p>
+      <a
+        href={DOCS_URL}
+        class="mt-2 inline-flex items-center text-primary underline-offset-4 hover:underline"
+      >
+        {t(lang, "demoPage.selfHost.cta")}
+      </a>
     </div>
   </section>
 </Landing>

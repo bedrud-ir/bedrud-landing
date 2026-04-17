@@ -1,16 +1,13 @@
 ---
-import { ComparisonSection } from "~/components/landing/comparison-section";
 import { CtaSection } from "~/components/landing/cta-section";
 import { FaqSection } from "~/components/landing/faq-section";
-import { FeaturesSection } from "~/components/landing/features-section";
+import FeaturesSection from "~/components/landing/features-section.astro";
 import { HeroSection } from "~/components/landing/hero-section";
-import { InstallSection } from "~/components/landing/install-section";
-import Landing from "~/layouts/Landing.astro";
-import { OpenSourceSection } from "~/components/landing/opensource-section";
-import { PlatformsSection } from "~/components/landing/platforms-section";
 import { JourneyStepper } from "~/components/landing/journey-stepper";
-import { TestimonialsSection } from "~/components/landing/testimonials-section";
-import { WhyBedrudSection } from "~/components/landing/why-bedrud-section";
+import ProblemSection from "~/components/landing/problem-section.astro";
+import { SocialProofBar } from "~/components/landing/social-proof-bar";
+import TestimonialsSection from "~/components/landing/testimonials-section.astro";
+import Landing from "~/layouts/Landing.astro";
 import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
 export function getStaticPaths() {
@@ -39,14 +36,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   ]}
 >
   <HeroSection client:load lang={lang} />
-  <WhyBedrudSection client:visible lang={lang} />
-  <JourneyStepper client:visible lang={lang} />
-  <ComparisonSection client:visible lang={lang} />
+  <SocialProofBar client:visible lang={lang} />
+  <ProblemSection lang={lang} />
+  <FeaturesSection lang={lang} />
+  <JourneyStepper client:idle lang={lang} />
+  <TestimonialsSection lang={lang} />
   <FaqSection client:visible lang={lang} />
-  <TestimonialsSection client:visible lang={lang} />
-  <FeaturesSection client:visible lang={lang} />
-  <PlatformsSection client:visible lang={lang} />
-  <OpenSourceSection client:visible lang={lang} />
-  <InstallSection client:visible lang={lang} />
   <CtaSection client:visible lang={lang} />
 </Landing>
