@@ -1,5 +1,3 @@
-Here's the compressed caveman format:
-
 # Bedrud Agent Instructions
 
 ## Build & Dev
