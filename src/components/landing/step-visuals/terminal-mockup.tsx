@@ -6,7 +6,7 @@ const command = "curl -fsSL https://get.bedrud.org | bash";
 const outputLines = [
   { text: "✓ Downloading bedrud v0.12.3...", color: "text-emerald-400/80" },
   { text: "✓ Installing to /usr/local/bin...", color: "text-emerald-400/80" },
-  { text: "✓ Bedrud ready! (200MB RAM)", color: "text-emerald-400/80" },
+  { text: "✓ Bedrud ready! (512MB RAM)", color: "text-emerald-400/80" },
 ];
 
 export function TerminalMockup() {

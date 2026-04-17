@@ -1,4 +1,4 @@
-import { BookOpen, Copy } from "lucide-react";
+import { Copy } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { GITHUB_URL } from "~/lib/config";
@@ -7,7 +7,13 @@ import { GitHubIcon } from "./github-icon";
 
 const INSTALL_CMD = "curl -fsSL https://get.bedrud.org | bash";
 
-export function CtaSection({ lang }: { lang: Locale }) {
+export function CtaSection({
+  lang,
+  linkToQuickstart = false,
+}: {
+  lang: Locale;
+  linkToQuickstart?: boolean;
+}) {
   const [copied, setCopied] = useState(false);
 
   const copyInstall = useCallback(async () => {
@@ -29,23 +35,28 @@ export function CtaSection({ lang }: { lang: Locale }) {
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-4">
-          <Button
-            size="lg"
-            className="h-12 rounded-md px-8 font-mono text-sm"
-            onClick={copyInstall}
-          >
-            <Copy className="size-4" />
-            {copied ? "Copied!" : t(lang, "cta.installNow")}
-          </Button>
+          {linkToQuickstart ? (
+            <Button size="lg" asChild>
+              <a
+                href={`/${lang}/docs/getting-started/quickstart`}
+                className="h-12 rounded-md px-8 font-mono text-sm"
+              >
+                <Copy className="size-4" />
+                {t(lang, "cta.getStarted")}
+              </a>
+            </Button>
+          ) : (
+            <Button
+              size="lg"
+              className="h-12 rounded-md px-8 font-mono text-sm"
+              onClick={copyInstall}
+            >
+              <Copy className="size-4" />
+              {copied ? "Copied!" : t(lang, "cta.installNow")}
+            </Button>
+          )}
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
-            <a
-              href={`/${lang}/docs`}
-              className="inline-flex items-center gap-1.5 text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <BookOpen className="size-3.5" />
-              {t(lang, "cta.readDocs")}
-            </a>
             <a
               href={GITHUB_URL}
               target="_blank"

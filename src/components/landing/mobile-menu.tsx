@@ -1,11 +1,19 @@
-import { X } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { BookOpen, Download, GitCompare, Home, X } from "lucide-react";
 import { useCallback, useEffect, useRef } from "react";
 import { Button } from "~/components/ui/button";
 import { GITHUB_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
 import { type Locale, supportedLocales, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
-import { navExternalLinks, navLinks, navRouteLinks } from "./nav-links";
+import { navLinks, navRouteLinks } from "./nav-links";
+
+const iconMap: Record<string, LucideIcon> = {
+  home: Home,
+  "git-compare": GitCompare,
+  "book-open": BookOpen,
+  download: Download,
+};
 
 interface MobileMenuProps {
   onClose: () => void;
@@ -85,7 +93,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
   const starCount = t(lang, "hero.stars");
 
   return (
-    <div className="fixed inset-0 z-50 lg:hidden">
+    <div className="fixed inset-0 z-50 md:hidden">
       {/* Backdrop */}
       <button
         type="button"
@@ -124,39 +132,37 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
             className="mt-8 flex flex-col gap-1"
             aria-label={t(lang, "mobileNav.navigation")}
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.key}
-                href={link.href}
-                onClick={onClose}
-                className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
-              >
-                {t(lang, link.key)}
-              </a>
-            ))}
-            {navRouteLinks.map((link) => (
-              <a
-                key={link.key}
-                href={`/${lang}/${link.route}`}
-                onClick={onClose}
-                className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
-              >
-                {t(lang, link.key)}
-              </a>
-            ))}
-            {navExternalLinks.map((link) => (
-              <a
-                key={link.key}
-                href={link.href}
-                target="_blank"
-                rel="noreferrer"
-                onClick={onClose}
-                className="rounded-lg px-3 py-3 text-lg font-medium text-foreground transition-colors hover:bg-accent"
-              >
-                {t(lang, link.key)}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const Icon = iconMap[link.icon];
+              return (
+                <a
+                  key={link.key}
+                  href={`/${lang}${link.route ? `/${link.route}` : ""}${link.hash ? `#${link.hash}` : ""}`}
+                  onClick={onClose}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-lg font-medium text-foreground transition-colors hover:bg-accent"
+                >
+                  {Icon && <Icon className="size-4 opacity-70" />}
+                  {t(lang, link.key)}
+                </a>
+              );
+            })}
+            {navRouteLinks.map((link) => {
+              const Icon = iconMap[link.icon];
+              return (
+                <a
+                  key={link.key}
+                  href={`/${lang}/${link.route}`}
+                  onClick={onClose}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-lg font-medium text-foreground transition-colors hover:bg-accent"
+                >
+                  {Icon && <Icon className="size-4 opacity-70" />}
+                  {t(lang, link.key)}
+                </a>
+              );
+            })}
           </nav>
+
+          <div className="border-t mt-6 pt-6" />
 
           {/* CTA */}
           <div className="mt-auto flex flex-col gap-3">

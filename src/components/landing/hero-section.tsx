@@ -1,4 +1,4 @@
-import { ArrowRight, Copy, Star } from "lucide-react";
+import { ArrowRight, Copy } from "lucide-react";
 import { useCallback, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Spotlight } from "~/components/ui/spotlight";
@@ -19,7 +19,7 @@ export function HeroSection({ lang }: { lang: Locale }) {
   }, []);
 
   return (
-    <section className="relative">
+    <section className="relative overflow-hidden">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10"
@@ -30,10 +30,6 @@ export function HeroSection({ lang }: { lang: Locale }) {
 
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-24 lg:pt-28 xl:pt-32">
         <div className="relative z-10 mx-auto max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            {t(lang, "hero.kicker")}
-          </p>
-
           <TextGenerateEffect
             words={t(lang, "hero.headline")}
             as="h1"
@@ -42,48 +38,54 @@ export function HeroSection({ lang }: { lang: Locale }) {
             delayIncrement={0.06}
           />
 
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-[17px] sm:leading-relaxed">
-            {t(lang, "hero.subtitle")}
+          <p className="mx-auto mt-4 max-w-xl text-base text-muted-foreground sm:text-lg">
+            {t(lang, "hero.subheadline")}
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button size="lg" className="h-11 rounded-md px-7" asChild>
-              <a href={DEMO_URL} target="_blank" rel="noreferrer">
-                {t(lang, "hero.tryDemo")}
-                <ArrowRight className="size-4" />
-              </a>
-            </Button>
+          <div className="mt-8">
+            <button
+              type="button"
+              onClick={copyInstall}
+              aria-label={t(lang, "hero.installNow")}
+              className="group mx-auto flex w-full max-w-lg flex-col gap-0 rounded-lg border border-border/80 bg-[#1c1c1e] px-4 pb-3 pt-3 font-mono text-sm transition-colors hover:border-border hover:bg-[#252527] dark:bg-foreground/10 dark:hover:bg-foreground/15"
+              dir="ltr"
+            >
+              <div className="mb-2.5 flex items-center justify-between">
+                <div className="flex items-center gap-1.5">
+                  <span className="size-[11px] rounded-full bg-[#ff5f57]" />
+                  <span className="size-[11px] rounded-full bg-[#febc2e]" />
+                  <span className="size-[11px] rounded-full bg-[#28c840]" />
+                </div>
+                {copied ? (
+                  <span className="shrink-0 text-xs font-sans font-medium text-emerald-400">
+                    {t(lang, "hero.copied")}
+                  </span>
+                ) : (
+                  <Copy className="size-3.5 shrink-0 text-white/40 transition-opacity sm:opacity-0 sm:group-hover:opacity-100" />
+                )}
+              </div>
+              <code className="flex items-center gap-2 truncate text-left text-white/90">
+                <span className="shrink-0 text-emerald-400">$</span>
+                <span>{INSTALL_CMD}</span>
+              </code>
+            </button>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {t(lang, "hero.installMicrocopy")}
+            </p>
           </div>
 
-          <button
-            type="button"
-            onClick={copyInstall}
-            className="group mt-5 inline-flex items-center gap-2 rounded-lg border border-border/60 bg-muted/50 px-4 py-2 font-mono text-sm text-muted-foreground transition-colors hover:border-border hover:bg-muted"
-            dir="ltr"
-          >
-            <span className="text-emerald-500">$</span> {INSTALL_CMD}
-            {copied ? (
-              <span className="text-emerald-500">{t(lang, "hero.copied")}</span>
-            ) : (
-              <Copy className="size-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
-            )}
-          </button>
-
-          <div className="mt-8 flex items-center justify-center gap-6">
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Star className="size-4 fill-amber-400 text-amber-400" />
-              <span className="font-medium text-foreground">
-                {t(lang, "hero.stars")}
-              </span>
-              <span className="hidden sm:inline">
-                {t(lang, "hero.starsLabel")}
-              </span>
-            </div>
-            <div className="h-4 w-px bg-border" />
-            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <div className="size-2 rounded-full bg-emerald-500" />
-              <span>{t(lang, "hero.license")}</span>
-            </div>
+          <div className="mt-4">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-muted-foreground hover:text-foreground"
+              asChild
+            >
+              <a href={DEMO_URL} target="_blank" rel="noreferrer">
+                {t(lang, "hero.tryDemo")}
+                <ArrowRight className="size-3.5" aria-hidden="true" />
+              </a>
+            </Button>
           </div>
         </div>
 

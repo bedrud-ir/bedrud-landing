@@ -11,7 +11,7 @@ export function DeviceShowcase() {
   return (
     <div className="relative pb-[6rem] md:pb-[32rem]">
       {/* Desktop: MacBook + flanking phones (md+) */}
-      <div className="hidden md:block">
+      <div className="relative hidden md:block">
         <div className="pointer-events-none absolute inset-0 z-10 hidden items-end justify-center gap-0 lg:flex">
           <div className="w-32 shrink-0 xl:w-40">
             <IPhoneMockup>

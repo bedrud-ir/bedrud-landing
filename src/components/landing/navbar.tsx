@@ -1,19 +1,27 @@
-import { Menu } from "lucide-react";
+import { Menu, Star } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
+import { GITHUB_URL } from "~/lib/config";
+import { fetchRepoInfo } from "~/lib/github";
 import { cn } from "~/lib/utils";
 import { type Locale, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 import { LanguageSwitcher } from "./language-switcher";
-import { navExternalLinks, navLinks, navRouteLinks } from "./nav-links";
 import { MobileMenu } from "./mobile-menu";
+import { navLinks, navRouteLinks } from "./nav-links";
 import { ThemeToggle } from "./theme-toggle";
 
 const SCROLL_THRESHOLD = 50;
 
+function formatCount(n: number): string {
+  if (n >= 1000) return `${(n / 1000).toFixed(1)}k`;
+  return String(n);
+}
+
 export function Navbar({ lang }: { lang: Locale }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [stars, setStars] = useState<string | null>(null);
 
   useEffect(() => {
     function onScroll() {
@@ -21,6 +29,12 @@ export function Navbar({ lang }: { lang: Locale }) {
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    fetchRepoInfo().then((data) => {
+      if (data) setStars(formatCount(data.stargazers_count));
+    });
   }, []);
 
   return (
@@ -36,8 +50,8 @@ export function Navbar({ lang }: { lang: Locale }) {
         >
           <nav
             className={cn(
-              "mx-auto flex items-center justify-between gap-4 transition-all duration-300",
-              scrolled ? "h-12 px-4" : "h-16 max-w-5xl px-6",
+              "flex items-center justify-between gap-4 transition-all duration-300",
+              scrolled ? "mx-auto h-12 px-4" : "h-16 mx-auto max-w-5xl px-6",
             )}
           >
             <a href={`/${lang}`} className="flex shrink-0 items-center gap-2">
@@ -51,11 +65,11 @@ export function Navbar({ lang }: { lang: Locale }) {
               </span>
             </a>
 
-            <div className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
+            <div className="hidden flex-1 items-center justify-center gap-0.5 md:flex">
               {navLinks.map((link) => (
                 <a
                   key={link.key}
-                  href={link.href}
+                  href={`/${lang}${link.route ? `/${link.route}` : ""}${link.hash ? `#${link.hash}` : ""}`}
                   className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
                 >
                   {t(lang, link.key)}
@@ -70,30 +84,46 @@ export function Navbar({ lang }: { lang: Locale }) {
                   {t(lang, link.key)}
                 </a>
               ))}
-              {navExternalLinks.map((link) => (
-                <a
-                  key={link.key}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {t(lang, link.key)}
-                </a>
-              ))}
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+              >
+                <GitHubIcon className="size-3.5" />
+              </a>
             </div>
 
-            <div className="hidden shrink-0 items-center gap-0.5 lg:flex">
+            <div className="hidden shrink-0 items-center gap-0.5 md:flex">
               <ThemeToggle />
               <LanguageSwitcher lang={lang} />
-              <Button size="sm" className="ms-1.5 rounded-md px-4" asChild>
+              {scrolled && stars && (
+                <a
+                  href={`https://github.com/bedrud-ir/bedrud`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="ms-1.5 inline-flex items-center gap-1 rounded-full border border-border/60 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+                >
+                  <Star className="size-3 fill-amber-400 text-amber-400" />
+                  {stars}
+                </a>
+              )}
+              <Button
+                size="sm"
+                className={cn(
+                  "ms-1.5 rounded-md px-4 transition-all duration-300",
+                  scrolled &&
+                    "bg-emerald-600 shadow-md shadow-emerald-600/20 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600",
+                )}
+                asChild
+              >
                 <a href={`/${lang}/docs`}>{t(lang, "nav.getStarted")}</a>
               </Button>
             </div>
 
-            <div className="flex items-center gap-0.5 lg:hidden">
+            <div className="flex items-center gap-0.5 md:hidden">
               <ThemeToggle />
-              <LanguageSwitcher lang={lang} />
               <Button
                 variant="ghost"
                 size="icon"

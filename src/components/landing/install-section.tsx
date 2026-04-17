@@ -27,11 +27,11 @@ export function InstallSection({ lang }: { lang: Locale }) {
           </p>
         </div>
 
-        <div className="mx-auto mt-10 max-w-2xl space-y-4">
+        <div className="mx-auto mt-10 max-w-2xl flex flex-col gap-4">
           <button
             type="button"
             onClick={() => copy(t(lang, "install.command"), setCopied)}
-            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-6 text-start transition-colors hover:border-border/80"
+            className="group flex w-full items-center justify-between gap-4 rounded-xl bg-card p-6 text-start shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] transition-[shadow] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.12),0px_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.14),0px_2px_4px_rgba(0,0,0,0.2)]"
             dir="ltr"
           >
             <code className="font-mono text-sm text-muted-foreground">
@@ -58,7 +58,7 @@ export function InstallSection({ lang }: { lang: Locale }) {
             onClick={() =>
               copy(t(lang, "install.dockerCommand"), setCopiedDocker)
             }
-            className="group flex w-full items-center justify-between gap-4 rounded-xl border bg-card p-6 text-start transition-colors hover:border-border/80"
+            className="group flex w-full items-center justify-between gap-4 rounded-xl bg-card p-6 text-start shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] transition-[shadow] hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.12),0px_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.14),0px_2px_4px_rgba(0,0,0,0.2)]"
             dir="ltr"
           >
             <code className="font-mono text-sm text-muted-foreground">

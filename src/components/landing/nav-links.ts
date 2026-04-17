@@ -1,14 +1,14 @@
-import { GITHUB_DISCUSSIONS_URL } from "~/lib/config";
-
 export const navLinks = [
-  { key: "nav.features", href: "#features" },
-  { key: "nav.compare", href: "#comparison" },
-  { key: "nav.platforms", href: "#platforms" },
-  { key: "nav.openSource", href: "#open-source" },
+  { key: "nav.home", route: "", hash: "", icon: "home" },
+  {
+    key: "nav.compare",
+    route: "features",
+    hash: "comparison",
+    icon: "git-compare",
+  },
 ] as const;
 
-export const navRouteLinks = [{ key: "nav.docs", route: "docs" }] as const;
-
-export const navExternalLinks = [
-  { key: "nav.community", href: GITHUB_DISCUSSIONS_URL },
+export const navRouteLinks = [
+  { key: "nav.docs", route: "docs", icon: "book-open" },
+  { key: "nav.download", route: "download", icon: "download" },
 ] as const;

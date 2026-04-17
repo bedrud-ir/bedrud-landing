@@ -39,7 +39,7 @@ export function WhyBedrudSection({ lang }: { lang: Locale }) {
           {cards.map(({ key, icon: Icon, color, bg }) => (
             <div
               key={key}
-              className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card p-7 transition-colors duration-300 hover:border-border/80 sm:p-8"
+              className="group relative rounded-2xl bg-card p-7 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] transition-[shadow] duration-300 hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.12),0px_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.14),0px_2px_4px_rgba(0,0,0,0.2)] sm:p-8"
             >
               <div
                 className={`inline-flex size-11 items-center justify-center rounded-xl ${bg}`}
@@ -52,12 +52,6 @@ export function WhyBedrudSection({ lang }: { lang: Locale }) {
               <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">
                 {t(lang, `whyBedrud.${key}.description`)}
               </p>
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              >
-                <div className="absolute -inset-px rounded-2xl bg-gradient-to-br from-accent/40 to-transparent" />
-              </div>
             </div>
           ))}
         </div>

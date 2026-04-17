@@ -1,35 +1,55 @@
-import { useCallback } from "react";
+import { Globe } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "~/components/ui/button";
-import {
-  DISCORD_URL,
-  GITHUB_DISCUSSIONS_URL,
-  GITHUB_URL,
-  TWITTER_URL,
-} from "~/lib/config";
+import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "~/lib/config";
 import { cn } from "~/lib/utils";
 import { type Locale, supportedLocales, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 import { XIcon } from "./x-icon";
 
+const LOCALE_NAMES: Record<Locale, string> = {
+  en: "English",
+  de: "Deutsch",
+  fr: "Français",
+  es: "Español",
+  zh: "中文",
+  ja: "日本語",
+  tr: "Türkçe",
+  fa: "فارسی",
+  ar: "العربية",
+};
+
 export function Footer({ lang }: { lang: Locale }) {
-  const currentLang = lang;
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   const switchLocale = useCallback(
     (locale: Locale) => {
-      if (locale !== currentLang) {
-        const path = window.location.pathname;
-        const rest = path.replace(`/${currentLang}`, "");
-        window.location.href = `/${locale}${rest}`;
-      }
+      const path = window.location.pathname;
+      const rest = path.replace(`/${lang}`, "");
+      window.location.href = `/${locale}${rest || "/"}`;
     },
-    [currentLang],
+    [lang],
   );
+
+  const linkClass =
+    "text-sm text-muted-foreground transition-colors hover:text-foreground";
 
   return (
     <footer className="bg-muted/30 px-6 pt-16 pb-8">
       <div className="section-container">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
-          <div className="sm:col-span-2 lg:col-span-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div>
             <div className="flex items-center gap-2.5">
               <div className="flex size-8 items-center justify-center rounded-lg bg-primary">
                 <span className="text-sm font-bold text-primary-foreground">
@@ -82,115 +102,73 @@ export function Footer({ lang }: { lang: Locale }) {
                 </a>
               </Button>
             </div>
+            <a
+              href={`/${lang}/about`}
+              className={cn(linkClass, "mt-3 inline-block")}
+            >
+              {t(lang, "footer.about")}
+            </a>
           </div>
 
-          <div className="lg:col-span-2">
-            <h4 className="text-sm font-semibold">
-              {t(lang, "footer.product")}
+          <div>
+            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {t(lang, "footer.platform")}
             </h4>
             <ul className="mt-3 space-y-3">
               <li>
-                <a
-                  href={`/${lang}/features`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
+                <a href={`/${lang}/features`} className={linkClass}>
                   {t(lang, "footer.features")}
                 </a>
               </li>
               <li>
-                <a
-                  href={`/#comparison`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.compare")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/#platforms`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.platforms")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/#open-source`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.openSource")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/demo`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
+                <a href={`/${lang}/demo`} className={linkClass}>
                   {t(lang, "footer.demo")}
                 </a>
               </li>
               <li>
-                <a
-                  href={`/${lang}/changelog`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.changelog")}
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="text-sm font-semibold">
-              {t(lang, "footer.developers")}
-            </h4>
-            <ul className="mt-3 space-y-3">
-              <li>
-                <a
-                  href={`/${lang}/docs/quickstart`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.quickstart")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/docs`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
+                <a href={`/${lang}/docs`} className={linkClass}>
                   {t(lang, "footer.docs")}
                 </a>
               </li>
               <li>
-                <a
-                  href={`/${lang}/docs/architecture`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.architecture")}
+                <a href={`/${lang}/docs/api`} className={linkClass}>
+                  {t(lang, "footer.api")}
                 </a>
               </li>
               <li>
-                <a
-                  href={`/${lang}/docs/api`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.api")}
+                <a href={`/${lang}/features#comparison`} className={linkClass}>
+                  {t(lang, "footer.compare")}
+                </a>
+              </li>
+              <li>
+                <a href={`/${lang}/download`} className={linkClass}>
+                  {t(lang, "footer.download")}
                 </a>
               </li>
             </ul>
           </div>
 
-          <div className="lg:col-span-4">
-            <h4 className="text-sm font-semibold">
-              {t(lang, "footer.openSourceSection")}
+          <div>
+            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+              {t(lang, "footer.resources")}
             </h4>
-            <ul className="mt-3 grid grid-cols-2 gap-x-8 gap-y-3">
+            <ul className="mt-3 space-y-3">
+              <li>
+                <a href={`/${lang}/blog`} className={linkClass}>
+                  {t(lang, "footer.blog")}
+                </a>
+              </li>
+              <li>
+                <a href={`/${lang}/changelog`} className={linkClass}>
+                  {t(lang, "footer.changelog")}
+                </a>
+              </li>
               <li>
                 <a
                   href={`${GITHUB_URL}/blob/main/CONTRIBUTING.md`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className={linkClass}
                 >
                   {t(lang, "footer.contribute")}
                 </a>
@@ -200,55 +178,14 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={`${GITHUB_URL}/issues/new`}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className={linkClass}
                 >
                   {t(lang, "footer.reportIssue")}
                 </a>
               </li>
               <li>
-                <a
-                  href={GITHUB_DISCUSSIONS_URL}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.discord")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`${GITHUB_URL}/releases`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.releases")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`${GITHUB_URL}/blob/main/LICENSE`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.license")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/privacy`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.privacy")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={`/${lang}/terms`}
-                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {t(lang, "footer.terms")}
+                <a href={`/${lang}/contact`} className={linkClass}>
+                  {t(lang, "footer.contact")}
                 </a>
               </li>
             </ul>
@@ -256,28 +193,61 @@ export function Footer({ lang }: { lang: Locale }) {
         </div>
 
         <div className="mt-14 flex flex-col items-center gap-4 border-t pt-6 sm:flex-row sm:justify-between">
-          <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} themadorg · Apache 2.0
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {supportedLocales.map((locale) => {
-              const isActive = locale === currentLang;
-              return (
-                <button
-                  key={locale}
-                  type="button"
-                  onClick={() => switchLocale(locale)}
-                  className={cn(
-                    "text-sm transition-colors",
-                    isActive
-                      ? "font-medium text-foreground"
-                      : "text-muted-foreground hover:text-foreground",
-                  )}
-                >
-                  [{locale}]
-                </button>
-              );
-            })}
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+            <span>&copy; {new Date().getFullYear()} bedrud-ir</span>
+            <a
+              href={`${GITHUB_URL}/blob/main/LICENSE`}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-foreground"
+            >
+              Apache 2.0
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <a
+                href={`/${lang}/privacy`}
+                className="transition-colors hover:text-foreground"
+              >
+                {t(lang, "footer.privacy")}
+              </a>
+              <a
+                href={`/${lang}/terms`}
+                className="transition-colors hover:text-foreground"
+              >
+                {t(lang, "footer.terms")}
+              </a>
+            </div>
+            <div ref={langRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setLangOpen(!langOpen)}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                <Globe className="size-4" />
+                <span>{LOCALE_NAMES[lang]}</span>
+              </button>
+              {langOpen && (
+                <div className="absolute bottom-full right-0 mb-2 rounded-lg border bg-popover p-1 shadow-md">
+                  {supportedLocales.map((locale) => (
+                    <button
+                      key={locale}
+                      type="button"
+                      onClick={() => switchLocale(locale)}
+                      className={cn(
+                        "flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors",
+                        locale === lang
+                          ? "bg-accent font-medium text-foreground"
+                          : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                      )}
+                    >
+                      <span>{LOCALE_NAMES[locale]}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

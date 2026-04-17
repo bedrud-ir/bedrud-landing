@@ -7,12 +7,13 @@ import {
 import { type Locale, t } from "../../i18n/utils";
 
 const faqKeys = [
-  "serverPower",
-  "installCommand",
-  "recordingScreenSharing",
+  "whatHappens",
+  "dataSaved",
+  "duration",
+  "inviteOthers",
 ] as const;
 
-export function FaqSection({ lang }: { lang: Locale }) {
+export function DemoFaqSection({ lang }: { lang: Locale }) {
   return (
     <section id="faq" className="relative scroll-mt-20 section-y">
       <div className="section-container">
@@ -33,10 +34,10 @@ export function FaqSection({ lang }: { lang: Locale }) {
           {faqKeys.map((key) => (
             <AccordionItem key={key} value={key}>
               <AccordionTrigger className="text-left text-[17px] hover:no-underline hover:text-foreground">
-                {t(lang, `faq.${key}.question`)}
+                {t(lang, `demoPage.faq.${key}.question`)}
               </AccordionTrigger>
               <AccordionContent className="text-[15px] leading-relaxed text-muted-foreground">
-                {t(lang, `faq.${key}.answer`)}
+                {t(lang, `demoPage.faq.${key}.answer`)}
               </AccordionContent>
             </AccordionItem>
           ))}

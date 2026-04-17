@@ -85,7 +85,7 @@ export function LanguageSwitcher({
           role="listbox"
           tabIndex={-1}
           aria-activedescendant={`lang-${currentLang}`}
-          className="absolute inset-e-0 top-full z-50 mt-1.5 min-w-36 overflow-hidden rounded-lg border bg-popover p-1 shadow-lg"
+          className="absolute inset-e-0 top-full z-50 mt-1.5 min-w-36 max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border bg-popover p-1 shadow-lg"
         >
           {supportedLocales.map((locale) => {
             const meta = langMeta[locale];
