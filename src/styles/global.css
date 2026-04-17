@@ -454,11 +454,11 @@ figure[data-rehype-pretty-code-figure]:has(code[data-language="mermaid"]) pre co
 
 .mermaid-error {
   border-radius: 0.5rem;
-  border: 1px solid oklch(0.577 0.245 27.325 / 0.5);
-  background: oklch(0.577 0.245 27.325 / 0.1);
+  border-color: color-mix(in srgb, var(--destructive) 50%, transparent);
+  background: color-mix(in srgb, var(--destructive) 10%, transparent);
   padding: 1rem;
   font-size: 0.875rem;
-  color: oklch(0.577 0.245 27.325);
+  color: var(--destructive);
 }
 
 @layer utilities {
@@ -490,6 +490,28 @@ figure[data-rehype-pretty-code-figure]:has(code[data-language="mermaid"]) pre co
   translate: 0 0;
 }
 
+[data-animate="fade-left"] {
+  opacity: 0;
+  translate: -1.25rem 0;
+  transition: opacity 0.5s ease, translate 0.5s ease;
+}
+
+[data-animate="fade-left"].in-view {
+  opacity: 1;
+  translate: 0 0;
+}
+
+[data-animate="fade-right"] {
+  opacity: 0;
+  translate: 1.25rem 0;
+  transition: opacity 0.5s ease, translate 0.5s ease;
+}
+
+[data-animate="fade-right"].in-view {
+  opacity: 1;
+  translate: 0 0;
+}
+
 [data-animate-delay] {
   transition-delay: calc(var(--animate-delay, 0) * 1ms);
 }
@@ -500,7 +522,9 @@ figure[data-rehype-pretty-code-figure]:has(code[data-language="mermaid"]) pre co
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-animate="fade-up"] {
+  [data-animate="fade-up"],
+  [data-animate="fade-left"],
+  [data-animate="fade-right"] {
     opacity: 1;
     translate: 0 0;
     transition: none;

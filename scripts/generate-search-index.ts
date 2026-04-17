@@ -43,25 +43,12 @@ function parseFrontmatter(content: string) {
 }
 
 async function generateSearchIndex() {
-  console.log("🔍 Generating per-locale search indexes for docs...");
+  console.log("🔍 Generating per-locale search indexes for docs + blog...");
 
   const docsDir = path.resolve(import.meta.dir, "..", "src", "content", "docs");
+  const blogDir = path.resolve(import.meta.dir, "..", "src", "content", "blog");
   const publicDir = path.resolve(import.meta.dir, "..", "public");
   fs.mkdirSync(publicDir, { recursive: true });
-
-  const enFiles = await glob("en/**/*.mdx", { cwd: docsDir });
-  const enSlugs = enFiles.map((f) =>
-    f.replace(/^en\//, "").replace(/\.mdx$/, ""),
-  );
-
-  const slugToEnContent = new Map<string, string>();
-  for (const file of enFiles) {
-    const slug = file.replace(/^en\//, "").replace(/\.mdx$/, "");
-    slugToEnContent.set(
-      slug,
-      fs.readFileSync(path.join(docsDir, file), "utf-8"),
-    );
-  }
 
   for (const locale of LOCALES) {
     const documents: Array<{
@@ -71,7 +58,12 @@ async function generateSearchIndex() {
       text: string;
     }> = [];
 
-    for (const slug of enSlugs) {
+    const enDocs = await glob("en/**/*.mdx", { cwd: docsDir });
+    const docSlugs = enDocs.map((f) =>
+      f.replace(/^en\//, "").replace(/\.mdx$/, ""),
+    );
+
+    for (const slug of docSlugs) {
       const localePath = path.join(docsDir, `${locale}/${slug}.mdx`);
       const enPath = path.join(docsDir, `en/${slug}.mdx`);
 
@@ -81,7 +73,41 @@ async function generateSearchIndex() {
       const text = extractTextFromMDX(content);
 
       documents.push({
-        id: slug,
+        id: `docs:${slug}`,
+        title: title || slug,
+        description,
+        text,
+      });
+    }
+
+    const localeBlogFiles = await glob(`${locale}/**/*.mdx`, { cwd: blogDir });
+    const enBlogFiles = await glob("en/**/*.mdx", { cwd: blogDir });
+    const blogSlugs = new Set([
+      ...localeBlogFiles.map((f) =>
+        f.replace(/^[^/]+\//, "").replace(/\.mdx$/, ""),
+      ),
+      ...enBlogFiles.map((f) =>
+        f.replace(/^[^/]+\//, "").replace(/\.mdx$/, ""),
+      ),
+    ]);
+
+    for (const slug of blogSlugs) {
+      const localePath = path.join(blogDir, `${locale}/${slug}.mdx`);
+      const enPath = path.join(blogDir, `en/${slug}.mdx`);
+
+      const filePath = fs.existsSync(localePath)
+        ? localePath
+        : fs.existsSync(enPath)
+          ? enPath
+          : null;
+      if (!filePath) continue;
+
+      const content = fs.readFileSync(filePath, "utf-8");
+      const { title, description } = parseFrontmatter(content);
+      const text = extractTextFromMDX(content);
+
+      documents.push({
+        id: `blog:${slug}`,
         title: title || slug,
         description,
         text,

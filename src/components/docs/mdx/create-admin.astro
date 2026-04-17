@@ -20,7 +20,7 @@ const { createOption = false } = Astro.props;
 				Alternatively, create a new admin user directly:
 			</p>
 			<pre class="my-6 overflow-x-auto rounded-md bg-muted p-4">
-				<code class="text-sm">
+				<code class="text-sm text-foreground dark:text-muted-foreground">
 sudo ./bedrud user create --email admin@example.com --password secret --name "Admin"
 sudo ./bedrud user promote --email admin@example.com</code
 				>
@@ -28,7 +28,7 @@ sudo ./bedrud user promote --email admin@example.com</code
 		</>
 	) : (
 		<pre class="my-6 overflow-x-auto rounded-md bg-muted p-4">
-			<code class="text-sm">
+			<code class="text-sm text-foreground dark:text-muted-foreground">
 sudo ./bedrud user promote --email admin@example.com</code
 			>
 		</pre>
