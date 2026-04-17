@@ -14,15 +14,25 @@ export default {
     community: "Topluluk",
     demo: "Demo",
     getStarted: "Başlayın",
+    install: "Kurulum",
+    blog: "Blog",
   },
   hero: {
     badge: "Açık Kaynak · Apache 2.0",
-    kicker: "Self-hosted video toplantıları. 200MB RAM. Tek binary.",
-    headline: "Bir dakikadan kısa sürede kendi sunucunuzda video toplantıları",
-    subtitle:
-      "Tek bir ikili dosya, 200MB RAM, sınırsız kullanıcı. Sizin sunucunuz, sizin kurallarınız, sizin verileriniz.",
-    tryDemo: "Demoyu Dene",
+    kicker: "Açık kaynaklı Zoom alternatifi. $5 VPS'te çalışır.",
+    headline: "Toplantılarınız. Sunucunuz. Kurallarınız.",
+    subheadline:
+      "Kendi donanımınızda kendi kendine barındırılan video toplantıları. Tek dosya, 512 MB RAM, 60 saniyede dağıtım. Özel görüşmelerden binlerce izleyiciye canlı yayın.",
+    trustBar:
+      "Dünya genelinde 10.000'den fazla gizlilik odaklı geliştirici ve takım tarafından güveniliyor.",
+    installMicrocopy: "Terminalinize yapıştırın. 60 saniyede dağıtın.",
+    tryDemo: "Yüklemeden Deneyin",
     installNow: "Kurulum komutunu kopyala",
+    objectionBullets: {
+      screenSharing: "Ekran paylaşımı ve kayıt",
+      sso: "SSO ve OIDC entegrasyonu",
+      webrtc: "WebRTC tabanlı, alt-saniye gecikme",
+    },
     getStarted: "Başlayın",
     viewOnGithub: "GitHub'da Görüntüle",
     copied: "Kopyalandı!",
@@ -45,15 +55,10 @@ export default {
       description:
         "Bir bağlantı paylaşın. Kayıt yok, indirme yok, sürtünme yok. Misafirler herhangi bir tarayıcıdan anında katılır.",
     },
-    meet: {
+    host: {
       title: "Toplan",
       description:
-        "Yerleşik gürültü engelleme ile kristal netliğinde WebRTC video ve ses. Sadece konuşun.",
-    },
-    scale: {
-      title: "Ölçekle",
-      description:
-        "Tam kontrol için kendi sunucunuzda barındırın veya Bedrud Cloud kullanın. Sınırsız kullanıcı, asla koltuk başı fiyatlandırma.",
+        "Yerleşik gürültü engelleme ile kristal netliğinde WebRTC video ve ses. Ekran paylaşımı, kayıt ve sohbet dahil.",
     },
   },
   whyBedrud: {
@@ -83,13 +88,19 @@ export default {
     bedrud: "Bedrud",
     jitsi: "Jitsi Meet",
     bbb: "BigBlueButton",
+    sections: {
+      deployment: "Dağıtım",
+      features: "Özellikler",
+      integrations: "Entegrasyonlar ve Ölçek",
+      licensing: "Lisans ve Topluluk",
+    },
     rows: {
       deploy: "Dağıtım Karmaşıklığı",
       deployBedrud: "Tek dosya",
       deployJitsi: "Docker Compose (8+ konteyner)",
       deployBbb: "Minimum 8GB RAM sunucu",
       ram: "RAM Kullanımı",
-      ramBedrud: "~200MB",
+      ramBedrud: "512MB",
       ramJitsi: "~2GB",
       ramBbb: "~4GB+",
       install: "Yükleme Süresi",
@@ -97,21 +108,45 @@ export default {
       installJitsi: "~15 dakika",
       installBbb: "~30 dakika + yapılandırma",
       nativeClients: "Yerel İstemciler",
-      nativeBedrud: "Web, Android, iOS",
-      nativeJitsi: "Web, Android, iOS",
-      nativeBbb: "Sadece Web",
+      nativeClientsBedrud: "Web, Android, iOS",
+      nativeClientsJitsi: "Web, Android, iOS",
+      nativeClientsBbb: "Sadece Web",
       guestJoin: "Misafir Katılımı (Hesapsız)",
-      guestBedrud: "Evet",
-      guestJitsi: "Evet",
-      guestBbb: "Evet (moderatör onayı)",
+      guestJoinBedrud: "Evet",
+      guestJoinJitsi: "Evet",
+      guestJoinBbb: "Evet (moderatör onayı)",
       audioProcessing: "Ses İşleme (Gürültü Engelleme)",
-      audioBedrud: "RNNoise / Krisp",
-      audioJitsi: "Temel",
-      audioBbb: "Temel",
+      audioProcessingBedrud: "RNNoise / Krisp",
+      audioProcessingJitsi: "Temel",
+      audioProcessingBbb: "Temel",
+      screenShare: "Ekran Paylaşımı",
+      screenShareBedrud: "Yerleşik",
+      screenShareJitsi: "Yerleşik",
+      screenShareBbb: "Yerleşik",
+      recording: "Kayıt",
+      recordingBedrud: "Sunucu tarafı kayıt",
+      recordingJitsi: "Jibri ile (ek kurulum)",
+      recordingBbb: "Yerleşik + not dışa aktarımı",
+      sipIntegration: "SIP / Telefon Araması",
+      sipIntegrationBedrud: "Hayır",
+      sipIntegrationJitsi: "SIP/Jibri ağ geçidi",
+      sipIntegrationBbb: "SIP ağ geçidi",
+      whiteboard: "Beyaz Tahta",
+      whiteboardBedrud: "Hayır",
+      whiteboardJitsi: "Hayır",
+      whiteboardBbb: "Yerleşik beyaz tahta",
+      maxUsers: "Maks. eşzamanlı kullanıcı",
+      maxUsersBedrud: "50+ oda başına",
+      maxUsersJitsi: "100+ ayar ile",
+      maxUsersBbb: "300+ oda başına",
       license: "Lisans",
       licenseBedrud: "Apache 2.0",
       licenseJitsi: "Apache 2.0",
       licenseBbb: "LGPL 3.0",
+      communitySize: "Topluluk ve Ekosistem",
+      communitySizeBedrud: "Büyüyor",
+      communitySizeJitsi: "Büyük, olgun",
+      communitySizeBbb: "Büyük, akademik",
     },
   },
   features: {
@@ -156,12 +191,12 @@ export default {
     dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
     or: "veya",
     requirements:
-      "200MB RAM ile herhangi bir 64-bit Linux, macOS veya Windows'ta çalışır.",
+      "512MB RAM ile herhangi bir 64-bit Linux, macOS veya Windows'ta çalışır.",
   },
   platforms: {
     title: "Web Sarıcı Değil, Yerel Uygulamalar",
     subtitle:
-      "Gerçek yerel uygulamalar — Web'de React, Android'de Kotlin, iOS'ta Swift, sunucuda Go. Electron yok, Cordova yok.",
+      "Gerçek yerel uygulamalar — Web'de React, Android'de Kotlin, iOS'ta Swift, masaüstünde Rust, sunucuda Go. Electron yok, Cordova yok.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -174,13 +209,17 @@ export default {
       title: "iOS",
       tech: "Swift + SwiftUI",
     },
+    desktop: {
+      title: "Masaüstü",
+      tech: "Rust + Slint",
+    },
     server: {
       title: "Sunucu",
       tech: "Go + WebRTC",
     },
     bots: {
       title: "Botlar",
-      tech: "Go SDK",
+      tech: "Python SDK",
     },
     status: "Üretim",
   },
@@ -193,11 +232,12 @@ export default {
     docs: "Belgeleri Oku",
   },
   cta: {
-    title: "Toplantılarınızı Sahiplenmeye Hazır Mısınız?",
+    title: "Toplantılarınızı Kiralamayı Bırakın",
     subtitle:
-      "Kullanıcı başı fiyatlandırma ve satıcı bağlılığından bıkan binlerce geliştiriciye katılın. Bir dakikadan kısa sürede başlayın.",
-    installNow: "Kurulum komutunu kopyala",
-    readDocs: "Belgeleri Oku",
+      "Herhangi bir $5 VPS'ye 60 saniyede deploy edin. Kredi kartı gerekmez, satıcı bağımlılığı yok, üçüncü taraf sunucu yok.",
+    installNow: "Sunucunuzu Dağıtın",
+    getStarted: "Quickstart'ı Okuyun",
+    readDocs: "Quickstart'i Görüntüle",
     starGithub: "GitHub'da Yıldız Ver",
   },
   faq: {
@@ -234,7 +274,7 @@ export default {
     subtitle: "İnsanlar Bedrud hakkında ne diyor.",
     one: {
       quote:
-        "Jitsi kurulumumuzu bir öğleden sonra Bedrud ile değiştirdik. Tek ikili dosya, 200MB RAM ve toplantılarımız artık daha iyi sesleniyor.",
+        "Jitsi kurulumumuzu bir öğleden sonra Bedrud ile değiştirdik. Tek ikili dosya, 512MB RAM ve toplantılarımız artık daha iyi sesleniyor.",
       name: "Lena K.",
       role: "Avrupalı bir SaaS şirketinde DevOps Lideri",
       initials: "LK",
@@ -258,146 +298,133 @@ export default {
     brand: "Bedrud",
     tagline:
       "Gizliliğe önem veren ekipler için video toplantıları. Kendi sunucunuzda veya bulutta.",
-    product: "Ürün",
+    platform: "Platform",
     features: "Özellikler",
     compare: "Karşılaştırma",
-    platforms: "Platformlar",
-    openSource: "Açık Kaynak",
-    selfHosted: "Kendi Sunucunuz vs. Bulut",
     demo: "Canlı Demo",
-    changelog: "Değişiklik Günlüğü",
-    developers: "Geliştiriciler",
-    quickstart: "Hızlı Başlangıç Kılavuzu",
     docs: "Belgeler",
-    architecture: "Mimari Kılavuzu",
     api: "API Referansı",
-    openSourceSection: "Açık Kaynak",
+    download: "İndir",
+    about: "Hakkımızda",
+    resources: "Kaynaklar",
+    blog: "Blog",
+    changelog: "Değişiklik Günlüğü",
     contribute: "Katkıda Bulun",
     reportIssue: "Sorun Bildir",
-    resources: "Kaynaklar",
-    contributors: "Katkıda Bulunanlar",
-    github: "GitHub",
-    releases: "Sürümler",
-    discord: "Discord",
-    legal: "Hukuki",
-    license: "Lisans",
+    contact: "İletişim",
     privacy: "Gizlilik Politikası",
     terms: "Hizmet Şartları",
-    contact: "İletişim",
-    madeBy: "Özenle yapılmıştır,",
-    backToTop: "Başa dön",
-    languages: "Diller",
   },
   privacy: {
     meta: {
       title: "Gizlilik Politikası — Bedrud",
       description:
-        "Bedrud'un kişisel bilgilerinizi nasıl topladığını, kullandığını ve koruduğunu öğrenin.",
+        "Bedrud verilerinizi nasıl işler? Kısa versiyon: kendi sunucunuzda barındırmak verilerinizin sizde kalması demektir.",
     },
     title: "Gizlilik Politikası",
-    lastUpdated: "Son güncelleme: 20 Şubat 2026",
+    lastUpdated: "Son güncelleme: 17 Nisan 2026",
     intro:
-      "Bedrud olarak gizliliğinizi ciddiye alıyoruz. Bu Gizlilik Politikası, video toplantı platformumuzu ve ilgili hizmetleri kullandığınızda bilgilerinizi nasıl topladığımızı, kullandığımızı, ifşa ettiğimizi ve koruduğumuzu açıklar.",
+      "Bedrud açık kaynaklı video toplantı yazılımıdır. Kendi sunucunuzda barındırdığınızda verileriniz bizim sunucularımıza hiç dokunmaz. Bu politika bedrud.org web sitesini ve genel demo örneğini kapsar. Bedrud'u kendi sunucunuzda barındırırsanız kendi verilerinizi kontrol edersiniz.",
     dataCollection: {
-      title: "Veri Toplama",
+      title: "Ne Topluyoruz",
       content:
-        "Hesap oluşturduğunuzda, hizmetlerimizi kullandığınızda veya destek için bize ulaştığınızda bize doğrudan sağladığınız bilgileri toplarız. Bu, adınızı, e-posta adresinizi ve kullanım verilerinizi içerebilir. Bedrud'u kendi sunucunuzda barındırma modunda kullandığınızda, verileriniz tamamen kendi altyapınızda kalır.",
+        "Web sitesinde (bedrud.org): hiçbir şey. Çerez yok, izleyici yok, analiz yok. Genel demoda: bağlı kaldığınız sürece görünen adınız ve IP adresiniz. Bu kadar. E-posta, telefon, kişisel bilgi yok. Bedrud'u kendi sunucunuzda barındırdığınızda tüm veriler sizin altyapınızda kalır. Biz asla görmeyiz.",
     },
     dataUsage: {
-      title: "Verilerinizi nasıl kullanıyoruz",
+      title: "Verileri Nasıl Kullanıyoruz",
       content:
-        "Topladığımız bilgileri hizmetlerimizi sunmak, sürdürmek ve iyileştirmek, hesabınız hakkında sizinle iletişim kurmak ve size teknik bildirimler ve destek mesajları göndermek için kullanırız. Kişisel bilgilerinizi üçüncü taraflara satmayız.",
+        "Demo bağlantı verileri yalnızca gerçek zamanlı video ve ses yönlendirme için kullanılır. Günlüğe kaydedilmez, saklanmaz veya analiz edilmez. Kullanıcı profili oluşturmuyoruz, hedeflenmiş reklam sunmuyoruz, veri satmıyoruz. Asla.",
     },
     dataStorage: {
-      title: "Veri Depolama ve Güvenlik",
+      title: "Veri Depolama",
       content:
-        "Verilerinizi korumak için endüstri standardı güvenlik önlemleri uyguluyoruz. Bulutta barındırılan örnekler için veriler aktarım sırasında ve beklemedeyken şifrelenir. Kendi sunucunuzda barındırma dağıtımları, veri depolama ve güvenlik yapılandırmaları üzerinde tam kontrol sağlar.",
+        "Genel demo verileri kalıcı olarak saklamaz. Bağlantıyı kestiğinizde oturumunuz kaybolur — kayıt, sohbet geçmişi yok. Kendi sunucunuzda barındırılan örnekler verileri sunucunuzdaki SQLite'da saklar. Yedekleme stratejisini ve saklama politikasını siz seçersiniz. Erişimimiz yok.",
     },
     thirdParties: {
       title: "Üçüncü Taraf Hizmetleri",
       content:
-        "Analitik, hata raporlama ve altyapı için üçüncü taraf hizmetlerini kullanabiliriz. Bu hizmetlerin kendi gizlilik politikaları vardır. Bu hizmetlerin çalışması için gerekli minimum veriyi paylaşırız.",
+        "Hiçbiri. Bedrud indirmeden sonra hiçbir giden istek göndermez. Analitik, çökme raporu, telemetri yok. Web sitesi üçüncü taraf betik yüklemez. Kendiniz doğrulayın — kaynak kod GitHub'da.",
     },
     cookies: {
-      title: "Çerezler ve İzleme",
+      title: "Çerezler ve Yerel Depolama",
       content:
-        "Oturumunuzu ve tercihlerinizi sürdürmek için temel çerezleri kullanırız. Üçüncü taraf izleme çerezleri veya reklam izleyicileri kullanmayız. Tarayıcınızı çerezleri reddetmek için yapılandırabilirsiniz, ancak bazı özellikler düzgün çalışmayabilir.",
+        "Web sitesi tema tercihiniz (karanlık/aydınlık) ve dil seçiminiz için localStorage kullanır. Bu kadar. İzleme çerezi, reklam kimliği yok. Demo, sekmeyi kapattığınızda sona eren bir oturum çerezi kullanır.",
     },
     yourRights: {
       title: "Haklarınız",
       content:
-        "Kişisel verilerinize erişme, düzeltme veya silme hakkına sahipsiniz. Verilerinizi istediğiniz zaman dışa aktarabilir veya hesap silme talebinde bulunabilirsiniz. Kendi sunucunuzda barındırılan örnekler için, sunucularınızdaki tüm veriler üzerinde tam kontrole sahipsiniz.",
+        "Kişisel veri toplamadığımız için bizden erişilecek, düzeltilecek veya silinecek bir şey yok. Demo sekmesini kapatın ve oturum verileriniz zaten kaybolmuştur. Kendi sunucunuzda barındıran kullanıcılar sunucularındaki tüm veriler üzerinde tam kontrole sahiptir — dışa aktarma, yedekleme, silme, ihtiyacınız olan her şey.",
     },
     changes: {
-      title: "Bu politikadaki değişiklikler",
+      title: "Bu Politikadaki Değişiklikler",
       content:
-        "Bu Gizlilik Politikasını zaman zaman güncelleyebiliriz. Yeni politikayı bu sayfada yayınlayarak ve 'son güncelleme' tarihini güncelleyerek değişiklikleri size bildireceğiz. Hizmeti kullanmaya devam etmeniz, güncellenmiş politikanın kabul edildiği anlamına gelir.",
+        "Veri uygulamalarımız değişirse bu sayfayı güncelleriz. Neredeyse hiç veri toplamadığımız için değişiklik olası değildir. Sayfanın en üstündeki tarih en son revizyonu yansıtır.",
     },
     contact: {
-      title: "Bize Ulaşın",
+      title: "İletişim",
       content:
-        "Bu Gizlilik Politikası veya veri uygulamalarımız hakkında sorularınız varsa, lütfen GitHub deposu üzerinden bize ulaşın veya privacy@bedrud.com adresinden iletişime geçin.",
+        "Sorularınız mı var? GitHub'da bir issue açın veya privacy@bedrud.com adresine e-posta gönderin. Gerçek zamanlı sohbeti tercih ederseniz Discord'da da bulunuyoruz.",
     },
   },
   terms: {
     meta: {
       title: "Hizmet Şartları — Bedrud",
       description:
-        "Bedrud video toplantı platformunu kullanma şartlarını ve koşullarını okuyun.",
+        "bedrud.org web sitesi ve genel demo için hizmet şartları. Kendi sunucunuzda barındıran kullanıcılar Apache 2.0 lisansına tabidir.",
     },
     title: "Hizmet Şartları",
-    lastUpdated: "Son güncelleme: 20 Şubat 2026",
+    lastUpdated: "Son güncelleme: 17 Nisan 2026",
     intro:
-      "Bu Hizmet Şartları, Bedrud video toplantı platformunu ve ilgili hizmetleri kullanımınızı düzenler. Bedrud'a erişerek veya kullanarak bu şartlara bağlı olmayı kabul edersiniz.",
+      "Bu şartlar bedrud.org web sitesini ve demo.bedrud.org adresindeki genel demo örneğini kapsar. Bedrud'u indirip kendi sunucunuzda barındırırsanız, Apache 2.0 lisansı yazılım kullanımınızı yönetir.",
     acceptance: {
-      title: "Şartların kabulü",
+      title: "Bedrud'u Kullanmak Bu Şartları Kabul Ettiğiniz Anlamına Gelir",
       content:
-        "Bedrud'a erişerek veya kullanarak bu Hizmet Şartlarına uymayı ve bunlara bağlı olmayı kabul edersiniz. Bu şartları kabul etmiyorsanız, hizmetlerimize erişemez veya kullanamaz olursunuz. Bu şartları herhangi bir zamanda değiştirme hakkımızı saklı tutarız.",
+        "bedrud.org'u ziyaret ederek veya genel demoyu kullanarak bu şartları kabul etmiş olursunuz. Katılmıyorsanız, demoyu kullanmayın. Basit.",
     },
     services: {
-      title: "Hizmet açıklaması",
+      title: "Bedrud Ne Sunar",
       content:
-        "Bedrud, hem bulutta barındırılan bir hizmet hem de kendi sunucunuzda barındırılan bir çözüm olarak sunulan bir video toplantı platformu sağlar. Platform, web, mobil ve sunucu uygulamaları aracılığıyla sunulan video konferans, gerçek zamanlı iletişim ve ilgili iş birliği araçlarını içerir.",
+        "Belgeler ve indirme bağlantıları içeren bu web sitesini ve yazılımı değerlendirmek için bir genel demo örneği sunuyoruz. Video toplantı yazılımı Apache 2.0 lisansı altında açık kaynaktır. İndirin, değiştirin, kendiniz çalıştırın.",
     },
     accounts: {
-      title: "Kullanıcı hesapları",
+      title: "Hesaplar",
       content:
-        "Hesap kimlik bilgilerinizin gizliliğini korumaktan ve hesabınız altında gerçekleşen tüm faaliyetlerden siz sorumlusunuz. Hesap oluştururken doğru ve eksiksiz bilgi sağlamalı ve güncel tutmalısınız.",
+        "Web sitesi hesap gerektirmez. Demo hesap gerektirmez. Kendi sunucunuzda barındırılan örnekler kendi hesap sistemlerine sahip olabilir — sunucuyu siz yönettiğiniz için bu sizin kararınızdır.",
     },
     acceptableUse: {
-      title: "Kabul edilebilir kullanım",
+      title: "Demoyu Kötüye Kullanmayın",
       content:
-        "Bedrud'u herhangi bir yasadışı amaçla veya hizmete zarar verebilecek, devre dışı bırakabilecek veya bozabilecek herhangi bir şekilde kullanmamayı kabul edersiniz. Hizmetin herhangi bir bölümüne, diğer hesaplara veya hizmete bağlı bilgisayar sistemlerine yetkisiz erişim elde etmeye çalışmamalısınız.",
+        "Genel demoyu yasadışı içerik, spam, taciz veya başkalarının deneyimini olumsuz etkileyen herhangi bir şey için kullanmayın. Kötüye kullanan kullanıcıları demo odasından kaldırma hakkını saklı tutarız. Bu, kendi sunucunuzda barındırılan örnekler için geçerli değildir — kendi kurallarınızı koyarsınız.",
     },
     intellectualProperty: {
-      title: "Fikri mülkiyet",
+      title: "Açık Kaynak Lisansı",
       content:
-        "Bedrud, AGPLv3 lisansı altında lisanslanan açık kaynaklı bir yazılımdır. Yazılımı kullanımınız bu lisansın şartlarına tabidir. Bedrud adı, logosu ve markası theMadOrg'un ticari markalarıdır ve izinsiz kullanılamaz.",
+        "Bedrud Apache 2.0 lisansı altındadır. Ticari dahil olmak üzere kullanabilir, değiştirebilir ve dağıtabilirsiniz. Bedrud adı ve logosu theMadOrg'un ticari markalarıdır. Yazılıma atıfta bulunmak için kullanabilirsiniz, ancak projedeki ilişkinizi yanlış temsil etmek için kullanamazsınız.",
     },
     termination: {
-      title: "Fesih",
+      title: "Erişim",
       content:
-        "Bu şartların ihlali durumunda bulut hizmetine erişiminizi herhangi bir zamanda sonlandırabilir veya askıya alabiliriz. Fesihten sonra hizmeti kullanma hakkınız derhal sona erer. Kendi sunucunuzda barındırılan örnekler için AGPLv3 lisans şartları kapsamında yazılıma erişiminizi korursunuz.",
+        "Kötüye kullanım durumunda genel demoya erişimi istediğiniz zaman iptal edebiliriz. Gerekirse web sitesini kapatabiliriz. Ancak ikili dosyayı indirdiğinizde Apache 2.0 lisansı altında sizindir. Bunu iptal edemeyiz.",
     },
     liability: {
-      title: "Sorumluluk sınırlaması",
+      title: "Garanti Yok",
       content:
-        "Yasaların izin verdiği azami ölçüde, Bedrud ve katkıda bulunanlar, hizmeti kullanımınızdan kaynaklanan dolaylı, arızi, özel veya sonuç olarak ortaya çıkan zararlardan sorumlu olmayacaktır. Hizmet herhangi bir garanti olmaksızın 'olduğu gibi' sağlanır.",
+        "Bedrud olduğu gibi sağlanır. Her ortamda kusursuz çalışacağını garanti etmiyoruz. Kesinti, veri kaybı veya yazılım kullanımından kaynaklanan herhangi bir zarar için sorumlu değiliz. Tam yasal metin için Apache 2.0 lisansına bakın.",
     },
     governingLaw: {
-      title: "Geçerli hukuk",
+      title: "Geçerli Hukuk",
       content:
-        "Bu şartlar, kanunlar ihtilafı ilkelerine bakılmaksızın geçerli yasalara göre yönetilecek ve yorumlanacaktır. Bu şartlardan kaynaklanan herhangi bir anlaşmazlık, iyi niyetli müzakere yoluyla veya gerekirse bağlayıcı tahkim yoluyla çözülecektir.",
+        "Bu şartlar geçerli yasalara tabidir. Anlaşmazlıklar için, avukatlara başvurmadan önce GitHub issue veya doğrudan iletişim yoluyla çözmeyi tercih ederiz.",
     },
     changes: {
-      title: "Şartlardaki değişiklikler",
+      title: "Güncellemeler",
       content:
-        "Bu Hizmet Şartlarını herhangi bir zamanda değiştirme hakkımızı saklı tutarız. Önemli değişiklikler hizmet aracılığıyla veya e-posta ile bildirilecektir. Değişikliklerin yayınlanmasından sonra Bedrud'u kullanmaya devam etmeniz, değiştirilen şartların kabul edildiği anlamına gelir.",
+        "Bu şartları güncelleyebiliriz. Güncellersek bu sayfadaki tarihi değiştiririz. Değişikliklerden sonra demo veya web sitesini kullanmaya devam etmek değişiklikleri kabul ettiğiniz anlamına gelir.",
     },
     contact: {
-      title: "Bize Ulaşın",
+      title: "İletişim",
       content:
-        "Bu Hizmet Şartları hakkında sorularınız varsa, lütfen GitHub deposu üzerinden bize ulaşın veya legal@bedrud.com adresinden iletişime geçin.",
+        "Bu şartlarla ilgili sorularınız mı var? legal@bedrud.com adresine e-posta gönderin veya GitHub'da bir issue açın.",
     },
   },
   docs: {
@@ -423,6 +450,28 @@ export default {
       contributing: "Katkıda Bulunma",
     },
   },
+  installPage: {
+    meta: {
+      title: "Kurulum — Bedrud — Tek Komutla Dağıtım",
+      description:
+        "Bedrud'u sunucunuza bir dakikadan kısa sürede dağıtın. Tek binary, 512MB RAM, Docker gerektirmez.",
+    },
+    title: "Bedrud'u Kurun",
+    subtitle:
+      "Sunucunuza video toplantılarını bir dakikadan kısa sürede dağıtın. Tek binary, sıfır bağımlılık.",
+  },
+  blog: {
+    meta: {
+      title: "Blog — Bedrud",
+      description:
+        "Bedrud ekibinden güncellemeler, mühendislik derinlemesine incelemeleri ve kılavuzlar.",
+    },
+    title: "Blog",
+    subtitle:
+      "Bedrud ekibinden güncellemeler, mühendislik derinlemesine incelemeleri ve kılavuzlar.",
+    noPosts: "Henüz yazı yok. Yakında tekrar kontrol edin!",
+    backToBlog: "Blog'a Dön",
+  },
   skipToContent: "İçeriğe geç",
   mobileNav: {
     navigation: "Navigation",
@@ -437,8 +486,22 @@ export default {
     },
     title: "Özellikler",
     subtitle: "Her özellik gerçek bir sorunu çözer.",
-    ready: "Hazır mısınız?",
-    readyCta: "Başlayın",
+    sectionTitle: "İhtiyacınız olan her şey, gereksiz hiçbir şey yok",
+    sectionSubtitle:
+      "Tek bir dosya içinde video toplantı altyapısı. Harici bağımlılık yok, koltuk başı fiyatlandırma yok, satıcı kilidi yok.",
+    groups: {
+      infra: "Dağıtım & Altyapı",
+      media: "Toplantılar & Medya",
+      access: "Erişim & Kontrol",
+      extend: "Genişlet",
+    },
+    learnMore: "Daha fazla bilgi",
+    stats: {
+      ram: "512MB RAM",
+      binary: "1 Binary",
+      auth: "6 Auth Yöntemi",
+      platforms: "5 Platform",
+    },
     guestJoin: {
       pain: "Sadece 15 dakikalık bir arama için misafirleri hesap oluşturmaya zorlamaktan yoruldunuz mu?",
       title: "Misafir Katılımı — Hesap Gerekmez",
@@ -450,6 +513,7 @@ export default {
       title: "Tek Binary Dağıtımı",
       description:
         "Tek indirme, tek komut, çalışıyor. Docker Compose yok, Kubernetes manifesti yok, 12 adımlı rehberler yok. Sadece çalışan bir dosya.",
+      snippet: "$ curl -sSL bedrud.dev/install.sh | sh",
     },
     webrtc: {
       pain: "Yavaşlayan, donan veya kesilen video aramaları toplantıları mahveder.",
@@ -487,6 +551,24 @@ export default {
       description:
         "Web (React), Android (Kotlin) ve iOS (Swift) için yerel uygulamalar. Tutarlı deneyim, platform yerel performansı.",
     },
+    e2eEncryption: {
+      pain: "Sunucunuzdan geçen toplantı içeriği gizli kalmalıdır.",
+      title: "Uçtan Uca Şifreleme",
+      description:
+        "Odalar için isteğe bağlı E2E şifreleme. Sunucu şifrelenmiş medyayı sadece iletir — sadece katılımcılar çözebilir.",
+    },
+    autoTls: {
+      pain: "SSL sertifikaları kurmak için rehber gerektirmemeli.",
+      title: "Otomatik TLS ve HTTPS",
+      description:
+        "Otomatik Let's Encrypt sağlama ve yenileme. İç ağlar için kendi imzalı sertifikalar.",
+    },
+    airGapped: {
+      pain: "Sunucularınız internete erişemezse ne olur?",
+      title: "Air-Gapped ve Çevrimdışı Hazır",
+      description:
+        "İndirdikten sonra sıfır giden istek. Gömülü SQLite. Hiçbir zaman genel internete dokunmayan altyapıda çalışır.",
+    },
   },
   demoPage: {
     meta: {
@@ -494,13 +576,66 @@ export default {
       description:
         "Bedrud'u kurmadan deneyin. Şimdi canlı bir demo toplantısına katılın.",
     },
-    title: "Kurulmadan Deneyin",
-    subtitle: "Şimdi canlı bir Bedrud toplantısına katılın. Hesap gerekmez.",
-    tryNow: "Demoyu Aç",
-    noInstall:
-      "Kurulum yok, hesap yok, taahhüt yok. Sadece tıklayın ve toplanın.",
-    orSelfHost: "Kendi sunucunuzda barındırmayı mı tercih edersiniz?",
-    installCta: "Kurulum rehberini okuyun",
+    hero: {
+      headline: "Bedrud'u Şimdi Deneyin",
+      subtitle:
+        "Tarayıcınızda canlı bir toplantıya katılın. Hesap yok, indirme yok, bekleme yok.",
+    },
+    cta: {
+      tryNow: "Canlı Demoyu Aç",
+      noInstall: "Kurulum yok. Hesap yok. Taahhüt yok. Tıklayın ve katılın.",
+    },
+    preview: {
+      caption: "Demoya katıldığınızda göreceğiniz şey",
+    },
+    features: {
+      instantJoin: {
+        title: "Anında Katılma",
+        description:
+          "Bağlantıya tıklayın ve içeri girin. Kayıt formu, e-posta doğrulaması, uygulama kurulumu yok. Tüm modern tarayıcılarda çalışır.",
+      },
+      noAccount: {
+        title: "Hesap Gerekmez",
+        description:
+          "Bir görünen ad seçin ve konuşmaya başlayın. Bittiğinde sekmeyi kapatın. Hiçbir şey kalmaz.",
+      },
+      webrtc: {
+        title: "Gerçek WebRTC Kalitesi",
+        description:
+          "Demo, kendi sunucunuzda barındırılan Bedrud ile aynı motoru kullanır. Alt saniye gecikme, uyarlanabilir bit hızı, kristal berraklığında ses.",
+      },
+      e2e: {
+        title: "Uçtan Uca Şifreleme",
+        description:
+          "Oda ayarlarında E2E şifrelemeyi etkinleştirin. Videonuz ve sesiniz tarayıcınızı terk etmeden önce şifrelenir.",
+      },
+    },
+    faq: {
+      whatHappens: {
+        question: "Demoda ne olur?",
+        answer:
+          "Tam Bedrud yığınını çalıştıran paylaşılan bir toplantı odasına katılırsınız. Video, ses, ekran paylaşımı, sohbet ve toplantı kontrollerini test edin — kendi sunucunuzda barındırılan bir örnekle aynı.",
+      },
+      dataSaved: {
+        question: "Verilerim kaydedilir mi?",
+        answer:
+          "Hayır. Demo verileri kalıcı olarak saklamaz. Ayrıldığınızda oturumunuz kaybolur — kayıt, sohbet geçmişi, saklanan hiçbir şey yok.",
+      },
+      duration: {
+        question: "Demoyu ne kadar süre kullanabilirim?",
+        answer:
+          "Süre sınırı yok. Bedrud'u değerlendirmek için ihtiyacınız kadar demo kullanın. Kalıcı bir kurulum istediğinizde, kendi sunucunuzda barındırma 60 saniye sürer.",
+      },
+      inviteOthers: {
+        question: "Başkalarını demoya davet edebilir miyim?",
+        answer:
+          "Evet. Demo bağlantısını takım arkadaşlarınızla paylaşın ve herkes aynı odaya katılsın. Dağıtımdan önce takımınızla Bedrud'u test etmek için harika bir yol.",
+      },
+    },
+    selfHost: {
+      text: "Kendi sunucunuzu mu çalıştırmak istersiniz?",
+      cta: "Kurulum rehberini okuyun",
+    },
   },
   changelogPage: {
     meta: {

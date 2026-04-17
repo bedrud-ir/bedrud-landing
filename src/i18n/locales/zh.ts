@@ -13,16 +13,26 @@ export default {
     docs: "文档",
     community: "社区",
     demo: "演示",
+    install: "安装",
+    download: "下载",
+    blog: "博客",
     getStarted: "立即开始",
   },
   hero: {
     badge: "开源 · Apache 2.0",
-    kicker: "自托管视频会议。200MB内存。单个二进制文件。",
-    headline: "不到一分钟部署自有视频会议",
-    subtitle:
-      "单个二进制文件，200MB 内存，无限用户。你的服务器，你的规则，你的数据。",
-    tryDemo: "试用演示",
+    kicker: "开源 Zoom 替代方案。$5 VPS 即可运行。",
+    headline: "你的会议。你的服务器。你的规则。",
+    subheadline:
+      "在你自己的硬件上托管视频会议。单个二进制文件，512MB 内存，60 秒部署。从私密通话到数千观众直播。",
+    trustBar: "全球超过 10,000 名关注隐私的开发者和团队信任 Bedrud。",
+    installMicrocopy: "粘贴到终端，60 秒完成部署。",
+    tryDemo: "无需安装即可试用",
     installNow: "复制安装命令",
+    objectionBullets: {
+      screenSharing: "屏幕共享与录制",
+      sso: "SSO 和 OIDC 集成",
+      webrtc: "基于 WebRTC，亚秒级延迟",
+    },
     getStarted: "立即开始",
     viewOnGithub: "在 GitHub 上查看",
     copied: "已复制!",
@@ -44,14 +54,10 @@ export default {
       description:
         "分享链接。无需注册、无需下载、无障碍。客人可从任何浏览器即时加入。",
     },
-    meet: {
+    host: {
       title: "会议",
-      description: "内置降噪的清晰 WebRTC 视频和音频。只需交谈。",
-    },
-    scale: {
-      title: "扩展",
       description:
-        "自行托管以获得完全控制权，或使用 Bedrud Cloud。无限用户，永无按座位收费。",
+        "内置降噪的清晰 WebRTC 视频和音频。屏幕共享、录制和实时聊天一应俱全。",
     },
   },
   whyBedrud: {
@@ -80,13 +86,19 @@ export default {
     bedrud: "Bedrud",
     jitsi: "Jitsi Meet",
     bbb: "BigBlueButton",
+    sections: {
+      deployment: "部署",
+      features: "功能",
+      integrations: "集成与扩展",
+      licensing: "许可与社区",
+    },
     rows: {
       deploy: "部署复杂性",
       deployBedrud: "单一二进制",
       deployJitsi: "Docker Compose (8+ 容器)",
       deployBbb: "最低 8GB RAM 服务器",
       ram: "RAM 使用",
-      ramBedrud: "~200MB",
+      ramBedrud: "512MB",
       ramJitsi: "~2GB",
       ramBbb: "~4GB+",
       install: "安装时间",
@@ -94,21 +106,45 @@ export default {
       installJitsi: "~15 分钟",
       installBbb: "~30 分钟 + 配置",
       nativeClients: "原生客户端",
-      nativeBedrud: "Web、Android、iOS",
-      nativeJitsi: "Web、Android、iOS",
-      nativeBbb: "仅 Web",
+      nativeClientsBedrud: "Web、Android、iOS",
+      nativeClientsJitsi: "Web、Android、iOS",
+      nativeClientsBbb: "仅 Web",
       guestJoin: "客人加入 (无需账户)",
-      guestBedrud: "是",
-      guestJitsi: "是",
-      guestBbb: "是 (需要主持人批准)",
+      guestJoinBedrud: "是",
+      guestJoinJitsi: "是",
+      guestJoinBbb: "是 (需要主持人批准)",
       audioProcessing: "音频处理 (降噪)",
-      audioBedrud: "RNNoise / Krisp",
-      audioJitsi: "基础",
-      audioBbb: "基础",
+      audioProcessingBedrud: "RNNoise / Krisp",
+      audioProcessingJitsi: "基础",
+      audioProcessingBbb: "基础",
+      screenShare: "屏幕共享",
+      screenShareBedrud: "内置",
+      screenShareJitsi: "内置",
+      screenShareBbb: "内置",
+      recording: "录制",
+      recordingBedrud: "服务器端录制",
+      recordingJitsi: "通过 Jibri (额外配置)",
+      recordingBbb: "内置 + 笔记导出",
+      sipIntegration: "SIP / 电话拨入",
+      sipIntegrationBedrud: "否",
+      sipIntegrationJitsi: "SIP/Jibri 网关",
+      sipIntegrationBbb: "SIP 网关",
+      whiteboard: "白板",
+      whiteboardBedrud: "否",
+      whiteboardJitsi: "否",
+      whiteboardBbb: "内置白板",
+      maxUsers: "最大并发用户",
+      maxUsersBedrud: "50+ 每房间",
+      maxUsersJitsi: "100+ 需调优",
+      maxUsersBbb: "300+ 每房间",
       license: "许可证",
       licenseBedrud: "Apache 2.0",
       licenseJitsi: "Apache 2.0",
       licenseBbb: "LGPL 3.0",
+      communitySize: "社区与生态",
+      communitySizeBedrud: "成长中",
+      communitySizeJitsi: "大型，成熟",
+      communitySizeBbb: "大型，学术",
     },
   },
   features: {
@@ -151,12 +187,13 @@ export default {
     command: "curl -fsSL https://get.bedrud.org | bash",
     dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
     or: "或",
-    requirements: "支持任何 64 位 Linux、macOS 或 Windows，仅需 200MB 内存。",
+    requirements:
+      "支持任何 64 位 Linux、macOS 或 Windows，512MB 内存（空闲时约 200MB）。",
   },
   platforms: {
     title: "原生应用，不是网页套壳",
     subtitle:
-      "真正的原生应用——Web 用 React、Android 用 Kotlin、iOS 用 Swift、服务端用 Go。不用 Electron，不用 Cordova.",
+      "真正的原生应用——Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -169,13 +206,17 @@ export default {
       title: "iOS",
       tech: "Swift + SwiftUI",
     },
+    desktop: {
+      title: "桌面",
+      tech: "Rust + Slint",
+    },
     server: {
       title: "服务器",
       tech: "Go + WebRTC",
     },
     bots: {
       title: "机器人",
-      tech: "Go SDK",
+      tech: "Python SDK",
     },
     status: "生产环境",
   },
@@ -188,11 +229,12 @@ export default {
     docs: "阅读文档",
   },
   cta: {
-    title: "准备好拥有你的会议了吗？",
+    title: "停止租赁你的会议",
     subtitle:
-      "加入数千名厌倦了按席位收费和供应商锁定的开发者。不到一分钟即可开始。",
-    installNow: "复制安装命令",
-    readDocs: "阅读文档",
+      "在任意 $5 VPS 上 60 秒内部署。无需信用卡、无供应商锁定、无第三方服务器。",
+    installNow: "部署你的服务器",
+    getStarted: "阅读快速入门",
+    readDocs: "查看快速入门",
     starGithub: "在 GitHub 上星标",
   },
   faq: {
@@ -229,7 +271,7 @@ export default {
     subtitle: "听听大家怎么说 Bedrud。",
     one: {
       quote:
-        "我们用一个下午就把 Jitsi 替换成了 Bedrud。单个二进制文件，200MB 内存，会议音质反而更好了。",
+        "我们用一个下午就把 Jitsi 替换成了 Bedrud。单个二进制文件，512MB 内存，会议音质反而更好了。",
       name: "Lena K.",
       role: "欧洲某 SaaS 公司 DevOps 负责人",
       initials: "LK",
@@ -252,144 +294,133 @@ export default {
   footer: {
     brand: "Bedrud",
     tagline: "为重视隐私的团队打造的视频会议。自托管或云端。",
-    product: "产品",
+    platform: "平台",
     features: "功能",
     compare: "对比",
-    platforms: "平台",
-    openSource: "开源",
-    selfHosted: "自托管 vs 云端",
     demo: "在线演示",
-    changelog: "更新日志",
-    developers: "开发者",
-    quickstart: "快速入门指南",
     docs: "文档",
-    architecture: "架构指南",
     api: "API 参考",
-    openSourceSection: "开源",
+    download: "下载",
+    about: "关于",
+    resources: "资源",
+    blog: "博客",
+    changelog: "更新日志",
     contribute: "贡献",
     reportIssue: "报告问题",
-    resources: "资源",
-    contributors: "贡献者",
-    github: "GitHub",
-    releases: "版本发布",
-    discord: "Discord",
-    legal: "法律",
-    license: "许可证",
+    contact: "联系",
     privacy: "隐私政策",
     terms: "服务条款",
-    contact: "联系",
-    madeBy: "用心制作，来自",
-    backToTop: "回到顶部",
-    languages: "语言",
   },
   privacy: {
     meta: {
       title: "隐私政策 — Bedrud",
-      description: "了解 Bedrud 如何收集、使用和保护你的个人信息。",
+      description:
+        "Bedrud 如何处理你的数据。简而言之：自托管意味着你的数据留在你的服务器上。",
     },
     title: "隐私政策",
-    lastUpdated: "最后更新：2026 年 2 月 20 日",
+    lastUpdated: "最后更新：2026 年 4 月 17 日",
     intro:
-      "在 Bedrud，我们非常重视你的隐私。本隐私政策说明了当你使用我们的视频会议平台和相关服务时，我们如何收集、使用、披露和保护你的信息。",
+      "Bedrud 是开源视频会议软件。当你自托管时，你的数据永远不会经过我们的服务器。本政策涵盖 bedrud.org 网站和公共演示实例。如果你自托管 Bedrud，你完全控制自己的数据。",
     dataCollection: {
-      title: "数据收集",
+      title: "我们收集什么",
       content:
-        "我们收集你直接提供给我们的信息，例如当你创建账户、使用我们的服务或联系我们寻求支持时。这可能包括你的姓名、电子邮件地址和使用数据。当你在自托管模式下使用 Bedrud 时，你的数据完全保留在你自己的基础设施上。",
+        "在网站（bedrud.org）上：什么也不收集。没有 cookie，没有追踪器，没有分析。在公共演示上：你连接时的显示名称和 IP 地址。仅此而已。没有电子邮件，没有电话，没有个人信息。当你自托管 Bedrud 时，所有数据都留在你的基础设施上。我们从不会看到。",
     },
     dataUsage: {
-      title: "我们如何使用你的数据",
+      title: "我们如何使用数据",
       content:
-        "我们使用收集的信息来提供、维护和改进我们的服务，与你就账户进行沟通，以及向你发送技术通知和支持消息。我们不会将你的个人信息出售给第三方。",
+        "演示连接数据仅用于实时路由你的视频和音频。不会被记录、存储或分析。我们不会建立用户画像，不会投放定向广告，不会出售数据。绝不。",
     },
     dataStorage: {
-      title: "数据存储与安全",
+      title: "数据存储",
       content:
-        "我们实施行业标准的安全措施来保护你的数据。对于云托管实例，数据在传输和存储时均进行加密。自托管部署让你完全掌控数据存储和安全配置。",
+        "公共演示不会持久化数据。断开连接后，你的会话就消失了——没有录制，没有聊天记录。自托管实例将数据存储在你服务器上的 SQLite 中。你选择备份策略和保留策略。我们无法访问。",
     },
     thirdParties: {
       title: "第三方服务",
       content:
-        "我们可能会使用第三方服务进行分析、错误报告和基础设施管理。这些服务有其自己的隐私政策。我们仅共享这些服务运行所需的最少数据。",
+        "没有。Bedrud 在下载后不会发出任何出站请求。没有分析，没有崩溃报告，没有遥测。网站不加载任何第三方脚本。你可以自行验证——源代码在 GitHub 上。",
     },
     cookies: {
-      title: "Cookie 与跟踪",
+      title: "Cookie 与本地存储",
       content:
-        "我们使用必要的 Cookie 来维持你的会话和偏好设置。我们不使用第三方跟踪 Cookie 或广告追踪器。你可以配置浏览器拒绝 Cookie，但某些功能可能无法正常运行。",
+        "网站使用 localStorage 来保存你的主题偏好（深色/浅色）和语言选择。仅此而已。没有追踪 cookie，没有广告 ID。演示使用会话 cookie，关闭标签页后过期。",
     },
     yourRights: {
       title: "你的权利",
       content:
-        "你有权访问、更正或删除你的个人数据。你可以随时导出数据或请求删除账户。对于自托管实例，你对服务器上的所有数据拥有完全控制权。",
+        "由于我们不收集个人数据，你无需向我们申请访问、更正或删除任何内容。关闭演示标签页，你的会话数据就已经消失了。自托管用户对自己的服务器上的所有数据拥有完全控制权——导出、备份、删除，随你所需。",
     },
     changes: {
       title: "本政策的变更",
       content:
-        "我们可能会不时更新本隐私政策。我们将通过在此页面发布新政策并更新「最后更新」日期来通知你任何变更。继续使用服务即表示接受更新后的政策。",
+        "如果我们的数据处理方式发生变化，我们会更新此页面。鉴于我们几乎不收集任何数据，变更的可能性很小。页面顶部的日期反映了最近的修订。",
     },
     contact: {
       title: "联系我们",
       content:
-        "如果你对本隐私政策或我们的数据实践有任何疑问，请通过我们的 GitHub 仓库联系我们，或发送邮件至 privacy@bedrud.com。",
+        "有问题？在 GitHub 上开一个 issue，或发送邮件至 privacy@bedrud.com。我们也在 Discord 上，如果你更喜欢实时聊天的话。",
     },
   },
   terms: {
     meta: {
       title: "服务条款 — Bedrud",
-      description: "阅读使用 Bedrud 视频会议平台的条款和条件。",
+      description:
+        "bedrud.org 网站和公共演示的使用条款。自托管用户受 Apache 2.0 许可证约束。",
     },
     title: "服务条款",
-    lastUpdated: "最后更新：2026 年 2 月 20 日",
+    lastUpdated: "最后更新：2026 年 4 月 17 日",
     intro:
-      "本服务条款约束你对 Bedrud 视频会议平台和相关服务的使用。访问或使用 Bedrud 即表示你同意受这些条款的约束。",
+      "本条款涵盖 bedrud.org 网站和 demo.bedrud.org 上的公共演示实例。如果你下载并自托管 Bedrud，Apache 2.0 许可证适用于你对软件的使用。",
     acceptance: {
-      title: "条款接受",
+      title: "使用 Bedrud 即表示你接受本条款",
       content:
-        "访问或使用 Bedrud 即表示你同意遵守并受本服务条款的约束。如果你不同意这些条款，则不得访问或使用我们的服务。我们保留随时修改这些条款的权利。",
+        "访问 bedrud.org 或使用公共演示即表示你同意本条款。如果你不同意，请不要使用演示。就这么简单。",
     },
     services: {
-      title: "服务描述",
+      title: "Bedrud 提供什么",
       content:
-        "Bedrud 提供视频会议平台，可作为云托管服务和自托管解决方案使用。该平台包括视频会议、实时通信和相关协作工具，通过 Web、移动和服务器应用程序提供。",
+        "我们提供此网站（含文档和下载链接）以及一个用于评估软件的公共演示实例。视频会议软件本身是在 Apache 2.0 许可证下的开源软件。你可以下载、修改并自行运行。",
     },
     accounts: {
-      title: "用户账户",
+      title: "账户",
       content:
-        "你有责任维护账户凭证的机密性以及在你账户下发生的所有活动。创建账户时，你必须提供准确、完整的信息并保持更新。",
+        "网站不需要账户。演示不需要账户。自托管实例可以有自己的账户系统——这由你决定，因为是你管理服务器。",
     },
     acceptableUse: {
-      title: "可接受的使用",
+      title: "请勿滥用演示",
       content:
-        "你同意不将 Bedrud 用于任何非法目的，也不以任何可能损害、禁用或损害服务的方式使用。你不得试图未经授权访问服务的任何部分、其他账户或与服务相连的计算机系统。",
+        "请勿将公共演示用于非法内容、垃圾信息、骚扰或任何损害他人体验的行为。我们保留将滥用用户从演示房间中移除的权利。这不适用于自托管实例——你制定自己的规则。",
     },
     intellectualProperty: {
-      title: "知识产权",
+      title: "开源许可证",
       content:
-        "Bedrud 是在 AGPLv3 许可下发布的开源软件。你对软件的使用受该许可条款的约束。Bedrud 名称、标志和品牌是 theMadOrg 的商标，未经许可不得使用。",
+        "Bedrud 采用 Apache 2.0 许可证。你可以使用、修改和分发它——包括商业用途。Bedrud 名称和标志是 theMadOrg 的商标。你可以使用它们来指代该软件，但不能歪曲你与项目的关系。",
     },
     termination: {
-      title: "终止",
+      title: "访问权限",
       content:
-        "如违反这些条款，我们可能随时终止或暂停你对云服务的访问。终止后，你使用服务的权利将立即终止。对于自托管实例，你在 AGPLv3 许可条款下仍保留对软件的访问权。",
+        "我们可以在任何时候因滥用行为撤销对公共演示的访问权限。必要时我们可以下线网站。但一旦你下载了二进制文件，它在 Apache 2.0 许可证下就属于你了。我们无法撤销这一点。",
     },
     liability: {
-      title: "责任限制",
+      title: "不提供保证",
       content:
-        "在法律允许的最大范围内，Bedrud 及其贡献者不对因你使用服务而产生的任何间接、附带、特殊或后果性损害承担责任。服务按「原样」提供，不附带任何形式的保证。",
+        "Bedrud 按原样提供。我们不保证它在所有环境中都能完美运行。我们对停机、数据丢失或使用软件造成的任何损害不承担责任。请参阅 Apache 2.0 许可证获取完整的法律文本。",
     },
     governingLaw: {
       title: "适用法律",
       content:
-        "本条款受适用法律管辖并据其解释，不考虑法律冲突原则。因本条款引起的任何争议应通过善意协商解决，如有必要，则通过有约束力的仲裁解决。",
+        "本条款受适用法律管辖。对于争议，我们倾向于通过 GitHub issue 或直接沟通解决，然后再考虑律师。",
     },
     changes: {
-      title: "条款变更",
+      title: "更新",
       content:
-        "我们保留随时修改本服务条款的权利。重大变更将通过服务或电子邮件进行通知。在变更发布后继续使用 Bedrud 即表示接受修改后的条款。",
+        "我们可能会更新这些条款。如果更新，我们会修改此页面上的日期。在更改后继续使用演示或网站即表示你接受这些更改。",
     },
     contact: {
       title: "联系我们",
       content:
-        "如果你对本服务条款有任何疑问，请通过我们的 GitHub 仓库联系我们，或发送邮件至 legal@bedrud.com。",
+        "对本条款有疑问？发送邮件至 legal@bedrud.com 或在 GitHub 上开一个 issue。",
     },
   },
   docs: {
@@ -415,6 +446,77 @@ export default {
       contributing: "贡献",
     },
   },
+  installPage: {
+    meta: {
+      title: "安装 Bedrud — 一条命令完成部署",
+      description:
+        "在不到一分钟内将 Bedrud 部署到你的服务器。单个二进制文件，512MB 内存，无需 Docker。",
+    },
+    title: "安装 Bedrud",
+    subtitle:
+      "在不到一分钟内将视频会议部署到你的服务器。一个二进制文件，零依赖。",
+  },
+  downloadPage: {
+    meta: {
+      title: "下载 Bedrud — 桌面和移动应用",
+      description:
+        "下载适用于 Linux、macOS、Windows、Android 或 iOS 的 Bedrud。原生应用或免安装浏览器访问。",
+    },
+    title: "下载 Bedrud",
+    subtitle: "适用于每个平台的原生应用。或者直接在浏览器中打开会议链接。",
+    noInstall: "无需安装。下载、添加执行权限、运行。",
+    flathub: "从 Flathub 安装",
+    brew: "通过 Homebrew 安装",
+    winget: "通过 Windows 包管理器安装",
+    installer: "安装程序",
+    portable: "便携版",
+    playStore: "从 Google Play 获取",
+    appStore: "从 App Store 获取",
+    sideload: "从 GitHub Releases 下载 APK/IPA",
+    browserZero: "免安装",
+    browserDesc:
+      "在 Chrome、Firefox、Edge 或 Safari 中打开任意会议链接。无需下载。",
+    tryDemo: "试试在线演示",
+    otherPlatforms: "查看所有平台和包管理器",
+    server: "服务器安装",
+    serverDesc: "在您自己的硬件上部署 Bedrud 服务器。",
+    serverGuide: "服务器安装指南",
+    platform: {
+      linux: "Linux",
+      mac: "macOS",
+      windows: "Windows",
+      android: "Android",
+      ios: "iOS",
+      browser: "浏览器",
+    },
+  },
+  aboutPage: {
+    meta: {
+      title: "关于 Bedrud",
+      description:
+        "了解 Bedrud 背后的团队和使命 — 为所有人打造的开源视频会议。",
+    },
+    title: "关于 Bedrud",
+    subtitle: "由相信隐私应是默认设置的人打造的开源视频会议。",
+    mission: {
+      title: "我们的使命",
+      text: "Bedrud 的存在是因为视频会议不应该要求将数据交给大型科技公司。我们相信一个单一二进制文件、一台便宜的 VPS 和开源代码就能取代价值数百万的 SaaS 合同 — 无需牺牲质量或功能。隐私不是一项功能。它是基础。",
+    },
+    team: {
+      title: "核心团队",
+      subtitle: "Bedrud 背后的人。",
+    },
+  },
+  blog: {
+    meta: {
+      title: "博客 — Bedrud",
+      description: "来自 Bedrud 团队的更新、技术深度解析和指南。",
+    },
+    title: "博客",
+    subtitle: "来自 Bedrud 团队的更新、技术深度解析和指南。",
+    noPosts: "暂无文章。请稍后再来!",
+    backToBlog: "返回博客",
+  },
   skipToContent: "跳到内容",
   mobileNav: {
     navigation: "Navigation",
@@ -429,8 +531,22 @@ export default {
     },
     title: "功能",
     subtitle: "每个功能都解决一个真正的问题。",
-    ready: "准备好了吗？",
-    readyCta: "开始",
+    sectionTitle: "你需要的一切，不需要的什么都没有",
+    sectionSubtitle:
+      "单一二进制文件中的视频会议基础设施。无外部依赖，无按席位收费，无供应商锁定。",
+    groups: {
+      infra: "部署与基础设施",
+      media: "会议与媒体",
+      access: "访问与控制",
+      extend: "扩展",
+    },
+    learnMore: "了解更多",
+    stats: {
+      ram: "512MB 内存",
+      binary: "1 个二进制文件",
+      auth: "6 种认证方式",
+      platforms: "5 个平台",
+    },
     guestJoin: {
       pain: "厌倦了仅仅为了 15 分钟的通话而强迫客人创建账户？",
       title: "访客加入 — 无需账户",
@@ -442,6 +558,7 @@ export default {
       title: "单一二进制部署",
       description:
         "一次下载，一条命令，运行。没有 Docker Compose，没有 Kubernetes 清单，没有 12 步指南。只是一个能工作的二进制文件。",
+      snippet: "$ curl -sSL bedrud.dev/install.sh | sh",
     },
     webrtc: {
       pain: "延迟、冻结或断开的视频通话会破坏会议。",
@@ -479,18 +596,88 @@ export default {
       description:
         "用于 Web (React)、Android (Kotlin) 和 iOS (Swift) 的原生应用。一致的体验，平台原生性能。",
     },
+    e2eEncryption: {
+      pain: "经过您服务器的会议内容应该保持私密。",
+      title: "端到端加密",
+      description:
+        "房间可选 E2E 加密。服务器仅转发加密媒体——只有参与者可以解密。",
+    },
+    autoTls: {
+      pain: "SSL 证书不应该需要教程才能设置。",
+      title: "自动 TLS 和 HTTPS",
+      description: "自动 Let's Encrypt 配置和续期。内部网络可使用自签名证书。",
+    },
+    airGapped: {
+      pain: "如果你的服务器无法连接互联网怎么办？",
+      title: "支持离线和隔离网络",
+      description:
+        "下载后零出站请求。内嵌 SQLite。可在从不接触公共互联网的基础设施上运行。",
+    },
   },
   demoPage: {
     meta: {
       title: "在线演示 — Bedrud",
       description: "无需安装即可试用 Bedrud。立即加入在线演示会议。",
     },
-    title: "无需安装试用",
-    subtitle: "立即加入在线 Bedrud 会议。无需账户。",
-    tryNow: "打开演示",
-    noInstall: "无需安装，无需账户，无需承诺。只需点击并会议。",
-    orSelfHost: "更喜欢自托管？",
-    installCta: "阅读安装指南",
+    hero: {
+      headline: "立即试用 Bedrud",
+      subtitle: "在浏览器中加入实时会议。无需账户，无需下载，无需等待。",
+    },
+    cta: {
+      tryNow: "打开在线演示",
+      noInstall: "无需安装，无需账户，无需承诺。点击即可加入。",
+    },
+    preview: {
+      caption: "加入演示后你将看到的界面",
+    },
+    features: {
+      instantJoin: {
+        title: "即时加入",
+        description:
+          "点击链接即可加入。无需注册表单，无需邮件验证，无需安装应用。支持所有现代浏览器。",
+      },
+      noAccount: {
+        title: "无需账户",
+        description:
+          "选择一个显示名称即可开始。结束后关闭标签页，不留任何痕迹。",
+      },
+      webrtc: {
+        title: "真正的 WebRTC 质量",
+        description:
+          "演示运行与自托管 Bedrud 相同的引擎。亚秒级延迟，自适应码率，清晰的音频。",
+      },
+      e2e: {
+        title: "端到端加密",
+        description:
+          "在房间设置中启用 E2E 加密。你的视频和音频在离开浏览器之前就已加密。",
+      },
+    },
+    faq: {
+      whatHappens: {
+        question: "演示中会发生什么？",
+        answer:
+          "你将加入一个运行完整 Bedrud 技术栈的共享会议室。可以测试视频、音频、屏幕共享、聊天和会议控制——与自托管实例完全相同。",
+      },
+      dataSaved: {
+        question: "我的数据会被保存吗？",
+        answer:
+          "不会。演示不会持久化任何数据。当你离开时，你的会话就消失了——没有录制，没有聊天记录，没有任何数据被存储。",
+      },
+      duration: {
+        question: "演示可以使用多久？",
+        answer:
+          "没有时间限制。你可以使用演示来评估 Bedrud，想用多久就用多久。当你想要永久设置时，自托管只需 60 秒。",
+      },
+      inviteOthers: {
+        question: "我可以邀请其他人加入演示吗？",
+        answer:
+          "可以。将演示链接分享给团队成员，所有人都能加入同一个房间。这是在部署前与团队一起测试 Bedrud 的好方法。",
+      },
+    },
+    selfHost: {
+      text: "更倾向于运行自己的服务器？",
+      cta: "阅读安装指南",
+    },
   },
   changelogPage: {
     meta: {

@@ -14,15 +14,25 @@ export default {
     community: "コミュニティ",
     demo: "デモ",
     getStarted: "はじめる",
+    install: "インストール",
+    blog: "ブログ",
   },
   hero: {
     badge: "オープンソース · Apache 2.0",
-    kicker: "セルフホスト動画会議。200MB RAM。バイナリ1つ。",
-    headline: "1分未満で立ち上げるセルフホスト型ビデオ会議",
-    subtitle:
-      "単一バイナリ、200MB RAM、ユーザー無制限。あなたのサーバー、あなたのルール、あなたのデータ。",
-    tryDemo: "デモを試す",
+    kicker: "オープンソースの Zoom 代替。$5 VPS で稼働。",
+    headline: "あなたのミーティング。あなたのサーバー。あなたのルール。",
+    subheadline:
+      "独自のハードウェアでセルフホスト型ビデオ会議。単一バイナリ、512MB RAM、60秒デプロイ。プライベート通話から数千視聴者のライブ配信まで。",
+    trustBar:
+      "世界中で10,000人以上のプライバシー重視の開発者とチームに信頼されています。",
+    installMicrocopy: "ターミナルに貼り付けるだけ。60秒でデプロイ完了。",
+    tryDemo: "インストールなしで試す",
     installNow: "インストールコマンドをコピー",
+    objectionBullets: {
+      screenSharing: "画面共有・録画機能",
+      sso: "SSO・OIDC 連携",
+      webrtc: "WebRTC 搭載、サブ秒レイテンシ",
+    },
     getStarted: "はじめる",
     viewOnGithub: "GitHub で見る",
     copied: "コピーしました!",
@@ -44,15 +54,10 @@ export default {
       description:
         "リンクを共有。登録なし、ダウンロードなし、摩擦なし。ゲストは任意のブラウザから即座に参加。",
     },
-    meet: {
+    host: {
       title: "ミーティング",
       description:
-        "ノイズキャンセル内蔵のクリスタルクリアなWebRTCビデオとオーディオ。ただ話すだけ。",
-    },
-    scale: {
-      title: "スケール",
-      description:
-        "完全制御のためにセルフホスト、またはBedrud Cloudを使用。無制限ユーザー、シートごとの課金はなし、いつでも。",
+        "ノイズキャンセル内蔵のクリスタルクリアなWebRTCビデオとオーディオ。画面共有、録画、チャットも完備。",
     },
   },
   whyBedrud: {
@@ -81,13 +86,19 @@ export default {
     bedrud: "Bedrud",
     jitsi: "Jitsi Meet",
     bbb: "BigBlueButton",
+    sections: {
+      deployment: "デプロイ",
+      features: "機能",
+      integrations: "統合とスケール",
+      licensing: "ライセンスとコミュニティ",
+    },
     rows: {
       deploy: "デプロイの複雑さ",
       deployBedrud: "単一バイナリ",
       deployJitsi: "Docker Compose (8+コンテナ)",
       deployBbb: "最小8GB RAMサーバー",
       ram: "RAM使用量",
-      ramBedrud: "~200MB",
+      ramBedrud: "512MB",
       ramJitsi: "~2GB",
       ramBbb: "~4GB+",
       install: "インストール時間",
@@ -95,21 +106,45 @@ export default {
       installJitsi: "~15分",
       installBbb: "~30分 + 設定",
       nativeClients: "ネイティブクライアント",
-      nativeBedrud: "Web、Android、iOS",
-      nativeJitsi: "Web、Android、iOS",
-      nativeBbb: "Webのみ",
+      nativeClientsBedrud: "Web、Android、iOS",
+      nativeClientsJitsi: "Web、Android、iOS",
+      nativeClientsBbb: "Webのみ",
       guestJoin: "ゲスト参加（アカウント不要）",
-      guestBedrud: "はい",
-      guestJitsi: "はい",
-      guestBbb: "はい（モデレーター承認）",
+      guestJoinBedrud: "はい",
+      guestJoinJitsi: "はい",
+      guestJoinBbb: "はい（モデレーター承認）",
       audioProcessing: "オーディオ処理（ノイズキャンセル）",
-      audioBedrud: "RNNoise / Krisp",
-      audioJitsi: "基本",
-      audioBbb: "基本",
+      audioProcessingBedrud: "RNNoise / Krisp",
+      audioProcessingJitsi: "基本",
+      audioProcessingBbb: "基本",
+      screenShare: "画面共有",
+      screenShareBedrud: "内蔵",
+      screenShareJitsi: "内蔵",
+      screenShareBbb: "内蔵",
+      recording: "録画",
+      recordingBedrud: "サーバー側録画",
+      recordingJitsi: "Jibri経由（追加設定）",
+      recordingBbb: "内蔵 + ノートエクスポート",
+      sipIntegration: "SIP / 電話ダイヤルイン",
+      sipIntegrationBedrud: "なし",
+      sipIntegrationJitsi: "SIP/Jibriゲートウェイ",
+      sipIntegrationBbb: "SIPゲートウェイ",
+      whiteboard: "ホワイトボード",
+      whiteboardBedrud: "なし",
+      whiteboardJitsi: "なし",
+      whiteboardBbb: "内蔵ホワイトボード",
+      maxUsers: "最大同時ユーザー",
+      maxUsersBedrud: "50+ ルームあたり",
+      maxUsersJitsi: "100+ チューニング必要",
+      maxUsersBbb: "300+ ルームあたり",
       license: "ライセンス",
       licenseBedrud: "Apache 2.0",
       licenseJitsi: "Apache 2.0",
       licenseBbb: "LGPL 3.0",
+      communitySize: "コミュニティとエコシステム",
+      communitySizeBedrud: "成長中",
+      communitySizeJitsi: "大規模、成熟",
+      communitySizeBbb: "大規模、学術",
     },
   },
   features: {
@@ -154,12 +189,12 @@ export default {
     dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
     or: "または",
     requirements:
-      "任意の64ビット Linux、macOS、Windowsで動作。200MB RAMのみ必要。",
+      "任意の64ビット Linux、macOS、Windowsで動作。512MB RAMのみ必要。",
   },
   platforms: {
     title: "Webラッパーではないネイティブアプリ",
     subtitle:
-      "本当のネイティブアプリ — WebはReact、AndroidはKotlin、iOSはSwift、サーバーはGo。Electronなし、Cordovaなし。",
+      "本当のネイティブアプリ — WebはReact、AndroidはKotlin、iOSはSwift、デスクトップはRust、サーバーはGo。Electronなし、Cordovaなし。",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -172,13 +207,17 @@ export default {
       title: "iOS",
       tech: "Swift + SwiftUI",
     },
+    desktop: {
+      title: "デスクトップ",
+      tech: "Rust + Slint",
+    },
     server: {
       title: "サーバー",
       tech: "Go + WebRTC",
     },
     bots: {
       title: "ボット",
-      tech: "Go SDK",
+      tech: "Python SDK",
     },
     status: "本番環境",
   },
@@ -191,11 +230,12 @@ export default {
     docs: "ドキュメントを読む",
   },
   cta: {
-    title: "ミーティングを所有する準備はできましたか？",
+    title: "ミーティングをレンタルするのは終わり",
     subtitle:
-      "シート課金とベンダーロックインにうんざりした何千もの開発者に参加。1分未満で始められます。",
-    installNow: "インストールコマンドをコピー",
-    readDocs: "ドキュメントを読む",
+      "任意の $5 VPS に 60 秒でデプロイ。クレジットカード不要、ベンダーロックインなし、サードパーティサーバーなし。",
+    installNow: "サーバーをデプロイ",
+    getStarted: "クイックスタートを読む",
+    readDocs: "クイックスタートを見る",
     starGithub: "GitHubでスター",
   },
   faq: {
@@ -232,7 +272,7 @@ export default {
     subtitle: "Bedrudについての声。",
     one: {
       quote:
-        "Jitsiのセットアップを午後だけでBedrudに置き換えました。バイナリ1つ、200MB RAMで、ミーティングの音質まで良くなりました。",
+        "Jitsiのセットアップを午後だけでBedrudに置き換えました。バイナリ1つ、512MB RAMで、ミーティングの音質まで良くなりました。",
       name: "Lena K.",
       role: "ヨーロッパのSaaS企業 DevOpsリード",
       initials: "LK",
@@ -256,146 +296,133 @@ export default {
     brand: "Bedrud",
     tagline:
       "プライバシーを大切にするチームのためのビデオ会議。セルフホストまたはクラウド。",
-    product: "製品",
+    platform: "プラットフォーム",
     features: "機能",
     compare: "比較",
-    platforms: "プラットフォーム",
-    openSource: "オープンソース",
-    selfHosted: "セルフホスト vs クラウド",
     demo: "ライブデモ",
-    changelog: "変更履歴",
-    developers: "開発者",
-    quickstart: "クイックスタートガイド",
     docs: "ドキュメント",
-    architecture: "アーキテクチャガイド",
     api: "APIリファレンス",
-    openSourceSection: "オープンソース",
+    download: "ダウンロード",
+    about: "概要",
+    resources: "リソース",
+    blog: "ブログ",
+    changelog: "変更履歴",
     contribute: "貢献する",
     reportIssue: "問題を報告",
-    resources: "リソース",
-    contributors: "貢献者",
-    github: "GitHub",
-    releases: "リリース",
-    discord: "Discord",
-    legal: "法的情報",
-    license: "ライセンス",
+    contact: "お問い合わせ",
     privacy: "プライバシーポリシー",
     terms: "利用規約",
-    contact: "お問い合わせ",
-    madeBy: "心を込めて制作",
-    backToTop: "トップに戻る",
-    languages: "言語",
   },
   privacy: {
     meta: {
       title: "プライバシーポリシー — Bedrud",
       description:
-        "Bedrud がお客様の個人情報をどのように収集、使用、保護するかをご確認ください。",
+        "Bedrud がデータをどのように扱うか。一言で言えば：セルフホストならデータはあなたのサーバーに残ります。",
     },
     title: "プライバシーポリシー",
-    lastUpdated: "最終更新日：2026年2月20日",
+    lastUpdated: "最終更新日：2026年4月17日",
     intro:
-      "Bedrud では、お客様のプライバシーを真剣に考えています。このプライバシーポリシーは、お客様が当社のビデオ会議プラットフォームおよび関連サービスを使用する際に、当社がどのように情報を収集、使用、開示、保護するかを説明しています。",
+      "Bedrud はオープンソースのビデオ会議ソフトウェアです。セルフホストする場合、データは当方のサーバーを経由しません。本ポリシーは bedrud.org ウェブサイトと公開デモインスタンスを対象としています。Bedrud をセルフホストする場合、データはあなたが管理します。",
     dataCollection: {
-      title: "データ収集",
+      title: "収集する情報",
       content:
-        "当社は、アカウントの作成時、サービスの利用時、またはサポートへのお問い合わせ時など、お客様が直接提供する情報を収集します。これには、お名前、メールアドレス、利用データが含まれる場合があります。セルフホストモードで Bedrud を使用する場合、お客様のデータは完全にお客様自身のインフラストラクチャ上に保持されます。",
+        "ウェブサイト（bedrud.org）：何も収集しません。Cookie なし、トラッカーなし、アナリティクスなし。公開デモ：接続中の表示名と IP アドレスのみ。それだけです。メール、電話、個人情報は一切不要。Bedrud をセルフホストする場合、すべてのデータはあなたのインフラ上に残ります。当方は一切見ません。",
     },
     dataUsage: {
       title: "データの使用方法",
       content:
-        "当社は収集した情報を、サービスの提供、維持、改善、アカウントに関するお客様との連絡、および技術的な通知やサポートメッセージの送信に使用します。当社はお客様の個人情報を第三者に販売することはありません。",
+        "デモの接続データは、リアルタイムでのビデオと音声のルーティングにのみ使用されます。ログ保存、データ保存、分析は一切しません。ユーザープロファイルの構築、ターゲット広告の配信、データの販売はしません。絶対に。",
     },
     dataStorage: {
-      title: "データの保存とセキュリティ",
+      title: "データ保存",
       content:
-        "当社はお客様のデータを保護するために業界標準のセキュリティ対策を実施しています。クラウドホストインスタンスでは、データは転送中および保存中に暗号化されます。セルフホストデプロイメントでは、データの保存とセキュリティ設定を完全にコントロールできます。",
+        "公開デモはデータを永続化しません。切断するとセッションは消滅します。録画もチャット履歴もありません。セルフホストインスタンスでは SQLite にデータが保存されます。バックアップ戦略と保持ポリシーはあなたが選択します。当方にはアクセスできません。",
     },
     thirdParties: {
-      title: "第三者サービス",
+      title: "サードパーティサービス",
       content:
-        "当社は分析、エラーレポート、インフラストラクチャのために第三者サービスを使用する場合があります。これらのサービスには独自のプライバシーポリシーがあります。当社はこれらのサービスが機能するために必要な最小限のデータのみを共有します。",
+        "なし。Bedrud はダウンロード後に外部へのリクエストを一切行いません。アナリティクス、クラッシュレポート、テレメトリもありません。ウェブサイトもサードパーティスクリプトを読み込みません。GitHub のソースコードでご確認ください。",
     },
     cookies: {
-      title: "Cookie とトラッキング",
+      title: "Cookie とローカルストレージ",
       content:
-        "当社はお客様のセッションと設定を維持するために必要な Cookie を使用します。第三者のトラッキング Cookie や広告トラッカーは使用しません。ブラウザで Cookie を拒否するように設定できますが、一部の機能が正常に動作しない場合があります。",
+        "ウェブサイトはテーマ設定（ダーク/ライト）と言語選択に localStorage を使用するだけです。それだけです。トラッキング Cookie、広告 ID もありません。デモはタブを閉じると失効するセッション Cookie を使用します。",
     },
     yourRights: {
-      title: "お客様の権利",
+      title: "あなたの権利",
       content:
-        "お客様には個人データへのアクセス、修正、または削除の権利があります。いつでもデータをエクスポートしたり、アカウントの削除をリクエストしたりできます。セルフホストインスタンスでは、サーバー上のすべてのデータを完全にコントロールできます。",
+        "個人情報を収集していないため、アクセス、修正、削除の対象となるデータはありません。デモのタブを閉じればセッションデータは既に消滅しています。セルフホストユーザーはサーバー上のすべてのデータを完全に制御できます。エクスポート、バックアップ、削除、必要に応じて。",
     },
     changes: {
       title: "本ポリシーの変更",
       content:
-        "当社は本プライバシーポリシーを随時更新する場合があります。変更がある場合は、このページに新しいポリシーを掲載し、「最終更新日」を更新することでお知らせします。サービスの継続的な使用は、更新されたポリシーの受諾を意味します。",
+        "データ取り扱い方法が変更された場合、このページを更新します。ほとんどデータを収集していないため、変更の可能性は低いです。ページ上部の日付が最新の改訂を反映しています。",
     },
     contact: {
       title: "お問い合わせ",
       content:
-        "本プライバシーポリシーまたは当社のデータ取り扱いについてご質問がある場合は、GitHub リポジトリからお問い合わせいただくか、privacy@bedrud.com までご連絡ください。",
+        "ご質問がありますか？GitHub で Issue を開くか、privacy@bedrud.com までメールしてください。リアルタイムチャットをご希望なら Discord にもいます。",
     },
   },
   terms: {
     meta: {
       title: "利用規約 — Bedrud",
       description:
-        "Bedrud ビデオ会議プラットフォームの利用規約をお読みください。",
+        "bedrud.org ウェブサイトと公開デモの利用規約。セルフホストユーザーは Apache 2.0 ライセンスに従います。",
     },
     title: "利用規約",
-    lastUpdated: "最終更新日：2026年2月20日",
+    lastUpdated: "最終更新日：2026年4月17日",
     intro:
-      "本利用規約は、Bedrud ビデオ会議プラットフォームおよび関連サービスの使用を規定します。Bedrud にアクセスまたは使用することにより、お客様はこれらの規約に拘束されることに同意するものとします。",
+      "本規約は bedrud.org ウェブサイトと demo.bedrud.org の公開デモインスタンスを対象としています。Bedrud をダウンロードしてセルフホストする場合、Apache 2.0 ライセンスが適用されます。",
     acceptance: {
-      title: "規約の承諾",
+      title: "Bedrud を使用することで本規約に同意したとみなされます",
       content:
-        "Bedrud にアクセスまたは使用することにより、お客様は本利用規約を遵守し、これに拘束されることに同意するものとします。これらの規約に同意しない場合、当社のサービスにアクセスまたは使用することはできません。当社はいつでもこれらの規約を変更する権利を留保します。",
+        "bedrud.org にアクセスするか、公開デモを使用することで、本規約に同意したことになります。同意しない場合、デモを使用しないでください。シンプルです。",
     },
     services: {
-      title: "サービスの説明",
+      title: "Bedrud が提供するもの",
       content:
-        "Bedrud はクラウドホストサービスおよびセルフホストソリューションとして利用可能なビデオ会議プラットフォームを提供します。プラットフォームには、Web、モバイル、サーバーアプリケーションを通じて提供されるビデオ会議、リアルタイムコミュニケーション、および関連コラボレーションツールが含まれます。",
+        "当方はドキュメントとダウンロードリンクがあるウェブサイトと、ソフトウェア評価用の公開デモインスタンスを提供しています。ビデオ会議ソフトウェア自体は Apache 2.0 ライセンスのオープンソースです。ダウンロード、改変、自前での実行が可能です。",
     },
     accounts: {
-      title: "ユーザーアカウント",
+      title: "アカウント",
       content:
-        "お客様はアカウントの資格情報の機密性を維持し、アカウントで発生するすべての活動に対して責任を負います。アカウント作成時には正確かつ完全な情報を提供し、最新の状態に保つ必要があります。",
+        "ウェブサイトはアカウント不要です。デモもアカウント不要です。セルフホストインスタンスには独自のアカウントシステムを設定できます。サーバーを運用するのはあなたなので、判断はあなた次第です。",
     },
     acceptableUse: {
-      title: "許容される使用",
+      title: "デモを悪用しないでください",
       content:
-        "お客様は、Bedrud を違法な目的で使用したり、サービスを損傷、無効化、または機能低下させる可能性のある方法で使用しないことに同意します。サービスの一部、他のアカウント、またはサービスに接続されたコンピューターシステムへの不正アクセスを試みてはなりません。",
+        "公開デモを違法なコンテンツ、スパム、ハラスメント、または他者の体験を損なう目的で使用しないでください。悪質なユーザーをデモルームから削除する権利を留保します。これはセルフホストインスタンスには適用されません。ルールはあなたが決められます。",
     },
     intellectualProperty: {
-      title: "知的財産権",
+      title: "オープンソースライセンス",
       content:
-        "Bedrud は AGPLv3 ライセンスの下でライセンスされたオープンソースソフトウェアです。ソフトウェアの使用はそのライセンスの条件に従います。Bedrud の名称、ロゴ、ブランディングは theMadOrg の商標であり、許可なく使用することはできません。",
+        "Bedrud は Apache 2.0 ライセンスです。商用を含めて使用、改変、配布が可能です。Bedrud の名前とロゴは theMadOrg の商標です。ソフトウェアを指す用途には使用できますが、プロジェクトとの関係を誤って表現する目的には使用できません。",
     },
     termination: {
-      title: "終了",
+      title: "アクセス",
       content:
-        "これらの規約に違反した場合、当社はいつでもクラウドサービスへのアクセスを終了または停止することがあります。終了後、サービスを使用する権利は直ちに停止します。セルフホストインスタンスについては、AGPLv3 ライセンスの条件の下でソフトウェアへのアクセスを保持します。",
+        "悪用があった場合、公開デモへのアクセスをいつでも取り消すことができます。必要に応じてウェブサイトを閉鎖することもあります。ただし、バイナリをダウンロードした時点で、Apache 2.0 ライセンスに基づきあなたのものになります。これは取り消せません。",
     },
     liability: {
-      title: "責任の制限",
+      title: "無保証",
       content:
-        "法律で許される最大限の範囲において、Bedrud およびその貢献者は、お客様のサービス使用から生じる間接的、付随的、特別、または結果的損害について責任を負いません。サービスはいかなる種類の保証もなく「現状のまま」提供されます。",
+        "Bedrud は現状のまま提供されます。すべての環境で完璧に動作することを保証しません。ダウンタイム、データ損失、ソフトウェア使用に起因する損害について責任を負いません。完全な法的テキストは Apache 2.0 ライセンスをご覧ください。",
     },
     governingLaw: {
       title: "準拠法",
       content:
-        "本規約は、法の抵触に関する原則にかかわらず、適用される法律に準拠し、それに従って解釈されるものとします。本規約に起因する紛争は、誠実な交渉により、または必要に応じて拘束力のある仲裁により解決されるものとします。",
+        "本規約は適用される法律に準拠します。紛争については、弁護士を介入させる前に GitHub Issue または直接のコミュニケーションでの解決を希望します。",
     },
     changes: {
-      title: "規約の変更",
+      title: "更新",
       content:
-        "当社は本利用規約をいつでも変更する権利を留保します。重要な変更は、サービスまたはメールを通じてお知らせします。変更の掲載後に Bedrud を継続して使用することは、変更された規約の受諾を意味します。",
+        "本規約を更新する場合があります。更新した場合、このページの日付を変更します。変更後もデモやウェブサイトを継続して使用することは、変更に同意したことを意味します。",
     },
     contact: {
       title: "お問い合わせ",
       content:
-        "本利用規約についてご質問がある場合は、GitHub リポジトリからお問い合わせいただくか、legal@bedrud.com までご連絡ください。",
+        "本規約についてご質問がありますか？legal@bedrud.com にメールするか、GitHub で Issue を開いてください。",
     },
   },
   docs: {
@@ -421,6 +448,28 @@ export default {
       contributing: "貢献する",
     },
   },
+  installPage: {
+    meta: {
+      title: "インストール — Bedrud — ワンコマンドデプロイ",
+      description:
+        "Bedrud をサーバーに1分以内でデプロイ。単一バイナリ、512MB RAM、Docker 不要。",
+    },
+    title: "Bedrud をインストール",
+    subtitle:
+      "サーバーにビデオ会議を1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
+  },
+  blog: {
+    meta: {
+      title: "ブログ — Bedrud",
+      description:
+        "Bedrud チームによるアップデート、エンジニアリングの深掘り、ガイド。",
+    },
+    title: "ブログ",
+    subtitle:
+      "Bedrud チームによるアップデート、エンジニアリングの深掘り、ガイド。",
+    noPosts: "まだ投稿がありません。また後でチェックしてください！",
+    backToBlog: "ブログに戻る",
+  },
   skipToContent: "コンテンツへスキップ",
   mobileNav: {
     navigation: "Navigation",
@@ -435,8 +484,22 @@ export default {
     },
     title: "機能",
     subtitle: "各機能が本当の問題を解決します。",
-    ready: "準備完了？",
-    readyCta: "始める",
+    sectionTitle: "必要なものだけ、余計なものは一切なし",
+    sectionSubtitle:
+      "単一バイナリのビデオ会議インフラ。外部依存なし、シート課金なし、ベンダーロックインなし。",
+    groups: {
+      infra: "デプロイ & インフラ",
+      media: "ミーティング & メディア",
+      access: "アクセス & コントロール",
+      extend: "拡張",
+    },
+    learnMore: "詳細を見る",
+    stats: {
+      ram: "512MB RAM",
+      binary: "1 バイナリ",
+      auth: "6 認証方式",
+      platforms: "5 プラットフォーム",
+    },
     guestJoin: {
       pain: "15分の通話のためにゲストにアカウント作成を強要するのにうんざりしていませんか？",
       title: "ゲスト参加 — アカウント不要",
@@ -448,6 +511,7 @@ export default {
       title: "単一バイナリデプロイ",
       description:
         "1回のダウンロード、1つのコマンド、実行中。Docker Composeなし、Kubernetesマニフェストなし、12ステップガイドなし。動作するバイナリだけ。",
+      snippet: "$ curl -sSL bedrud.dev/install.sh | sh",
     },
     webrtc: {
       pain: "ラグ、フリーズ、または切断するビデオ通話はミーティングを台無しにします。",
@@ -485,6 +549,24 @@ export default {
       description:
         "Web (React)、Android (Kotlin)、iOS (Swift) のネイティブアプリ。一貫したエクスペリエンス、プラットフォームネイティブパフォーマンス。",
     },
+    e2eEncryption: {
+      pain: "サーバーを経由する会議内容はプライベートであるべきです。",
+      title: "エンドツーエンド暗号化",
+      description:
+        "ルームのオプション E2E 暗号化。サーバーは暗号化メディアを中継するだけ — 参加者のみが復号できます。",
+    },
+    autoTls: {
+      pain: "SSL証明書の設定にチュートリアルは不要なはずです。",
+      title: "自動 TLS と HTTPS",
+      description:
+        "Let's Encrypt の自動プロビジョニングと更新。内部ネットワーク用の自己署名証明書。",
+    },
+    airGapped: {
+      pain: "サーバーがインターネットに接続できない場合はどうしますか？",
+      title: "エアギャップ＆オフライン対応",
+      description:
+        "ダウンロード後の外部リクエストゼロ。SQLite 内蔵。公共インターネットに接続しないインフラで動作。",
+    },
   },
   demoPage: {
     meta: {
@@ -492,13 +574,67 @@ export default {
       description:
         "インストール不要で Bedrud をお試しください。今すぐライブデモ会議に参加できます。",
     },
-    title: "インストールなしで試す",
-    subtitle: "今すぐライブBedrud会議に参加。アカウント不要。",
-    tryNow: "デモを開く",
-    noInstall:
-      "インストールなし、アカウントなし、コミットメントなし。クリックして会議するだけ。",
-    orSelfHost: "セルフホストをお好み？",
-    installCta: "インストールガイドを読む",
+    hero: {
+      headline: "今すぐ Bedrud を試す",
+      subtitle:
+        "ブラウザでライブ会議に参加。アカウント不要、ダウンロード不要、待ち時間なし。",
+    },
+    cta: {
+      tryNow: "ライブデモを開く",
+      noInstall:
+        "インストール不要。アカウント不要。コミットメント不要。クリックして参加。",
+    },
+    preview: {
+      caption: "デモに参加すると表示される画面",
+    },
+    features: {
+      instantJoin: {
+        title: "即座に参加",
+        description:
+          "リンクをクリックするだけで参加できます。登録フォーム、メール認証、アプリのインストールは一切不要。すべてのモダンブラウザで動作します。",
+      },
+      noAccount: {
+        title: "アカウント不要",
+        description:
+          "表示名を選んですぐに会話を始められます。終わったらタブを閉じるだけ。何も残りません。",
+      },
+      webrtc: {
+        title: "本物の WebRTC 品質",
+        description:
+          "デモはセルフホスト版の Bedrud と同じエンジンを使用。サブ秒レイテンシ、アダプティブビットレート、クリスタルクリアな音声。",
+      },
+      e2e: {
+        title: "エンドツーエンド暗号化",
+        description:
+          "ルーム設定で E2E 暗号化を有効にできます。動画と音声はブラウザを離れる前に暗号化されます。",
+      },
+    },
+    faq: {
+      whatHappens: {
+        question: "デモで何ができますか？",
+        answer:
+          "Bedrud のフルスタックが稼働する共有会議ルームに参加します。ビデオ、音声、画面共有、チャット、会議コントロールをテストできます。セルフホスト版と全く同じです。",
+      },
+      dataSaved: {
+        question: "データは保存されますか？",
+        answer:
+          "いいえ。デモではデータを永続化しません。退出するとセッションは消滅します。録画もチャット履歴も保存されません。",
+      },
+      duration: {
+        question: "デモはどのくらい使えますか？",
+        answer:
+          "時間制限はありません。Bedrud を評価するのに必要なだけデモをご利用ください。永続的なセットアップが必要なら、セルフホストは60秒で完了します。",
+      },
+      inviteOthers: {
+        question: "他の人をデモに招待できますか？",
+        answer:
+          "はい。デモリンクをチームメンバーと共有すれば、全員が同じルームに参加できます。デプロイ前にチームで Bedrud をテストするのに最適です。",
+      },
+    },
+    selfHost: {
+      text: "自分でサーバーを運用したいですか？",
+      cta: "インストールガイドを読む",
+    },
   },
   changelogPage: {
     meta: {

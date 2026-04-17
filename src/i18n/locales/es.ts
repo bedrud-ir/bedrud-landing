@@ -13,16 +13,27 @@ export default {
     docs: "Documentación",
     community: "Comunidad",
     demo: "Demo",
+    install: "Instalar",
+    download: "Descargar",
+    blog: "Blog",
     getStarted: "Comenzar",
   },
   hero: {
     badge: "Código Abierto · Apache 2.0",
-    kicker: "Videollamadas autoalojadas. 200MB RAM. Un binario.",
-    headline: "Videoconferencias self-hosted en menos de un minuto",
-    subtitle:
-      "Un binario, 200MB de RAM, usuarios ilimitados. Tu servidor, tus reglas, tus datos.",
-    tryDemo: "Probar demo",
+    kicker: "Alternativa open source a Zoom. Funciona en un VPS de $5.",
+    headline: "Tus reuniones. Tu servidor. Tus reglas.",
+    subheadline:
+      "Videoconferencias autohospedadas en tu propio hardware. Un solo binario, 512 MB de RAM, despliegue en 60 segundos. Desde llamadas privadas hasta transmisiones con miles de espectadores.",
+    trustBar:
+      "Confiable por más de 10,000 desarrolladores y equipos preocupados por la privacidad en todo el mundo.",
+    installMicrocopy: "Pega en tu terminal. Desplegado en 60 segundos.",
+    tryDemo: "Probar sin instalar",
     installNow: "Copiar comando de instalación",
+    objectionBullets: {
+      screenSharing: "Compartir pantalla y grabación",
+      sso: "Integración SSO y OIDC",
+      webrtc: "Basado en WebRTC, latencia inferior a un segundo",
+    },
     getStarted: "Comenzar",
     viewOnGithub: "Ver en GitHub",
     copied: "¡Copiado!",
@@ -44,15 +55,10 @@ export default {
       description:
         "Comparte un enlace. Sin registros, sin descargas, sin fricción. Los invitados se unen instantáneamente desde cualquier navegador.",
     },
-    meet: {
+    host: {
       title: "Reunirse",
       description:
-        "Video y audio WebRTC cristalinos con cancelación de ruido incorporada. Solo habla.",
-    },
-    scale: {
-      title: "Escalar",
-      description:
-        "Aloja tú mismo para control total o usa Bedrud Cloud. Usuarios ilimitados, sin precios por asiento, nunca.",
+        "Video y audio WebRTC cristalinos con cancelación de ruido incorporada. Compartir pantalla, grabación y chat incluidos.",
     },
   },
   whyBedrud: {
@@ -81,13 +87,19 @@ export default {
     bedrud: "Bedrud",
     jitsi: "Jitsi Meet",
     bbb: "BigBlueButton",
+    sections: {
+      deployment: "Despliegue",
+      features: "Características",
+      integrations: "Integraciones y Escala",
+      licensing: "Licencia y Comunidad",
+    },
     rows: {
       deploy: "Complejidad de despliegue",
       deployBedrud: "Binario único",
       deployJitsi: "Docker Compose (8+ contenedores)",
       deployBbb: "Servidor mínimo 8GB RAM",
       ram: "Uso de RAM",
-      ramBedrud: "~200MB",
+      ramBedrud: "512MB",
       ramJitsi: "~2GB",
       ramBbb: "~4GB+",
       install: "Tiempo de instalación",
@@ -95,21 +107,45 @@ export default {
       installJitsi: "~15 minutos",
       installBbb: "~30 minutos + config",
       nativeClients: "Clientes nativos",
-      nativeBedrud: "Web, Android, iOS",
-      nativeJitsi: "Web, Android, iOS",
-      nativeBbb: "Solo Web",
+      nativeClientsBedrud: "Web, Android, iOS",
+      nativeClientsJitsi: "Web, Android, iOS",
+      nativeClientsBbb: "Solo Web",
       guestJoin: "Invitado (Sin cuenta)",
-      guestBedrud: "Sí",
-      guestJitsi: "Sí",
-      guestBbb: "Sí (aprobación moderador)",
+      guestJoinBedrud: "Sí",
+      guestJoinJitsi: "Sí",
+      guestJoinBbb: "Sí (aprobación moderador)",
       audioProcessing: "Procesamiento de audio (Cancelación ruido)",
-      audioBedrud: "RNNoise / Krisp",
-      audioJitsi: "Básico",
-      audioBbb: "Básico",
+      audioProcessingBedrud: "RNNoise / Krisp",
+      audioProcessingJitsi: "Básico",
+      audioProcessingBbb: "Básico",
+      screenShare: "Compartir pantalla",
+      screenShareBedrud: "Integrado",
+      screenShareJitsi: "Integrado",
+      screenShareBbb: "Integrado",
+      recording: "Grabación",
+      recordingBedrud: "Grabación del lado del servidor",
+      recordingJitsi: "Via Jibri (configuración adicional)",
+      recordingBbb: "Integrado + exportación de notas",
+      sipIntegration: "SIP / Marcación telefónica",
+      sipIntegrationBedrud: "No",
+      sipIntegrationJitsi: "Gateway SIP/Jibri",
+      sipIntegrationBbb: "Gateway SIP",
+      whiteboard: "Pizarra",
+      whiteboardBedrud: "No",
+      whiteboardJitsi: "No",
+      whiteboardBbb: "Pizarra integrada",
+      maxUsers: "Usuarios concurrentes máx.",
+      maxUsersBedrud: "50+ por sala",
+      maxUsersJitsi: "100+ con ajustes",
+      maxUsersBbb: "300+ por sala",
       license: "Licencia",
       licenseBedrud: "Apache 2.0",
       licenseJitsi: "Apache 2.0",
       licenseBbb: "LGPL 3.0",
+      communitySize: "Comunidad y Ecosistema",
+      communitySizeBedrud: "Creciendo",
+      communitySizeJitsi: "Grande, maduro",
+      communitySizeBbb: "Grande, académico",
     },
   },
   features: {
@@ -154,12 +190,12 @@ export default {
     dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
     or: "o",
     requirements:
-      "Funciona en cualquier Linux de 64 bits, macOS o Windows con 200MB de RAM.",
+      "Funciona en cualquier Linux de 64 bits, macOS o Windows con 512MB RAM (~200MB idle).",
   },
   platforms: {
     title: "Apps nativas, no wrappers",
     subtitle:
-      "Apps nativas de verdad — React en web, Kotlin en Android, Swift en iOS, Go en el servidor. Sin Electron, sin Cordova.",
+      "Apps nativas de verdad — React en web, Kotlin en Android, Swift en iOS, Rust en el escritorio, Go en el servidor. Sin Electron, sin Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -172,13 +208,17 @@ export default {
       title: "iOS",
       tech: "Swift + SwiftUI",
     },
+    desktop: {
+      title: "Desktop",
+      tech: "Rust + Slint",
+    },
     server: {
       title: "Servidor",
       tech: "Go + WebRTC",
     },
     bots: {
       title: "Bots",
-      tech: "Go SDK",
+      tech: "Python SDK",
     },
     status: "Producción",
   },
@@ -191,10 +231,11 @@ export default {
     docs: "Leer la documentación",
   },
   cta: {
-    title: "¿Listo para poseer tus reuniones?",
+    title: "Deja de alquilar tus reuniones",
     subtitle:
-      "Únete a miles de desarrolladores que se cansaron de precios por asiento y lock-in. Comienza en menos de un minuto.",
-    installNow: "Copiar comando de instalación",
+      "Despliega en cualquier VPS de $5 en 60 segundos. Sin tarjeta de crédito, sin bloqueo de proveedor, sin servidores de terceros.",
+    installNow: "Desplegar tu servidor",
+    getStarted: "Leer el Quickstart",
     readDocs: "Leer documentación",
     starGithub: "Estrella en GitHub",
   },
@@ -232,7 +273,7 @@ export default {
     subtitle: "Lo que la gente dice sobre Bedrud.",
     one: {
       quote:
-        "Reemplazamos nuestra instalación de Jitsi con Bedrud en una tarde. Un binario, 200MB de RAM, y nuestras reuniones suenan mejor ahora.",
+        "Reemplazamos nuestra instalación de Jitsi con Bedrud en una tarde. Un binario, 512MB de RAM, y nuestras reuniones suenan mejor ahora.",
       name: "Lena K.",
       role: "Lead DevOps en una empresa SaaS europea",
       initials: "LK",
@@ -256,146 +297,133 @@ export default {
     brand: "Bedrud",
     tagline:
       "Videollamadas para equipos que valoran la privacidad. Autoalojado o en la nube.",
-    product: "Producto",
+    platform: "Plataforma",
     features: "Características",
     compare: "Comparación",
-    platforms: "Plataformas",
-    openSource: "Código Abierto",
-    selfHosted: "Autoalojado vs. Nube",
     demo: "Demo en vivo",
-    changelog: "Registro de cambios",
-    developers: "Desarrolladores",
-    quickstart: "Guía de inicio rápido",
     docs: "Documentación",
-    architecture: "Guía de arquitectura",
     api: "Referencia de API",
-    openSourceSection: "Código Abierto",
+    download: "Descargar",
+    about: "Acerca de",
+    resources: "Recursos",
+    blog: "Blog",
+    changelog: "Registro de cambios",
     contribute: "Contribuir",
     reportIssue: "Reportar un problema",
-    resources: "Recursos",
-    contributors: "Colaboradores",
-    github: "GitHub",
-    releases: "Versiones",
-    discord: "Discord",
-    legal: "Legal",
-    license: "Licencia",
+    contact: "Contacto",
     privacy: "Política de privacidad",
     terms: "Términos de servicio",
-    contact: "Contacto",
-    madeBy: "Hecho con cariño por",
-    backToTop: "Volver arriba",
-    languages: "Idiomas",
   },
   privacy: {
     meta: {
       title: "Política de privacidad — Bedrud",
       description:
-        "Descubre cómo Bedrud recopila, utiliza y protege tu información personal.",
+        "Cómo maneja Bedrud tus datos. Versión corta: autoalojado significa que tus datos permanecen en tu servidor.",
     },
     title: "Política de privacidad",
-    lastUpdated: "Última actualización: 20 de febrero de 2026",
+    lastUpdated: "Última actualización: 17 de abril de 2026",
     intro:
-      "En Bedrud, nos tomamos tu privacidad en serio. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos tu información cuando utilizas nuestra plataforma de videollamadas y servicios relacionados.",
+      "Bedrud es software de videoconferencia de código abierto. Cuando lo autoalojas, tus datos nunca tocan nuestros servidores. Esta política cubre el sitio bedrud.org y la instancia de demo pública. Si autoalojas Bedrud, tú controlas tus propios datos.",
     dataCollection: {
-      title: "Recopilación de datos",
+      title: "Qué recopilamos",
       content:
-        "Recopilamos la información que nos proporcionas directamente, como cuando creas una cuenta, usas nuestros servicios o nos contactas para obtener soporte. Esto puede incluir tu nombre, dirección de correo electrónico y datos de uso. Cuando usas Bedrud en modo autoalojado, tus datos permanecen completamente en tu propia infraestructura.",
+        "En el sitio web (bedrud.org): nada. Sin cookies, sin rastreadores, sin analytics. En la demo pública: tu nombre para mostrar y tu dirección IP mientras estás conectado. Eso es todo. Sin email, sin teléfono, sin datos personales. Cuando autoalojas Bedrud, todos los datos permanecen en tu infraestructura. Nunca los vemos.",
     },
     dataUsage: {
-      title: "Cómo usamos tus datos",
+      title: "Cómo usamos los datos",
       content:
-        "Usamos la información que recopilamos para proporcionar, mantener y mejorar nuestros servicios, para comunicarnos contigo sobre tu cuenta y para enviarte avisos técnicos y mensajes de soporte. No vendemos tu información personal a terceros.",
+        "Los datos de conexión de la demo se usan solo para enrutar tu video y audio en tiempo real. No se registran, almacenan ni analizan. No construimos perfiles de usuario, no servimos publicidad dirigida, ni vendemos datos. Nunca.",
     },
     dataStorage: {
-      title: "Almacenamiento y seguridad de datos",
+      title: "Almacenamiento de datos",
       content:
-        "Implementamos medidas de seguridad estándar de la industria para proteger tus datos. Para instancias alojadas en la nube, los datos se cifran en tránsito y en reposo. Las implementaciones autoalojadas te dan control total sobre el almacenamiento y la configuración de seguridad.",
+        "La demo pública no persiste datos. Al desconectarte, tu sesión desaparece — sin grabaciones, sin historial de chat. Las instancias autoalojadas almacenan datos en SQLite en tu servidor. Tú eliges la estrategia de respaldo y retención. No tenemos acceso.",
     },
     thirdParties: {
       title: "Servicios de terceros",
       content:
-        "Podemos usar servicios de terceros para análisis, informes de errores e infraestructura. Estos servicios tienen sus propias políticas de privacidad. Solo compartimos los datos mínimos necesarios para que estos servicios funcionen.",
+        "Ninguno. Bedrud no hace solicitudes salientes después de la descarga. Sin analytics, sin reportes de errores, sin telemetría. El sitio no carga scripts de terceros. Verifícalo tú mismo — el código fuente está en GitHub.",
     },
     cookies: {
-      title: "Cookies y seguimiento",
+      title: "Cookies y almacenamiento local",
       content:
-        "Usamos cookies esenciales para mantener tu sesión y preferencias. No usamos cookies de seguimiento de terceros ni rastreadores publicitarios. Puedes configurar tu navegador para rechazar cookies, aunque algunas funciones podrían no funcionar correctamente.",
+        "El sitio usa localStorage para tu preferencia de tema (oscuro/claro) y selección de idioma. Eso es todo. Sin cookies de rastreo, sin IDs publicitarios. La demo usa una cookie de sesión que expira al cerrar la pestaña.",
     },
     yourRights: {
       title: "Tus derechos",
       content:
-        "Tienes derecho a acceder, corregir o eliminar tus datos personales. Puedes exportar tus datos en cualquier momento o solicitar la eliminación de tu cuenta. Para instancias autoalojadas, tienes control total sobre todos los datos en tus servidores.",
+        "Dado que no recopilamos datos personales, no hay nada a lo que acceder, corregir o eliminar de nuestra parte. Cierra la pestaña de la demo y tus datos de sesión ya desaparecieron. Los usuarios autoalojados tienen control total sobre todos los datos en sus servidores — exportar, respaldar, eliminar, lo que necesites.",
     },
     changes: {
       title: "Cambios a esta política",
       content:
-        "Podemos actualizar esta Política de Privacidad de vez en cuando. Te notificaremos de cualquier cambio publicando la nueva política en esta página y actualizando la fecha de 'última actualización'. El uso continuado del servicio constituye la aceptación de la política actualizada.",
+        "Actualizaremos esta página si cambian nuestras prácticas de datos. Dado que casi no recopilamos nada, los cambios son improbables. La fecha al inicio de la página refleja la revisión más reciente.",
     },
     contact: {
-      title: "Contáctanos",
+      title: "Contacto",
       content:
-        "Si tienes alguna pregunta sobre esta Política de Privacidad o nuestras prácticas de datos, contáctanos a través de nuestro repositorio de GitHub o escríbenos a privacy@bedrud.com.",
+        "¿Preguntas? Abre un issue en GitHub o escribe a privacy@bedrud.com. También estamos en Discord si prefieres chat en tiempo real.",
     },
   },
   terms: {
     meta: {
       title: "Términos de servicio — Bedrud",
       description:
-        "Lee los términos y condiciones para usar la plataforma de videollamadas Bedrud.",
+        "Términos para el sitio bedrud.org y la demo pública. Los usuarios autoalojados se rigen por la licencia Apache 2.0.",
     },
     title: "Términos de servicio",
-    lastUpdated: "Última actualización: 20 de febrero de 2026",
+    lastUpdated: "Última actualización: 17 de abril de 2026",
     intro:
-      "Estos Términos de Servicio rigen tu uso de la plataforma de videollamadas Bedrud y servicios relacionados. Al acceder o usar Bedrud, aceptas estar sujeto a estos términos.",
+      "Estos términos cubren el sitio bedrud.org y la instancia de demo pública en demo.bedrud.org. Si descargas y autoalojas Bedrud, la licencia Apache 2.0 rige tu uso del software.",
     acceptance: {
-      title: "Aceptación de los términos",
+      title: "Usar Bedrud significa que aceptas estos términos",
       content:
-        "Al acceder o usar Bedrud, aceptas cumplir y estar sujeto a estos Términos de Servicio. Si no estás de acuerdo con estos términos, no puedes acceder ni usar nuestros servicios. Nos reservamos el derecho de modificar estos términos en cualquier momento.",
+        "Al visitar bedrud.org o usar la demo pública, aceptas estos términos. Si no estás de acuerdo, no uses la demo. Así de simple.",
     },
     services: {
-      title: "Descripción de los servicios",
+      title: "Qué ofrece Bedrud",
       content:
-        "Bedrud proporciona una plataforma de videollamadas disponible como servicio en la nube y como solución autoalojada. La plataforma incluye videoconferencias, comunicación en tiempo real y herramientas de colaboración relacionadas, entregadas a través de aplicaciones web, móviles y de servidor.",
+        "Ofrecemos este sitio con documentación y enlaces de descarga, y una instancia de demo pública para evaluar el software. El software de videoconferencia propiamente dicho es de código abierto bajo la licencia Apache 2.0. Descárgalo, modíficalo, ejecútalo tú mismo.",
     },
     accounts: {
-      title: "Cuentas de usuario",
+      title: "Cuentas",
       content:
-        "Eres responsable de mantener la confidencialidad de las credenciales de tu cuenta y de todas las actividades que ocurran bajo tu cuenta. Debes proporcionar información precisa y completa al crear una cuenta y mantenerla actualizada.",
+        "El sitio no requiere cuentas. La demo no requiere cuentas. Las instancias autoalojadas pueden tener su propio sistema de cuentas — eso es tu decisión, ya que tú administras el servidor.",
     },
     acceptableUse: {
-      title: "Uso aceptable",
+      title: "No abuses de la demo",
       content:
-        "Aceptas no usar Bedrud para ningún propósito ilegal o de cualquier manera que pueda dañar, deshabilitar o deteriorar el servicio. No puedes intentar obtener acceso no autorizado a ninguna parte del servicio, otras cuentas o sistemas informáticos conectados al servicio.",
+        "No uses la demo pública para contenido ilegal, spam, acoso o cualquier cosa que degrade la experiencia de otros. Nos reservamos el derecho de expulsar usuarios abusivos de la sala de demo. Esto no aplica a instancias autoalojadas — tú estableces tus propias reglas.",
     },
     intellectualProperty: {
-      title: "Propiedad intelectual",
+      title: "Licencia de código abierto",
       content:
-        "Bedrud es software de código abierto licenciado bajo la licencia AGPLv3. Tu uso del software está sujeto a los términos de esa licencia. El nombre Bedrud, el logotipo y la marca son marcas registradas de theMadOrg y no pueden usarse sin permiso.",
+        "Bedrud está bajo licencia Apache 2.0. Úsalo, modifícalo, distribúyelo — incluyendo comercialmente. El nombre y logo de Bedrud son marcas de theMadOrg. Puedes usarlos para referirte al software, pero no para tergiversar tu relación con el proyecto.",
     },
     termination: {
-      title: "Terminación",
+      title: "Acceso",
       content:
-        "Podemos terminar o suspender tu acceso al servicio en la nube en cualquier momento por violación de estos términos. Tras la terminación, tu derecho a usar el servicio cesará inmediatamente. Para instancias autoalojadas, conservas el acceso al software bajo los términos de la licencia AGPLv3.",
+        "Podemos revocar el acceso a la demo pública en cualquier momento por abuso. Podemos sacar el sitio si es necesario. Pero una vez descargado el binario, es tuyo bajo la licencia Apache 2.0. No podemos revocar eso.",
     },
     liability: {
-      title: "Limitación de responsabilidad",
+      title: "Sin garantía",
       content:
-        "En la máxima medida permitida por la ley, Bedrud y sus contribuyentes no serán responsables de ningún daño indirecto, incidental, especial o consecuente derivado de tu uso del servicio. El servicio se proporciona 'tal cual' sin garantías de ningún tipo.",
+        "Bedrud se proporciona tal cual. No garantizamos que funcione perfectamente en todos los entornos. No somos responsables de caídas, pérdida de datos o cualquier daño del uso del software. Consulta la licencia Apache 2.0 para el texto legal completo.",
     },
     governingLaw: {
       title: "Ley aplicable",
       content:
-        "Estos términos se regirán e interpretarán de acuerdo con las leyes aplicables, sin tener en cuenta los principios de conflicto de leyes. Cualquier disputa que surja de estos términos se resolverá mediante negociación de buena fe o, si es necesario, arbitraje vinculante.",
+        "Estos términos se rigen por la ley aplicable. Para disputas, preferimos resolverlas a través de issues de GitHub o comunicación directa antes de involucrar abogados.",
     },
     changes: {
-      title: "Cambios a los términos",
+      title: "Actualizaciones",
       content:
-        "Nos reservamos el derecho de modificar estos Términos de Servicio en cualquier momento. Los cambios materiales se comunicarán a través del servicio o por correo electrónico. Tu uso continuado de Bedrud después de la publicación de los cambios constituye la aceptación de los términos modificados.",
+        "Podemos actualizar estos términos. Si lo hacemos, cambiaremos la fecha en esta página. El uso continuo de la demo o el sitio después de los cambios significa que los aceptas.",
     },
     contact: {
-      title: "Contáctanos",
+      title: "Contacto",
       content:
-        "Si tienes alguna pregunta sobre estos Términos de Servicio, contáctanos a través de nuestro repositorio de GitHub o escríbenos a legal@bedrud.com.",
+        "¿Preguntas sobre estos términos? Escribe a legal@bedrud.com o abre un issue en GitHub.",
     },
   },
   docs: {
@@ -421,6 +449,81 @@ export default {
       contributing: "Contribuir",
     },
   },
+  installPage: {
+    meta: {
+      title: "Instalar Bedrud — Despliegue en un comando",
+      description:
+        "Despliega Bedrud en tu servidor en menos de un minuto. Un solo binario, 512MB RAM, sin Docker.",
+    },
+    title: "Instalar Bedrud",
+    subtitle:
+      "Despliega videoconferencias en tu servidor en menos de un minuto. Un binario, cero dependencias.",
+  },
+  downloadPage: {
+    meta: {
+      title: "Descargar Bedrud — Aplicaciones de Escritorio y Móvil",
+      description:
+        "Descarga Bedrud para Linux, macOS, Windows, Android o iOS. Aplicaciones nativas o acceso por navegador sin instalación.",
+    },
+    title: "Descargar Bedrud",
+    subtitle:
+      "Aplicaciones nativas para cada plataforma. O simplemente abre un enlace de reunión en tu navegador.",
+    noInstall: "Sin instalación necesaria. Descarga, haz ejecutable, ejecuta.",
+    flathub: "Instalar desde Flathub",
+    brew: "Instalar vía Homebrew",
+    winget: "Instalar vía Windows Package Manager",
+    installer: "Instalador",
+    portable: "Portable",
+    playStore: "Disponible en Google Play",
+    appStore: "Disponible en la App Store",
+    sideload: "Descargar APK/IPA desde GitHub Releases",
+    browserZero: "Sin instalación",
+    browserDesc:
+      "Abre cualquier enlace de reunión en Chrome, Firefox, Edge o Safari. Sin descarga necesaria.",
+    tryDemo: "Probar demo en vivo",
+    otherPlatforms: "Ver todas las plataformas y gestores de paquetes",
+    server: "Instalación del servidor",
+    serverDesc: "Despliega el servidor Bedrud en tu propio hardware.",
+    serverGuide: "Guía de instalación del servidor",
+    platform: {
+      linux: "Linux",
+      mac: "macOS",
+      windows: "Windows",
+      android: "Android",
+      ios: "iOS",
+      browser: "Navegador",
+    },
+  },
+  aboutPage: {
+    meta: {
+      title: "Acerca de Bedrud",
+      description:
+        "Conoce al equipo y la misión detrás de Bedrud — videoconferencias de código abierto para todos.",
+    },
+    title: "Acerca de Bedrud",
+    subtitle:
+      "Videoconferencias de código abierto creadas por personas que creen que la privacidad debería ser lo predeterminado.",
+    mission: {
+      title: "Nuestra misión",
+      text: "Bedrud existe porque las videoconferencias no deberían requerir entregar tus datos a Big Tech. Creemos que un solo binario, un VPS barato y código abierto pueden reemplazar contratos SaaS de millones — sin sacrificar calidad ni funcionalidades. La privacidad no es una característica. Es el fundamento.",
+    },
+    team: {
+      title: "Equipo principal",
+      subtitle: "Las personas detrás de Bedrud.",
+    },
+  },
+  blog: {
+    meta: {
+      title: "Blog — Bedrud",
+      description:
+        "Actualizaciones, análisis técnicos y guías del equipo de Bedrud.",
+    },
+    title: "Blog",
+    subtitle:
+      "Actualizaciones, análisis técnicos y guías del equipo de Bedrud.",
+    noPosts: "Sin artículos aún. ¡Vuelve pronto!",
+    backToBlog: "Volver al Blog",
+  },
   skipToContent: "Saltar al contenido",
   mobileNav: {
     navigation: "Navigation",
@@ -435,8 +538,22 @@ export default {
     },
     title: "Características",
     subtitle: "Cada característica resuelve un problema real.",
-    ready: "¿Listo?",
-    readyCta: "Comenzar",
+    sectionTitle: "Todo lo que necesitas, nada que no",
+    sectionSubtitle:
+      "Infraestructura de videoconferencias en un solo binario. Sin dependencias externas, sin precios por asiento, sin bloqueo de proveedor.",
+    groups: {
+      infra: "Despliegue & Infraestructura",
+      media: "Reuniones & Medios",
+      access: "Acceso & Control",
+      extend: "Extender",
+    },
+    learnMore: "Más información",
+    stats: {
+      ram: "512MB RAM",
+      binary: "1 Binario",
+      auth: "6 Métodos de auth",
+      platforms: "5 Plataformas",
+    },
     guestJoin: {
       pain: "¿Cansado de forzar a los invitados a crear cuentas solo para una llamada de 15 minutos?",
       title: "Invitado — Sin cuenta necesaria",
@@ -448,6 +565,7 @@ export default {
       title: "Despliegue binario único",
       description:
         "Una descarga, un comando, ejecutándose. Sin Docker Compose, sin manifiestos de Kubernetes, sin guías de 12 pasos. Solo un binario que funciona.",
+      snippet: "$ curl -sSL bedrud.dev/install.sh | sh",
     },
     webrtc: {
       pain: "Las videollamadas que se retrasan, congelan o se cortan arruinan las reuniones.",
@@ -485,6 +603,24 @@ export default {
       description:
         "Aplicaciones nativas para Web (React), Android (Kotlin) y iOS (Swift). Experiencia consistente, rendimiento nativo de la plataforma.",
     },
+    e2eEncryption: {
+      pain: "El contenido de reuniones que pasa por tu servidor debería mantenerse privado.",
+      title: "Cifrado de extremo a extremo",
+      description:
+        "Cifrado E2E opcional para salas. El servidor retransmite medios cifrados — solo los participantes pueden descifrar.",
+    },
+    autoTls: {
+      pain: "Los certificados SSL no deberían requerir un tutorial.",
+      title: "TLS automático y HTTPS",
+      description:
+        "Provisión y renovación automática de Let's Encrypt. Certificados auto-firmados para redes internas.",
+    },
+    airGapped: {
+      pain: "¿Y si tus servidores no pueden acceder a internet?",
+      title: "Preparado para redes aisladas",
+      description:
+        "Cero peticiones salientes después de la descarga. SQLite integrado. Funciona en infraestructura que nunca toca el internet público.",
+    },
   },
   demoPage: {
     meta: {
@@ -492,13 +628,67 @@ export default {
       description:
         "Prueba Bedrud sin instalar nada. Únete a una reunión demo en vivo ahora.",
     },
-    title: "Probar sin instalar",
-    subtitle: "Únete a una reunión Bedrud en vivo ahora. Sin cuenta necesaria.",
-    tryNow: "Abrir demo",
-    noInstall:
-      "Sin instalación, sin cuenta, sin compromiso. Solo haz clic y reúnete.",
-    orSelfHost: "¿Prefieres autoalojamiento?",
-    installCta: "Leer la guía de instalación",
+    hero: {
+      headline: "Prueba Bedrud ahora mismo",
+      subtitle:
+        "Únete a una reunión en vivo en tu navegador. Sin cuenta, sin descarga, sin espera.",
+    },
+    cta: {
+      tryNow: "Abrir demo en vivo",
+      noInstall:
+        "Sin instalación. Sin cuenta. Sin compromiso. Haz clic y únete.",
+    },
+    preview: {
+      caption: "Lo que verás al unirte a la demo",
+    },
+    features: {
+      instantJoin: {
+        title: "Acceso instantáneo",
+        description:
+          "Haz clic en el enlace y ya estás dentro. Sin formularios de registro, sin verificación de email, sin instalar nada. Funciona en cualquier navegador moderno.",
+      },
+      noAccount: {
+        title: "No necesitas cuenta",
+        description:
+          "Elige un nombre para mostrar y empieza a hablar. Cuando termines, cierra la pestaña. Nada permanece.",
+      },
+      webrtc: {
+        title: "Calidad WebRTC real",
+        description:
+          "La demo usa el mismo motor que Bedrud autoalojado. Latencia sub-segundo, bitrate adaptativo, audio cristalino.",
+      },
+      e2e: {
+        title: "Cifrado de extremo a extremo",
+        description:
+          "Activa el cifrado E2E en la configuración de la sala. Tu video y audio se cifran antes de salir de tu navegador.",
+      },
+    },
+    faq: {
+      whatHappens: {
+        question: "¿Qué pasa en la demo?",
+        answer:
+          "Te unes a una sala de reunión compartida ejecutando el stack completo de Bedrud. Prueba video, audio, compartir pantalla, chat y controles de reunión — igual que una instancia autoalojada.",
+      },
+      dataSaved: {
+        question: "¿Se guardan mis datos?",
+        answer:
+          "No. La demo no persiste datos. Cuando te vas, tu sesión desaparece — sin grabaciones, sin historial de chat, nada almacenado.",
+      },
+      duration: {
+        question: "¿Cuánto tiempo puedo usar la demo?",
+        answer:
+          "Sin límite de tiempo. Usa la demo todo lo que necesites para evaluar Bedrud. Cuando quieras un setup permanente, el autoalojamiento toma 60 segundos.",
+      },
+      inviteOthers: {
+        question: "¿Puedo invitar a otros a la demo?",
+        answer:
+          "Sí. Comparte el enlace de la demo con compañeros de equipo y todos se unen a la misma sala. Ideal para probar Bedrud con tu equipo antes de desplegar.",
+      },
+    },
+    selfHost: {
+      text: "¿Prefieres ejecutar tu propio servidor?",
+      cta: "Leer la guía de instalación",
+    },
   },
   changelogPage: {
     meta: {
