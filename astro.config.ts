@@ -3,6 +3,7 @@ import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
+import icon from "astro-icon";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 
@@ -12,6 +13,11 @@ export default defineConfig({
   site: "https://bedrud.org",
   srcDir: "./src",
   integrations: [
+    icon({
+      include: {
+        lucide: ["*"],
+      },
+    }),
     react(),
     mdx(),
     sitemap({
@@ -35,7 +41,15 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
-    rehypePlugins: [[rehypePrettyCode, { theme: "github-dark" }]],
+    rehypePlugins: [
+      [
+        rehypePrettyCode,
+        {
+          themes: { light: "github-light", dark: "github-dark" },
+          defaultTheme: "dark",
+        },
+      ],
+    ],
     syntaxHighlight: false,
     remarkPlugins: [remarkGfm],
   },
