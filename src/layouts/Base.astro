@@ -22,7 +22,7 @@ interface Props {
 const {
   lang: rawLang = "en",
   title = "Bedrud — Talk to people, not the platform",
-  description = "Self-hosted video meetings. Single binary. 200MB RAM. Open source under Apache 2.0.",
+  description = "Self-hosted video meetings. Single binary. 512MB RAM. Open source under Apache 2.0.",
   image,
   article,
   headLinks = [],
@@ -62,7 +62,7 @@ languageAlternates.push({
 });
 ---
 
-<html lang={lang} dir={dir}>
+<html lang={lang} dir={dir} class="overflow-x-hidden">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -116,7 +116,7 @@ languageAlternates.push({
           { rel: "manifest", href: "/manifest.json" },
           ...headLinks,
         ],
-        meta: [{ name: "theme-color", content: "#09090b", media: "(prefers-color-scheme: light)" }, { name: "theme-color", content: "#09090b", media: "(prefers-color-scheme: dark)" }],
+        meta: [{ name: "theme-color", content: "#ffffff", media: "(prefers-color-scheme: light)" }, { name: "theme-color", content: "#09090b", media: "(prefers-color-scheme: dark)" }],
       }}
     />
     {jsonLd.map((data) => (

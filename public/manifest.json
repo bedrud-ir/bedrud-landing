@@ -1,7 +1,7 @@
 {
   "name": "Bedrud",
   "short_name": "Bedrud",
-  "description": "Self-hosted video meetings. Single binary. 200MB RAM. Open source.",
+  "description": "Self-hosted video meetings. Single binary. 512MB RAM. Open source.",
   "start_url": "/en",
   "display": "standalone",
   "background_color": "#09090b",
