@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — İstediğiniz Gibi Video Toplantıları",
+    title: "Bedrud - İstediğiniz Gibi Video Toplantıları",
     description:
-      "Bedrud, açık kaynaklı bir video toplantı platformudur. Kendi sunucunuzda barındırın veya bulutumuzda kullanın — web arayüzü, REST API ve WebRTC medya sunucusunu tek bir dosyada sunar.",
+      "Bedrud, açık kaynaklı bir video toplantı platformudur. Kendi sunucunuzda barındırın veya bulutumuzda kullanın - web arayüzü, REST API ve WebRTC medya sunucusunu tek bir dosyada sunar.",
   },
   nav: {
     home: "Ana Sayfa",
     features: "Özellikler",
-    compare: "Karşılaştır",
+    compare: "Feature",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
     docs: "Belgeler",
@@ -152,7 +152,7 @@ export default {
   features: {
     title: "Her Şey Dahil",
     subtitle:
-      "Video, ses, kimlik doğrulama, botlar — hepsi dahil. Mikroservis mimarisi gerekmez.",
+      "Video, ses, kimlik doğrulama, botlar - hepsi dahil. Mikroservis mimarisi gerekmez.",
     e2eEncryption: {
       title: "Varsayılan Olarak Şifreli",
       description:
@@ -166,7 +166,7 @@ export default {
     multiPlatform: {
       title: "Çoklu Platform",
       description:
-        "Web, Android ve iOS için yerel uygulamalar. Sadece sarmalayıcı değil — gerçek yerel uygulamalar. Otomasyon için sunucu tarafı SDK dahil.",
+        "Web, Android ve iOS için yerel uygulamalar. Sadece sarmalayıcı değil - gerçek yerel uygulamalar. Otomasyon için sunucu tarafı SDK dahil.",
     },
     flexibleAuth: {
       title: "Esnek Kimlik Doğrulama",
@@ -196,7 +196,7 @@ export default {
   platforms: {
     title: "Web Sarıcı Değil, Yerel Uygulamalar",
     subtitle:
-      "Gerçek yerel uygulamalar — Web'de React, Android'de Kotlin, iOS'ta Swift, masaüstünde Rust, sunucuda Go. Electron yok, Cordova yok.",
+      "Gerçek yerel uygulamalar - Web'de React, Android'de Kotlin, iOS'ta Swift, masaüstünde Rust, sunucuda Go. Electron yok, Cordova yok.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -226,7 +226,7 @@ export default {
   openSource: {
     title: "Kaynak kodu oku. Kontrolü ele al.",
     subtitle:
-      "Her kod satırı kamu açık. İnceleyin, denetleyin, katkıda bulunun veya çatallayın. Apache 2.0 lisanslı — ticari veya başka şekilde kullanın.",
+      "Her kod satırı kamu açık. İnceleyin, denetleyin, katkıda bulunun veya çatallayın. Apache 2.0 lisanslı - ticari veya başka şekilde kullanın.",
     license: "Apache 2.0",
     github: "GitHub'da Görüntüle",
     docs: "Belgeleri Oku",
@@ -246,7 +246,7 @@ export default {
     updates: {
       question: "Güncellemeler nasıl çalışır?",
       answer:
-        "Kurulum komutunu tekrar çalıştırın. Bedrud ikili dosyayı yerinde değiştirir — paket yöneticisi yok, bağımlılık zincirleri yok. Tek bir yapılandırma bayrağıyla otomatik güncellemeleri de etkinleştirebilirsiniz.",
+        "Kurulum komutunu tekrar çalıştırın. Bedrud ikili dosyayı yerinde değiştirir - paket yöneticisi yok, bağımlılık zincirleri yok. Tek bir yapılandırma bayrağıyla otomatik güncellemeleri de etkinleştirebilirsiniz.",
     },
     encryption: {
       question: "Uçtan uca şifreli mi?",
@@ -256,17 +256,17 @@ export default {
     network: {
       question: "Ağ ve port gereksinimleri nelerdir?",
       answer:
-        "HTTP/WebSocket için 80/443 portları ve WebRTC medyası için yapılandırılabilir UDP aralığı (varsayılan 50000–60000). NAT arkasında STUN/TURN sunucusu kurun — Bedrud coturn kurulum belgelerini içerir.",
+        "HTTP/WebSocket için 80/443 portları ve WebRTC medyası için yapılandırılabilir UDP aralığı (varsayılan 50000–60000). NAT arkasında STUN/TURN sunucusu kurun - Bedrud coturn kurulum belgelerini içerir.",
     },
     proxy: {
       question: "Ters proxy arkasında çalıştırabilir miyim?",
       answer:
-        "Evet. Nginx, Caddy, Traefik — hepsi çalışır. Belgeler her biri için kopyala-yapıştır yapılandırmaları içerir. WebSocket bağlantılarını iletmeniz ve uygun başlıkları ayarlamanız yeterli.",
+        "Evet. Nginx, Caddy, Traefik - hepsi çalışır. Belgeler her biri için kopyala-yapıştır yapılandırmaları içerir. WebSocket bağlantılarını iletmeniz ve uygun başlıkları ayarlamanız yeterli.",
     },
     cloudVsSelfHosted: {
       question: "Self-hosted ve Bedrud Cloud arasındaki fark nedir?",
       answer:
-        "Aynı ürün, aynı özellikler. Self-hosted altyapınızda tam veri kontrolüyle çalışır. Bedrud Cloud operasyon, güncelleme ve ölçeklendirmeyi sizin için halleder. Satıcı kilidi yok — istediğiniz zaman geçiş yapın.",
+        "Aynı ürün, aynı özellikler. Self-hosted altyapınızda tam veri kontrolüyle çalışır. Bedrud Cloud operasyon, güncelleme ve ölçeklendirmeyi sizin için halleder. Satıcı kilidi yok - istediğiniz zaman geçiş yapın.",
     },
   },
   testimonials: {
@@ -317,7 +317,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "Gizlilik Politikası — Bedrud",
+      title: "Gizlilik Politikası - Bedrud",
       description:
         "Bedrud verilerinizi nasıl işler? Kısa versiyon: kendi sunucunuzda barındırmak verilerinizin sizde kalması demektir.",
     },
@@ -338,12 +338,12 @@ export default {
     dataStorage: {
       title: "Veri Depolama",
       content:
-        "Genel demo verileri kalıcı olarak saklamaz. Bağlantıyı kestiğinizde oturumunuz kaybolur — kayıt, sohbet geçmişi yok. Kendi sunucunuzda barındırılan örnekler verileri sunucunuzdaki SQLite'da saklar. Yedekleme stratejisini ve saklama politikasını siz seçersiniz. Erişimimiz yok.",
+        "Genel demo verileri kalıcı olarak saklamaz. Bağlantıyı kestiğinizde oturumunuz kaybolur - kayıt, sohbet geçmişi yok. Kendi sunucunuzda barındırılan örnekler verileri sunucunuzdaki SQLite'da saklar. Yedekleme stratejisini ve saklama politikasını siz seçersiniz. Erişimimiz yok.",
     },
     thirdParties: {
       title: "Üçüncü Taraf Hizmetleri",
       content:
-        "Hiçbiri. Bedrud indirmeden sonra hiçbir giden istek göndermez. Analitik, çökme raporu, telemetri yok. Web sitesi üçüncü taraf betik yüklemez. Kendiniz doğrulayın — kaynak kod GitHub'da.",
+        "Hiçbiri. Bedrud indirmeden sonra hiçbir giden istek göndermez. Analitik, çökme raporu, telemetri yok. Web sitesi üçüncü taraf betik yüklemez. Kendiniz doğrulayın - kaynak kod GitHub'da.",
     },
     cookies: {
       title: "Çerezler ve Yerel Depolama",
@@ -353,7 +353,7 @@ export default {
     yourRights: {
       title: "Haklarınız",
       content:
-        "Kişisel veri toplamadığımız için bizden erişilecek, düzeltilecek veya silinecek bir şey yok. Demo sekmesini kapatın ve oturum verileriniz zaten kaybolmuştur. Kendi sunucunuzda barındıran kullanıcılar sunucularındaki tüm veriler üzerinde tam kontrole sahiptir — dışa aktarma, yedekleme, silme, ihtiyacınız olan her şey.",
+        "Kişisel veri toplamadığımız için bizden erişilecek, düzeltilecek veya silinecek bir şey yok. Demo sekmesini kapatın ve oturum verileriniz zaten kaybolmuştur. Kendi sunucunuzda barındıran kullanıcılar sunucularındaki tüm veriler üzerinde tam kontrole sahiptir - dışa aktarma, yedekleme, silme, ihtiyacınız olan her şey.",
     },
     changes: {
       title: "Bu Politikadaki Değişiklikler",
@@ -368,7 +368,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "Hizmet Şartları — Bedrud",
+      title: "Hizmet Şartları - Bedrud",
       description:
         "bedrud.org web sitesi ve genel demo için hizmet şartları. Kendi sunucunuzda barındıran kullanıcılar Apache 2.0 lisansına tabidir.",
     },
@@ -389,12 +389,12 @@ export default {
     accounts: {
       title: "Hesaplar",
       content:
-        "Web sitesi hesap gerektirmez. Demo hesap gerektirmez. Kendi sunucunuzda barındırılan örnekler kendi hesap sistemlerine sahip olabilir — sunucuyu siz yönettiğiniz için bu sizin kararınızdır.",
+        "Web sitesi hesap gerektirmez. Demo hesap gerektirmez. Kendi sunucunuzda barındırılan örnekler kendi hesap sistemlerine sahip olabilir - sunucuyu siz yönettiğiniz için bu sizin kararınızdır.",
     },
     acceptableUse: {
       title: "Demoyu Kötüye Kullanmayın",
       content:
-        "Genel demoyu yasadışı içerik, spam, taciz veya başkalarının deneyimini olumsuz etkileyen herhangi bir şey için kullanmayın. Kötüye kullanan kullanıcıları demo odasından kaldırma hakkını saklı tutarız. Bu, kendi sunucunuzda barındırılan örnekler için geçerli değildir — kendi kurallarınızı koyarsınız.",
+        "Genel demoyu yasadışı içerik, spam, taciz veya başkalarının deneyimini olumsuz etkileyen herhangi bir şey için kullanmayın. Kötüye kullanan kullanıcıları demo odasından kaldırma hakkını saklı tutarız. Bu, kendi sunucunuzda barındırılan örnekler için geçerli değildir - kendi kurallarınızı koyarsınız.",
     },
     intellectualProperty: {
       title: "Açık Kaynak Lisansı",
@@ -452,7 +452,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Kurulum — Bedrud — Tek Komutla Dağıtım",
+      title: "Kurulum - Bedrud - Tek Komutla Dağıtım",
       description:
         "Bedrud'u sunucunuza bir dakikadan kısa sürede dağıtın. Tek binary, 512MB RAM, Docker gerektirmez.",
     },
@@ -462,7 +462,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "Blog — Bedrud",
+      title: "Blog - Bedrud",
       description:
         "Bedrud ekibinden güncellemeler, mühendislik derinlemesine incelemeleri ve kılavuzlar.",
     },
@@ -480,7 +480,7 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "Özellikler — Bedrud",
+      title: "Özellikler - Bedrud",
       description:
         "Bedrud'un özelliklerini keşfedin: tek binary, WebRTC kalitesi, misafir katılımı, passkeys, yönetici kontrolleri, ses işleme, bot ajanları ve çoklu platform desteği.",
     },
@@ -504,7 +504,7 @@ export default {
     },
     guestJoin: {
       pain: "Sadece 15 dakikalık bir arama için misafirleri hesap oluşturmaya zorlamaktan yoruldunuz mu?",
-      title: "Misafir Katılımı — Hesap Gerekmez",
+      title: "Misafir Katılımı - Hesap Gerekmez",
       description:
         "Bir bağlantı paylaşın, tıklayınlar, içeride. Kayıt formu yok, şifre yok, sürtünme yok. Güvenlik için isteğe bağlı şifre.",
     },
@@ -531,7 +531,7 @@ export default {
       pain: "İyi araçlar olmadan bir toplantı platformunu yönetmek acı vericidir.",
       title: "Yönetici Paneli",
       description:
-        "Oda yönetimi, kullanıcı yönetimi, kullanım analitiği ve yapılandırma — hepsi temiz bir web arayüzünden. CLI tahmini yok.",
+        "Oda yönetimi, kullanıcı yönetimi, kullanım analitiği ve yapılandırma - hepsi temiz bir web arayüzünden. CLI tahmini yok.",
     },
     audio: {
       pain: "Toplantılarda arka plan gürültüsü dikkati dağıtır ve profesyonel değildir.",
@@ -540,7 +540,7 @@ export default {
         "RNNoise ile çalışan yerleşik gürültü engelleme. Premium AI gürültü engelleme için isteğe bağlı Krisp entegrasyonu. Her aramada temiz ses.",
     },
     bots: {
-      pain: "Manuel toplantı görevleri zamanı boşa harcar — kayıt, transkripsiyon, notlar.",
+      pain: "Manuel toplantı görevleri zamanı boşa harcar - kayıt, transkripsiyon, notlar.",
       title: "Bot Ajanları",
       description:
         "Programlanabilir botlar Go SDK aracılığıyla toplantılara katılır. Transkripsiyon, çeviri, kayıt, CRM entegrasyonları ve özel iş akışlarını otomatikleştirir.",
@@ -555,7 +555,7 @@ export default {
       pain: "Sunucunuzdan geçen toplantı içeriği gizli kalmalıdır.",
       title: "Uçtan Uca Şifreleme",
       description:
-        "Odalar için isteğe bağlı E2E şifreleme. Sunucu şifrelenmiş medyayı sadece iletir — sadece katılımcılar çözebilir.",
+        "Odalar için isteğe bağlı E2E şifreleme. Sunucu şifrelenmiş medyayı sadece iletir - sadece katılımcılar çözebilir.",
     },
     autoTls: {
       pain: "SSL sertifikaları kurmak için rehber gerektirmemeli.",
@@ -572,7 +572,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "Canlı Demo — Bedrud",
+      title: "Canlı Demo - Bedrud",
       description:
         "Bedrud'u kurmadan deneyin. Şimdi canlı bir demo toplantısına katılın.",
     },
@@ -614,12 +614,12 @@ export default {
       whatHappens: {
         question: "Demoda ne olur?",
         answer:
-          "Tam Bedrud yığınını çalıştıran paylaşılan bir toplantı odasına katılırsınız. Video, ses, ekran paylaşımı, sohbet ve toplantı kontrollerini test edin — kendi sunucunuzda barındırılan bir örnekle aynı.",
+          "Tam Bedrud yığınını çalıştıran paylaşılan bir toplantı odasına katılırsınız. Video, ses, ekran paylaşımı, sohbet ve toplantı kontrollerini test edin - kendi sunucunuzda barındırılan bir örnekle aynı.",
       },
       dataSaved: {
         question: "Verilerim kaydedilir mi?",
         answer:
-          "Hayır. Demo verileri kalıcı olarak saklamaz. Ayrıldığınızda oturumunuz kaybolur — kayıt, sohbet geçmişi, saklanan hiçbir şey yok.",
+          "Hayır. Demo verileri kalıcı olarak saklamaz. Ayrıldığınızda oturumunuz kaybolur - kayıt, sohbet geçmişi, saklanan hiçbir şey yok.",
       },
       duration: {
         question: "Demoyu ne kadar süre kullanabilirim?",
@@ -639,7 +639,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "Değişiklik Günlüğü — Bedrud",
+      title: "Değişiklik Günlüğü - Bedrud",
       description: "Bedrud için sürüm geçmişi ve güncellemeler.",
     },
     title: "Değişiklik Günlüğü",
@@ -649,7 +649,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "Katkıda Bulunanlar — Bedrud",
+      title: "Katkıda Bulunanlar - Bedrud",
       description: "Bedrud'u geliştiren insanlarla tanışın.",
     },
     title: "Katkıda Bulunanlar",
@@ -660,7 +660,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "İletişim — Bedrud",
+      title: "İletişim - Bedrud",
       description: "Bedrud ekibiyle iletişime geçin.",
     },
     title: "İletişim",

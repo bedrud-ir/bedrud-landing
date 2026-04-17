@@ -83,7 +83,7 @@ Install via your distribution's package manager.
 
 ## 2. Docker
 
-Run Bedrud in a container — no Linux server setup, no systemd, no binary download.
+Run Bedrud in a container - no Linux server setup, no systemd, no binary download.
 
 ### Pre-built Image (fastest)
 
@@ -164,7 +164,7 @@ The installer auto-detects your server's IP and prompts for:
 | **Email** | Empty | Used for Let's Encrypt registration (only if domain is set) |
 | **Self-signed TLS** | Yes | Offered when no domain is provided. Default is `Y` |
 
-All prompts are skipped when stdin is piped (non-interactive mode) — flags and defaults are used instead.
+All prompts are skipped when stdin is piped (non-interactive mode) - flags and defaults are used instead.
 
 ---
 
@@ -393,7 +393,7 @@ Services restart automatically after package upgrade.
 
 ### Binary Download
 
-Download the latest release and re-run install. The installer is safe to re-run — it overwrites the binary and config while preserving the database:
+Download the latest release and re-run install. The installer is safe to re-run - it overwrites the binary and config while preserving the database:
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -445,7 +445,7 @@ This stops services, removes systemd units, deletes the binary from `/usr/local/
 |---------|----------|
 | **Port 80/443 in use** | Stop conflicting web servers: `systemctl stop nginx apache2 caddy` |
 | **Services won't start** | Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| **TLS certificate issues** | Verify DNS: `dig +short meet.example.com` — must return this server's IP |
+| **TLS certificate issues** | Verify DNS: `dig +short meet.example.com` - must return this server's IP |
 | **LiveKit port conflicts** | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags to change ports |
 | **Install succeeded but 404 on web UI** | Frontend not embedded. Build with `make build` before `bedrud install`. Binary-only builds skip the frontend |
 | **Install succeeded but services crashed** | Check for silent failures: `journalctl -u bedrud --no-pager -n 100`. Verify config at `/etc/bedrud/config.yaml` |

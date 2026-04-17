@@ -49,10 +49,10 @@ Bedrud is a monorepo containing a Go server, three client applications, Python b
 
 The Go backend is the core of Bedrud. It handles:
 
-- **REST API** — authentication, room management, admin operations
-- **Static file serving** — the compiled web frontend is embedded via `//go:embed`
-- **LiveKit integration** — generates tokens and manages rooms via the LiveKit Protocol SDK
-- **Embedded LiveKit server** — the media server binary runs as a child process
+- **REST API** - authentication, room management, admin operations
+- **Static file serving** - the compiled web frontend is embedded via `//go:embed`
+- **LiveKit integration** - generates tokens and manages rooms via the LiveKit Protocol SDK
+- **Embedded LiveKit server** - the media server binary runs as a child process
 
 The server uses the **Fiber** web framework (similar to Express.js in Node.js) and **GORM** as the ORM layer. It supports SQLite for development and PostgreSQL for production.
 
@@ -115,9 +115,9 @@ See [Desktop App](/docs/architecture/desktop) for details.
 
 Python scripts that join meeting rooms as bots and stream media content:
 
-- **Music Agent** — plays audio files
-- **Radio Agent** — streams internet radio stations
-- **Video Stream Agent** — shares video content (HLS, MP4)
+- **Music Agent** - plays audio files
+- **Radio Agent** - streams internet radio stations
+- **Video Stream Agent** - shares video content (HLS, MP4)
 
 See [Bot Agents](/docs/architecture/agents) for details.
 
@@ -256,6 +256,6 @@ These terms appear throughout the architecture documentation:
 
 ## See Also
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) — full STUN/ICE/TURN/SFU connectivity stack
-- [TURN Server Guide](/docs/architecture/turn-server) — TURN relay architecture and configuration
-- [LiveKit Integration](/docs/backend/livekit) — how Bedrud embeds LiveKit
+- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [TURN Server Guide](/docs/architecture/turn-server) - TURN relay architecture and configuration
+- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit

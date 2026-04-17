@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — Visioconférences, à votre façon",
+    title: "Bedrud - Visioconférences, à votre façon",
     description:
-      "Bedrud est une plateforme de visioconférence open source. Auto-hébergez-la ou utilisez notre cloud — un seul binaire incluant l'interface web, l'API REST et le serveur multimédia WebRTC.",
+      "Bedrud est une plateforme de visioconférence open source. Auto-hébergez-la ou utilisez notre cloud - un seul binaire incluant l'interface web, l'API REST et le serveur multimédia WebRTC.",
   },
   nav: {
     home: "Accueil",
     features: "Fonctionnalités",
-    compare: "Comparaison",
+    compare: "Feature",
     platforms: "Plateformes",
     openSource: "Open Source",
     docs: "Documentation",
@@ -153,7 +153,7 @@ export default {
   features: {
     title: "Tout est inclus",
     subtitle:
-      "Vidéo, audio, auth, bots — tout est inclus. Pas besoin d'architecture microservices.",
+      "Vidéo, audio, auth, bots - tout est inclus. Pas besoin d'architecture microservices.",
     e2eEncryption: {
       title: "Chiffré par défaut",
       description:
@@ -167,7 +167,7 @@ export default {
     multiPlatform: {
       title: "Multiplateforme",
       description:
-        "Applications natives pour Web, Android et iOS. Pas des wrappers — de vraies applications natives. Plus un SDK côté serveur pour l'automatisation.",
+        "Applications natives pour Web, Android et iOS. Pas des wrappers - de vraies applications natives. Plus un SDK côté serveur pour l'automatisation.",
     },
     flexibleAuth: {
       title: "Authentification flexible",
@@ -197,7 +197,7 @@ export default {
   platforms: {
     title: "Des apps natives, pas des wrappers web",
     subtitle:
-      "De vraies apps natives — React sur le web, Kotlin sur Android, Swift sur iOS, Rust sur le bureau, Go sur le serveur. Pas d'Electron, pas de Cordova.",
+      "De vraies apps natives - React sur le web, Kotlin sur Android, Swift sur iOS, Rust sur le bureau, Go sur le serveur. Pas d'Electron, pas de Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -227,7 +227,7 @@ export default {
   openSource: {
     title: "Lisez le code source. Prenez le contrôle.",
     subtitle:
-      "Chaque ligne de code est publique. Inspectez, auditez, contribuez ou forkez. Licence Apache 2.0 — utilisation commerciale ou autre.",
+      "Chaque ligne de code est publique. Inspectez, auditez, contribuez ou forkez. Licence Apache 2.0 - utilisation commerciale ou autre.",
     license: "Apache 2.0",
     github: "Voir sur GitHub",
     docs: "Lire la documentation",
@@ -247,7 +247,7 @@ export default {
     updates: {
       question: "Comment fonctionnent les mises à jour ?",
       answer:
-        "Relancez la commande d'installation. Bedrud remplace le binaire en place — pas de gestionnaires de paquets, pas de chaînes de dépendances. Vous pouvez aussi activer les mises à jour automatiques via un seul flag de configuration.",
+        "Relancez la commande d'installation. Bedrud remplace le binaire en place - pas de gestionnaires de paquets, pas de chaînes de dépendances. Vous pouvez aussi activer les mises à jour automatiques via un seul flag de configuration.",
     },
     encryption: {
       question: "Est-ce chiffré de bout en bout ?",
@@ -257,18 +257,18 @@ export default {
     network: {
       question: "Quelle est la configuration réseau et ports requise ?",
       answer:
-        "Port 80/443 pour HTTP/WebSocket et une plage UDP configurable (par défaut 50000–60000) pour les médias WebRTC. Derrière un NAT, configurez un serveur STUN/TURN — Bedrud inclut la documentation pour coturn.",
+        "Port 80/443 pour HTTP/WebSocket et une plage UDP configurable (par défaut 50000–60000) pour les médias WebRTC. Derrière un NAT, configurez un serveur STUN/TURN - Bedrud inclut la documentation pour coturn.",
     },
     proxy: {
       question: "Puis-je l'utiliser derrière un proxy inverse ?",
       answer:
-        "Oui. Nginx, Caddy, Traefik — tous fonctionnent. La documentation inclut des configurations copier-coller pour chacun. Transférez simplement les connexions WebSocket et définissez les en-têtes appropriés.",
+        "Oui. Nginx, Caddy, Traefik - tous fonctionnent. La documentation inclut des configurations copier-coller pour chacun. Transférez simplement les connexions WebSocket et définissez les en-têtes appropriés.",
     },
     cloudVsSelfHosted: {
       question:
         "Quelle est la différence entre l'auto-hébergement et Bedrud Cloud ?",
       answer:
-        "Même produit, mêmes fonctionnalités. L'auto-hébergement fonctionne sur votre infrastructure avec un contrôle total des données. Bedrud Cloud gère l'exploitation, les mises à jour et la mise à l'échelle pour vous. Sans verrouillage — migrez à tout moment.",
+        "Même produit, mêmes fonctionnalités. L'auto-hébergement fonctionne sur votre infrastructure avec un contrôle total des données. Bedrud Cloud gère l'exploitation, les mises à jour et la mise à l'échelle pour vous. Sans verrouillage - migrez à tout moment.",
     },
   },
   testimonials: {
@@ -283,7 +283,7 @@ export default {
     },
     two: {
       quote:
-        "Pas de tarif par siège — c'est ce qui a convaincu. On est passé de 20 à 200 utilisateurs sans un seul email de licence.",
+        "Pas de tarif par siège - c'est ce qui a convaincu. On est passé de 20 à 200 utilisateurs sans un seul email de licence.",
       name: "Marcus T.",
       role: "CTO dans une startup 100% remote",
       initials: "MT",
@@ -319,7 +319,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "Politique de confidentialité — Bedrud",
+      title: "Politique de confidentialité - Bedrud",
       description:
         "Comment Bedrud gère vos données. Version courte : auto-hébergé signifie que vos données restent sur votre serveur.",
     },
@@ -340,12 +340,12 @@ export default {
     dataStorage: {
       title: "Stockage des données",
       content:
-        "La démo publique ne persiste aucune donnée. Déconnectez-vous et votre session disparaît — pas d'enregistrements, pas d'historique de chat. Les instances auto-hébergées stockent les données dans SQLite sur votre serveur. Vous choisissez la stratégie de sauvegarde et de rétention. Nous n'avons aucun accès.",
+        "La démo publique ne persiste aucune donnée. Déconnectez-vous et votre session disparaît - pas d'enregistrements, pas d'historique de chat. Les instances auto-hébergées stockent les données dans SQLite sur votre serveur. Vous choisissez la stratégie de sauvegarde et de rétention. Nous n'avons aucun accès.",
     },
     thirdParties: {
       title: "Services tiers",
       content:
-        "Aucun. Bedrud n'envoie aucune requête sortante après le téléchargement. Pas d'analytics, pas de rapports de crash, pas de télémétrie. Le site ne charge aucun script tiers. Vérifiez par vous-même — le code source est sur GitHub.",
+        "Aucun. Bedrud n'envoie aucune requête sortante après le téléchargement. Pas d'analytics, pas de rapports de crash, pas de télémétrie. Le site ne charge aucun script tiers. Vérifiez par vous-même - le code source est sur GitHub.",
     },
     cookies: {
       title: "Cookies et stockage local",
@@ -355,7 +355,7 @@ export default {
     yourRights: {
       title: "Vos droits",
       content:
-        "Puisque nous ne collectons pas de données personnelles, il n'y a rien à consulter, corriger ou supprimer de notre côté. Fermez l'onglet de la démo et vos données de session ont déjà disparu. Les utilisateurs auto-hébergés ont un contrôle total sur toutes les données de leurs serveurs — export, sauvegarde, suppression, ce dont vous avez besoin.",
+        "Puisque nous ne collectons pas de données personnelles, il n'y a rien à consulter, corriger ou supprimer de notre côté. Fermez l'onglet de la démo et vos données de session ont déjà disparu. Les utilisateurs auto-hébergés ont un contrôle total sur toutes les données de leurs serveurs - export, sauvegarde, suppression, ce dont vous avez besoin.",
     },
     changes: {
       title: "Modifications de cette politique",
@@ -370,7 +370,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "Conditions d'utilisation — Bedrud",
+      title: "Conditions d'utilisation - Bedrud",
       description:
         "Conditions d'utilisation du site bedrud.org et de la démo publique. Les utilisateurs auto-hébergés sont soumis à la licence Apache 2.0.",
     },
@@ -391,17 +391,17 @@ export default {
     accounts: {
       title: "Comptes",
       content:
-        "Le site ne nécessite pas de compte. La démo ne nécessite pas de compte. Les instances auto-hébergées peuvent avoir leur propre système de comptes — c'est votre choix, puisque c'est vous qui gérez le serveur.",
+        "Le site ne nécessite pas de compte. La démo ne nécessite pas de compte. Les instances auto-hébergées peuvent avoir leur propre système de comptes - c'est votre choix, puisque c'est vous qui gérez le serveur.",
     },
     acceptableUse: {
       title: "N'abusez pas de la démo",
       content:
-        "N'utilisez pas la démo publique pour du contenu illégal, du spam, du harcèlement ou quoi que ce soit qui dégrade l'expérience des autres. Nous nous réservons le droit d'exclure les utilisateurs abusifs du salon de démo. Cela ne s'applique pas aux instances auto-hébergées — vous fixez vos propres règles.",
+        "N'utilisez pas la démo publique pour du contenu illégal, du spam, du harcèlement ou quoi que ce soit qui dégrade l'expérience des autres. Nous nous réservons le droit d'exclure les utilisateurs abusifs du salon de démo. Cela ne s'applique pas aux instances auto-hébergées - vous fixez vos propres règles.",
     },
     intellectualProperty: {
       title: "Licence open source",
       content:
-        "Bedrud est sous licence Apache 2.0. Utilisez-le, modifiez-le, distribuez-le — y compris commercialement. Le nom et le logo Bedrud sont des marques de theMadOrg. Vous pouvez les utiliser pour faire référence au logiciel, mais pas pour tromper sur votre relation avec le projet.",
+        "Bedrud est sous licence Apache 2.0. Utilisez-le, modifiez-le, distribuez-le - y compris commercialement. Le nom et le logo Bedrud sont des marques de theMadOrg. Vous pouvez les utiliser pour faire référence au logiciel, mais pas pour tromper sur votre relation avec le projet.",
     },
     termination: {
       title: "Accès",
@@ -454,7 +454,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Installer Bedrud — Déploiement en une commande",
+      title: "Installer Bedrud - Déploiement en une commande",
       description:
         "Déployez Bedrud sur votre serveur en moins d'une minute. Binaire unique, 512 Mo de RAM, sans Docker.",
     },
@@ -464,7 +464,7 @@ export default {
   },
   downloadPage: {
     meta: {
-      title: "Télécharger Bedrud — Applications Desktop & Mobile",
+      title: "Télécharger Bedrud - Applications Desktop & Mobile",
       description:
         "Téléchargez Bedrud pour Linux, macOS, Windows, Android ou iOS. Applications natives ou accès navigateur sans installation.",
     },
@@ -502,14 +502,14 @@ export default {
     meta: {
       title: "À propos de Bedrud",
       description:
-        "Découvrez l'équipe et la mission derrière Bedrud — visioconférence open source pour tous.",
+        "Découvrez l'équipe et la mission derrière Bedrud - visioconférence open source pour tous.",
     },
     title: "À propos de Bedrud",
     subtitle:
       "Visioconférence open source créée par des personnes qui croient que la confidentialité devrait être la norme.",
     mission: {
       title: "Notre mission",
-      text: "Bedrud existe car les visioconférences ne devraient pas nécessiter de confier vos données à la Big Tech. Nous croyons qu'un seul binaire, un VPS abordable et du code open source peuvent remplacer des contrats SaaS à des millions — sans sacrifier la qualité ni les fonctionnalités. La confidentialité n'est pas une fonctionnalité. C'est le fondement.",
+      text: "Bedrud existe car les visioconférences ne devraient pas nécessiter de confier vos données à la Big Tech. Nous croyons qu'un seul binaire, un VPS abordable et du code open source peuvent remplacer des contrats SaaS à des millions - sans sacrifier la qualité ni les fonctionnalités. La confidentialité n'est pas une fonctionnalité. C'est le fondement.",
     },
     team: {
       title: "Équipe principale",
@@ -518,7 +518,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "Blog — Bedrud",
+      title: "Blog - Bedrud",
       description:
         "Mises à jour, analyses techniques et guides de l'équipe Bedrud.",
     },
@@ -535,7 +535,7 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "Fonctionnalités — Bedrud",
+      title: "Fonctionnalités - Bedrud",
       description:
         "Découvrez les fonctionnalités de Bedrud : binaire unique, qualité WebRTC, accès invité, passkeys, contrôle admin, traitement audio, agents bots et support multiplateforme.",
     },
@@ -559,7 +559,7 @@ export default {
     },
     guestJoin: {
       pain: "Fatigué de forcer les invités à créer des comptes juste pour un appel de 15 minutes?",
-      title: "Invité — Pas de compte nécessaire",
+      title: "Invité - Pas de compte nécessaire",
       description:
         "Partagez un lien, ils cliquent, ils entrent. Pas de formulaires d'inscription, pas de mots de passe, pas de friction. Code d'accès facultatif pour la sécurité.",
     },
@@ -586,7 +586,7 @@ export default {
       pain: "Gérer une plateforme de réunion sans bons outils est douloureux.",
       title: "Tableau de bord admin",
       description:
-        "Gestion des salles, des utilisateurs, des analyses d'utilisation et de la configuration — le tout depuis une interface web propre. Pas de devinage CLI.",
+        "Gestion des salles, des utilisateurs, des analyses d'utilisation et de la configuration - le tout depuis une interface web propre. Pas de devinage CLI.",
     },
     audio: {
       pain: "Le bruit de fond dans les réunions est distrayant et non professionnel.",
@@ -595,7 +595,7 @@ export default {
         "Suppression de bruit intégrée propulsée par RNNoise. Intégration Krisp facultative pour la suppression de bruit IA premium. Audio propre, chaque appel.",
     },
     bots: {
-      pain: "Les tâches manuelles de réunion gaspillent du temps — enregistrement, transcription, notes.",
+      pain: "Les tâches manuelles de réunion gaspillent du temps - enregistrement, transcription, notes.",
       title: "Agents bots",
       description:
         "Bots programmables rejoignent les réunions via le Go SDK. Automatisez la transcription, la traduction, l'enregistrement, les intégrations CRM et les workflows personnalisés.",
@@ -610,7 +610,7 @@ export default {
       pain: "Le contenu des réunions transitant par votre serveur doit rester privé.",
       title: "Chiffrement de bout en bout",
       description:
-        "Chiffrement E2E optionnel pour les salles. Le serveur relaie les médias chiffrés — seuls les participants peuvent déchiffrer.",
+        "Chiffrement E2E optionnel pour les salles. Le serveur relaie les médias chiffrés - seuls les participants peuvent déchiffrer.",
     },
     autoTls: {
       pain: "Les certificats SSL ne devraient pas nécessiter un tutoriel.",
@@ -627,7 +627,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "Démo en direct — Bedrud",
+      title: "Démo en direct - Bedrud",
       description:
         "Essayez Bedrud sans rien installer. Rejoignez une réunion démo en direct maintenant.",
     },
@@ -670,12 +670,12 @@ export default {
       whatHappens: {
         question: "Que se passe-t-il dans la démo ?",
         answer:
-          "Vous rejoignez un salon de réunion partagé exécutant la pile Bedrud complète. Testez la vidéo, l'audio, le partage d'écran, le chat et les contrôles de réunion — identique à une instance auto-hébergée.",
+          "Vous rejoignez un salon de réunion partagé exécutant la pile Bedrud complète. Testez la vidéo, l'audio, le partage d'écran, le chat et les contrôles de réunion - identique à une instance auto-hébergée.",
       },
       dataSaved: {
         question: "Mes données sont-elles sauvegardées ?",
         answer:
-          "Non. La démo ne persiste aucune donnée. Quand vous partez, votre session disparaît — pas d'enregistrements, pas d'historique de chat, rien de stocké.",
+          "Non. La démo ne persiste aucune donnée. Quand vous partez, votre session disparaît - pas d'enregistrements, pas d'historique de chat, rien de stocké.",
       },
       duration: {
         question: "Combien de temps puis-je utiliser la démo ?",
@@ -695,7 +695,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "Journal des modifications — Bedrud",
+      title: "Journal des modifications - Bedrud",
       description: "Historique des versions et mises à jour de Bedrud.",
     },
     title: "Journal des modifications",
@@ -705,7 +705,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "Contributeurs — Bedrud",
+      title: "Contributeurs - Bedrud",
       description: "Découvrez les personnes qui construisent Bedrud.",
     },
     title: "Contributeurs",
@@ -716,7 +716,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "Contact — Bedrud",
+      title: "Contact - Bedrud",
       description: "Contactez l'équipe Bedrud.",
     },
     title: "Contact",

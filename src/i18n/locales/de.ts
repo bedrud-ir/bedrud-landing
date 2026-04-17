@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — Videokonferenzen, wie Sie es wollen",
+    title: "Bedrud - Videokonferenzen, wie Sie es wollen",
     description:
-      "Bedrud ist eine quelloffene Videokonferenz-Plattform. Selbst hosten oder unsere Cloud nutzen — eine einzelne Binärdatei mit Web-UI, REST-API und WebRTC-Medienserver.",
+      "Bedrud ist eine quelloffene Videokonferenz-Plattform. Selbst hosten oder unsere Cloud nutzen - eine einzelne Binärdatei mit Web-UI, REST-API und WebRTC-Medienserver.",
   },
   nav: {
     home: "Startseite",
     features: "Funktionen",
-    compare: "Vergleich",
+    compare: "Feature",
     platforms: "Plattformen",
     openSource: "Open Source",
     docs: "Dokumentation",
@@ -150,7 +150,7 @@ export default {
   features: {
     title: "Alles ist dabei",
     subtitle:
-      "Video, Audio, Auth, Bots — alles enthalten. Keine Microservices-Architektur nötig.",
+      "Video, Audio, Auth, Bots - alles enthalten. Keine Microservices-Architektur nötig.",
     e2eEncryption: {
       title: "Standardmäßig verschlüsselt",
       description:
@@ -164,7 +164,7 @@ export default {
     multiPlatform: {
       title: "Multiplattform",
       description:
-        "Native Apps für Web, Android und iOS. Keine Hüllen — echte native Apps. Plus ein serverseitiges SDK für Automatisierung.",
+        "Native Apps für Web, Android und iOS. Keine Hüllen - echte native Apps. Plus ein serverseitiges SDK für Automatisierung.",
     },
     flexibleAuth: {
       title: "Flexible Authentifizierung",
@@ -194,7 +194,7 @@ export default {
   platforms: {
     title: "Native Apps, keine Web-Wrapper",
     subtitle:
-      "Echte native Apps — React im Web, Kotlin auf Android, Swift auf iOS, Rust auf dem Desktop, Go auf dem Server. Kein Electron, kein Cordova.",
+      "Echte native Apps - React im Web, Kotlin auf Android, Swift auf iOS, Rust auf dem Desktop, Go auf dem Server. Kein Electron, kein Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -224,7 +224,7 @@ export default {
   openSource: {
     title: "Lies den Quellcode. Übernimm die Kontrolle.",
     subtitle:
-      "Jede Codezeile ist öffentlich. Inspizieren, prüfen, beitragen oder forken. Apache 2.0 lizenziert — kommerziell oder anderweitig nutzbar.",
+      "Jede Codezeile ist öffentlich. Inspizieren, prüfen, beitragen oder forken. Apache 2.0 lizenziert - kommerziell oder anderweitig nutzbar.",
     license: "Apache 2.0",
     github: "Auf GitHub ansehen",
     docs: "Dokumentation lesen",
@@ -244,7 +244,7 @@ export default {
     updates: {
       question: "Wie funktionieren Updates?",
       answer:
-        "Führen Sie den Installationsbefehl erneut aus. Bedrud ersetzt die Binärdatei direkt — keine Paketmanager, keine Abhängigkeitsketten. Sie können auch automatische Updates über ein einzelnes Konfigurations-Flag aktivieren.",
+        "Führen Sie den Installationsbefehl erneut aus. Bedrud ersetzt die Binärdatei direkt - keine Paketmanager, keine Abhängigkeitsketten. Sie können auch automatische Updates über ein einzelnes Konfigurations-Flag aktivieren.",
     },
     encryption: {
       question: "Ist es Ende-zu-Ende verschlüsselt?",
@@ -254,18 +254,18 @@ export default {
     network: {
       question: "Welche Netzwerk- und Portanforderungen gibt es?",
       answer:
-        "Port 80/443 für HTTP/WebSocket und ein konfigurierbarer UDP-Bereich (Standard 50000–60000) für WebRTC-Medien. Hinter NAT richten Sie einen STUN/TURN-Server ein — Bedrud enthält Dokumentation für coturn.",
+        "Port 80/443 für HTTP/WebSocket und ein konfigurierbarer UDP-Bereich (Standard 50000–60000) für WebRTC-Medien. Hinter NAT richten Sie einen STUN/TURN-Server ein - Bedrud enthält Dokumentation für coturn.",
     },
     proxy: {
       question: "Kann ich es hinter einem Reverse-Proxy betreiben?",
       answer:
-        "Ja. Nginx, Caddy, Traefik — alle funktionieren. Die Dokumentation enthält Copy-Paste-Konfigurationen für jedes. Leiten Sie einfach WebSocket-Verbindungen weiter und setzen Sie die entsprechenden Header.",
+        "Ja. Nginx, Caddy, Traefik - alle funktionieren. Die Dokumentation enthält Copy-Paste-Konfigurationen für jedes. Leiten Sie einfach WebSocket-Verbindungen weiter und setzen Sie die entsprechenden Header.",
     },
     cloudVsSelfHosted: {
       question:
         "Was ist der Unterschied zwischen Self-Hosted und Bedrud Cloud?",
       answer:
-        "Gleiches Produkt, gleiche Funktionen. Self-Hosted läuft auf Ihrer Infrastruktur mit voller Datenkontrolle. Bedrud Cloud übernimmt Betrieb, Updates und Skalierung für Sie. Kein Vendor-Lock-In — jederzeit migrierbar.",
+        "Gleiches Produkt, gleiche Funktionen. Self-Hosted läuft auf Ihrer Infrastruktur mit voller Datenkontrolle. Bedrud Cloud übernimmt Betrieb, Updates und Skalierung für Sie. Kein Vendor-Lock-In - jederzeit migrierbar.",
     },
   },
   testimonials: {
@@ -287,7 +287,7 @@ export default {
     },
     three: {
       quote:
-        "Bedrud auf einem $5 VPS deployed — es hat einfach funktioniert. Mit dem Bot-SDK hatten wir Meeting-Transkripte in unserem CRM innerhalb eines Tages.",
+        "Bedrud auf einem $5 VPS deployed - es hat einfach funktioniert. Mit dem Bot-SDK hatten wir Meeting-Transkripte in unserem CRM innerhalb eines Tages.",
       name: "Priya S.",
       role: "Senior Engineer bei einem Fintech-Unternehmen",
       initials: "PS",
@@ -316,7 +316,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "Datenschutzrichtlinie — Bedrud",
+      title: "Datenschutzrichtlinie - Bedrud",
       description:
         "Wie Bedrud mit Ihren Daten umgeht. Kurzversion: selbstgehostet bedeutet, Ihre Daten bleiben auf Ihrem Server.",
     },
@@ -337,12 +337,12 @@ export default {
     dataStorage: {
       title: "Datenspeicherung",
       content:
-        "Die öffentliche Demo speichert keine Daten dauerhaft. Wenn Sie sich abmelden, ist Ihre Sitzung weg — keine Aufzeichnungen, kein Chat-Verlauf. Selbstgehostete Instanzen speichern Daten in SQLite auf Ihrem Server. Sie wählen die Backup-Strategie und Aufbewahrungsrichtlinie. Wir haben keinen Zugriff.",
+        "Die öffentliche Demo speichert keine Daten dauerhaft. Wenn Sie sich abmelden, ist Ihre Sitzung weg - keine Aufzeichnungen, kein Chat-Verlauf. Selbstgehostete Instanzen speichern Daten in SQLite auf Ihrem Server. Sie wählen die Backup-Strategie und Aufbewahrungsrichtlinie. Wir haben keinen Zugriff.",
     },
     thirdParties: {
       title: "Drittanbieter-Dienste",
       content:
-        "Keine. Bedrud sendet nach dem Download keine ausgehenden Anfragen. Keine Analysen, keine Absturzberichte, kein Telemetrie. Die Website lädt keine Drittanbieter-Skripte. Überprüfen Sie es selbst — der Quellcode ist auf GitHub.",
+        "Keine. Bedrud sendet nach dem Download keine ausgehenden Anfragen. Keine Analysen, keine Absturzberichte, kein Telemetrie. Die Website lädt keine Drittanbieter-Skripte. Überprüfen Sie es selbst - der Quellcode ist auf GitHub.",
     },
     cookies: {
       title: "Cookies & Local Storage",
@@ -352,7 +352,7 @@ export default {
     yourRights: {
       title: "Ihre Rechte",
       content:
-        "Da wir keine persönlichen Daten erheben, gibt es nichts, auf das Sie zugreifen, das Sie korrigieren oder löschen müssten. Schließen Sie den Demo-Tab und Ihre Sitzungsdaten sind bereits weg. Selbstgehostete Nutzer haben die volle Kontrolle über alle Daten auf ihren Servern — Export, Backup, Löschung, was immer Sie brauchen.",
+        "Da wir keine persönlichen Daten erheben, gibt es nichts, auf das Sie zugreifen, das Sie korrigieren oder löschen müssten. Schließen Sie den Demo-Tab und Ihre Sitzungsdaten sind bereits weg. Selbstgehostete Nutzer haben die volle Kontrolle über alle Daten auf ihren Servern - Export, Backup, Löschung, was immer Sie brauchen.",
     },
     changes: {
       title: "Änderungen dieser Richtlinie",
@@ -367,7 +367,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "Nutzungsbedingungen — Bedrud",
+      title: "Nutzungsbedingungen - Bedrud",
       description:
         "Bedingungen für die Nutzung der Bedrud-Website und der öffentlichen Demo. Selbstgehostete Nutzer unterliegen der Apache 2.0 Lizenz.",
     },
@@ -388,17 +388,17 @@ export default {
     accounts: {
       title: "Accounts",
       content:
-        "Die Website erfordert keine Accounts. Die Demo erfordert keine Accounts. Selbstgehostete Instanzen können eigene Kontosysteme haben — das liegt bei Ihnen, da Sie den Server betreiben.",
+        "Die Website erfordert keine Accounts. Die Demo erfordert keine Accounts. Selbstgehostete Instanzen können eigene Kontosysteme haben - das liegt bei Ihnen, da Sie den Server betreiben.",
     },
     acceptableUse: {
       title: "Missbrauchen Sie die Demo nicht",
       content:
-        "Nutzen Sie die öffentliche Demo nicht für illegale Inhalte, Spam, Belästigung oder alles, was die Erfahrung für andere beeinträchtigt. Wir behalten uns das Recht vor, missbräuchliche Nutzer aus dem Demo-Raum zu entfernen. Dies gilt nicht für selbstgehostete Instanzen — Sie legen Ihre eigenen Regeln fest.",
+        "Nutzen Sie die öffentliche Demo nicht für illegale Inhalte, Spam, Belästigung oder alles, was die Erfahrung für andere beeinträchtigt. Wir behalten uns das Recht vor, missbräuchliche Nutzer aus dem Demo-Raum zu entfernen. Dies gilt nicht für selbstgehostete Instanzen - Sie legen Ihre eigenen Regeln fest.",
     },
     intellectualProperty: {
       title: "Open-Source-Lizenz",
       content:
-        "Bedrud ist unter der Apache 2.0 Lizenz veröffentlicht. Sie können es nutzen, modifizieren und verbreiten — auch kommerziell. Der Bedrud-Name und das Logo sind Marken von theMadOrg. Sie dürfen sie nutzen, um auf die Software zu verweisen, aber nicht, um Ihre Beziehung zum Projekt falsch darzustellen.",
+        "Bedrud ist unter der Apache 2.0 Lizenz veröffentlicht. Sie können es nutzen, modifizieren und verbreiten - auch kommerziell. Der Bedrud-Name und das Logo sind Marken von theMadOrg. Sie dürfen sie nutzen, um auf die Software zu verweisen, aber nicht, um Ihre Beziehung zum Projekt falsch darzustellen.",
     },
     termination: {
       title: "Zugang",
@@ -451,7 +451,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Bedrud installieren — Bereitstellung mit einem Befehl",
+      title: "Bedrud installieren - Bereitstellung mit einem Befehl",
       description:
         "Stellen Sie Bedrud in unter einer Minute auf Ihrem Server bereit. Einzelne Binärdatei, 512MB RAM, kein Docker erforderlich.",
     },
@@ -461,7 +461,7 @@ export default {
   },
   downloadPage: {
     meta: {
-      title: "Bedrud herunterladen — Desktop & Mobile Apps",
+      title: "Bedrud herunterladen - Desktop & Mobile Apps",
       description:
         "Bedrud für Linux, macOS, Windows, Android oder iOS herunterladen. Native Apps oder Browser-Zugang ohne Installation.",
     },
@@ -499,14 +499,14 @@ export default {
     meta: {
       title: "Über Bedrud",
       description:
-        "Erfahren Sie mehr über das Team und die Mission hinter Bedrud — Open-Source-Videokonferenzen für alle.",
+        "Erfahren Sie mehr über das Team und die Mission hinter Bedrud - Open-Source-Videokonferenzen für alle.",
     },
     title: "Über Bedrud",
     subtitle:
       "Open-Source-Videokonferenzen von Menschen, die glauben, dass Datenschutz der Standard sein sollte.",
     mission: {
       title: "Unsere Mission",
-      text: "Bedrud existiert, weil Videokonferenzen keine Weitergabe Ihrer Daten an Big Tech erfordern sollten. Wir glauben, dass ein einziges Binary, ein günstiger VPS und Open-Source-Code Millionen-Verträge ersetzen können — ohne Qualität oder Features zu opfern. Datenschutz ist kein Feature. Es ist das Fundament.",
+      text: "Bedrud existiert, weil Videokonferenzen keine Weitergabe Ihrer Daten an Big Tech erfordern sollten. Wir glauben, dass ein einziges Binary, ein günstiger VPS und Open-Source-Code Millionen-Verträge ersetzen können - ohne Qualität oder Features zu opfern. Datenschutz ist kein Feature. Es ist das Fundament.",
     },
     team: {
       title: "Kernteam",
@@ -515,7 +515,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "Blog — Bedrud",
+      title: "Blog - Bedrud",
       description:
         "Updates, technische Analysen und Anleitungen vom Bedrud-Team.",
     },
@@ -532,13 +532,13 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "Funktionen — Bedrud",
+      title: "Funktionen - Bedrud",
       description:
         "Entdecken Sie Bedruds Funktionen: Einzelne Binärdatei, WebRTC-Qualität, Gastzugang, Passkeys, Admin-Steuerung, Audioverarbeitung, Bot-Agenten und Multi-Plattform-Support.",
     },
     title: "Funktionen",
     subtitle: "Jede Funktion löst ein echtes Problem.",
-    sectionTitle: "Alles, was Sie brauchen — und nichts anderes",
+    sectionTitle: "Alles, was Sie brauchen - und nichts anderes",
     sectionSubtitle:
       "Video-Meetings-Infrastruktur in einer einzigen Binärdatei. Keine externen Abhängigkeiten, keine Sitzungsgebühren, kein Vendor-Lock-in.",
     groups: {
@@ -556,7 +556,7 @@ export default {
     },
     guestJoin: {
       pain: "Waren Sie schon einmal genervt, Gäste nur für einen 15-minütigen Anruf zur Kontoerstellung zu zwingen?",
-      title: "Gastbeitritt — Kein Konto erforderlich",
+      title: "Gastbeitritt - Kein Konto erforderlich",
       description:
         "Teilen Sie einen Link, sie klicken, sie sind drin. Keine Anmeldeformulare, keine Passwörter, keine Reibung. Optionale Passcode-Sicherheit.",
     },
@@ -583,7 +583,7 @@ export default {
       pain: "Die Verwaltung einer Besprechungsplattform ohne gute Tools ist schmerzhaft.",
       title: "Admin-Dashboard",
       description:
-        "Raumverwaltung, Benutzerverwaltung, Nutzungsanalysen und Konfiguration — alles über eine saubere Web-Benutzeroberfläche. Kein CLI-Raten.",
+        "Raumverwaltung, Benutzerverwaltung, Nutzungsanalysen und Konfiguration - alles über eine saubere Web-Benutzeroberfläche. Kein CLI-Raten.",
     },
     audio: {
       pain: "Hintergrundgeräusche in Besprechungen sind ablenkend und unprofessionell.",
@@ -592,7 +592,7 @@ export default {
         "Integrierte Geräuschunterdrückung durch RNNoise. Optionale Krisp-Integration für Premium-KI-Geräuschunterdrückung. Sauberes Audio, jeder Anruf.",
     },
     bots: {
-      pain: "Manuelle Besprechungsaufgaben verschwenden Zeit — Aufzeichnung, Transkription, Notizen.",
+      pain: "Manuelle Besprechungsaufgaben verschwenden Zeit - Aufzeichnung, Transkription, Notizen.",
       title: "Bot-Agenten",
       description:
         "Programmierbare Bots treten über Go SDK Besprechungen bei. Automatisieren Sie Transkription, Übersetzung, Aufzeichnung, CRM-Integrationen und benutzerdefinierte Workflows.",
@@ -607,7 +607,7 @@ export default {
       pain: "Meeting-Inhalte, die durch Ihren Server laufen, sollten privat bleiben.",
       title: "Ende-zu-Ende-Verschlüsselung",
       description:
-        "Optionale E2E-Verschlüsselung für Räume. Der Server leitet verschlüsselte Medien weiter — nur Teilnehmer können entschlüsseln.",
+        "Optionale E2E-Verschlüsselung für Räume. Der Server leitet verschlüsselte Medien weiter - nur Teilnehmer können entschlüsseln.",
     },
     autoTls: {
       pain: "SSL-Zertifikate sollten kein Tutorial erfordern.",
@@ -624,7 +624,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "Live-Demo — Bedrud",
+      title: "Live-Demo - Bedrud",
       description:
         "Testen Sie Bedrud ohne Installation. Treten Sie jetzt einer Live-Demo-Besprechung bei.",
     },
@@ -667,12 +667,12 @@ export default {
       whatHappens: {
         question: "Was passiert in der Demo?",
         answer:
-          "Sie treten einem geteilten Meeting-Raum bei, der die vollständige Bedrud-Infrastruktur ausführt. Testen Sie Video, Audio, Bildschirmfreigabe, Chat und Meeting-Steuerung — genau wie bei einer selbstgehosteten Instanz.",
+          "Sie treten einem geteilten Meeting-Raum bei, der die vollständige Bedrud-Infrastruktur ausführt. Testen Sie Video, Audio, Bildschirmfreigabe, Chat und Meeting-Steuerung - genau wie bei einer selbstgehosteten Instanz.",
       },
       dataSaved: {
         question: "Werden meine Daten gespeichert?",
         answer:
-          "Nein. Die Demo speichert keine Daten. Wenn Sie gehen, ist Ihre Sitzung weg — keine Aufzeichnungen, keine Chat-Verläufe, nichts gespeichert.",
+          "Nein. Die Demo speichert keine Daten. Wenn Sie gehen, ist Ihre Sitzung weg - keine Aufzeichnungen, keine Chat-Verläufe, nichts gespeichert.",
       },
       duration: {
         question: "Wie lange kann ich die Demo nutzen?",
@@ -692,7 +692,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "Änderungsprotokoll — Bedrud",
+      title: "Änderungsprotokoll - Bedrud",
       description: "Versionsgeschichte und Updates für Bedrud.",
     },
     title: "Änderungsprotokoll",
@@ -702,7 +702,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "Mitwirkende — Bedrud",
+      title: "Mitwirkende - Bedrud",
       description: "Lernen Sie die Menschen kennen, die Bedrud entwickeln.",
     },
     title: "Mitwirkende",
@@ -713,7 +713,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "Kontakt — Bedrud",
+      title: "Kontakt - Bedrud",
       description: "Kontaktieren Sie das Bedrud-Team.",
     },
     title: "Kontakt",

@@ -4,7 +4,7 @@ description: Install from package managers
 order: 32
 ---
 
-This guide covers all available package manager and binary installation methods for Bedrud — both the **server** and the **desktop client**.
+This guide covers all available package manager and binary installation methods for Bedrud - both the **server** and the **desktop client**.
 
 ---
 
@@ -191,7 +191,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
   </TabsList>
 
   <TabsContent value="apt">
-    Add the apt repository first (see [Server — apt Repository](#apt-repository-ubuntu-debian) above), then:
+    Add the apt repository first (see [Server - apt Repository](#apt-repository-ubuntu-debian) above), then:
 
     ```bash
     sudo apt install bedrud-desktop
@@ -207,7 +207,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
   </TabsContent>
 
   <TabsContent value="dnf">
-    Add the DNF repository first (see [Server — DNF Repository](#dnf-rpm-repository-fedora-rhel-opensuse) above), then:
+    Add the DNF repository first (see [Server - DNF Repository](#dnf-rpm-repository-fedora-rhel-opensuse) above), then:
 
     ```bash
     sudo dnf install bedrud-desktop
@@ -259,7 +259,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
 
 ### macOS
 
-Pre-built portable tarballs are available for both Intel and Apple Silicon. The app is **unsigned** — after extracting you may need to allow it in **System Settings → Privacy & Security**.
+Pre-built portable tarballs are available for both Intel and Apple Silicon. The app is **unsigned** - after extracting you may need to allow it in **System Settings → Privacy & Security**.
 
 <Tabs>
   <TabsList>
@@ -296,7 +296,7 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
 </Tabs>
 
 <Callout type="info">
-  macOS releases are **code-signed and notarized** when `MACOS_CERTIFICATE` is configured in CI (see [Secrets Reference](#secrets-reference)). Without those secrets the binary is unsigned — use the `xattr` workaround above or right-click → Open in Finder.
+  macOS releases are **code-signed and notarized** when `MACOS_CERTIFICATE` is configured in CI (see [Secrets Reference](#secrets-reference)). Without those secrets the binary is unsigned - use the `xattr` workaround above or right-click → Open in Finder.
 </Callout>
 
 <Callout type="warning">
@@ -327,7 +327,7 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
   </TabsContent>
 
   <TabsContent value="zip">
-    No installation required — extract and run:
+    No installation required - extract and run:
 
     | Architecture | File |
     |---|---|
@@ -359,8 +359,8 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
 | Arch Linux (AUR) | `yay -S bedrud-bin` | `yay -S bedrud-desktop-bin` |
 | Any Linux | AppImage / `tar.xz` binary | AppImage / Flatpak / Snap / `tar.xz` |
 | macOS | `tar.xz` binary | Homebrew tap / portable `tar.gz` |
-| Windows | — | WinGet / Chocolatey / NSIS installer / portable `.zip` |
-| Docker | `ghcr.io/bedrud-ir/bedrud` | — |
+| Windows | - | WinGet / Chocolatey / NSIS installer / portable `.zip` |
+| Docker | `ghcr.io/bedrud-ir/bedrud` | - |
 
 ---
 
@@ -387,4 +387,4 @@ These GitHub Actions secrets unlock the optional distribution channels:
 | `TELEGRAM_BOT_TOKEN` | Telegram | Bot token for release notifications |
 | `TELEGRAM_CHAT_ID` | Telegram | Target channel/group ID |
 
-All secrets are optional — if absent, that channel's job is silently skipped.
+All secrets are optional - if absent, that channel's job is silently skipped.

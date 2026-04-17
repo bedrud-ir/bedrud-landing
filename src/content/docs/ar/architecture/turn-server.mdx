@@ -83,10 +83,10 @@ flowchart TD
 
 TURN activates when direct media path fails. Common causes:
 
-- **Symmetric NAT on both peers** — Both the client and server have Symmetric NAT. The NAT assigns a different public port for each destination, so the address discovered by STUN becomes unreachable.
-- **Corporate firewall** — blocks outbound UDP entirely. Only TCP port 443 allowed.
-- **VPN restrictions** — some VPNs intercept or block WebRTC traffic.
-- **Cloud VMs without public IP** — some cloud providers use NAT that breaks direct ICE.
+- **Symmetric NAT on both peers** - Both the client and server have Symmetric NAT. The NAT assigns a different public port for each destination, so the address discovered by STUN becomes unreachable.
+- **Corporate firewall** - blocks outbound UDP entirely. Only TCP port 443 allowed.
+- **VPN restrictions** - some VPNs intercept or block WebRTC traffic.
+- **Cloud VMs without public IP** - some cloud providers use NAT that breaks direct ICE.
 
 Most users (~80%) never hit TURN. Direct UDP path works.
 
@@ -129,8 +129,8 @@ turn:
 | `domain` | `localhost` | Domain advertised to clients. Must resolve to server's public IP. |
 | `udp_port` | `3478` | TURN/UDP port. Also serves STUN binding requests when TURN is enabled. |
 | `tls_port` | `5349` | TURN/TLS port. Set to `443` if no load balancer terminates TLS. |
-| `cert_file` | — | TLS certificate for TURN/TLS. Required when TURN/TLS clients exist. |
-| `key_file` | — | TLS private key matching `cert_file`. |
+| `cert_file` | - | TLS certificate for TURN/TLS. Required when TURN/TLS clients exist. |
+| `key_file` | - | TLS private key matching `cert_file`. |
 | `relay_range_start` | `30000` | Start of UDP port range used for relayed media packets. |
 | `relay_range_end` | `40000` | End of relay port range. Each relayed participant consumes ports from this range. |
 | `external_tls` | `false` | Set `true` when a Layer 4 load balancer terminates TURN/TLS. LiveKit skips its own TLS on the TURN port. |
@@ -165,7 +165,7 @@ turn:
   key_file: /etc/bedrud/meet.example.com.key
 ```
 
-The TURN domain and server domain are the same. Port 443 handles both HTTPS API and TURN/TLS — LiveKit distinguishes by protocol.
+The TURN domain and server domain are the same. Port 443 handles both HTTPS API and TURN/TLS - LiveKit distinguishes by protocol.
 
 ### Dedicated TURN Domain (With Load Balancer)
 
@@ -291,9 +291,9 @@ logging:
 ```
 
 Look for log entries containing:
-- `ICE` — candidate gathering status
-- `TURN` — relay allocation events
-- `relay` — active relay connections
+- `ICE` - candidate gathering status
+- `TURN` - relay allocation events
+- `relay` - active relay connections
 
 ### Manual TURN Test with turnutils
 
@@ -303,8 +303,8 @@ Install `coturn-utils` package, then test TURN connectivity:
 turnutils_uclient -t -p 3478 -W devkey -u devkey turn.example.com
 ```
 
-- `-t` — use TCP
-- `-p` — TURN port
+- `-t` - use TCP
+- `-p` - TURN port
 - Replace credentials with production values
 
 Success output shows allocated relay addresses.
@@ -339,8 +339,8 @@ Success output shows allocated relay addresses.
 
 ## See also
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) — full STUN/ICE/TURN/SFU connectivity stack
-- [LiveKit Integration](/docs/backend/livekit) — how Bedrud embeds LiveKit
-- [Configuration Reference](/docs/getting-started/configuration) — all config options
-- [Internal TLS](/docs/guides/internal-tls) — TLS for isolated networks
-- [Deployment Guide](/docs/guides/deployment) — production deployment steps
+- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
+- [Configuration Reference](/docs/getting-started/configuration) - all config options
+- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
+- [Deployment Guide](/docs/guides/deployment) - production deployment steps

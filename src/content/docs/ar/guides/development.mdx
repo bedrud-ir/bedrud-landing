@@ -222,7 +222,7 @@ make build-desktop           # optimised binary for the current platform
 ### Key Patterns
 
 - All UI is defined in `.slint` files under `apps/desktop/ui/`; compiled to Rust at build time by `build.rs`
-- `apps/desktop/src/ui/bridge.rs` is the only place where Slint callbacks are wired to Rust logic — keep business logic out of the `.slint` files
+- `apps/desktop/src/ui/bridge.rs` is the only place where Slint callbacks are wired to Rust logic - keep business logic out of the `.slint` files
 - Use `Weak<AppWindow>` when spawning background tasks that need to update the UI
 
 > See [Desktop App Architecture](/docs/architecture/desktop) for detailed desktop app architecture.
@@ -302,5 +302,5 @@ Release builds are triggered by version tags (`v*`).
 
 ## See also
 
-- [Makefile Reference](/docs/guides/makefile) — all build and dev commands
-- [Architecture Overview](/docs/architecture/overview) — how components fit together
+- [Makefile Reference](/docs/guides/makefile) - all build and dev commands
+- [Architecture Overview](/docs/architecture/overview) - how components fit together

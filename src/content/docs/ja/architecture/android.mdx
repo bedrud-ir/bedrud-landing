@@ -123,15 +123,15 @@ The instance switcher appears as a `ModalBottomSheet` triggered from the Dashboa
 
 The app handles URLs matching:
 
-- `https://bedrud.com/m/*` — Direct room join
-- `https://bedrud.com/c/*` — Room join by code
+- `https://bedrud.com/m/*` - Direct room join
+- `https://bedrud.com/c/*` - Room join by code
 
 Configured via intent filters in `AndroidManifest.xml`.
 
 ### Call Management
 
-- **CallService** — Foreground service that keeps the connection alive during calls
-- **CallConnectionService** — Integrates with Android's telephony framework for proper call UI
+- **CallService** - Foreground service that keeps the connection alive during calls
+- **CallConnectionService** - Integrates with Android's telephony framework for proper call UI
 - Required permissions: `MANAGE_OWN_CALLS`, `FOREGROUND_SERVICE_PHONE_CALL`, `FOREGROUND_SERVICE_CAMERA`, `FOREGROUND_SERVICE_MICROPHONE`
 
 ### Picture-in-Picture

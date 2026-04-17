@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — 随心所欲的视频会议",
+    title: "Bedrud - 随心所欲的视频会议",
     description:
-      "Bedrud 是一个开源视频会议平台。自行托管或使用我们的云服务——一个集成了 Web 界面、REST API 和 WebRTC 媒体服务器的单一二进制文件。",
+      "Bedrud 是一个开源视频会议平台。自行托管或使用我们的云服务--一个集成了 Web 界面、REST API 和 WebRTC 媒体服务器的单一二进制文件。",
   },
   nav: {
     home: "首页",
     features: "功能",
-    compare: "对比",
+    compare: "Feature",
     platforms: "平台",
     openSource: "开源",
     docs: "文档",
@@ -149,7 +149,7 @@ export default {
   },
   features: {
     title: "开箱即用",
-    subtitle: "视频、音频、认证、机器人——全部包含。无需微服务架构。",
+    subtitle: "视频、音频、认证、机器人--全部包含。无需微服务架构。",
     e2eEncryption: {
       title: "默认加密",
       description:
@@ -163,7 +163,7 @@ export default {
     multiPlatform: {
       title: "多平台",
       description:
-        "Web、Android 和 iOS 原生应用。不是套壳——是真正的原生应用。还有服务端 SDK 用于自动化。",
+        "Web、Android 和 iOS 原生应用。不是套壳--是真正的原生应用。还有服务端 SDK 用于自动化。",
     },
     flexibleAuth: {
       title: "灵活认证",
@@ -193,7 +193,7 @@ export default {
   platforms: {
     title: "原生应用，不是网页套壳",
     subtitle:
-      "真正的原生应用——Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova.",
+      "真正的原生应用--Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -223,7 +223,7 @@ export default {
   openSource: {
     title: "阅读源码。掌控一切。",
     subtitle:
-      "每一行代码都是公开的。审查、审计、贡献或 fork。Apache 2.0 许可——商业或个人使用皆可。",
+      "每一行代码都是公开的。审查、审计、贡献或 fork。Apache 2.0 许可--商业或个人使用皆可。",
     license: "Apache 2.0",
     github: "在 GitHub 上查看",
     docs: "阅读文档",
@@ -243,7 +243,7 @@ export default {
     updates: {
       question: "更新是如何工作的？",
       answer:
-        "重新运行安装命令即可。Bedrud 会原地替换二进制文件——无需包管理器，无需依赖链。你也可以通过单个配置标志启用自动更新。",
+        "重新运行安装命令即可。Bedrud 会原地替换二进制文件--无需包管理器，无需依赖链。你也可以通过单个配置标志启用自动更新。",
     },
     encryption: {
       question: "是否端到端加密？",
@@ -253,17 +253,17 @@ export default {
     network: {
       question: "网络和端口要求是什么？",
       answer:
-        "端口 80/443 用于 HTTP/WebSocket，可配置的 UDP 范围（默认 50000–60000）用于 WebRTC 媒体。在 NAT 后面，需要设置 STUN/TURN 服务器——Bedrud 包含 coturn 设置文档。",
+        "端口 80/443 用于 HTTP/WebSocket，可配置的 UDP 范围（默认 50000–60000）用于 WebRTC 媒体。在 NAT 后面，需要设置 STUN/TURN 服务器--Bedrud 包含 coturn 设置文档。",
     },
     proxy: {
       question: "可以运行在反向代理后面吗？",
       answer:
-        "可以。Nginx、Caddy、Traefik——都支持。文档中包含每个的即用配置。只需转发 WebSocket 连接并设置适当的头部。",
+        "可以。Nginx、Caddy、Traefik--都支持。文档中包含每个的即用配置。只需转发 WebSocket 连接并设置适当的头部。",
     },
     cloudVsSelfHosted: {
       question: "自托管和 Bedrud Cloud 有什么区别？",
       answer:
-        "同样的产品，同样的功能。自托管在你自己的基础设施上运行，完全掌控数据。Bedrud Cloud 为你处理运维、更新和扩展。无供应商锁定——随时可以迁移。",
+        "同样的产品，同样的功能。自托管在你自己的基础设施上运行，完全掌控数据。Bedrud Cloud 为你处理运维、更新和扩展。无供应商锁定--随时可以迁移。",
     },
   },
   testimonials: {
@@ -313,7 +313,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "隐私政策 — Bedrud",
+      title: "隐私政策 - Bedrud",
       description:
         "Bedrud 如何处理你的数据。简而言之：自托管意味着你的数据留在你的服务器上。",
     },
@@ -334,12 +334,12 @@ export default {
     dataStorage: {
       title: "数据存储",
       content:
-        "公共演示不会持久化数据。断开连接后，你的会话就消失了——没有录制，没有聊天记录。自托管实例将数据存储在你服务器上的 SQLite 中。你选择备份策略和保留策略。我们无法访问。",
+        "公共演示不会持久化数据。断开连接后，你的会话就消失了--没有录制，没有聊天记录。自托管实例将数据存储在你服务器上的 SQLite 中。你选择备份策略和保留策略。我们无法访问。",
     },
     thirdParties: {
       title: "第三方服务",
       content:
-        "没有。Bedrud 在下载后不会发出任何出站请求。没有分析，没有崩溃报告，没有遥测。网站不加载任何第三方脚本。你可以自行验证——源代码在 GitHub 上。",
+        "没有。Bedrud 在下载后不会发出任何出站请求。没有分析，没有崩溃报告，没有遥测。网站不加载任何第三方脚本。你可以自行验证--源代码在 GitHub 上。",
     },
     cookies: {
       title: "Cookie 与本地存储",
@@ -349,7 +349,7 @@ export default {
     yourRights: {
       title: "你的权利",
       content:
-        "由于我们不收集个人数据，你无需向我们申请访问、更正或删除任何内容。关闭演示标签页，你的会话数据就已经消失了。自托管用户对自己的服务器上的所有数据拥有完全控制权——导出、备份、删除，随你所需。",
+        "由于我们不收集个人数据，你无需向我们申请访问、更正或删除任何内容。关闭演示标签页，你的会话数据就已经消失了。自托管用户对自己的服务器上的所有数据拥有完全控制权--导出、备份、删除，随你所需。",
     },
     changes: {
       title: "本政策的变更",
@@ -364,7 +364,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "服务条款 — Bedrud",
+      title: "服务条款 - Bedrud",
       description:
         "bedrud.org 网站和公共演示的使用条款。自托管用户受 Apache 2.0 许可证约束。",
     },
@@ -385,17 +385,17 @@ export default {
     accounts: {
       title: "账户",
       content:
-        "网站不需要账户。演示不需要账户。自托管实例可以有自己的账户系统——这由你决定，因为是你管理服务器。",
+        "网站不需要账户。演示不需要账户。自托管实例可以有自己的账户系统--这由你决定，因为是你管理服务器。",
     },
     acceptableUse: {
       title: "请勿滥用演示",
       content:
-        "请勿将公共演示用于非法内容、垃圾信息、骚扰或任何损害他人体验的行为。我们保留将滥用用户从演示房间中移除的权利。这不适用于自托管实例——你制定自己的规则。",
+        "请勿将公共演示用于非法内容、垃圾信息、骚扰或任何损害他人体验的行为。我们保留将滥用用户从演示房间中移除的权利。这不适用于自托管实例--你制定自己的规则。",
     },
     intellectualProperty: {
       title: "开源许可证",
       content:
-        "Bedrud 采用 Apache 2.0 许可证。你可以使用、修改和分发它——包括商业用途。Bedrud 名称和标志是 theMadOrg 的商标。你可以使用它们来指代该软件，但不能歪曲你与项目的关系。",
+        "Bedrud 采用 Apache 2.0 许可证。你可以使用、修改和分发它--包括商业用途。Bedrud 名称和标志是 theMadOrg 的商标。你可以使用它们来指代该软件，但不能歪曲你与项目的关系。",
     },
     termination: {
       title: "访问权限",
@@ -448,7 +448,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "安装 Bedrud — 一条命令完成部署",
+      title: "安装 Bedrud - 一条命令完成部署",
       description:
         "在不到一分钟内将 Bedrud 部署到你的服务器。单个二进制文件，512MB 内存，无需 Docker。",
     },
@@ -458,7 +458,7 @@ export default {
   },
   downloadPage: {
     meta: {
-      title: "下载 Bedrud — 桌面和移动应用",
+      title: "下载 Bedrud - 桌面和移动应用",
       description:
         "下载适用于 Linux、macOS、Windows、Android 或 iOS 的 Bedrud。原生应用或免安装浏览器访问。",
     },
@@ -494,13 +494,13 @@ export default {
     meta: {
       title: "关于 Bedrud",
       description:
-        "了解 Bedrud 背后的团队和使命 — 为所有人打造的开源视频会议。",
+        "了解 Bedrud 背后的团队和使命 - 为所有人打造的开源视频会议。",
     },
     title: "关于 Bedrud",
     subtitle: "由相信隐私应是默认设置的人打造的开源视频会议。",
     mission: {
       title: "我们的使命",
-      text: "Bedrud 的存在是因为视频会议不应该要求将数据交给大型科技公司。我们相信一个单一二进制文件、一台便宜的 VPS 和开源代码就能取代价值数百万的 SaaS 合同 — 无需牺牲质量或功能。隐私不是一项功能。它是基础。",
+      text: "Bedrud 的存在是因为视频会议不应该要求将数据交给大型科技公司。我们相信一个单一二进制文件、一台便宜的 VPS 和开源代码就能取代价值数百万的 SaaS 合同 - 无需牺牲质量或功能。隐私不是一项功能。它是基础。",
     },
     team: {
       title: "核心团队",
@@ -509,7 +509,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "博客 — Bedrud",
+      title: "博客 - Bedrud",
       description: "来自 Bedrud 团队的更新、技术深度解析和指南。",
     },
     title: "博客",
@@ -525,7 +525,7 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "功能 — Bedrud",
+      title: "功能 - Bedrud",
       description:
         "探索 Bedrud 的功能：单一二进制文件、WebRTC 质量、访客加入、通行密钥、管理员控制、音频处理、机器人和多平台支持。",
     },
@@ -549,7 +549,7 @@ export default {
     },
     guestJoin: {
       pain: "厌倦了仅仅为了 15 分钟的通话而强迫客人创建账户？",
-      title: "访客加入 — 无需账户",
+      title: "访客加入 - 无需账户",
       description:
         "分享链接，他们点击，就进来了。没有注册表单，没有密码，无障碍。可选密码以确保安全。",
     },
@@ -576,7 +576,7 @@ export default {
       pain: "没有好的工具，管理会议平台很痛苦。",
       title: "管理仪表板",
       description:
-        "房间管理、用户管理、使用分析和配置 — 全部通过干净的 Web UI。没有 CLI 猜测。",
+        "房间管理、用户管理、使用分析和配置 - 全部通过干净的 Web UI。没有 CLI 猜测。",
     },
     audio: {
       pain: "会议中的背景噪音让人分心且不专业。",
@@ -585,7 +585,7 @@ export default {
         "由 RNNoise 驱动的内置降噪。可选的 Krisp 集成，用于高级 AI 降噪。每次通话都有清晰的音频。",
     },
     bots: {
-      pain: "手动的会议任务浪费时间 — 录制、转录、笔记。",
+      pain: "手动的会议任务浪费时间 - 录制、转录、笔记。",
       title: "机器人代理",
       description:
         "可编程的机器人通过 Go SDK 加入会议。自动化转录、翻译、录制、CRM 集成和自定义工作流程。",
@@ -600,7 +600,7 @@ export default {
       pain: "经过您服务器的会议内容应该保持私密。",
       title: "端到端加密",
       description:
-        "房间可选 E2E 加密。服务器仅转发加密媒体——只有参与者可以解密。",
+        "房间可选 E2E 加密。服务器仅转发加密媒体--只有参与者可以解密。",
     },
     autoTls: {
       pain: "SSL 证书不应该需要教程才能设置。",
@@ -616,7 +616,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "在线演示 — Bedrud",
+      title: "在线演示 - Bedrud",
       description: "无需安装即可试用 Bedrud。立即加入在线演示会议。",
     },
     hero: {
@@ -656,12 +656,12 @@ export default {
       whatHappens: {
         question: "演示中会发生什么？",
         answer:
-          "你将加入一个运行完整 Bedrud 技术栈的共享会议室。可以测试视频、音频、屏幕共享、聊天和会议控制——与自托管实例完全相同。",
+          "你将加入一个运行完整 Bedrud 技术栈的共享会议室。可以测试视频、音频、屏幕共享、聊天和会议控制--与自托管实例完全相同。",
       },
       dataSaved: {
         question: "我的数据会被保存吗？",
         answer:
-          "不会。演示不会持久化任何数据。当你离开时，你的会话就消失了——没有录制，没有聊天记录，没有任何数据被存储。",
+          "不会。演示不会持久化任何数据。当你离开时，你的会话就消失了--没有录制，没有聊天记录，没有任何数据被存储。",
       },
       duration: {
         question: "演示可以使用多久？",
@@ -681,7 +681,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "更新日志 — Bedrud",
+      title: "更新日志 - Bedrud",
       description: "Bedrud 的版本历史和更新记录。",
     },
     title: "更新日志",
@@ -691,7 +691,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "贡献者 — Bedrud",
+      title: "贡献者 - Bedrud",
       description: "认识构建 Bedrud 的人们。",
     },
     title: "贡献者",
@@ -702,7 +702,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "联系我们 — Bedrud",
+      title: "联系我们 - Bedrud",
       description: "与 Bedrud 团队取得联系。",
     },
     title: "联系",

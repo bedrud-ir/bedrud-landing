@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — Talk to people, not the platform",
+    title: "Bedrud - Talk to people, not the platform",
     description:
       "Self-hosted video meetings. Single binary. 512MB RAM. Open source under Apache 2.0.",
   },
   nav: {
     home: "Home",
     features: "Features",
-    compare: "Compare",
+    compare: "Feature",
     platforms: "Platforms",
     openSource: "Open Source",
     install: "Install",
@@ -58,22 +58,22 @@ export default {
     host: {
       title: "Start Hosting Meetings",
       description:
-        "Sub-second WebRTC video with built-in noise suppression, even on slow connections. Screen sharing, recording, and real-time chat — all included.",
+        "Sub-second WebRTC video with built-in noise suppression, even on slow connections. Screen sharing, recording, and real-time chat - all included.",
     },
   },
   problem: {
     title: "Your Meetings Shouldn't Cost This Much",
     subtitle:
-      "Enterprise video platforms have been overcharging teams for years. Here's what's wrong — and why developers are switching.",
+      "Enterprise video platforms have been overcharging teams for years. Here's what's wrong - and why developers are switching.",
     perSeatPricing: {
       title: "Per-Seat Pricing Is a Trap",
       description:
-        "Zoom, Teams, Meet — they all charge per user. Grow from 10 to 100 people and your bill 10x's. Multiply that across departments, contractors, and guests and you're bleeding budget on a tool people use 30 minutes a day.",
+        "Zoom, Teams, Meet - they all charge per user. Grow from 10 to 100 people and your bill 10x's. Multiply that across departments, contractors, and guests and you're bleeding budget on a tool people use 30 minutes a day.",
     },
     vendorLockIn: {
       title: "Vendor Lock-In Kills Leverage",
       description:
-        "Your meeting recordings, transcripts, participant data — all stored on servers you don't control. When a provider changes pricing, drops features, or gets breached, you have no exit strategy.",
+        "Your meeting recordings, transcripts, participant data - all stored on servers you don't control. When a provider changes pricing, drops features, or gets breached, you have no exit strategy.",
     },
     selfHostedNightmare: {
       title: "Self-Hosted Options Are a Nightmare",
@@ -161,7 +161,7 @@ export default {
     fiveDollarVps: {
       title: "Runs on a $5 VPS",
       description:
-        "~200MB RAM idle (512MB min). Deploy on any cheap VPS — Hetzner, DigitalOcean, AWS Lightsail, your own hardware. Same features, fraction of the cost.",
+        "~200MB RAM idle (512MB min). Deploy on any cheap VPS - Hetzner, DigitalOcean, AWS Lightsail, your own hardware. Same features, fraction of the cost.",
     },
     webrtcLatency: {
       title: "WebRTC Sub-Second Latency",
@@ -171,7 +171,7 @@ export default {
     enterpriseSso: {
       title: "Enterprise SSO & OIDC",
       description:
-        "Connect to your identity provider in minutes. Passkeys, OAuth 2.0, OIDC — all supported out of the box. No password databases to breach.",
+        "Connect to your identity provider in minutes. Passkeys, OAuth 2.0, OIDC - all supported out of the box. No password databases to breach.",
     },
   },
   install: {
@@ -186,7 +186,7 @@ export default {
   platforms: {
     title: "Native Apps, Not Web Wrappers",
     subtitle:
-      "Real native apps — React on web, Kotlin on Android, Swift on iOS, Rust on desktop, Go on the server. No Electron, no Cordova, no compromises.",
+      "Real native apps - React on web, Kotlin on Android, Swift on iOS, Rust on desktop, Go on the server. No Electron, no Cordova, no compromises.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -216,7 +216,7 @@ export default {
   openSource: {
     title: "Read the Source. Run the Show.",
     subtitle:
-      "Every line of code is public. Inspect it, audit it, contribute to it, or fork it and build your own. Apache 2.0 licensed — use it commercially or otherwise.",
+      "Every line of code is public. Inspect it, audit it, contribute to it, or fork it and build your own. Apache 2.0 licensed - use it commercially or otherwise.",
     license: "Apache 2.0",
     github: "View on GitHub",
     docs: "Read the Docs",
@@ -246,7 +246,7 @@ export default {
     recordingScreenSharing: {
       question: "Does it support recording and screen sharing?",
       answer:
-        "Yes. Built-in screen sharing and meeting recording are included. Recordings are saved to your server — not someone else's cloud. Bot agents can also transcribe meetings in real-time.",
+        "Yes. Built-in screen sharing and meeting recording are included. Recordings are saved to your server - not someone else's cloud. Bot agents can also transcribe meetings in real-time.",
     },
   },
   testimonials: {
@@ -297,13 +297,13 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "Features — Bedrud",
+      title: "Features - Bedrud",
       description:
-        "Self-hosted video meetings with built-in WebRTC, TURN server, 6 auth methods, admin controls, E2E encryption, bot agents, and 5 native apps — all in one binary.",
+        "Self-hosted video meetings with built-in WebRTC, TURN server, 6 auth methods, admin controls, E2E encryption, bot agents, and 5 native apps - all in one binary.",
     },
     title: "All Your Meeting Infrastructure. One Binary.",
     subtitle:
-      "API server, web UI, WebRTC media server, TURN relay, and database — packaged together. Zero outbound requests after download.",
+      "API server, web UI, WebRTC media server, TURN relay, and database - packaged together. Zero outbound requests after download.",
     sectionTitle: "Everything You Need, Nothing You Don't",
     sectionSubtitle:
       "Video meeting infrastructure in a single binary. No external dependencies, no per-seat billing, no vendor lock-in.",
@@ -322,9 +322,9 @@ export default {
     },
     guestJoin: {
       pain: "Tired of forcing guests to create accounts just for a 15-minute call?",
-      title: "Guest Join — No Account Needed",
+      title: "Guest Join - No Account Needed",
       description:
-        "Share a link, they click, they're in. No sign-up forms, no passwords, no app installs. Works in any browser — Chrome, Firefox, Edge, Safari.",
+        "Share a link, they click, they're in. No sign-up forms, no passwords, no app installs. Works in any browser - Chrome, Firefox, Edge, Safari.",
     },
     singleBinary: {
       pain: "Setting up video infrastructure shouldn't take a DevOps degree.",
@@ -337,7 +337,7 @@ export default {
       pain: "Video calls that lag, freeze, or drop ruin meetings.",
       title: "WebRTC with Built-in TURN",
       description:
-        "SFU architecture with adaptive bitrate. ~80% of connections go direct via UDP. Built-in TURN relay handles the rest — no external infrastructure needed. Sub-second latency on any connection.",
+        "SFU architecture with adaptive bitrate. ~80% of connections go direct via UDP. Built-in TURN relay handles the rest - no external infrastructure needed. Sub-second latency on any connection.",
     },
     passkeys: {
       pain: "Passwords get leaked. MFA tokens get phished.",
@@ -349,7 +349,7 @@ export default {
       pain: "Managing a meeting platform without good tools is painful.",
       title: "Admin Dashboard & Room Controls",
       description:
-        "User management, room oversight, invite tokens, and instance settings — all from a web UI. In-meeting controls: kick, mute, disable video. Role-based access with CLI-only admin promotion.",
+        "User management, room oversight, invite tokens, and instance settings - all from a web UI. In-meeting controls: kick, mute, disable video. Role-based access with CLI-only admin promotion.",
     },
     audio: {
       pain: "Background noise in meetings is distracting and unprofessional.",
@@ -358,7 +358,7 @@ export default {
         "RNNoise noise suppression included. Optional Krisp integration for premium AI cancellation. Clean audio on every call, even from noisy environments.",
     },
     bots: {
-      pain: "Manual meeting tasks waste time — recording, transcription, notes.",
+      pain: "Manual meeting tasks waste time - recording, transcription, notes.",
       title: "Bot Agents",
       description:
         "Built-in agents for music streaming, radio, and video playback. Build custom agents with the Python SDK for transcription, CRM integrations, and automated workflows.",
@@ -367,13 +367,13 @@ export default {
       pain: "Your team uses different devices. Your meeting platform should too.",
       title: "5 Native Platforms",
       description:
-        "Web (React), Android (Kotlin + PiP mode), iOS (SwiftUI), and Desktop (Rust/Slint for Windows, Linux, macOS). Multi-instance support — connect to multiple servers from one app.",
+        "Web (React), Android (Kotlin + PiP mode), iOS (SwiftUI), and Desktop (Rust/Slint for Windows, Linux, macOS). Multi-instance support - connect to multiple servers from one app.",
     },
     e2eEncryption: {
       pain: "Meeting content passing through your server should stay private.",
       title: "End-to-End Encryption",
       description:
-        "Optional E2E encryption for rooms. The server relays encrypted media — only participants can decrypt. Your infrastructure, your data, your control.",
+        "Optional E2E encryption for rooms. The server relays encrypted media - only participants can decrypt. Your infrastructure, your data, your control.",
     },
     autoTls: {
       pain: "SSL certificates shouldn't require a tutorial to set up.",
@@ -390,7 +390,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "Live Demo — Bedrud",
+      title: "Live Demo - Bedrud",
       description:
         "Try Bedrud without installing anything. Join a live demo meeting right now.",
     },
@@ -432,7 +432,7 @@ export default {
       whatHappens: {
         question: "What happens in the demo?",
         answer:
-          "You join a shared meeting room running the full Bedrud stack. Test video, audio, screen sharing, chat, and meeting controls — same as a self-hosted instance.",
+          "You join a shared meeting room running the full Bedrud stack. Test video, audio, screen sharing, chat, and meeting controls - same as a self-hosted instance.",
       },
       dataSaved: {
         question: "Is my data saved?",
@@ -457,7 +457,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "Changelog — Bedrud",
+      title: "Changelog - Bedrud",
       description: "Release history and updates for Bedrud.",
     },
     title: "Changelog",
@@ -467,7 +467,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "Contributors — Bedrud",
+      title: "Contributors - Bedrud",
       description: "Meet the people building Bedrud.",
     },
     title: "Contributors",
@@ -478,7 +478,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "Contact — Bedrud",
+      title: "Contact - Bedrud",
       description: "Get in touch with the Bedrud team.",
     },
     title: "Contact",
@@ -502,7 +502,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "Privacy Policy — Bedrud",
+      title: "Privacy Policy - Bedrud",
       description:
         "How Bedrud handles your data. Short version: self-hosted means your data stays on your server.",
     },
@@ -523,12 +523,12 @@ export default {
     dataStorage: {
       title: "Data Storage",
       content:
-        "The public demo doesn't persist data. Disconnect and your session is gone — no recordings, no chat history. Self-hosted instances store data in SQLite on your server. You choose the backup strategy and retention policy. We have no access.",
+        "The public demo doesn't persist data. Disconnect and your session is gone - no recordings, no chat history. Self-hosted instances store data in SQLite on your server. You choose the backup strategy and retention policy. We have no access.",
     },
     thirdParties: {
       title: "Third-Party Services",
       content:
-        "None. Bedrud makes zero outbound requests after download. No analytics, no crash reporters, no telemetry. The website loads no third-party scripts. Verify it yourself — the source is on GitHub.",
+        "None. Bedrud makes zero outbound requests after download. No analytics, no crash reporters, no telemetry. The website loads no third-party scripts. Verify it yourself - the source is on GitHub.",
     },
     cookies: {
       title: "Cookies & Local Storage",
@@ -538,7 +538,7 @@ export default {
     yourRights: {
       title: "Your Rights",
       content:
-        "Since we don't collect personal data, there's nothing to access, correct, or delete from us. Close the demo tab and your session data is already gone. Self-hosted users have full control over all data on their servers — export, backup, delete, whatever you need.",
+        "Since we don't collect personal data, there's nothing to access, correct, or delete from us. Close the demo tab and your session data is already gone. Self-hosted users have full control over all data on their servers - export, backup, delete, whatever you need.",
     },
     changes: {
       title: "Changes to This Policy",
@@ -553,7 +553,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "Terms of Service — Bedrud",
+      title: "Terms of Service - Bedrud",
       description:
         "Terms for using the Bedrud website and public demo. Self-hosted users are bound by the Apache 2.0 license.",
     },
@@ -574,17 +574,17 @@ export default {
     accounts: {
       title: "Accounts",
       content:
-        "The website doesn't require accounts. The demo doesn't require accounts. Self-hosted instances may have their own account systems — that's your call, since you run the server.",
+        "The website doesn't require accounts. The demo doesn't require accounts. Self-hosted instances may have their own account systems - that's your call, since you run the server.",
     },
     acceptableUse: {
       title: "Don't Abuse the Demo",
       content:
-        "Don't use the public demo for illegal content, spam, harassment, or anything that degrades the experience for others. We reserve the right to remove abusive users from the demo room. This doesn't apply to self-hosted instances — you set your own rules.",
+        "Don't use the public demo for illegal content, spam, harassment, or anything that degrades the experience for others. We reserve the right to remove abusive users from the demo room. This doesn't apply to self-hosted instances - you set your own rules.",
     },
     intellectualProperty: {
       title: "Open Source License",
       content:
-        "Bedrud is Apache 2.0 licensed. Use it, modify it, distribute it — including commercially. The Bedrud name and logo are trademarks of theMadOrg. You can use them to refer to the software, but not to misrepresent your relationship with the project.",
+        "Bedrud is Apache 2.0 licensed. Use it, modify it, distribute it - including commercially. The Bedrud name and logo are trademarks of theMadOrg. You can use them to refer to the software, but not to misrepresent your relationship with the project.",
     },
     termination: {
       title: "Access",
@@ -637,7 +637,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Install Bedrud — One Command Deployment",
+      title: "Install Bedrud - One Command Deployment",
       description:
         "Deploy Bedrud on your server in under a minute. Single binary, 512MB RAM, no Docker required.",
     },
@@ -647,7 +647,7 @@ export default {
   },
   downloadPage: {
     meta: {
-      title: "Download Bedrud — Desktop & Mobile Apps",
+      title: "Download Bedrud - Desktop & Mobile Apps",
       description:
         "Download Bedrud for Linux, macOS, Windows, Android, or iOS. Native apps or zero-install browser access.",
     },
@@ -671,6 +671,28 @@ export default {
     server: "Server Installation",
     serverDesc: "Deploy the Bedrud server on your own hardware.",
     serverGuide: "Server installation guide",
+    heroClientTitle: "Client Version",
+    heroClientDesc: "Native desktop and mobile apps for every platform.",
+    heroServerTitle: "Server Version",
+    heroServerDesc: "Deploy the Bedrud server on your own hardware.",
+    heroAllPlatforms: "View all platforms",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "Run in a container with Docker.",
+    serverBinary: "Linux Binary",
+    serverBinaryDesc: "Download pre-built binaries for Linux.",
+    serverQuickInstall: "Quick Install",
+    serverQuickInstallDesc: "One command. Under a minute.",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "Deploy to Kubernetes with Helm.",
+    resourcesTitle: "Resources",
+    resourcesDocs: "Documentation",
+    resourcesDocsDesc: "Setup guides, API reference, and how-tos.",
+    resourcesCommunity: "Community",
+    resourcesCommunityDesc: "Get help and share feedback.",
+    resourcesChangelog: "Changelog",
+    resourcesChangelogDesc: "Latest releases and changes.",
     platform: {
       linux: "Linux",
       mac: "macOS",
@@ -684,14 +706,14 @@ export default {
     meta: {
       title: "About Bedrud",
       description:
-        "Learn about the team and mission behind Bedrud — open-source video meetings for everyone.",
+        "Learn about the team and mission behind Bedrud - open-source video meetings for everyone.",
     },
     title: "About Bedrud",
     subtitle:
       "Open-source video meetings built by people who believe privacy should be the default.",
     mission: {
       title: "Our Mission",
-      text: "Bedrud exists because video meetings shouldn't require handing your data to Big Tech. We believe a single binary, a cheap VPS, and open-source code can replace million-dollar SaaS contracts — without sacrificing quality or features. Privacy isn't a feature. It's the foundation.",
+      text: "Bedrud exists because video meetings shouldn't require handing your data to Big Tech. We believe a single binary, a cheap VPS, and open-source code can replace million-dollar SaaS contracts - without sacrificing quality or features. Privacy isn't a feature. It's the foundation.",
     },
     team: {
       title: "Core Team",
@@ -700,7 +722,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "Blog — Bedrud",
+      title: "Blog - Bedrud",
       description:
         "Updates, engineering deep-dives, and guides from the Bedrud team.",
     },

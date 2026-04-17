@@ -147,7 +147,7 @@ See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for architectu
 
 The embedded TURN server relays media for clients behind restrictive NATs or corporate firewalls. It's enabled by default on ports 3478 (UDP) and 5349 (TLS).
 
-TURN is a last-resort relay — most clients (~80%) connect directly via UDP and never use it. When TURN activates, the server carries all relayed media bandwidth.
+TURN is a last-resort relay - most clients (~80%) connect directly via UDP and never use it. When TURN activates, the server carries all relayed media bandwidth.
 
 **TLS requirement:** TURN/TLS (port 5349) needs a valid TLS certificate. For production, set `turn.tls_port: 443` and point `cert_file`/`key_file` to your certificate, or place a Layer 4 load balancer in front with `external_tls: true`.
 
@@ -157,11 +157,11 @@ See the [TURN Server Guide](/docs/architecture/turn-server) for architecture, co
 
 The `room:` section controls meeting room behavior:
 
-- **`auto_create`** — Automatically create rooms when participants join (default: `true`)
-- **`empty_timeout`** — Seconds before deleting a room that was never joined (default: `60`)
-- **`departure_timeout`** — Seconds to keep room active after all participants leave (default: `60`)
-- **`max_participants`** — Maximum participants per room. Set to `0` for no limit (default: `20`)
-- **`enable_remote_unmute`** — Allow server-side muting/unmuting of participants (default: `true`)
+- **`auto_create`** - Automatically create rooms when participants join (default: `true`)
+- **`empty_timeout`** - Seconds before deleting a room that was never joined (default: `60`)
+- **`departure_timeout`** - Seconds to keep room active after all participants leave (default: `60`)
+- **`max_participants`** - Maximum participants per room. Set to `0` for no limit (default: `20`)
+- **`enable_remote_unmute`** - Allow server-side muting/unmuting of participants (default: `true`)
 
 **Tuning for capacity:**
 - Small team meetings: `max_participants: 10-20`

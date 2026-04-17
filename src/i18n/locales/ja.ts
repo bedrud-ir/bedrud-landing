@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — あなたらしいビデオ会議",
+    title: "Bedrud - あなたらしいビデオ会議",
     description:
       "Bedrud はオープンソースのビデオ会議プラットフォームです。セルフホストまたはクラウドで利用可能。Web UI、REST API、WebRTC メディアサーバーを単一バイナリに統合。",
   },
   nav: {
     home: "ホーム",
     features: "機能",
-    compare: "比較",
+    compare: "Feature",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
     docs: "ドキュメント",
@@ -150,7 +150,7 @@ export default {
   features: {
     title: "すべて同梱",
     subtitle:
-      "ビデオ、音声、認証、ボット — すべて含まれています。マイクロサービスアーキテクチャ不要。",
+      "ビデオ、音声、認証、ボット - すべて含まれています。マイクロサービスアーキテクチャ不要。",
     e2eEncryption: {
       title: "デフォルトで暗号化",
       description:
@@ -194,7 +194,7 @@ export default {
   platforms: {
     title: "Webラッパーではないネイティブアプリ",
     subtitle:
-      "本当のネイティブアプリ — WebはReact、AndroidはKotlin、iOSはSwift、デスクトップはRust、サーバーはGo。Electronなし、Cordovaなし。",
+      "本当のネイティブアプリ - WebはReact、AndroidはKotlin、iOSはSwift、デスクトップはRust、サーバーはGo。Electronなし、Cordovaなし。",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -224,7 +224,7 @@ export default {
   openSource: {
     title: "ソースコードを読む。主導権を握る。",
     subtitle:
-      "すべてのコードが公開されています。検査、監査、貢献、またはフォーク可能。Apache 2.0ライセンス — 商用・個人利用自由。",
+      "すべてのコードが公開されています。検査、監査、貢献、またはフォーク可能。Apache 2.0ライセンス - 商用・個人利用自由。",
     license: "Apache 2.0",
     github: "GitHub で見る",
     docs: "ドキュメントを読む",
@@ -244,7 +244,7 @@ export default {
     updates: {
       question: "アップデートはどうやって行いますか？",
       answer:
-        "インストールコマンドを再実行してください。Bedrudはバイナリをその場で置き換えます — パッケージマネージャーなし、依存関係チェーンなし。単一の設定フラグで自動アップデートを有効にすることもできます。",
+        "インストールコマンドを再実行してください。Bedrudはバイナリをその場で置き換えます - パッケージマネージャーなし、依存関係チェーンなし。単一の設定フラグで自動アップデートを有効にすることもできます。",
     },
     encryption: {
       question: "エンドツーエンド暗号化されていますか？",
@@ -254,17 +254,17 @@ export default {
     network: {
       question: "ネットワークとポートの要件は？",
       answer:
-        "HTTP/WebSocket用にポート80/443、WebRTCメディア用に設定可能なUDP範囲（デフォルト50000–60000）。NATの背後ではSTUN/TURNサーバーを設定してください — Bedrudにはcoturnのセットアップドキュメントが含まれています。",
+        "HTTP/WebSocket用にポート80/443、WebRTCメディア用に設定可能なUDP範囲（デフォルト50000–60000）。NATの背後ではSTUN/TURNサーバーを設定してください - Bedrudにはcoturnのセットアップドキュメントが含まれています。",
     },
     proxy: {
       question: "リバースプロキシの背後で実行できますか？",
       answer:
-        "はい。Nginx、Caddy、Traefik — すべて対応。ドキュメントにはそれぞれのコピペ設定が含まれています。WebSocket接続を転送し、適切なヘッダーを設定してください。",
+        "はい。Nginx、Caddy、Traefik - すべて対応。ドキュメントにはそれぞれのコピペ設定が含まれています。WebSocket接続を転送し、適切なヘッダーを設定してください。",
     },
     cloudVsSelfHosted: {
       question: "セルフホストとBedrud Cloudの違いは？",
       answer:
-        "同じ製品、同じ機能。セルフホストはお客様のインフラでフルデータコントロール。Bedrud Cloudは運用、アップデート、スケーリングを代行。ベンダーロックインなし — いつでも移行可能。",
+        "同じ製品、同じ機能。セルフホストはお客様のインフラでフルデータコントロール。Bedrud Cloudは運用、アップデート、スケーリングを代行。ベンダーロックインなし - いつでも移行可能。",
     },
   },
   testimonials: {
@@ -279,7 +279,7 @@ export default {
     },
     two: {
       quote:
-        "シート課金なし — これが決め手でした。20人から200人に増えてもライセンスメールは1通も来ませんでした。",
+        "シート課金なし - これが決め手でした。20人から200人に増えてもライセンスメールは1通も来ませんでした。",
       name: "Marcus T.",
       role: "リモートファーストスタートアップ CTO",
       initials: "MT",
@@ -315,7 +315,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "プライバシーポリシー — Bedrud",
+      title: "プライバシーポリシー - Bedrud",
       description:
         "Bedrud がデータをどのように扱うか。一言で言えば：セルフホストならデータはあなたのサーバーに残ります。",
     },
@@ -366,7 +366,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "利用規約 — Bedrud",
+      title: "利用規約 - Bedrud",
       description:
         "bedrud.org ウェブサイトと公開デモの利用規約。セルフホストユーザーは Apache 2.0 ライセンスに従います。",
     },
@@ -450,7 +450,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "インストール — Bedrud — ワンコマンドデプロイ",
+      title: "インストール - Bedrud - ワンコマンドデプロイ",
       description:
         "Bedrud をサーバーに1分以内でデプロイ。単一バイナリ、512MB RAM、Docker 不要。",
     },
@@ -460,7 +460,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "ブログ — Bedrud",
+      title: "ブログ - Bedrud",
       description:
         "Bedrud チームによるアップデート、エンジニアリングの深掘り、ガイド。",
     },
@@ -478,7 +478,7 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "機能 — Bedrud",
+      title: "機能 - Bedrud",
       description:
         "Bedrud の機能をご紹介：単一バイナリ、WebRTC 品質、ゲスト参加、パスキー、管理者コントロール、オーディオ処理、ボットエージェント、マルチプラットフォーム対応。",
     },
@@ -502,7 +502,7 @@ export default {
     },
     guestJoin: {
       pain: "15分の通話のためにゲストにアカウント作成を強要するのにうんざりしていませんか？",
-      title: "ゲスト参加 — アカウント不要",
+      title: "ゲスト参加 - アカウント不要",
       description:
         "リンクを共有、クリック、参加完了。登録フォームなし、パスワードなし、摩擦なし。セキュリティ用オプションのパスコード。",
     },
@@ -529,7 +529,7 @@ export default {
       pain: "良いツールなしで会議プラットフォームを管理するのは苦痛です。",
       title: "管理ダッシュボード",
       description:
-        "ルーム管理、ユーザー管理、使用分析、設定 — すべてクリーンなWeb UIから。CLI推測なし。",
+        "ルーム管理、ユーザー管理、使用分析、設定 - すべてクリーンなWeb UIから。CLI推測なし。",
     },
     audio: {
       pain: "ミーティングの背景ノイズは気を散らし、非プロフェッショナルです。",
@@ -538,7 +538,7 @@ export default {
         "RNNoise駆動の内蔵ノイズ抑制。プレミアムAIノイズ抑制用のオプションKrisp統合。すべての通話でクリーンなオーディオ。",
     },
     bots: {
-      pain: "手動の会議タスクは時間を浪費します — 録画、文字起こし、メモ。",
+      pain: "手動の会議タスクは時間を浪費します - 録画、文字起こし、メモ。",
       title: "ボットエージェント",
       description:
         "プログラマブルボットがGo SDK経由で会議に参加。文字起こし、翻訳、録画、CRM統合、カスタムワークフローを自動化。",
@@ -553,7 +553,7 @@ export default {
       pain: "サーバーを経由する会議内容はプライベートであるべきです。",
       title: "エンドツーエンド暗号化",
       description:
-        "ルームのオプション E2E 暗号化。サーバーは暗号化メディアを中継するだけ — 参加者のみが復号できます。",
+        "ルームのオプション E2E 暗号化。サーバーは暗号化メディアを中継するだけ - 参加者のみが復号できます。",
     },
     autoTls: {
       pain: "SSL証明書の設定にチュートリアルは不要なはずです。",
@@ -570,7 +570,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "ライブデモ — Bedrud",
+      title: "ライブデモ - Bedrud",
       description:
         "インストール不要で Bedrud をお試しください。今すぐライブデモ会議に参加できます。",
     },
@@ -638,7 +638,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "変更履歴 — Bedrud",
+      title: "変更履歴 - Bedrud",
       description: "Bedrud のリリース履歴とアップデート情報。",
     },
     title: "変更履歴",
@@ -648,7 +648,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "コントリビューター — Bedrud",
+      title: "コントリビューター - Bedrud",
       description: "Bedrud を開発している人々を紹介します。",
     },
     title: "コントリビューター",
@@ -659,7 +659,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "お問い合わせ — Bedrud",
+      title: "お問い合わせ - Bedrud",
       description: "Bedrud チームにお問い合わせください。",
     },
     title: "お問い合わせ",

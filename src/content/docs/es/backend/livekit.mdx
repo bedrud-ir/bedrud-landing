@@ -10,7 +10,7 @@ Bedrud uses **LiveKit** to handle real-time video and audio communication. LiveK
 
 Bedrud supports two LiveKit deployment modes:
 
-1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required — the backend handles the LiveKit process lifecycle.
+1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required - the backend handles the LiveKit process lifecycle.
 2.  **External Mode:** Bedrud connects to a separate LiveKit server or cluster. This is useful for horizontal scaling or when using a managed LiveKit Cloud instance.
 
 ### Configuring External Mode
@@ -46,7 +46,7 @@ When a user joins a meeting:
 
     - The room name.
     - The user's identity (display name).
-    - Permissions — for example, whether the user can publish audio or share their screen.
+    - Permissions - for example, whether the user can publish audio or share their screen.
 5.  The frontend receives this token and connects directly to the LiveKit media port (default `7880`).
 
 ### 3. Room Controls (Admin)
@@ -92,6 +92,6 @@ LiveKit join tokens have a short validity window. If a client waits too long bet
 
 ## See also
 
-- [TURN Server Guide](/docs/architecture/turn-server) — TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) — full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) — full system architecture
+- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
+- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [Architecture Overview](/docs/architecture/overview) - full system architecture

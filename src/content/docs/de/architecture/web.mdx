@@ -71,11 +71,11 @@ apps/web/
 
 Auth state is managed by a Zustand store in `src/lib/auth.store.ts`:
 
-1. **Login** — User submits credentials to `POST /api/auth/login`
-2. **Token Storage** — Access and refresh tokens saved to `localStorage`
-3. **Automatic Injection** — `authFetch` wraps every API call, adding the `Authorization: Bearer` header
-4. **Auto-Refresh** — When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
-5. **Logout** — Clears tokens and redirects to the login page
+1. **Login** - User submits credentials to `POST /api/auth/login`
+2. **Token Storage** - Access and refresh tokens saved to `localStorage`
+3. **Automatic Injection** - `authFetch` wraps every API call, adding the `Authorization: Bearer` header
+4. **Auto-Refresh** - When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
+5. **Logout** - Clears tokens and redirects to the login page
 
 ### authFetch
 
@@ -89,21 +89,21 @@ The `authFetch` function in `src/lib/api.ts` is a drop-in replacement for `fetch
 
 The meeting room at `/m/$meetId` handles:
 
-- **LiveKit connection** — Connects to the media server with the token from the join API
-- **Track rendering** — Subscribes to audio/video tracks from other participants
-- **Device selection** — Switch camera, microphone, or speaker mid-call without leaving the room
-- **Admin controls** — Room creator sees kick, mute, and video-off buttons
-- **Chat** — In-room text chat via `ChatPanel`
-- **Spotlight view** — Focus a single participant
+- **LiveKit connection** - Connects to the media server with the token from the join API
+- **Track rendering** - Subscribes to audio/video tracks from other participants
+- **Device selection** - Switch camera, microphone, or speaker mid-call without leaving the room
+- **Admin controls** - Room creator sees kick, mute, and video-off buttons
+- **Chat** - In-room text chat via `ChatPanel`
+- **Spotlight view** - Focus a single participant
 
 ## Admin Panel
 
 The admin panel at `/admin` provides:
 
-- **Room management** — table view with drill-down to room detail pages
-- **User management** — table view with drill-down to individual user accounts and role editing
-- **Server settings** — configure instance-wide options, access controls, and invite links
-- **Invite tokens** — generate and revoke invite links to control who can join
+- **Room management** - table view with drill-down to room detail pages
+- **User management** - table view with drill-down to individual user accounts and role editing
+- **Server settings** - configure instance-wide options, access controls, and invite links
+- **Invite tokens** - generate and revoke invite links to control who can join
 
 ## Dark Mode
 
@@ -152,4 +152,4 @@ bun run check    # Runs tsc --noEmit
 
 ## See also
 
-- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) — UI component patterns, color tokens, and styling rules
+- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI component patterns, color tokens, and styling rules

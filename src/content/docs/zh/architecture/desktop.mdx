@@ -23,7 +23,7 @@ The Bedrud desktop client is a native Windows and Linux application built with *
 |----------|----------|--------|
 | Windows 10/11 | Direct3D 11 | `bedrud-desktop.exe` |
 | Linux x86_64 | OpenGL / Vulkan (via EGL/Wayland/X11) | `bedrud-desktop` |
-| macOS | _(not yet — use the web app)_ | — |
+| macOS | _(not yet - use the web app)_ | - |
 
 ## Source Layout
 
@@ -32,7 +32,7 @@ apps/desktop/
 ├── Cargo.toml              # Crate definition
 ├── build.rs                # Slint compile step
 ├── src/
-│   ├── main.rs             # Entry point — initialises app + event loop
+│   ├── main.rs             # Entry point - initialises app + event loop
 │   ├── app.rs              # Top-level AppState and startup logic
 │   ├── api/
 │   │   ├── client.rs       # Shared HTTP client (base URL, JWT injection)
@@ -92,10 +92,10 @@ apps/desktop/
 
 ### Key design decisions
 
-- **Slint's compile-time UI** — `.slint` files are compiled into Rust at build time via `build.rs`. There is no layout engine at runtime; the UI is fully native.
-- **`bridge.rs` as the only UI↔logic boundary** — all Slint callbacks are wired in one place, keeping business logic out of the UI layer and making the bridge easy to audit.
-- **`Weak<AppWindow>` in callbacks** — Slint UI handles are `!Send`, so background tasks upgrade a stored `Weak` reference on the UI thread to set properties, rather than sharing the handle across threads.
-- **Multi-instance via `store/instance.rs`** — identical to the mobile apps: instances are serialised to a JSON file in the OS config directory; each instance has its own `APIClient` and `AuthSession`.
+- **Slint's compile-time UI** - `.slint` files are compiled into Rust at build time via `build.rs`. There is no layout engine at runtime; the UI is fully native.
+- **`bridge.rs` as the only UI↔logic boundary** - all Slint callbacks are wired in one place, keeping business logic out of the UI layer and making the bridge easy to audit.
+- **`Weak<AppWindow>` in callbacks** - Slint UI handles are `!Send`, so background tasks upgrade a stored `Weak` reference on the UI thread to set properties, rather than sharing the handle across threads.
+- **Multi-instance via `store/instance.rs`** - identical to the mobile apps: instances are serialised to a JSON file in the OS config directory; each instance has its own `APIClient` and `AuthSession`.
 
 ## Building Locally
 

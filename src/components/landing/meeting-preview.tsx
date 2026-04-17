@@ -279,7 +279,7 @@ export function MeetingPreview() {
             ))}
           </div>
 
-          {/* Chat sidebar — lg only */}
+          {/* Chat sidebar - lg only */}
           <div className="hidden w-44 flex-col border-s border-white/[0.05] bg-[#0d0d22] lg:flex xl:w-48">
             {/* Chat header */}
             <div className="flex items-center justify-between border-b border-white/[0.04] px-3 py-2">

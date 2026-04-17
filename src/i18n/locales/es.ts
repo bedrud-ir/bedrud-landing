@@ -1,13 +1,13 @@
 export default {
   meta: {
-    title: "Bedrud — Videollamadas a tu manera",
+    title: "Bedrud - Videollamadas a tu manera",
     description:
-      "Bedrud es una plataforma de videollamadas de código abierto. Alójala tú mismo o usa nuestra nube — un solo binario que empaqueta interfaz web, API REST y servidor de medios WebRTC.",
+      "Bedrud es una plataforma de videollamadas de código abierto. Alójala tú mismo o usa nuestra nube - un solo binario que empaqueta interfaz web, API REST y servidor de medios WebRTC.",
   },
   nav: {
     home: "Inicio",
     features: "Características",
-    compare: "Comparar",
+    compare: "Feature",
     platforms: "Plataformas",
     openSource: "Código Abierto",
     docs: "Documentación",
@@ -151,7 +151,7 @@ export default {
   features: {
     title: "Todo incluido",
     subtitle:
-      "Video, audio, autenticación, bots — todo incluido. Sin arquitectura de microservicios.",
+      "Video, audio, autenticación, bots - todo incluido. Sin arquitectura de microservicios.",
     e2eEncryption: {
       title: "Cifrado por defecto",
       description:
@@ -165,7 +165,7 @@ export default {
     multiPlatform: {
       title: "Multiplataforma",
       description:
-        "Apps nativas para Web, Android e iOS. No wrappers — apps nativas de verdad. Más un SDK del lado del servidor para automatización.",
+        "Apps nativas para Web, Android e iOS. No wrappers - apps nativas de verdad. Más un SDK del lado del servidor para automatización.",
     },
     flexibleAuth: {
       title: "Autenticación flexible",
@@ -195,7 +195,7 @@ export default {
   platforms: {
     title: "Apps nativas, no wrappers",
     subtitle:
-      "Apps nativas de verdad — React en web, Kotlin en Android, Swift en iOS, Rust en el escritorio, Go en el servidor. Sin Electron, sin Cordova.",
+      "Apps nativas de verdad - React en web, Kotlin en Android, Swift en iOS, Rust en el escritorio, Go en el servidor. Sin Electron, sin Cordova.",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -225,7 +225,7 @@ export default {
   openSource: {
     title: "Lee el código fuente. Toma el control.",
     subtitle:
-      "Cada línea de código es pública. Inspecciona, audita, contribuye o haz un fork. Licencia Apache 2.0 — uso comercial o personal.",
+      "Cada línea de código es pública. Inspecciona, audita, contribuye o haz un fork. Licencia Apache 2.0 - uso comercial o personal.",
     license: "Apache 2.0",
     github: "Ver en GitHub",
     docs: "Leer la documentación",
@@ -245,7 +245,7 @@ export default {
     updates: {
       question: "¿Cómo funcionan las actualizaciones?",
       answer:
-        "Vuelve a ejecutar el comando de instalación. Bedrud reemplaza el binario directamente — sin gestores de paquetes, sin cadenas de dependencias. También puedes activar las actualizaciones automáticas con un solo flag de configuración.",
+        "Vuelve a ejecutar el comando de instalación. Bedrud reemplaza el binario directamente - sin gestores de paquetes, sin cadenas de dependencias. También puedes activar las actualizaciones automáticas con un solo flag de configuración.",
     },
     encryption: {
       question: "¿Está cifrado de extremo a extremo?",
@@ -255,17 +255,17 @@ export default {
     network: {
       question: "¿Cuáles son los requisitos de red y puertos?",
       answer:
-        "Puerto 80/443 para HTTP/WebSocket y un rango UDP configurable (por defecto 50000–60000) para medios WebRTC. Detrás de NAT, configura un servidor STUN/TURN — Bedrud incluye documentación para coturn.",
+        "Puerto 80/443 para HTTP/WebSocket y un rango UDP configurable (por defecto 50000–60000) para medios WebRTC. Detrás de NAT, configura un servidor STUN/TURN - Bedrud incluye documentación para coturn.",
     },
     proxy: {
       question: "¿Puedo ejecutarlo detrás de un proxy inverso?",
       answer:
-        "Sí. Nginx, Caddy, Traefik — todos funcionan. Los documentos incluyen configuraciones de copiar y pegar para cada uno. Solo reenvía las conexiones WebSocket y configura los headers adecuados.",
+        "Sí. Nginx, Caddy, Traefik - todos funcionan. Los documentos incluyen configuraciones de copiar y pegar para cada uno. Solo reenvía las conexiones WebSocket y configura los headers adecuados.",
     },
     cloudVsSelfHosted: {
       question: "¿Cuál es la diferencia entre self-hosted y Bedrud Cloud?",
       answer:
-        "Mismo producto, mismas funciones. Self-hosted se ejecuta en tu infraestructura con control total de datos. Bedrud Cloud gestiona operaciones, actualizaciones y escalado por ti. Sin lock-in — migra entre ellos en cualquier momento.",
+        "Mismo producto, mismas funciones. Self-hosted se ejecuta en tu infraestructura con control total de datos. Bedrud Cloud gestiona operaciones, actualizaciones y escalado por ti. Sin lock-in - migra entre ellos en cualquier momento.",
     },
   },
   testimonials: {
@@ -316,7 +316,7 @@ export default {
   },
   privacy: {
     meta: {
-      title: "Política de privacidad — Bedrud",
+      title: "Política de privacidad - Bedrud",
       description:
         "Cómo maneja Bedrud tus datos. Versión corta: autoalojado significa que tus datos permanecen en tu servidor.",
     },
@@ -337,12 +337,12 @@ export default {
     dataStorage: {
       title: "Almacenamiento de datos",
       content:
-        "La demo pública no persiste datos. Al desconectarte, tu sesión desaparece — sin grabaciones, sin historial de chat. Las instancias autoalojadas almacenan datos en SQLite en tu servidor. Tú eliges la estrategia de respaldo y retención. No tenemos acceso.",
+        "La demo pública no persiste datos. Al desconectarte, tu sesión desaparece - sin grabaciones, sin historial de chat. Las instancias autoalojadas almacenan datos en SQLite en tu servidor. Tú eliges la estrategia de respaldo y retención. No tenemos acceso.",
     },
     thirdParties: {
       title: "Servicios de terceros",
       content:
-        "Ninguno. Bedrud no hace solicitudes salientes después de la descarga. Sin analytics, sin reportes de errores, sin telemetría. El sitio no carga scripts de terceros. Verifícalo tú mismo — el código fuente está en GitHub.",
+        "Ninguno. Bedrud no hace solicitudes salientes después de la descarga. Sin analytics, sin reportes de errores, sin telemetría. El sitio no carga scripts de terceros. Verifícalo tú mismo - el código fuente está en GitHub.",
     },
     cookies: {
       title: "Cookies y almacenamiento local",
@@ -352,7 +352,7 @@ export default {
     yourRights: {
       title: "Tus derechos",
       content:
-        "Dado que no recopilamos datos personales, no hay nada a lo que acceder, corregir o eliminar de nuestra parte. Cierra la pestaña de la demo y tus datos de sesión ya desaparecieron. Los usuarios autoalojados tienen control total sobre todos los datos en sus servidores — exportar, respaldar, eliminar, lo que necesites.",
+        "Dado que no recopilamos datos personales, no hay nada a lo que acceder, corregir o eliminar de nuestra parte. Cierra la pestaña de la demo y tus datos de sesión ya desaparecieron. Los usuarios autoalojados tienen control total sobre todos los datos en sus servidores - exportar, respaldar, eliminar, lo que necesites.",
     },
     changes: {
       title: "Cambios a esta política",
@@ -367,7 +367,7 @@ export default {
   },
   terms: {
     meta: {
-      title: "Términos de servicio — Bedrud",
+      title: "Términos de servicio - Bedrud",
       description:
         "Términos para el sitio bedrud.org y la demo pública. Los usuarios autoalojados se rigen por la licencia Apache 2.0.",
     },
@@ -388,17 +388,17 @@ export default {
     accounts: {
       title: "Cuentas",
       content:
-        "El sitio no requiere cuentas. La demo no requiere cuentas. Las instancias autoalojadas pueden tener su propio sistema de cuentas — eso es tu decisión, ya que tú administras el servidor.",
+        "El sitio no requiere cuentas. La demo no requiere cuentas. Las instancias autoalojadas pueden tener su propio sistema de cuentas - eso es tu decisión, ya que tú administras el servidor.",
     },
     acceptableUse: {
       title: "No abuses de la demo",
       content:
-        "No uses la demo pública para contenido ilegal, spam, acoso o cualquier cosa que degrade la experiencia de otros. Nos reservamos el derecho de expulsar usuarios abusivos de la sala de demo. Esto no aplica a instancias autoalojadas — tú estableces tus propias reglas.",
+        "No uses la demo pública para contenido ilegal, spam, acoso o cualquier cosa que degrade la experiencia de otros. Nos reservamos el derecho de expulsar usuarios abusivos de la sala de demo. Esto no aplica a instancias autoalojadas - tú estableces tus propias reglas.",
     },
     intellectualProperty: {
       title: "Licencia de código abierto",
       content:
-        "Bedrud está bajo licencia Apache 2.0. Úsalo, modifícalo, distribúyelo — incluyendo comercialmente. El nombre y logo de Bedrud son marcas de theMadOrg. Puedes usarlos para referirte al software, pero no para tergiversar tu relación con el proyecto.",
+        "Bedrud está bajo licencia Apache 2.0. Úsalo, modifícalo, distribúyelo - incluyendo comercialmente. El nombre y logo de Bedrud son marcas de theMadOrg. Puedes usarlos para referirte al software, pero no para tergiversar tu relación con el proyecto.",
     },
     termination: {
       title: "Acceso",
@@ -451,7 +451,7 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Instalar Bedrud — Despliegue en un comando",
+      title: "Instalar Bedrud - Despliegue en un comando",
       description:
         "Despliega Bedrud en tu servidor en menos de un minuto. Un solo binario, 512MB RAM, sin Docker.",
     },
@@ -461,7 +461,7 @@ export default {
   },
   downloadPage: {
     meta: {
-      title: "Descargar Bedrud — Aplicaciones de Escritorio y Móvil",
+      title: "Descargar Bedrud - Aplicaciones de Escritorio y Móvil",
       description:
         "Descarga Bedrud para Linux, macOS, Windows, Android o iOS. Aplicaciones nativas o acceso por navegador sin instalación.",
     },
@@ -498,14 +498,14 @@ export default {
     meta: {
       title: "Acerca de Bedrud",
       description:
-        "Conoce al equipo y la misión detrás de Bedrud — videoconferencias de código abierto para todos.",
+        "Conoce al equipo y la misión detrás de Bedrud - videoconferencias de código abierto para todos.",
     },
     title: "Acerca de Bedrud",
     subtitle:
       "Videoconferencias de código abierto creadas por personas que creen que la privacidad debería ser lo predeterminado.",
     mission: {
       title: "Nuestra misión",
-      text: "Bedrud existe porque las videoconferencias no deberían requerir entregar tus datos a Big Tech. Creemos que un solo binario, un VPS barato y código abierto pueden reemplazar contratos SaaS de millones — sin sacrificar calidad ni funcionalidades. La privacidad no es una característica. Es el fundamento.",
+      text: "Bedrud existe porque las videoconferencias no deberían requerir entregar tus datos a Big Tech. Creemos que un solo binario, un VPS barato y código abierto pueden reemplazar contratos SaaS de millones - sin sacrificar calidad ni funcionalidades. La privacidad no es una característica. Es el fundamento.",
     },
     team: {
       title: "Equipo principal",
@@ -514,7 +514,7 @@ export default {
   },
   blog: {
     meta: {
-      title: "Blog — Bedrud",
+      title: "Blog - Bedrud",
       description:
         "Actualizaciones, análisis técnicos y guías del equipo de Bedrud.",
     },
@@ -532,7 +532,7 @@ export default {
   },
   featuresPage: {
     meta: {
-      title: "Características — Bedrud",
+      title: "Características - Bedrud",
       description:
         "Explora las características de Bedrud: binario único, calidad WebRTC, acceso de invitados, passkeys, controles de admin, procesamiento de audio, agentes bot y soporte multiplataforma.",
     },
@@ -556,7 +556,7 @@ export default {
     },
     guestJoin: {
       pain: "¿Cansado de forzar a los invitados a crear cuentas solo para una llamada de 15 minutos?",
-      title: "Invitado — Sin cuenta necesaria",
+      title: "Invitado - Sin cuenta necesaria",
       description:
         "Comparte un enlace, hacen clic, entran. Sin formularios de registro, sin contraseñas, sin fricción. Código de acceso opcional para seguridad.",
     },
@@ -583,7 +583,7 @@ export default {
       pain: "Gestionar una plataforma de reuniones sin buenas herramientas es doloroso.",
       title: "Panel de administración",
       description:
-        "Gestión de salas, usuarios, análisis de uso y configuración — todo desde una interfaz web limpia. Sin adivinanzas de CLI.",
+        "Gestión de salas, usuarios, análisis de uso y configuración - todo desde una interfaz web limpia. Sin adivinanzas de CLI.",
     },
     audio: {
       pain: "El ruido de fondo en las reuniones es distraído y poco profesional.",
@@ -592,7 +592,7 @@ export default {
         "Supresión de ruido incorporada impulsada por RNNoise. Integración opcional de Krisp para supresión de ruido de IA premium. Audio limpio, cada llamada.",
     },
     bots: {
-      pain: "Las tareas manuales de reuniones desperdician tiempo — grabación, transcripción, notas.",
+      pain: "Las tareas manuales de reuniones desperdician tiempo - grabación, transcripción, notas.",
       title: "Agentes bot",
       description:
         "Bots programables se unen a reuniones a través del Go SDK. Automatiza transcripción, traducción, grabación, integraciones CRM y flujos de trabajo personalizados.",
@@ -607,7 +607,7 @@ export default {
       pain: "El contenido de reuniones que pasa por tu servidor debería mantenerse privado.",
       title: "Cifrado de extremo a extremo",
       description:
-        "Cifrado E2E opcional para salas. El servidor retransmite medios cifrados — solo los participantes pueden descifrar.",
+        "Cifrado E2E opcional para salas. El servidor retransmite medios cifrados - solo los participantes pueden descifrar.",
     },
     autoTls: {
       pain: "Los certificados SSL no deberían requerir un tutorial.",
@@ -624,7 +624,7 @@ export default {
   },
   demoPage: {
     meta: {
-      title: "Demo en vivo — Bedrud",
+      title: "Demo en vivo - Bedrud",
       description:
         "Prueba Bedrud sin instalar nada. Únete a una reunión demo en vivo ahora.",
     },
@@ -667,12 +667,12 @@ export default {
       whatHappens: {
         question: "¿Qué pasa en la demo?",
         answer:
-          "Te unes a una sala de reunión compartida ejecutando el stack completo de Bedrud. Prueba video, audio, compartir pantalla, chat y controles de reunión — igual que una instancia autoalojada.",
+          "Te unes a una sala de reunión compartida ejecutando el stack completo de Bedrud. Prueba video, audio, compartir pantalla, chat y controles de reunión - igual que una instancia autoalojada.",
       },
       dataSaved: {
         question: "¿Se guardan mis datos?",
         answer:
-          "No. La demo no persiste datos. Cuando te vas, tu sesión desaparece — sin grabaciones, sin historial de chat, nada almacenado.",
+          "No. La demo no persiste datos. Cuando te vas, tu sesión desaparece - sin grabaciones, sin historial de chat, nada almacenado.",
       },
       duration: {
         question: "¿Cuánto tiempo puedo usar la demo?",
@@ -692,7 +692,7 @@ export default {
   },
   changelogPage: {
     meta: {
-      title: "Registro de cambios — Bedrud",
+      title: "Registro de cambios - Bedrud",
       description: "Historial de versiones y actualizaciones de Bedrud.",
     },
     title: "Registro de cambios",
@@ -702,7 +702,7 @@ export default {
   },
   contributorsPage: {
     meta: {
-      title: "Colaboradores — Bedrud",
+      title: "Colaboradores - Bedrud",
       description: "Conoce a las personas que construyen Bedrud.",
     },
     title: "Colaboradores",
@@ -713,7 +713,7 @@ export default {
   },
   contactPage: {
     meta: {
-      title: "Contacto — Bedrud",
+      title: "Contacto - Bedrud",
       description: "Ponte en contacto con el equipo de Bedrud.",
     },
     title: "Contacto",

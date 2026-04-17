@@ -10,7 +10,7 @@ How clients establish real-time media connections in Bedrud. Covers the full con
 
 ## Overview
 
-WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture — clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
+WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture - clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
 
 ```mermaid
 sequenceDiagram
@@ -31,13 +31,13 @@ sequenceDiagram
     C->>LK: TURN candidates (relay addresses)
 
     alt Direct path available
-        Note over C,LK: ICE/UDP — direct media
+        Note over C,LK: ICE/UDP - direct media
         C-->>LK: Media via UDP 50000-60000
     else UDP blocked, TURN available
-        Note over C,LK: TURN — relayed media
+        Note over C,LK: TURN - relayed media
         C-->>LK: Media via TURN relay (3478/5349)
     else Corporate firewall
-        Note over C,LK: TURN/TLS — relayed via 443
+        Note over C,LK: TURN/TLS - relayed via 443
         C-->>LK: Media via TLS tunnel
     end
 
@@ -54,7 +54,7 @@ Five layers work together to establish the media path:
 flowchart TB
     subgraph Layers["Connectivity Stack"]
         direction TB
-        SIG["1. Signaling<br/>WebSocket — exchange SDP offers/answers"]
+        SIG["1. Signaling<br/>WebSocket - exchange SDP offers/answers"]
         ICE["2. ICE<br/>Orchestrate all candidate paths"]
         STUN["3. STUN<br/>Discover public IP/port"]
         TURN["4. TURN<br/>Relay when direct fails"]
@@ -70,15 +70,15 @@ flowchart TB
 
 ### Layer Details
 
-**1. Signaling** — Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media — it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
+**1. Signaling** - Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media - it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
 
-**2. ICE (Interactive Connectivity Establishment)** — Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework — it coordinates the connection attempts but is not a protocol itself.
+**2. ICE (Interactive Connectivity Establishment)** - Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework - it coordinates the connection attempts but is not a protocol itself.
 
-**3. STUN (Session Traversal Utilities for NAT)** — Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
+**3. STUN (Session Traversal Utilities for NAT)** - Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
 
-**4. TURN (Traversal Using Relays around NAT)** — When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost — server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
+**4. TURN (Traversal Using Relays around NAT)** - When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost - server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
 
-**5. SFU (Selective Forwarding Unit)** — Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer — the server is always in the path.
+**5. SFU (Selective Forwarding Unit)** - Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer - the server is always in the path.
 
 ---
 
@@ -205,7 +205,7 @@ For deep TURN troubleshooting, see the [TURN Server Guide](/docs/architecture/tu
 
 ## See also
 
-- [TURN Server Guide](/docs/architecture/turn-server) — TURN architecture, configuration, TLS, debugging
-- [LiveKit Integration](/docs/backend/livekit) — how Bedrud embeds LiveKit
-- [Architecture Overview](/docs/architecture/overview) — full system architecture
-- [Internal TLS](/docs/guides/internal-tls) — TLS for isolated networks
+- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, debugging
+- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
+- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
