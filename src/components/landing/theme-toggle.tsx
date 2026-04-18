@@ -1,6 +1,8 @@
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "~/components/ui/button";
+import type { Locale } from "~/i18n/utils";
+import { t } from "~/i18n/utils";
 import { cn } from "~/lib/utils";
 
 function getTheme(): "light" | "dark" {
@@ -20,7 +22,13 @@ function applyTheme(theme: "light" | "dark") {
     meta.setAttribute("content", theme === "dark" ? "#09090b" : "#ffffff");
 }
 
-export function ThemeToggle({ className }: { className?: string }) {
+export function ThemeToggle({
+  lang,
+  className,
+}: {
+  lang: Locale;
+  className?: string;
+}) {
   const [theme, setTheme] = useState<"light" | "dark">(getTheme);
 
   useEffect(() => {
@@ -68,7 +76,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       variant="ghost"
       size="icon"
       onClick={handleToggle}
-      aria-label="Toggle theme"
+      aria-label={t(lang, "a11y.toggleTheme")}
       className={cn("cursor-pointer", className)}
     >
       <Sun className="size-4 block dark:hidden" />
