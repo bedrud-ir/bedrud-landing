@@ -21,19 +21,35 @@ export default defineConfig({
     react(),
     mdx(),
     sitemap({
+      filter: (page) => page !== "https://bedrud.org/",
       i18n: {
         defaultLocale: "en",
         locales: {
-          en: "en",
-          de: "de",
-          fr: "fr",
-          es: "es",
-          zh: "zh",
-          ja: "ja",
-          tr: "tr",
-          fa: "fa",
-          ar: "ar",
+          en: "en-US",
+          de: "de-DE",
+          fr: "fr-FR",
+          es: "es-ES",
+          zh: "zh-CN",
+          ja: "ja-JP",
+          tr: "tr-TR",
+          fa: "fa-IR",
+          ar: "ar-SA",
+          ru: "ru-RU",
         },
+      },
+      serialize(item) {
+        if (item.links && !item.links.some((l) => l.lang === "x-default")) {
+          const enLink = item.links.find(
+            (l) => l.lang === "en-US" || l.lang === "en",
+          );
+          if (enLink) {
+            item.links.push({
+              lang: "x-default",
+              url: enLink.url,
+            });
+          }
+        }
+        return item;
       },
     }),
   ],
@@ -55,7 +71,7 @@ export default defineConfig({
   },
   i18n: {
     defaultLocale: "en",
-    locales: ["en", "de", "fr", "es", "zh", "ja", "tr", "fa", "ar"],
+    locales: ["en", "de", "fr", "es", "zh", "ja", "tr", "fa", "ar", "ru"],
     routing: {
       prefixDefaultLocale: true,
     },

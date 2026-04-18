@@ -1,7 +1,7 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import { SEO } from "astro-seo";
-import { getDir, isValidLocale, supportedLocales, type Locale } from "../i18n/utils";
+import { getDir, isValidLocale, supportedLocales, t, type Locale } from "../i18n/utils";
 import "../styles/global.css";
 
 interface Props {
@@ -21,8 +21,8 @@ interface Props {
 
 const {
   lang: rawLang = "en",
-  title = "Bedrud - Talk to people, not the platform",
-  description = "Self-hosted video meetings. Single binary. 512MB RAM. Open source under Apache 2.0.",
+  title: rawTitle,
+  description: rawDescription,
   image,
   article,
   headLinks = [],
@@ -44,22 +44,37 @@ const {
 } = Astro.props;
 
 const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const title = rawTitle ?? t(lang, "meta.title");
+const description = rawDescription ?? t(lang, "meta.description");
 const dir = getDir(lang);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const pathWithoutLang = Astro.url.pathname.replace(`/${lang}`, "");
 
-const ogImage = image
-  ? new URL(image, Astro.site).href
-  : new URL("/og-image.svg", Astro.site).href;
+const bcp47Map: Record<string, string> = {
+  en: "en-US",
+  de: "de-DE",
+  fr: "fr-FR",
+  es: "es-ES",
+  zh: "zh-CN",
+  ja: "ja-JP",
+  tr: "tr-TR",
+  fa: "fa-IR",
+  ar: "ar-SA",
+  ru: "ru-RU",
+};
 
 const languageAlternates = supportedLocales.map((loc) => ({
   href: new URL(`/${loc}${pathWithoutLang}`, Astro.site).href,
-  hrefLang: loc,
+  hrefLang: bcp47Map[loc] ?? loc,
 }));
 languageAlternates.push({
   href: new URL(`/en${pathWithoutLang}`, Astro.site).href,
   hrefLang: "x-default",
 });
+
+const ogImage = image
+  ? new URL(image, Astro.site).href
+  : new URL("/og-image.svg", Astro.site).href;
 ---
 
 <html lang={lang} dir={dir} class="overflow-x-hidden">
@@ -147,7 +162,7 @@ languageAlternates.push({
     </script>
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link">{t(lang, "skipToContent")}</a>
     <slot />
     <script is:inline>
       function initAnimations() {
