@@ -34,6 +34,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           cache: true
+          bun-version: latest
       - run: bun install --frozen-lockfile
       - run: bun run build
       - uses: actions/upload-pages-artifact@v4
