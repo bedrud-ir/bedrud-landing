@@ -222,7 +222,7 @@ make build-desktop           # binario optimizado para la plataforma actual
 ### Patrones clave
 
 - Toda la UI se define en archivos `.slint` en `apps/desktop/ui/`; se compila a Rust en tiempo de build por `build.rs`
-- `apps/desktop/src/ui/bridge.rs` es el único lugar donde los callbacks de Slint se conectan con la lógica de Rust — mantén la lógica de negocio fuera de los archivos `.slint`
+- `apps/desktop/src/ui/bridge.rs` es el único lugar donde los callbacks de Slint se conectan con la lógica de Rust - mantén la lógica de negocio fuera de los archivos `.slint`
 - Usa `Weak<AppWindow>` al lanzar tareas en segundo plano que necesitan actualizar la UI
 
 > Consulta [Arquitectura de la aplicación de escritorio](/es/docs/architecture/desktop) para ver la arquitectura detallada de la aplicación de escritorio.

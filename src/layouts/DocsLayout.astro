@@ -60,7 +60,7 @@ const year = new Date().getFullYear();
             searchDocsLabel={t(lang, "docs.searchDocs")}
             errorText={t(lang, "docs.searchError")}
           />
-          <ThemeToggle client:load />
+          <ThemeToggle client:load lang={lang} />
           <LanguageSwitcher client:load lang={lang} />
         </div>
       </div>

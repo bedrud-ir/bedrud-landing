@@ -5,6 +5,7 @@ import es from "./locales/es";
 import fa from "./locales/fa";
 import fr from "./locales/fr";
 import ja from "./locales/ja";
+import ru from "./locales/ru";
 import tr from "./locales/tr";
 import zh from "./locales/zh";
 
@@ -18,6 +19,7 @@ const translations: Record<string, Record<string, unknown>> = {
   tr,
   fa,
   ar,
+  ru,
 };
 
 export type Locale = keyof typeof translations;
@@ -31,6 +33,7 @@ export const supportedLocales: Locale[] = [
   "tr",
   "fa",
   "ar",
+  "ru",
 ];
 export const rtlLocales = new Set(["fa", "ar"]);
 

@@ -259,7 +259,7 @@ Consulta la [guía de Docker](/es/docs/guides/docker) para obtener detalles comp
 
 ### macOS
 
-Hay tarballs portátiles precompilados disponibles tanto para Intel como para Apple Silicon. La aplicación **no está firmada** — después de extraer puede que necesites permitirla en **Configuración del sistema → Privacidad y seguridad**.
+Hay tarballs portátiles precompilados disponibles tanto para Intel como para Apple Silicon. La aplicación **no está firmada** - después de extraer puede que necesites permitirla en **Configuración del sistema → Privacidad y seguridad**.
 
 <Tabs>
   <TabsList>
@@ -296,7 +296,7 @@ Hay tarballs portátiles precompilados disponibles tanto para Intel como para Ap
 </Tabs>
 
 <Callout type="info">
-  Los lanzamientos de macOS están **firmados con código y notarizados** cuando `MACOS_CERTIFICATE` está configurado en CI (consulta [Referencia de secretos](#referencia-de-secretos)). Sin esos secretos, el binario no está firmado — usa la solución alternativa con `xattr` descrita arriba o haz clic derecho → Abrir en Finder.
+  Los lanzamientos de macOS están **firmados con código y notarizados** cuando `MACOS_CERTIFICATE` está configurado en CI (consulta [Referencia de secretos](#referencia-de-secretos)). Sin esos secretos, el binario no está firmado - usa la solución alternativa con `xattr` descrita arriba o haz clic derecho → Abrir en Finder.
 </Callout>
 
 <Callout type="warning">
@@ -327,7 +327,7 @@ Hay tarballs portátiles precompilados disponibles tanto para Intel como para Ap
   </TabsContent>
 
   <TabsContent value="zip">
-    No requiere instalación — extrae y ejecuta:
+    No requiere instalación - extrae y ejecuta:
 
     | Arquitectura | Archivo |
     |---|---|
@@ -387,4 +387,4 @@ Estos secretos de GitHub Actions habilitan los canales de distribución opcional
 | `TELEGRAM_BOT_TOKEN` | Telegram | Token del bot para notificaciones de lanzamiento |
 | `TELEGRAM_CHAT_ID` | Telegram | ID del canal/grupo destino |
 
-Todos los secretos son opcionales — si están ausentes, el trabajo de ese canal se omite silenciosamente.
+Todos los secretos son opcionales - si están ausentes, el trabajo de ese canal se omite silenciosamente.

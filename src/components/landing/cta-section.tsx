@@ -63,7 +63,7 @@ export function CtaSection({
               onClick={copyInstall}
             >
               <Copy className="size-4" />
-              {copied ? "Copied!" : t(lang, "cta.installNow")}
+              {copied ? t(lang, "cta.copied") : t(lang, "cta.installNow")}
             </Button>
           )}
 

@@ -38,9 +38,9 @@ cd server && go mod tidy && go mod download
 
 3つの開発サービスを同時に起動します。`Ctrl+C` ですべて停止します：
 
-- **LiveKit** — `localhost:7880`
-- **Server** — `localhost:8090`
-- **Web** — `localhost:3000`
+- **LiveKit** - `localhost:7880`
+- **Server** - `localhost:8090`
+- **Web** - `localhost:3000`
 
 ## ビルドターゲット
 
@@ -55,7 +55,7 @@ cd server && go mod tidy && go mod download
 
 本番ビルド全体を実行します：
 
-1. `bun run build:embed` を実行 — React アプリを SSR で事前レンダリングし、アセットを `server/frontend/` にコピー
+1. `bun run build:embed` を実行 - React アプリを SSR で事前レンダリングし、アセットを `server/frontend/` にコピー
 2. フロントエンドを組み込んだ Go バイナリをビルド
 
 出力：`server/dist/bedrud`
@@ -120,12 +120,12 @@ make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.c
 
 以下を削除します：
 
-- `dist/` — 配布用 tarball
-- `server/dist/` — コンパイル済みサーバーバイナリ
-- `apps/web/dist/` — React ビルド出力
-- `server/frontend/` の内容 — 組み込みフロントエンドアセット
-- `apps/android/app/build/` — Android ビルド出力
-- `apps/ios/build/` — iOS ビルド出力
+- `dist/` - 配布用 tarball
+- `server/dist/` - コンパイル済みサーバーバイナリ
+- `apps/web/dist/` - React ビルド出力
+- `server/frontend/` の内容 - 組み込みフロントエンドアセット
+- `apps/android/app/build/` - Android ビルド出力
+- `apps/ios/build/` - iOS ビルド出力
 
 ### `make full-clean`
 

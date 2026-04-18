@@ -101,7 +101,7 @@ export function HeroSection({ lang }: { lang: Locale }) {
         </div>
 
         <div className="relative z-0 mt-12 sm:mt-16">
-          <DeviceShowcase />
+          <DeviceShowcase lang={lang} />
         </div>
       </div>
     </section>

@@ -7,7 +7,7 @@ export default {
   nav: {
     home: "Ana Sayfa",
     features: "Özellikler",
-    compare: "Feature",
+    compare: "Özellik",
     platforms: "Platformlar",
     openSource: "Açık Kaynak",
     docs: "Belgeler",
@@ -78,6 +78,26 @@ export default {
       title: "Koltuk Başı Fiyatlandırma Yok",
       description:
         "5 kullanıcı veya 5.000. Fiyat aynı: sıfır. Lisans anahtarı yok, kullanıcı sayacı yok, 'satış ekibiyle iletişime geçin' butonu yok.",
+    },
+  },
+  problem: {
+    title: "Toplantılarınız Bu Kadar Pahalı Olmamalı",
+    subtitle:
+      "Kurumsal video platformları yıllardır ekiplerden aşırı ücret alıyor. Sorun ne - ve geliştiriciler neden geçiş yapıyor.",
+    perSeatPricing: {
+      title: "Kullanıcı Başı Fiyatlandırma Bir Tuzak",
+      description:
+        "Zoom, Teams, Meet - hepsi kullanıcı başına ücret alıyor. 10'dan 100 kişiye büyüdüğünüzde faturanız 10 kat artıyor. Bunu departmanlar, yükleniciler ve misafirler arasında çarpın ve insanların günde 30 dakika kullandığı bir araç için bütçenizi boş yere harcıyorsunuz.",
+    },
+    vendorLockIn: {
+      title: "Satıcı Kilidi Pazarlık Gücünüzü Öldürür",
+      description:
+        "Toplantı kayıtlarınız, transkriptleriniz, katılımcı verileriniz - hepsi kontrol etmediğiniz sunucularda saklanıyor. Bir sağlayıcı fiyatları değiştirdiğinde, özellikleri kaldırdığında veya sızdırıldığında, çıkış stratejiniz yok.",
+    },
+    selfHostedNightmare: {
+      title: "Kendi Sunucunuzda Barındırma Seçenekleri Bir Kabus",
+      description:
+        "Jitsi 8+ Docker konteyneri gerektirir. BigBlueButton 8GB RAM ister. Hiçbiri bir saatten kısa sürede kurulmaz, hiçbiri basitçe ölçeklenmez ve cuma öğleden sonra herhangi birini hata ayıklamak haftanızı geçirmek isteyeceğiniz bir şey değil.",
     },
   },
   comparison: {
@@ -153,35 +173,25 @@ export default {
     title: "Her Şey Dahil",
     subtitle:
       "Video, ses, kimlik doğrulama, botlar - hepsi dahil. Mikroservis mimarisi gerekmez.",
-    e2eEncryption: {
-      title: "Varsayılan Olarak Şifreli",
+    oneCommandDeploy: {
+      title: "Tek Komutla Dağıtım",
       description:
-        "Tüm medya DTLS ve SRTP üzerinden şifrelenerek iletilir. Self-hosted modunda verileriniz kendi sunucularınızda kalır. Üçüncü taraf telemetri yok, veri toplama yok.",
+        "Tek dosya, sıfır bağımlılık. Terminalinize tek bir satır yapıştırın ve Bedrud 60 saniyede çalışıyor. Docker yok, Kubernetes yok, operasyon ekibi gerekmez.",
     },
-    webrtcVideo: {
-      title: "WebRTC Video",
+    fiveDollarVps: {
+      title: "$5 VPS'te Çalışır",
       description:
-        "Dahili WebRTC medya sunucusuyla bir saniyenin altında gecikmeli video aramaları. Kararsız bağlantılarda uyumlu bit hızı.",
+        "~200MB RAM boşta (512MB min). Herhangi bir ucuz VPS'e dağıtın - Hetzner, DigitalOcean, AWS Lightsail, kendi donanımınız. Aynı özellikler, küçük bir maliyet.",
     },
-    multiPlatform: {
-      title: "Çoklu Platform",
+    webrtcLatency: {
+      title: "WebRTC Alt-Saniye Gecikme",
       description:
-        "Web, Android ve iOS için yerel uygulamalar. Sadece sarmalayıcı değil - gerçek yerel uygulamalar. Otomasyon için sunucu tarafı SDK dahil.",
+        "Uyarlanabilir bit hızı ile yerleşik WebRTC medya sunucusu. Düzensiz bağlantılarda bile kristal netliğinde video ve ses. Üçüncü taraf sunucular üzerinden vekil yok.",
     },
-    flexibleAuth: {
-      title: "Esnek Kimlik Doğrulama",
+    enterpriseSso: {
+      title: "Kurumsal SSO ve OIDC",
       description:
-        "Kutudan çıktığı gibi çalışan yerleşik kimlik doğrulama, artı SSO ve OAuth entegrasyonu. Mevcut kimlik sağlayıcınıza dakikalar içinde bağlanın.",
-    },
-    botAgents: {
-      title: "Bot Ajanları",
-      description:
-        "Botlar katılımcı olarak toplantılara katılır. Görüşmeleri transkribe eder, gerçek zamanlı çevirir, CRM'nize gönderir veya Go SDK ile özel iş akışları oluşturur.",
-    },
-    selfHosted: {
-      title: "Sizin altyapınız veya bizimki",
-      description:
-        "Kendi sunucularınızda tam kontrolle çalıştırın. Veya Bedrud Cloud kullanın ve ops hakkında düşünmeyin. Aynı ürün, aynı özellikler.",
+        "Kimlik sağlayıcınıza dakikalar içinde bağlanın. Passkeys, OAuth 2.0, OIDC - hepsi kutudan çıkar çıkmaz desteklenir. İhlal edilecek şifre veritabanı yok.",
     },
   },
   install: {
@@ -239,59 +249,25 @@ export default {
     getStarted: "Quickstart'ı Okuyun",
     readDocs: "Quickstart'i Görüntüle",
     starGithub: "GitHub'da Yıldız Ver",
+    copied: "Kopyalandı!",
   },
   faq: {
     title: "Sıkça Sorulan Sorular",
     subtitle: "Teknik sorular, doğrudan cevaplar.",
-    updates: {
-      question: "Güncellemeler nasıl çalışır?",
+    serverPower: {
+      question: "Sunucum ne kadar güçlü olmalı?",
       answer:
-        "Kurulum komutunu tekrar çalıştırın. Bedrud ikili dosyayı yerinde değiştirir - paket yöneticisi yok, bağımlılık zincirleri yok. Tek bir yapılandırma bayrağıyla otomatik güncellemeleri de etkinleştirebilirsiniz.",
+        "Başlamak için ayda $5, 1GB RAM'li bir VPS yeterli. Bedrud 512MB RAM kullanır ve donanımınızla ölçeklenir. 50+ eşzamanlı kullanıcı için 2GB'a çıkarın. GPU gerekmez.",
     },
-    encryption: {
-      question: "Uçtan uca şifreli mi?",
+    installCommand: {
+      question: "Kurulum komutu aslında ne yapıyor?",
       answer:
-        "Tüm medya DTLS ve SRTP (WebRTC standardı) üzerinden şifrelenerek iletilir. Self-hosted dağıtımlarında sunucuyu ve tüm verileri siz kontrol edersiniz. Eşler arası aramalar için uçtan uca şifreleme yol haritasındadır.",
+        "Platformunuz için Bedrud dosyasını indirir ve /usr/local/bin dizinine yerleştirir. Docker yok, paket yöneticisi yok, gizli bağımlılık yok. Çalıştırmadan önce betiği inceleyebilirsiniz.",
     },
-    network: {
-      question: "Ağ ve port gereksinimleri nelerdir?",
+    recordingScreenSharing: {
+      question: "Kayıt ve ekran paylaşımını destekliyor mu?",
       answer:
-        "HTTP/WebSocket için 80/443 portları ve WebRTC medyası için yapılandırılabilir UDP aralığı (varsayılan 50000–60000). NAT arkasında STUN/TURN sunucusu kurun - Bedrud coturn kurulum belgelerini içerir.",
-    },
-    proxy: {
-      question: "Ters proxy arkasında çalıştırabilir miyim?",
-      answer:
-        "Evet. Nginx, Caddy, Traefik - hepsi çalışır. Belgeler her biri için kopyala-yapıştır yapılandırmaları içerir. WebSocket bağlantılarını iletmeniz ve uygun başlıkları ayarlamanız yeterli.",
-    },
-    cloudVsSelfHosted: {
-      question: "Self-hosted ve Bedrud Cloud arasındaki fark nedir?",
-      answer:
-        "Aynı ürün, aynı özellikler. Self-hosted altyapınızda tam veri kontrolüyle çalışır. Bedrud Cloud operasyon, güncelleme ve ölçeklendirmeyi sizin için halleder. Satıcı kilidi yok - istediğiniz zaman geçiş yapın.",
-    },
-  },
-  testimonials: {
-    title: "Geliştiricilerin Güvendiği",
-    subtitle: "İnsanlar Bedrud hakkında ne diyor.",
-    one: {
-      quote:
-        "Jitsi kurulumumuzu bir öğleden sonra Bedrud ile değiştirdik. Tek ikili dosya, 512MB RAM ve toplantılarımız artık daha iyi sesleniyor.",
-      name: "Lena K.",
-      role: "Avrupalı bir SaaS şirketinde DevOps Lideri",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "Kullanıcı başı fiyat yok bizi ikna etti. 20'den 200 kullanıcıya tek bir lisans e-postası almadan geçtik.",
-      name: "Marcus T.",
-      role: "Uzaktan çalışan bir startup'ın CTO'su",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "Bedrud'u $5 VPS'e dağıttım ve hemen çalıştı. Bot SDK ile bir günde toplantı transkriptlerini CRM'imize entegre ettik.",
-      name: "Priya S.",
-      role: "Bir fintech şirketinde Kıdemli Mühendis",
-      initials: "PS",
+        "Evet. Yerleşik ekran paylaşımı ve toplantı kaydı dahil. Kayıtlar sunucunuza kaydedilir - başkasının bulutuna değil. Bot ajanları ayrıca toplantıları gerçek zamanlı olarak transkript edebilir.",
     },
   },
   footer: {
@@ -306,7 +282,7 @@ export default {
     api: "API Referansı",
     download: "İndir",
     about: "Hakkımızda",
-    resources: "Kaynaklar",
+    install: "Kurulum",
     blog: "Blog",
     changelog: "Değişiklik Günlüğü",
     contribute: "Katkıda Bulun",
@@ -314,6 +290,10 @@ export default {
     contact: "İletişim",
     privacy: "Gizlilik Politikası",
     terms: "Hizmet Şartları",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -441,12 +421,84 @@ export default {
     clearSearch: "Aramayı temizle",
     searchDocs: "Doküman ara",
     notFound: "Belge bulunamadı",
+    searchError: "Arama başarısız oldu. Lütfen tekrar deneyin.",
+    titleSuffix: " - Bedrud",
+    diagramError: "Diyagram oluşturulamadı",
+    toggleMenu: "Menüyü aç/kapat",
     sections: {
       gettingStarted: "Başlarken",
       architecture: "Mimari",
       backend: "Backend",
       api: "API",
       guides: "Kılavuzlar",
+      contributing: "Katkıda Bulunma",
+    },
+    mdx: {
+      systemdServices: {
+        title: "Systemd Hizmetleri",
+        description: "Kurulum iki systemd hizmeti oluşturur:",
+        headerService: "Hizmet",
+        headerCommand: "Komut",
+        headerPurpose: "Amaç",
+        purposeApi: "API + web",
+        purposeMedia: "Medya sunucusu",
+      },
+      createAdmin: {
+        title: "Kullanıcıyı Yönetici Yapma",
+        registerViaWeb:
+          "Sunucu URL'nizdeki web arayüzü üzerinden kaydolun, ardından kullanıcıyı yönetici yapın:",
+        createDirectly:
+          "Alternatif olarak, doğrudan yeni bir yönetici oluşturun:",
+      },
+      installerSteps: {
+        title: "Kurulum Programı Ne Yapıyor",
+        description:
+          "bedrud install komutunu çalıştırdığınızda şu adımlar gerçekleşir:",
+        headerStep: "Adım",
+        headerAction: "İşlem",
+        step1Action: "Dizinleri oluşturur:",
+        step2Action: "Dosyayı şuraya kopyalar:",
+        step3Action: "Ayarlarınızla config.yaml oluşturur",
+        step4Action: "Medya sunucusu için livekit.yaml oluşturur",
+        step5Action: "İki systemd hizmeti oluşturur:",
+        step6Action: "Her iki hizmeti etkinleştirir ve başlatır",
+        step7Action: "SQLite veritabanını ve sertifika önbelleğini başlatır",
+      },
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "Hızlı Başlangıç",
+      "getting-started/installation": "Sunucu Kurulumu",
+      "getting-started/clients": "İstemci Kurulumu",
+      "getting-started/configuration": "Yapılandırma",
+      "getting-started/cli-reference": "CLI Referansı",
+      "architecture/overview": "Mimari Genel Bakış",
+      "architecture/server": "Sunucu Mimarisi",
+      "architecture/web": "Web Ön Uç",
+      "architecture/android": "Android Uygulaması",
+      "architecture/ios": "iOS Uygulaması",
+      "architecture/desktop": "Masaüstü Uygulaması",
+      "architecture/agents": "Bot Ajanları",
+      "architecture/webrtc-connectivity": "WebRTC Bağlantısı",
+      "architecture/turn-server": "TURN Sunucusu",
+      "backend/index": "Backend Belgeleri",
+      "backend/structure": "Kod Yapısı",
+      "backend/database": "Veritabanı ve Modeller",
+      "backend/authentication": "Kimlik Doğrulama",
+      "backend/api-handlers": "API İşleyicileri",
+      "backend/livekit": "LiveKit Entegrasyonu",
+      "backend/deployment": "Dağıtım",
+      "backend/advanced": "İleri Düzey Konular",
+      "api/authentication": "Kimlik Doğrulama API'si",
+      "api/rooms": "Oda API'si",
+      "api/admin": "Yönetici API'si",
+      "api/passkeys": "Passkeys API'si",
+      "guides/development": "Geliştirme İş Akışı",
+      "guides/deployment": "Dağıtım Kılavuzu",
+      "guides/docker": "Docker Kılavuzu",
+      "guides/internal-tls": "Dahili TLS",
+      "guides/makefile": "Makefile Referansı",
+      "guides/packages": "Paket Kurulumu",
+      "guides/appliance": "Cihaz Modu",
       contributing: "Katkıda Bulunma",
     },
   },
@@ -471,12 +523,15 @@ export default {
       "Bedrud ekibinden güncellemeler, mühendislik derinlemesine incelemeleri ve kılavuzlar.",
     noPosts: "Henüz yazı yok. Yakında tekrar kontrol edin!",
     backToBlog: "Blog'a Dön",
+    titleSuffix: " - Bedrud Blog",
+    defaultAuthor: "Bedrud Ekibi",
   },
   skipToContent: "İçeriğe geç",
   mobileNav: {
-    navigation: "Navigation",
-    language: "Language",
+    navigation: "Gezinme",
+    language: "Dil",
     getStarted: "Başlayın",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -646,6 +701,8 @@ export default {
     subtitle: "Bedrud'da yeni olanlar. Aktivite = güven.",
     viewOnGithub: "GitHub'da Görüntüle",
     noReleases: "Henüz sürüm yok. Yakında tekrar kontrol edin!",
+    error: "Sürümler yüklenemedi.",
+    viewRelease: "GitHub'da Görüntüle →",
   },
   contributorsPage: {
     meta: {
@@ -657,6 +714,7 @@ export default {
     joinThem: "Onlara Katılın",
     joinCta: "GitHub'da Katkıda Bulunun",
     contributions: "katkı",
+    error: "Katkıda bulunanlar yüklenemedi.",
   },
   contactPage: {
     meta: {
@@ -686,5 +744,143 @@ export default {
     title: "Sayfa Bulunamadı",
     description: "Aradığınız sayfa mevcut değil veya taşınmış.",
     backToHome: "Ana Sayfaya Dön",
+  },
+  downloadPage: {
+    meta: {
+      title: "Bedrud'u İndir - Masaüstü ve Mobil Uygulamalar",
+      description:
+        "Bedrud'u Linux, macOS, Windows, Android veya iOS için indirin. Yerel uygulamalar veya kurulum gerektirmeyen tarayıcı erişimi.",
+    },
+    title: "Bedrud'u İndir",
+    subtitle:
+      "Her platform için yerel uygulamalar. Veya sadece tarayıcınızda bir toplantı bağlantısı açın.",
+    noInstall: "Kurulum gerekmez. İndirin, çalıştırılabilir yapın, çalıştırın.",
+    flathub: "Flathub'tan kurun",
+    brew: "Homebrew ile kurun",
+    winget: "Windows Paket Yöneticisi ile kurun",
+    installer: "Kurulum programı",
+    portable: "Taşınabilir",
+    repoSetup: "Depo kurulumu gerekli",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "GitHub Sürümleri",
+    playStore: "Google Play'den alın",
+    appStore: "App Store'dan indirin",
+    sideload: "GitHub Sürümleri'nden APK/IPA indirin",
+    browserZero: "Sıfır Kurulum",
+    browserDesc:
+      "Chrome, Firefox, Edge veya Safari'de herhangi bir toplantı bağlantısını açın. İndirme gerekmez.",
+    tryDemo: "Canlı Demoyu Deneyin",
+    otherPlatforms: "Tüm platformları ve paket yöneticilerini görüntüle",
+    server: "Sunucu Kurulumu",
+    serverDesc: "Bedrud sunucusunu kendi donanımınıza dağıtın.",
+    serverGuide: "Sunucu kurulum kılavuzu",
+    heroClientTitle: "İstemci Sürümü",
+    heroClientDesc: "Her platform için yerel masaüstü ve mobil uygulamalar.",
+    heroServerTitle: "Sunucu Sürümü",
+    heroServerDesc: "Bedrud sunucusunu kendi donanımınıza dağıtın.",
+    heroAllPlatforms: "Tüm platformları görüntüle",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "Docker ile konteynerda çalıştırın.",
+    serverBinary: "Linux Dosyası",
+    serverBinaryDesc: "Linux için önceden derlenmiş dosyaları indirin.",
+    serverQuickInstall: "Hızlı Kurulum",
+    serverQuickInstallDesc: "Tek komut. Bir dakikadan kısa.",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "Helm ile Kubernetes'e dağıtın.",
+    resourcesTitle: "Kaynaklar",
+    resourcesDocs: "Belgeler",
+    resourcesDocsDesc:
+      "Kurulum kılavuzları, API referansı ve nasıl yapılır rehberleri.",
+    resourcesCommunity: "Topluluk",
+    resourcesCommunityDesc: "Yardım alın ve geri bildirim paylaşın.",
+    resourcesChangelog: "Değişiklik Günlüğü",
+    resourcesChangelogDesc: "En son sürümler ve değişiklikler.",
+    platform: {
+      linux: "Linux",
+      mac: "macOS",
+      windows: "Windows",
+      android: "Android",
+      ios: "iOS",
+      browser: "Tarayıcı",
+    },
+  },
+  aboutPage: {
+    meta: {
+      title: "Bedrud Hakkında",
+      description:
+        "Bedrud'un arkasındaki ekip ve misyon hakkında bilgi edinin - herkes için açık kaynaklı video toplantıları.",
+    },
+    title: "Bedrud Hakkında",
+    subtitle:
+      "Gizliliğin varsayılan olması gerektiğine inanan insanlar tarafından geliştirilen açık kaynaklı video toplantıları.",
+    mission: {
+      title: "Misyonumuz",
+      text: "Bedrud, video toplantılarının verilerinizi dev teknoloji devlerine teslim etmeyi gerektirmemesi gerektiği için var. Tek bir dosya, ucuz bir VPS ve açık kaynak kodun milyon dolarlık SaaS sözleşmelerinin yerini alabileceğine - kaliteden veya özelliklerden ödün vermeden inanıyoruz. Gizlilik bir özellik değil, temeldir.",
+    },
+    team: {
+      title: "Çekirdek Ekip",
+      subtitle: "Bedrud'un arkasındaki insanlar.",
+    },
+    error: "Ekip üyeleri yüklenemedi.",
+  },
+  a11y: {
+    toggleTheme: "Temayı değiştir",
+    breadcrumb: "Sayfa yolu",
+    articleNav: "Makale gezinmesi",
+    openMenu: "Menüyü aç",
+    closeMenu: "Menüyü kapat",
+    navigationMenu: "Gezinme menüsü",
+    changeLanguage: "Dil değiştir",
+    discordCommunity: "Discord topluluğu",
+  },
+  mockups: {
+    terminal: {
+      title: "Terminal",
+      downloading: "✓ bedrud v0.12.3 indiriliyor...",
+      installing: "✓ /usr/local/bin dizinine kuruluyor...",
+      ready: "✓ Bedrud hazır! (512MB RAM)",
+    },
+    invite: {
+      shareLink: "Toplantı Bağlantısını Paylaş",
+      sendEmail: "E-posta ile Gönder",
+      copyLink: "Bağlantıyı Kopyala",
+      or: "VEYA",
+      meetingTitle: "Takım Duruşması",
+      today: "Bugün, 14:00",
+      duration: "30 dk",
+      participants: "5 katılımcı",
+      noAccount: "Hesap gerekmez",
+      anyBrowser: "Herhangi bir tarayıcıda çalışır",
+    },
+    meeting: {
+      title: "Takım Duruşması",
+      micOn: "Mikrofon açık",
+      cameraOn: "Kamera açık",
+      shareScreen: "Ekran paylaş",
+      raiseHand: "El kaldır",
+      chat: "Sohbet",
+      leaveCall: "Aramadan ayrıl",
+    },
+    preview: {
+      title: "Takım Duruşması",
+      you: "Siz",
+      chat: "Sohbet",
+      messagePlaceholder: "Mesaj...",
+    },
+    scale: {
+      overview: "Genel Bakış",
+      last30Days: "Son 30 gün",
+      meetings: "toplantı",
+      uptime: "çalışma süresi",
+      availability: "kullanılabilirlik",
+      activeUsers: "Aktif Kullanıcılar",
+      unlimitedUsers: "Sınırsız kullanıcı",
+      noPerSeat: "Kullanıcı başı fiyatlandırma yok",
+      costPerSeat: "Kullanıcı başı maliyet:",
+      costFree: "$0.00",
+    },
   },
 };

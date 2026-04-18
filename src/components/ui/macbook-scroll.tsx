@@ -148,7 +148,8 @@ export const Lid = ({
         ) : (
           <img
             src={src as string}
-            alt="aceternity logo"
+            alt=""
+            aria-hidden="true"
             className="absolute inset-0 h-full w-full rounded-lg object-cover object-top-left"
           />
         )}

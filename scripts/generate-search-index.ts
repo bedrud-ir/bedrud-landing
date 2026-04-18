@@ -3,7 +3,7 @@ import path from "node:path";
 import { glob } from "glob";
 import MiniSearch from "minisearch";
 
-const LOCALES = ["en", "de", "fr", "es", "zh", "ja", "tr", "fa", "ar"];
+const LOCALES = ["en", "de", "fr", "es", "zh", "ja", "tr", "fa", "ar", "ru"];
 
 function extractTextFromMDX(content: string): string {
   let text = content;

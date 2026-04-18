@@ -8,7 +8,7 @@ Stellen Sie Bedrud bereit und treten Sie in unter 5 Minuten einem Videomeeting b
 
 **Diese Anleitung:** Herunterladen → Installieren → Überprüfen → Beitreten. Alternativen finden Sie unter [Installation](/de/docs/getting-started/installation). Zur Konfiguration siehe [Konfiguration](/de/docs/getting-started/configuration).
 
-> **Einzelne Binärdatei, kein Internet nach dem Download erforderlich.** Sie enthält einen eingebetteten Medienserver und SQLite — funktioniert in isolierten Netzwerken. Datei übertragen, einen Befehl ausführen, fertig.
+> **Einzelne Binärdatei, kein Internet nach dem Download erforderlich.** Sie enthält einen eingebetteten Medienserver und SQLite - funktioniert in isolierten Netzwerken. Datei übertragen, einen Befehl ausführen, fertig.
 
 ---
 
@@ -19,7 +19,7 @@ Stellen Sie Bedrud bereit und treten Sie in unter 5 Minuten einem Videomeeting b
 | Ein Linux-Server | amd64, mit `sudo`-Zugriff und `systemd`. Windows: Docker oder WSL2. macOS: aus dem Quellcode kompilieren |
 | Offene Ports | `8090`, `7880`, `50000–60000/udp`. Für auto-TLS: zusätzlich `80` und `443` |
 | Werkzeuge | `curl`, `tar` |
-| Eine Domain (optional) | Mit DNS-A-Eintrag, der auf Ihren Server verweist. Keine Domain? Funktioniert auch mit IP — siehe Alternativen unten |
+| Eine Domain (optional) | Mit DNS-A-Eintrag, der auf Ihren Server verweist. Keine Domain? Funktioniert auch mit IP - siehe Alternativen unten |
 
 > **So funktioniert es:** Sie betreiben einen Bedrud-**Server**. Teilnehmer treten Meetings in ihrem **Browser** bei (keine Installation) oder über **native Apps** (Android, Windows, macOS, Linux).
 
@@ -33,7 +33,7 @@ tar -xJf bedrud.tar.xz
 chmod +x bedrud
 ```
 
-> **Kein Internet auf dem Server?** Laden Sie die Datei auf einem beliebigen Rechner herunter und übertragen Sie sie per USB oder `scp bedrud.tar.xz user@server:/tmp/`, dann entpacken. Die Binärdatei ist vollständig eigenständig — null ausgehende Anfragen nach der Übertragung.
+> **Kein Internet auf dem Server?** Laden Sie die Datei auf einem beliebigen Rechner herunter und übertragen Sie sie per USB oder `scp bedrud.tar.xz user@server:/tmp/`, dann entpacken. Die Binärdatei ist vollständig eigenständig - null ausgehende Anfragen nach der Übertragung.
 
 > **Download fehlgeschlagen?** Überprüfen Sie den Internetzugang oder verifizieren Sie die URL unter [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
 
@@ -77,14 +77,14 @@ Erwartet: `200`
 
 <CreateAdmin createOption />
 
-3. Einloggen (oder Seite neu laden) — **Admin**-Bereich erscheint in der Seitenleiste (Übersicht, Benutzer, Räume, Einstellungen). Erfolg: Sie sind Admin.
-4. **Raum erstellen** → **Beitreten** → **Video/Audio teilen** — erteilen Sie Kamera-/Mikrofonberechtigungen wenn danach gefragt wird
+3. Einloggen (oder Seite neu laden) - **Admin**-Bereich erscheint in der Seitenleiste (Übersicht, Benutzer, Räume, Einstellungen). Erfolg: Sie sind Admin.
+4. **Raum erstellen** → **Beitreten** → **Video/Audio teilen** - erteilen Sie Kamera-/Mikrofonberechtigungen wenn danach gefragt wird
 
-> **Admin-Dashboard** — Nach der Beförderung einloggen, um auf das Admin-Panel unter `/dashboard/admin` zuzugreifen. Benutzer, Räume, Systemeinstellungen und Einladungstokens verwalten.
+> **Admin-Dashboard** - Nach der Beförderung einloggen, um auf das Admin-Panel unter `/dashboard/admin` zuzugreifen. Benutzer, Räume, Systemeinstellungen und Einladungstokens verwalten.
 
-> **CLI-Referenz** — Vollständige Benutzerverwaltung: `bedrud user promote`, `demote`, `create`, `delete`.
+> **CLI-Referenz** - Vollständige Benutzerverwaltung: `bedrud user promote`, `demote`, `create`, `delete`.
 
-**Native Clients** für Android, Windows, macOS und Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Oder teilen Sie den Meeting-Link — Teilnehmer treten in jedem Browser bei.
+**Native Clients** für Android, Windows, macOS und Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Oder teilen Sie den Meeting-Link - Teilnehmer treten in jedem Browser bei.
 
 ---
 
@@ -187,9 +187,9 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## Nächste Schritte
 
-- [Konfigurationsreferenz](/de/docs/getting-started/configuration) — Ports, Datenbank, Auth-Anbieter, TURN
-- [Installationsanleitung](/de/docs/getting-started/installation) — Paketmanager, erweiterte Flags, alle Methoden
-- [Internes TLS-Handbuch](/de/docs/guides/internal-tls) — Air-Gap-Deployment, private CA
-- [Deployment-Leitfaden](/de/docs/guides/deployment) — Produktionssetup, Reverse Proxy, Skalierung
-- [Architekturübersicht](/de/docs/architecture/overview) — wie die Komponenten zusammenwirken
-- [API-Dokumentation](http://localhost:8090/api/swagger) — Swagger UI (laufende Instanz)
+- [Konfigurationsreferenz](/de/docs/getting-started/configuration) - Ports, Datenbank, Auth-Anbieter, TURN
+- [Installationsanleitung](/de/docs/getting-started/installation) - Paketmanager, erweiterte Flags, alle Methoden
+- [Internes TLS-Handbuch](/de/docs/guides/internal-tls) - Air-Gap-Deployment, private CA
+- [Deployment-Leitfaden](/de/docs/guides/deployment) - Produktionssetup, Reverse Proxy, Skalierung
+- [Architekturübersicht](/de/docs/architecture/overview) - wie die Komponenten zusammenwirken
+- [API-Dokumentation](http://localhost:8090/api/swagger) - Swagger UI (laufende Instanz)

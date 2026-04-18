@@ -199,7 +199,7 @@ function PlatformContent({
               href={`/${lang}/docs/guides/packages`}
               className="mt-2 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
             >
-              Repo setup required
+              {t(lang, "downloadPage.repoSetup")}
               <span aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -222,7 +222,9 @@ function PlatformContent({
             />
           </div>
           <div className={cardClass}>
-            <h4 className="font-semibold">Portable</h4>
+            <h4 className="font-semibold">
+              {t(lang, "downloadPage.portable")}
+            </h4>
             <p className="mt-1 text-sm text-muted-foreground">tar.xz</p>
             <a
               href={`${RELEASES_BASE}/download/bedrud-desktop-linux-x86_64.tar.xz`}
@@ -276,7 +278,9 @@ function PlatformContent({
             </a>
           </div>
           <div className={cardClass}>
-            <h4 className="font-semibold">Apple Silicon</h4>
+            <h4 className="font-semibold">
+              {t(lang, "downloadPage.appleSilicon")}
+            </h4>
             <p className="mt-1 text-sm text-muted-foreground">arm64 tar.gz</p>
             <a
               href={`${RELEASES_BASE}/download/bedrud-desktop-macos-arm64.tar.gz`}
@@ -287,7 +291,7 @@ function PlatformContent({
             </a>
           </div>
           <div className={cardClass}>
-            <h4 className="font-semibold">Intel</h4>
+            <h4 className="font-semibold">{t(lang, "downloadPage.intel")}</h4>
             <p className="mt-1 text-sm text-muted-foreground">x86_64 tar.gz</p>
             <a
               href={`${RELEASES_BASE}/download/bedrud-desktop-macos-x86_64.tar.gz`}
@@ -382,7 +386,7 @@ function PlatformContent({
               className={cn(btnClass, "mt-4")}
             >
               <ArrowDownToLine className="size-4" />
-              GitHub Releases
+              {t(lang, "downloadPage.githubReleases")}
             </a>
           </div>
         </div>
@@ -418,7 +422,7 @@ function PlatformContent({
               className={cn(btnClass, "mt-4")}
             >
               <ArrowDownToLine className="size-4" />
-              GitHub Releases
+              {t(lang, "downloadPage.githubReleases")}
             </a>
           </div>
         </div>

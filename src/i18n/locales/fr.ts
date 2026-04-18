@@ -7,7 +7,7 @@ export default {
   nav: {
     home: "Accueil",
     features: "Fonctionnalités",
-    compare: "Feature",
+    compare: "Comparaison",
     platforms: "Plateformes",
     openSource: "Open Source",
     docs: "Documentation",
@@ -40,7 +40,7 @@ export default {
     stars: "1.2k",
     starsLabel: "étoiles GitHub",
     contributorsLabel: "contributeurs",
-    license: "Licencé Apache 2.0",
+    license: "Sous licence Apache 2.0",
   },
   journey: {
     title: "De zéro à la réunion en quelques minutes",
@@ -80,6 +80,26 @@ export default {
       title: "Pas de tarification par siège",
       description:
         "5 utilisateurs ou 5 000. Le prix est le même : zéro. Pas de clés de licence, pas de compteurs de sièges, pas de boutons 'contacter les ventes'.",
+    },
+  },
+  problem: {
+    title: "Vos réunions ne devraient pas coûter si cher",
+    subtitle:
+      "Les plateformes vidéo d'entreprise surfacturent les équipes depuis des années. Voici ce qui cloche - et pourquoi les développeurs changent.",
+    perSeatPricing: {
+      title: "La tarification par siège est un piège",
+      description:
+        "Zoom, Teams, Meet - tous facturent par utilisateur. Passez de 10 à 100 personnes et votre facture décuple. Multipliez ça entre départements, prestataires et invités, et vous videz votre budget sur un outil utilisé 30 minutes par jour.",
+    },
+    vendorLockIn: {
+      title: "Le verrouillage fournisseur détruit votre liberté",
+      description:
+        "Vos enregistrements de réunion, vos transcriptions, les données des participants - tout est stocké sur des serveurs que vous ne contrôlez pas. Quand un fournisseur change ses prix, supprime des fonctionnalités ou subit une faille, vous n'avez pas de porte de sortie.",
+    },
+    selfHostedNightmare: {
+      title: "Les options auto-hébergées sont un cauchemar",
+      description:
+        "Jitsi nécessite 8+ conteneurs Docker. BigBlueButton exige 8 Go de RAM. Aucun ne s'installe en moins d'une heure, aucun ne scale simplement, et débugger l'un ou l'autre un vendredi après-midi n'est pas la façon dont vous voulez passer votre semaine.",
     },
   },
   comparison: {
@@ -154,35 +174,25 @@ export default {
     title: "Tout est inclus",
     subtitle:
       "Vidéo, audio, auth, bots - tout est inclus. Pas besoin d'architecture microservices.",
-    e2eEncryption: {
-      title: "Chiffré par défaut",
+    oneCommandDeploy: {
+      title: "Déploiement en une commande",
       description:
-        "Tous les médias sont chiffrés en transit via DTLS et SRTP. Vos données restent sur vos serveurs en mode auto-hébergé. Aucune télémétrie tierce, aucune collecte de données.",
+        "Binaire unique, zéro dépendance. Collez une ligne dans votre terminal et Bedrud tourne en 60 secondes. Pas de Docker, pas de Kubernetes, pas d'équipe ops requise.",
     },
-    webrtcVideo: {
-      title: "Vidéo WebRTC",
+    fiveDollarVps: {
+      title: "Fonctionne sur un VPS à 5$",
       description:
-        "Appels vidéo avec moins d'une seconde de latence grâce au serveur média WebRTC intégré. Débit adaptatif pour les connexions instables.",
+        "~200 Mo de RAM au repos (512 Mo min). Déployez sur n'importe quel VPS pas cher - Hetzner, DigitalOcean, AWS Lightsail, votre propre matériel. Mêmes fonctionnalités, fraction du coût.",
     },
-    multiPlatform: {
-      title: "Multiplateforme",
+    webrtcLatency: {
+      title: "Latence WebRTC sub-seconde",
       description:
-        "Applications natives pour Web, Android et iOS. Pas des wrappers - de vraies applications natives. Plus un SDK côté serveur pour l'automatisation.",
+        "Serveur média WebRTC intégré avec débit adaptatif. Vidéo et audio cristallins même sur les connexions instables. Pas de proxy par des serveurs tiers.",
     },
-    flexibleAuth: {
-      title: "Authentification flexible",
+    enterpriseSso: {
+      title: "SSO entreprise & OIDC",
       description:
-        "Authentification intégrée qui fonctionne immédiatement, plus intégration SSO et OAuth. Connectez votre fournisseur d'identité en quelques minutes.",
-    },
-    botAgents: {
-      title: "Agents bots",
-      description:
-        "Les bots rejoignent les réunions en tant que participants. Transcription, traduction en temps réel, envoi vers votre CRM ou création de workflows personnalisés avec le SDK Go.",
-    },
-    selfHosted: {
-      title: "Votre infrastructure ou la nôtre",
-      description:
-        "Exécutez sur vos serveurs et gardez le contrôle total. Ou utilisez Bedrud Cloud sans vous soucier de l'ops. Même produit, mêmes fonctionnalités.",
+        "Connectez-vous à votre fournisseur d'identité en quelques minutes. Passkeys, OAuth 2.0, OIDC - tout pris en charge nativement. Pas de bases de mots de passe à compromettre.",
     },
   },
   install: {
@@ -240,60 +250,26 @@ export default {
     getStarted: "Lire le Quickstart",
     readDocs: "Voir le Quickstart",
     starGithub: "Étoile sur GitHub",
+    copied: "Copié !",
   },
   faq: {
     title: "Questions fréquentes",
     subtitle: "Des questions techniques, des réponses directes.",
-    updates: {
-      question: "Comment fonctionnent les mises à jour ?",
+    serverPower: {
+      question: "Quelle puissance de serveur est nécessaire ?",
       answer:
-        "Relancez la commande d'installation. Bedrud remplace le binaire en place - pas de gestionnaires de paquets, pas de chaînes de dépendances. Vous pouvez aussi activer les mises à jour automatiques via un seul flag de configuration.",
+        "Un VPS à 5$/mois avec 1 Go de RAM suffit pour commencer. Bedrud utilise 512 Mo de RAM et s'adapte à votre matériel. Pour 50+ utilisateurs simultanés, passez à 2 Go. Pas de GPU requis.",
     },
-    encryption: {
-      question: "Est-ce chiffré de bout en bout ?",
+    installCommand: {
+      question: "Que fait réellement la commande d'installation ?",
       answer:
-        "Tous les médias sont chiffrés en transit via DTLS et SRTP (le standard WebRTC). Pour les déploiements auto-hébergés, vous contrôlez le serveur et toutes les données. Le chiffrement de bout en bout pour les appels pair-à-pair est en préparation.",
+        "Elle télécharge le binaire Bedrud pour votre plateforme et le place dans /usr/local/bin. Pas de Docker, pas de gestionnaire de paquets, pas de dépendances cachées. Vous pouvez inspecter le script avant de l'exécuter.",
     },
-    network: {
-      question: "Quelle est la configuration réseau et ports requise ?",
-      answer:
-        "Port 80/443 pour HTTP/WebSocket et une plage UDP configurable (par défaut 50000–60000) pour les médias WebRTC. Derrière un NAT, configurez un serveur STUN/TURN - Bedrud inclut la documentation pour coturn.",
-    },
-    proxy: {
-      question: "Puis-je l'utiliser derrière un proxy inverse ?",
-      answer:
-        "Oui. Nginx, Caddy, Traefik - tous fonctionnent. La documentation inclut des configurations copier-coller pour chacun. Transférez simplement les connexions WebSocket et définissez les en-têtes appropriés.",
-    },
-    cloudVsSelfHosted: {
+    recordingScreenSharing: {
       question:
-        "Quelle est la différence entre l'auto-hébergement et Bedrud Cloud ?",
+        "L'enregistrement et le partage d'écran sont-ils pris en charge ?",
       answer:
-        "Même produit, mêmes fonctionnalités. L'auto-hébergement fonctionne sur votre infrastructure avec un contrôle total des données. Bedrud Cloud gère l'exploitation, les mises à jour et la mise à l'échelle pour vous. Sans verrouillage - migrez à tout moment.",
-    },
-  },
-  testimonials: {
-    title: "Adopté par les développeurs",
-    subtitle: "Ce que les gens disent de Bedrud.",
-    one: {
-      quote:
-        "On a remplacé notre installation Jitsi par Bedrud en un après-midi. Un seul binaire, 512 Mo de RAM, et nos réunions sonnent même mieux.",
-      name: "Lena K.",
-      role: "Lead DevOps dans une entreprise SaaS européenne",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "Pas de tarif par siège - c'est ce qui a convaincu. On est passé de 20 à 200 utilisateurs sans un seul email de licence.",
-      name: "Marcus T.",
-      role: "CTO dans une startup 100% remote",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "J'ai déployé Bedrud sur un VPS à 5€ et ça marchait directement. Le SDK bot nous a permis d'intégrer les transcriptions dans notre CRM en une journée.",
-      name: "Priya S.",
-      role: "Ingénieure senior dans une fintech",
-      initials: "PS",
+        "Oui. Le partage d'écran et l'enregistrement de réunion sont inclus. Les enregistrements sont sauvegardés sur votre serveur - pas sur le cloud de quelqu'un d'autre. Les agents bots peuvent aussi transcrire les réunions en temps réel.",
     },
   },
   footer: {
@@ -314,8 +290,13 @@ export default {
     contribute: "Contribuer",
     reportIssue: "Signaler un problème",
     contact: "Contact",
+    install: "Installer",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -443,12 +424,51 @@ export default {
     clearSearch: "Effacer",
     searchDocs: "Rechercher dans la documentation",
     notFound: "Document non trouvé",
+    searchError: "La recherche a échoué. Veuillez réessayer.",
+    titleSuffix: " - Bedrud",
+    diagramError: "Échec du rendu du diagramme",
     sections: {
       gettingStarted: "Premiers pas",
       architecture: "Architecture",
       backend: "Backend",
       api: "API",
       guides: "Guides",
+      contributing: "Contribution",
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "Démarrage rapide",
+      "getting-started/installation": "Installation du serveur",
+      "getting-started/clients": "Installation du client",
+      "getting-started/configuration": "Configuration",
+      "getting-started/cli-reference": "Référence CLI",
+      "architecture/overview": "Vue d'ensemble de l'architecture",
+      "architecture/server": "Architecture du serveur",
+      "architecture/web": "Frontend web",
+      "architecture/android": "Application Android",
+      "architecture/ios": "Application iOS",
+      "architecture/desktop": "Application bureau",
+      "architecture/agents": "Agents bots",
+      "architecture/webrtc-connectivity": "Connectivité WebRTC",
+      "architecture/turn-server": "Serveur TURN",
+      "backend/index": "Documentation du backend",
+      "backend/structure": "Structure du code",
+      "backend/database": "Base de données & modèles",
+      "backend/authentication": "Authentification",
+      "backend/api-handlers": "Gestionnaires d'API",
+      "backend/livekit": "Intégration LiveKit",
+      "backend/deployment": "Déploiement",
+      "backend/advanced": "Sujets avancés",
+      "api/authentication": "API d'authentification",
+      "api/rooms": "API des salles",
+      "api/admin": "API d'administration",
+      "api/passkeys": "API Passkeys",
+      "guides/development": "Flux de développement",
+      "guides/deployment": "Guide de déploiement",
+      "guides/docker": "Guide Docker",
+      "guides/internal-tls": "TLS interne",
+      "guides/makefile": "Référence Makefile",
+      "guides/packages": "Installation des paquets",
+      "guides/appliance": "Mode appliance",
       contributing: "Contribution",
     },
   },
@@ -489,6 +509,33 @@ export default {
     server: "Installation du serveur",
     serverDesc: "Déployez le serveur Bedrud sur votre propre matériel.",
     serverGuide: "Guide d'installation du serveur",
+    heroClientTitle: "Version client",
+    heroClientDesc:
+      "Applications bureau et mobile natives pour chaque plateforme.",
+    heroServerTitle: "Version serveur",
+    heroServerDesc: "Déployez le serveur Bedrud sur votre propre matériel.",
+    heroAllPlatforms: "Voir toutes les plateformes",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "Exécuter dans un conteneur avec Docker.",
+    serverBinary: "Binaire Linux",
+    serverBinaryDesc: "Télécharger les binaires précompilés pour Linux.",
+    serverQuickInstall: "Installation rapide",
+    serverQuickInstallDesc: "Une commande. Moins d'une minute.",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "Déployer sur Kubernetes avec Helm.",
+    resourcesTitle: "Ressources",
+    resourcesDocs: "Documentation",
+    resourcesDocsDesc: "Guides d'installation, référence API et tutoriels.",
+    resourcesCommunity: "Communauté",
+    resourcesCommunityDesc: "Obtenir de l'aide et partager des retours.",
+    resourcesChangelog: "Journal des modifications",
+    resourcesChangelogDesc: "Dernières versions et changements.",
+    repoSetup: "Configuration du dépôt requise",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "Versions GitHub",
     platform: {
       linux: "Linux",
       mac: "macOS",
@@ -515,6 +562,7 @@ export default {
       title: "Équipe principale",
       subtitle: "Les personnes derrière Bedrud.",
     },
+    error: "Impossible de charger les membres de l'équipe.",
   },
   blog: {
     meta: {
@@ -526,12 +574,15 @@ export default {
     subtitle: "Mises à jour, analyses techniques et guides de l'équipe Bedrud.",
     noPosts: "Pas encore d'articles. Revenez bientôt!",
     backToBlog: "Retour au Blog",
+    titleSuffix: " - Bedrud Blog",
+    defaultAuthor: "Bedrud Team",
   },
   skipToContent: "Aller au contenu",
   mobileNav: {
     navigation: "Navigation",
-    language: "Language",
+    language: "Langue",
     getStarted: "Commencer",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -702,6 +753,8 @@ export default {
     subtitle: "Quoi de neuf dans Bedrud. Activité = confiance.",
     viewOnGithub: "Voir sur GitHub",
     noReleases: "Aucune release encore. Revenez bientôt!",
+    error: "Impossible de charger les versions.",
+    viewRelease: "Voir sur GitHub →",
   },
   contributorsPage: {
     meta: {
@@ -713,6 +766,7 @@ export default {
     joinThem: "Rejoignez-les",
     joinCta: "Contribuer sur GitHub",
     contributions: "contributions",
+    error: "Impossible de charger les contributeurs.",
   },
   contactPage: {
     meta: {
@@ -744,5 +798,57 @@ export default {
     title: "Page non trouvée",
     description: "La page que vous cherchez n'existe pas ou a été déplacée.",
     backToHome: "Retour à l'accueil",
+  },
+  a11y: {
+    toggleTheme: "Changer de thème",
+    breadcrumb: "Fil d'Ariane",
+    articleNav: "Navigation dans l'article",
+  },
+  mockups: {
+    terminal: {
+      title: "Terminal",
+      downloading: "✓ Téléchargement de bedrud v0.12.3…",
+      installing: "✓ Installation dans /usr/local/bin…",
+      ready: "✓ Bedrud prêt ! (512 Mo RAM)",
+    },
+    invite: {
+      shareLink: "Partager le lien de réunion",
+      sendEmail: "Envoyer par email",
+      copyLink: "Copier le lien",
+      or: "OU",
+      meetingTitle: "Point d'équipe",
+      today: "Aujourd'hui, 14h00",
+      duration: "30 min",
+      participants: "5 participants",
+      noAccount: "Aucun compte requis",
+      anyBrowser: "Fonctionne dans tout navigateur",
+    },
+    meeting: {
+      title: "Point d'équipe",
+      micOn: "Microphone activé",
+      cameraOn: "Caméra activée",
+      shareScreen: "Partager l'écran",
+      raiseHand: "Lever la main",
+      chat: "Chat",
+      leaveCall: "Quitter l'appel",
+    },
+    preview: {
+      title: "Point d'équipe",
+      you: "Vous",
+      chat: "Chat",
+      messagePlaceholder: "Message…",
+    },
+    scale: {
+      overview: "Vue d'ensemble",
+      last30Days: "30 derniers jours",
+      meetings: "réunions",
+      uptime: "disponibilité",
+      availability: "disponibilité",
+      activeUsers: "Utilisateurs actifs",
+      unlimitedUsers: "Utilisateurs illimités",
+      noPerSeat: "Pas de tarification par siège",
+      costPerSeat: "Coût par siège :",
+      costFree: "0,00 $",
+    },
   },
 };

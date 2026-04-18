@@ -147,7 +147,7 @@ Siehe [WebRTC-Konnektivität](/de/docs/architecture/webrtc-connectivity) für Ar
 
 Der eingebettete TURN-Server leitet Medien für Clients hinter restriktiven NATs oder Unternehmensfirewalls weiter. Er ist standardmäßig auf den Ports 3478 (UDP) und 5349 (TLS) aktiviert.
 
-TURN ist ein Rückfalloptions-Relay — die meisten Clients (~80%) verbinden sich direkt über UDP und nutzen es nie. Wenn TURN aktiv wird, trägt der Server die gesamte Bandbreite der weitergeleiteten Medien.
+TURN ist ein Rückfalloptions-Relay - die meisten Clients (~80%) verbinden sich direkt über UDP und nutzen es nie. Wenn TURN aktiv wird, trägt der Server die gesamte Bandbreite der weitergeleiteten Medien.
 
 **TLS-Voraussetzung:** TURN/TLS (Port 5349) benötigt ein gültiges TLS-Zertifikat. Für den produktiven Einsatz setzen Sie `turn.tls_port: 443` und verweisen Sie `cert_file`/`key_file` auf Ihr Zertifikat, oder platzieren Sie einen Layer-4-Load-Balancer davor mit `external_tls: true`.
 
@@ -157,11 +157,11 @@ Siehe den [TURN-Server-Leitfaden](/de/docs/architecture/turn-server) für Archit
 
 Der Abschnitt `room:` steuert das Verhalten von Meetingräumen:
 
-- **`auto_create`** — Räume automatisch erstellen, wenn Teilnehmer beitreten (Standard: `true`)
-- **`empty_timeout`** — Sekunden bis zum Löschen eines Raums, dem nie beigetreten wurde (Standard: `60`)
-- **`departure_timeout`** — Sekunden, die ein Raum nach dem Verlassen aller Teilnehmer aktiv bleibt (Standard: `60`)
-- **`max_participants`** — Maximale Teilnehmer pro Raum. Auf `0` für kein Limit setzen (Standard: `20`)
-- **`enable_remote_unmute`** — Serverseitiges Stummschalten/Aufheben der Stummschaltung von Teilnehmern erlauben (Standard: `true`)
+- **`auto_create`** - Räume automatisch erstellen, wenn Teilnehmer beitreten (Standard: `true`)
+- **`empty_timeout`** - Sekunden bis zum Löschen eines Raums, dem nie beigetreten wurde (Standard: `60`)
+- **`departure_timeout`** - Sekunden, die ein Raum nach dem Verlassen aller Teilnehmer aktiv bleibt (Standard: `60`)
+- **`max_participants`** - Maximale Teilnehmer pro Raum. Auf `0` für kein Limit setzen (Standard: `20`)
+- **`enable_remote_unmute`** - Serverseitiges Stummschalten/Aufheben der Stummschaltung von Teilnehmern erlauben (Standard: `true`)
 
 **Kapazitätsoptimierung:**
 - Kleine Team-Meetings: `max_participants: 10-20`

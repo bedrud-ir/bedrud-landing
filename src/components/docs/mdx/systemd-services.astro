@@ -1,24 +1,29 @@
 ---
+import { isValidLocale, type Locale, t } from "~/i18n/utils";
+
+const pathname = Astro.url.pathname;
+const langMatch = pathname.match(/^\/([a-z]{2})\//);
+const lang: Locale = langMatch && isValidLocale(langMatch[1]) ? (langMatch[1] as Locale) : "en";
 ---
 
 <div class="my-6">
 	<h2 class="text-2xl font-semibold tracking-tight scroll-m-20">
-		Systemd Services
+		{t(lang, "docs.mdx.systemdServices.title")}
 	</h2>
 	<p class="mt-4 leading-7 text-muted-foreground">
-		The installer creates two systemd services:
+		{t(lang, "docs.mdx.systemdServices.description")}
 	</p>
 	<table class="my-6 w-full border-collapse">
 		<thead class="border-b border-border">
 			<tr>
 				<th class="px-4 py-2 text-left text-sm font-semibold">
-					Service
+					{t(lang, "docs.mdx.systemdServices.headerService")}
 				</th>
 				<th class="px-4 py-2 text-left text-sm font-semibold">
-					Command
+					{t(lang, "docs.mdx.systemdServices.headerCommand")}
 				</th>
 				<th class="px-4 py-2 text-left text-sm font-semibold">
-					Purpose
+					{t(lang, "docs.mdx.systemdServices.headerPurpose")}
 				</th>
 			</tr>
 		</thead>
@@ -32,7 +37,7 @@
 						bedrud --run --config /etc/bedrud/config.yaml
 					</code>
 				</td>
-				<td class="px-5 py-3 text-sm">API + web</td>
+				<td class="px-5 py-3 text-sm">{t(lang, "docs.mdx.systemdServices.purposeApi")}</td>
 			</tr>
 			<tr class="border-t border-border">
 				<td class="px-5 py-3 text-sm">
@@ -43,7 +48,7 @@
 						bedrud --livekit --config /etc/bedrud/livekit.yaml
 					</code>
 				</td>
-				<td class="px-5 py-3 text-sm">Media server</td>
+				<td class="px-5 py-3 text-sm">{t(lang, "docs.mdx.systemdServices.purposeMedia")}</td>
 			</tr>
 		</tbody>
 	</table>

@@ -3,8 +3,7 @@ import type { SVGProps } from "react";
 export function GitHubIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
-      role="img"
-      aria-label="GitHub"
+      aria-hidden="true"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"

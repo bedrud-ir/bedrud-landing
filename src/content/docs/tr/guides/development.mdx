@@ -222,7 +222,7 @@ make build-desktop           # Geçerli platform için optimize edilmiş ikili d
 ### Temel Örüntüler
 
 - Tüm UI `apps/desktop/ui/` altındaki `.slint` dosyalarında tanımlanır; derleme zamanında `build.rs` tarafından Rust'a derlenir
-- `apps/desktop/src/ui/bridge.rs`, Slint geri çağrılarının Rust mantığına bağlandığı tek yerdir — iş mantığını `.slint` dosyalarının dışında tutun
+- `apps/desktop/src/ui/bridge.rs`, Slint geri çağrılarının Rust mantığına bağlandığı tek yerdir - iş mantığını `.slint` dosyalarının dışında tutun
 - Arka plan görevlerinde UI'ı güncellemesi gereken `Weak<AppWindow>` kullanın
 
 > Ayrıntılı masaüstü uygulama mimarisi için [Masaüstü Uygulama Mimarisi](/tr/docs/architecture/desktop) sayfasına bakın.

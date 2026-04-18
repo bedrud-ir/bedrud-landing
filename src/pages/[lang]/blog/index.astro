@@ -53,11 +53,11 @@ const posts = fallbackPosts.sort(
           posts.map((post) => (
             <BlogPostCard
               lang={lang}
-              slug={post.id.replace(/^(en|de|fr|es|zh|ja|tr|fa|ar)\//, "")}
+              slug={post.id.replace(/^(en|de|fr|es|zh|ja|tr|fa|ar|ru)\//, "")}
               title={post.data.title}
               description={post.data.description}
               date={String(post.data.date)}
-              author={post.data.author ?? "Bedrud Team"}
+              author={post.data.author ?? t(lang, "blog.defaultAuthor")}
               tags={post.data.tags ?? []}
             />
           ))

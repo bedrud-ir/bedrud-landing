@@ -7,7 +7,7 @@ export default {
   nav: {
     home: "الرئيسية",
     features: "الميزات",
-    compare: "Feature",
+    compare: "المقارنة",
     platforms: "المنصات",
     openSource: "مفتوح المصدر",
     docs: "التوثيق",
@@ -15,6 +15,7 @@ export default {
     demo: "تجريبي",
     getStarted: "ابدأ الآن",
     install: "تثبيت",
+    download: "تنزيل",
     blog: "المدونة",
   },
   hero: {
@@ -57,6 +58,26 @@ export default {
       title: "اجتماع",
       description:
         "فيديو وصوت WebRTC نقيان مع إلغاء ضوضاء مدمج. مشاركة الشاشة والتسجيل والدردشة مشمولة.",
+    },
+  },
+  problem: {
+    title: "اجتماعاتك لا ينبغي أن تكلف هذا الكثير",
+    subtitle:
+      "منصات الفيديو المؤسسية تفرض رسومًا مبالغًا فيها على الفرق لسنوات. إليك ما الخطأ - ولماذا يتحول المطورون.",
+    perSeatPricing: {
+      title: "التسعير بحسب المستخدم فخ",
+      description:
+        "Zoom و Teams و Meet - جميعها تفرض رسومًا لكل مستخدم. نمُ من 10 إلى 100 شخص وفاتورتك تتضاعف 10 مرات. اضرب ذلك في الأقسام والمقاولين والضيوف وستنزف ميزانيتك على أداة يستخدمها الناس 30 دقيقة يوميًا.",
+    },
+    vendorLockIn: {
+      title: "القفل من قبل المورّد يقتل المرونة",
+      description:
+        "تسجيلات اجتماعاتك، نصوصك المحوّرة، بيانات المشاركين - كلها مخزّنة على خوادم لا تتحكم بها. عندما يغيّر المزوّد التسعير أو يلغي ميزات أو يتعرض لاختراق، ليس لديك خروج.",
+    },
+    selfHostedNightmare: {
+      title: "خيارات الاستضافة الذاتية كابوس",
+      description:
+        "Jitsi يحتاج 8+ حاويات Docker. BigBlueButton يطلب 8 جيجابايت ذاكرة. لا أحدهما يُثبَّت في أقل من ساعة، ولا أحدهما يتوسع ببساطة، وتصحيح أخطاء أي منهما مساء الجمعة ليس الطريقة التي تريد قضاء أسبوعك بها.",
     },
   },
   whyBedrud: {
@@ -150,35 +171,25 @@ export default {
     title: "كل شيء مضمن",
     subtitle:
       "فيديو، صوت، مصادقة، روبوتات - كل شيء مضمن. لا حاجة لبنية الخدمات المصغرة.",
-    e2eEncryption: {
-      title: "مشفّر افتراضياً",
+    oneCommandDeploy: {
+      title: "نشر بأمر واحد",
       description:
-        "جميع الوسائط مشفرة أثناء النقل عبر DTLS وSRTP. بياناتك تبقى على خوادمك في وضع الاستضافة الذاتية. بدون قياس عن بُعد من أطراف ثالثة، بدون حصاد بيانات.",
+        "ملف ثنائي واحد، صفر تبعيات. الصق سطرًا واحدًا في طرفيتك وبدرود يعمل في 60 ثانية. بدون Docker، بدون Kubernetes، بدون فريق عمليات.",
     },
-    webrtcVideo: {
-      title: "فيديو WebRTC",
+    fiveDollarVps: {
+      title: "يعمل على خادم VPS بـ $5",
       description:
-        "مكالمات فيديو بزمن استجابة أقل من ثانية عبر خادم وسائط WebRTC مدمج. معدل بت قابل للتكيف للاتصالات غير المستقرة.",
+        "~200 ميجابايت ذاكرة في وضع الخمول (512 ميجابايت كحد أدنى). انشر على أي خادم VPS اقتصادي - Hetzner أو DigitalOcean أو AWS Lightsail أو أجهزتك الخاصة. نفس الميزات، بجزء من التكلفة.",
     },
-    multiPlatform: {
-      title: "متعدد المنصات",
+    webrtcLatency: {
+      title: "زمن استجابة WebRTC أقل من ثانية",
       description:
-        "تطبيقات أصلية للويب وأندرويد و iOS. ليست أغلفة - تطبيقات أصلية حقيقية. بالإضافة إلى SDK من جانب الخادم للأتمتة.",
+        "خادم وسائط WebRTC مدمج مع معدل بت تكيفي. فيديو وصوت نقيان حتى على الاتصالات الضعيفة. بدون وسيط عبر خوادم طرف ثالث.",
     },
-    flexibleAuth: {
-      title: "مصادقة مرنة",
+    enterpriseSso: {
+      title: "SSO مؤسسي و OIDC",
       description:
-        "مصادقة مدمجة تعمل فورًا، بالإضافة إلى تكامل SSO و OAuth. اتصل بمزود الهوية الخاص بك في دقائق.",
-    },
-    botAgents: {
-      title: "وكلاء الروبوت",
-      description:
-        "ينضم الروبوتون إلى الاجتماعات كمشاركين. نسخ المحادثات، ترجمة فورية، إرسال إلى CRM، أو بناء سير عمل مخصص باستخدام Go SDK.",
-    },
-    selfHosted: {
-      title: "بنيتك التحتية أو بنيتنا",
-      description:
-        "شغّل على خوادمك بتحكم كامل. أو استخدم Bedrud Cloud ولا تفكر في العمليات. نفس المنتج، نفس الميزات.",
+        "اتصل بمزود الهوية الخاص بك في دقائق. مفاتيح المرور، OAuth 2.0، OIDC - كلها مدعومة بشكل مباشر. بدون قواعد بيانات كلمات مرور يمكن اختراقها.",
     },
   },
   install: {
@@ -235,60 +246,26 @@ export default {
     installNow: "انشر خادمك",
     getStarted: "اقرأ Quickstart",
     readDocs: "عرض Quickstart",
+    copied: "تم النسخ!",
     starGithub: "نجمة على GitHub",
   },
   faq: {
     title: "الأسئلة الشائعة",
     subtitle: "أسئلة تقنية، إجابات مباشرة.",
-    updates: {
-      question: "كيف تعمل التحديثات؟",
+    serverPower: {
+      question: "ما مدى قوة الخادم الذي أحتاجه؟",
       answer:
-        "أعد تشغيل أمر التثبيت. بدرود يستبدل الملف الثنائي في مكانه - بدون مديري حزم، بدون سلاسل تبعيات. يمكنك أيضاً تفعيل التحديثات التلقائية عبر علامة تكوين واحدة.",
+        "خادم VPS بـ $5/شهر مع 1 جيجابايت ذاكرة يكفي للبدء. بدرود يستخدم 512 ميجابايت ذاكرة ويتوسع مع أجهزتك. لـ 50+ مستخدم متزامن، ارقُ إلى 2 جيجابايت. بدون حاجة لبطاقة رسوميات.",
     },
-    encryption: {
-      question: "هل التشفير من طرف إلى طرف؟",
+    installCommand: {
+      question: "ماذا يفعل أمر التثبيت فعليًا؟",
       answer:
-        "جميع الوسائط مشفرة أثناء النقل عبر DTLS وSRTP (معيار WebRTC). في عمليات النشر ذاتية الاستضافة، أنت تتحكم بالخادم وجميع البيانات. التشفير من طرف إلى طرف للمكالمات النظرية موجود في خارطة الطريق.",
+        "ينزّل الملف الثنائي لبدرود لمنصتك ويضعه في /usr/local/bin. بدون Docker، بدون مديري حزم، بدون تبعيات مخفية. يمكنك فحص النص البرمجي قبل تشغيله.",
     },
-    network: {
-      question: "ما هي متطلبات الشبكة والمنافذ؟",
+    recordingScreenSharing: {
+      question: "هل يدعم التسجيل ومشاركة الشاشة؟",
       answer:
-        "المنفذ 80/443 لـ HTTP/WebSocket ونطاق UDP قابل للتكوين (الافتراضي 50000–60000) لوسائط WebRTC. خلف NAT، قم بإعداد خادم STUN/TURN - بدرود يتضمن توثيقاً لإعداد coturn.",
-    },
-    proxy: {
-      question: "هل يمكنني تشغيله خلف وكيل عكسي؟",
-      answer:
-        "نعم. Nginx، Caddy، Traefik - جميعها تعمل. التوثيق يتضمن إعدادات جاهزة للنسخ لكل واحد. فقط قم بتمرير اتصالات WebSocket وضبط العناوين المناسبة.",
-    },
-    cloudVsSelfHosted: {
-      question: "ما الفرق بين الاستضافة الذاتية وBedrud Cloud؟",
-      answer:
-        "نفس المنتج، نفس الميزات. الاستضافة الذاتية تعمل على بنيتك التحتية مع تحكم كامل بالبيانات. Bedrud Cloud يتولى العمليات والتحديثات والتوسع نيابة عنك. بدون قفل - هاجر بينهما في أي وقت.",
-    },
-  },
-  testimonials: {
-    title: "موثوق من قبل المطورين",
-    subtitle: "ماذا يقول الناس عن Bedrud.",
-    one: {
-      quote:
-        "استبدلنا إعداد Jitsi بـ Bedrud في بعد ظهر واحد. ملف ثنائي واحد، 200 ميجابايت ذاكرة، وجودة صوت اجتماعاتنا أصبحت أفضل.",
-      name: "لينا ك.",
-      role: "قائد DevOps في شركة SaaS أوروبية",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "بدون تسعير لكل مقعد - هذا ما أقنعنا. انتقلنا من 20 إلى 200 مستخدم بدون بريد ترخيص واحد.",
-      name: "ماركوس ت.",
-      role: "CTO في شركة ناشئة عن بعد",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "نشرت Bedrud على خادم VPS بسعر $5 وعمل فورًا. مع Bot SDK ربطنا نصوص الاجتماعات بـ CRM في يوم واحد.",
-      name: "بريا س.",
-      role: "مهندسة أولى في شركة فنتك",
-      initials: "PS",
+        "نعم. مشاركة الشاشة والتسجيل مدمجان. التسجيلات تُحفظ على خادمك - وليس سحابة شخص آخر. يمكن لوكلاء الروبوت أيضًا نسخ الاجتماعات في الوقت الفعلي.",
     },
   },
   footer: {
@@ -302,6 +279,7 @@ export default {
     docs: "التوثيق",
     api: "مرجع واجهة برمجة التطبيقات",
     download: "تنزيل",
+    install: "تثبيت",
     about: "حول",
     resources: "الموارد",
     blog: "المدونة",
@@ -311,6 +289,10 @@ export default {
     contact: "اتصل بنا",
     privacy: "سياسة الخصوصية",
     terms: "شروط الخدمة",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -437,6 +419,10 @@ export default {
     pressShortcut: "اضغط",
     clearSearch: "مسح البحث",
     searchDocs: "البحث في المستندات",
+    searchError: "فشل البحث. يرجى المحاولة مرة أخرى.",
+    titleSuffix: " - Bedrud",
+    diagramError: "فشل عرض المخطط",
+    toggleMenu: "تبديل القائمة",
     notFound: "المستند غير موجود",
     sections: {
       gettingStarted: "البدء",
@@ -445,6 +431,72 @@ export default {
       api: "API",
       guides: "الأدلة",
       contributing: "المساهمة",
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "البدء السريع",
+      "getting-started/installation": "تثبيت الخادم",
+      "getting-started/clients": "تثبيت العملاء",
+      "getting-started/configuration": "الإعداد",
+      "getting-started/cli-reference": "مرجع سطر الأوامر",
+      "architecture/overview": "نظرة عامة على البنية",
+      "architecture/server": "بنية الخادم",
+      "architecture/web": "واجهة الويب",
+      "architecture/android": "تطبيق أندرويد",
+      "architecture/ios": "تطبيق iOS",
+      "architecture/desktop": "تطبيق سطح المكتب",
+      "architecture/agents": "وكلاء الروبوت",
+      "architecture/webrtc-connectivity": "اتصال WebRTC",
+      "architecture/turn-server": "خادم TURN",
+      "backend/index": "توثيق الواجهة الخلفية",
+      "backend/structure": "هيكل الكود",
+      "backend/database": "قاعدة البيانات والنماذج",
+      "backend/authentication": "المصادقة",
+      "backend/api-handlers": "معالجات API",
+      "backend/livekit": "تكامل LiveKit",
+      "backend/deployment": "النشر",
+      "backend/advanced": "مواضيع متقدمة",
+      "api/authentication": "API المصادقة",
+      "api/rooms": "API الغرف",
+      "api/admin": "API المشرف",
+      "api/passkeys": "API مفاتيح المرور",
+      "guides/development": "سير عمل التطوير",
+      "guides/deployment": "دليل النشر",
+      "guides/docker": "دليل Docker",
+      "guides/internal-tls": "TLS الداخلي",
+      "guides/makefile": "مرجع Makefile",
+      "guides/packages": "تثبيت الحزم",
+      "guides/appliance": "وضع الجهاز",
+      contributing: "المساهمة",
+    },
+    mdx: {
+      systemdServices: {
+        title: "خدمات Systemd",
+        description: "ينشئ المثبّت خدمتي systemd:",
+        headerService: "الخدمة",
+        headerCommand: "الأمر",
+        headerPurpose: "الغرض",
+        purposeApi: "API + الويب",
+        purposeMedia: "خادم الوسائط",
+      },
+      createAdmin: {
+        title: "ترقية مستخدم إلى مشرف",
+        registerViaWeb:
+          "سجّل عبر واجهة الويب على عنوان خادمك، ثم رقِّ المستخدم إلى مشرف:",
+        createDirectly: "بدلاً من ذلك، أنشئ مستخدم مشرف جديد مباشرة:",
+      },
+      installerSteps: {
+        title: "ماذا يفعل المثبّت",
+        description: "عند تشغيل bedrud install، يحدث ما يلي:",
+        headerStep: "الخطوة",
+        headerAction: "الإجراء",
+        step1Action: "ينشئ الأدلة:",
+        step2Action: "ينسخ الملف الثنائي إلى",
+        step3Action: "ينشئ config.yaml بإعداداتك",
+        step4Action: "ينشئ livekit.yaml لخادم الوسائط",
+        step5Action: "ينشئ خدمتي systemd:",
+        step6Action: "يُفعّل ويبدأ كلتا الخدمتين",
+        step7Action: "يهيّئ قاعدة بيانات SQLite وذاكرة الشهادات المؤقتة",
+      },
     },
   },
   installPage: {
@@ -466,12 +518,15 @@ export default {
     subtitle: "تحديثات، تحليلات هندسية، وأدلة من فريق بدرود.",
     noPosts: "لا توجد منشورات بعد. تحقق قريباً!",
     backToBlog: "العودة إلى المدونة",
+    titleSuffix: " - مدونة بدرود",
+    defaultAuthor: "فريق بدرود",
   },
   skipToContent: "انتقل إلى المحتوى",
   mobileNav: {
-    navigation: "Navigation",
-    language: "Language",
+    navigation: "التنقل",
+    language: "اللغة",
     getStarted: "ابدأ الآن",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -632,6 +687,82 @@ export default {
       cta: "اقرأ دليل التثبيت",
     },
   },
+  downloadPage: {
+    meta: {
+      title: "تنزيل بدرود - تطبيقات سطح المكتب والهاتف",
+      description:
+        "نزّل بدرود لنظام Linux أو macOS أو Windows أو أندرويد أو iOS. تطبيقات أصلية أو وصول عبر المتصفح بدون تثبيت.",
+    },
+    title: "تنزيل بدرود",
+    subtitle: "تطبيقات أصلية لكل منصة. أو افتح رابط اجتماع في متصفحك فحسب.",
+    noInstall: "بدون تثبيت. نزّل، اجعله قابلًا للتنفيذ، شغّل.",
+    flathub: "تثبيت من Flathub",
+    brew: "تثبيت عبر Homebrew",
+    winget: "تثبيت عبر مدير حزم Windows",
+    installer: "المثبّت",
+    portable: "محمول",
+    repoSetup: "يتطلب إعداد المستودع",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "إصدارات GitHub",
+    playStore: "احصل عليه من Google Play",
+    appStore: "نزّله من App Store",
+    sideload: "نزّل APK/IPA من إصدارات GitHub",
+    browserZero: "بدون تثبيت",
+    browserDesc:
+      "افتح أي رابط اجتماع في Chrome أو Firefox أو Edge أو Safari. بدون تنزيل.",
+    tryDemo: "جرب العرض التجريبي المباشر",
+    otherPlatforms: "عرض جميع المنصات ومديري الحزم",
+    server: "تثبيت الخادم",
+    serverDesc: "انشر خادم بدرود على أجهزتك الخاصة.",
+    serverGuide: "دليل تثبيت الخادم",
+    heroClientTitle: "نسخة العميل",
+    heroClientDesc: "تطبيقات أصلية لسطح المكتب والهاتف لكل منصة.",
+    heroServerTitle: "نسخة الخادم",
+    heroServerDesc: "انشر خادم بدرود على أجهزتك الخاصة.",
+    heroAllPlatforms: "عرض جميع المنصات",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "شغّل في حاوية مع Docker.",
+    serverBinary: "الملف الثنائي لنظام Linux",
+    serverBinaryDesc: "نزّل الملفات الثنائية الجاهزة لنظام Linux.",
+    serverQuickInstall: "تثبيت سريع",
+    serverQuickInstallDesc: "أمر واحد. أقل من دقيقة.",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "انشر على Kubernetes باستخدام Helm.",
+    resourcesTitle: "الموارد",
+    resourcesDocs: "التوثيق",
+    resourcesDocsDesc: "أدلة الإعداد، مرجع API، والكيفية.",
+    resourcesCommunity: "المجتمع",
+    resourcesCommunityDesc: "احصل على مساعدة وشارك ملاحظاتك.",
+    resourcesChangelog: "سجل التغييرات",
+    resourcesChangelogDesc: "أحدث الإصدارات والتغييرات.",
+    platform: {
+      linux: "Linux",
+      mac: "macOS",
+      windows: "Windows",
+      android: "أندرويد",
+      ios: "iOS",
+      browser: "المتصفح",
+    },
+  },
+  aboutPage: {
+    meta: {
+      title: "حول بدرود",
+      description:
+        "تعرف على الفريق والرسالة وراء بدرود - اجتماعات فيديو مفتوحة المصدر للجميع.",
+    },
+    title: "حول بدرود",
+    subtitle:
+      "اجتماعات فيديو مفتوحة المصدر بناها أشخاص يؤمنون أن الخصوصية يجب أن تكون الأساس.",
+    mission: {
+      title: "مهمتنا",
+      text: "بدرود موجود لأن اجتماعات الفيديو لا ينبغي أن تتطلب تسليم بياناتك للشركات الكبرى. نؤمن أن ملفًا ثنائيًا واحدًا وخادم VPS اقتصاديًا وكودًا مفتوح المصدر يمكنه استبدال عقود SaaS بملايين الدولارات - دون التضحية بالجودة أو الميزات. الخصوصية ليست ميزة. إنها الأساس.",
+    },
+    team: { title: "الفريق الأساسي", subtitle: "الأشخاص وراء بدرود." },
+    error: "فشل تحميل أعضاء الفريق.",
+  },
   changelogPage: {
     meta: {
       title: "سجل التغييرات - بدرود",
@@ -641,6 +772,8 @@ export default {
     subtitle: "ما الجديد في بدرود. النشاط يعني الثقة.",
     viewOnGithub: "عرض على GitHub",
     noReleases: "لا توجد إصدارات بعد. تحقق قريباً!",
+    error: "فشل تحميل الإصدارات.",
+    viewRelease: "عرض على GitHub →",
   },
   contributorsPage: {
     meta: {
@@ -652,6 +785,7 @@ export default {
     joinThem: "انضم إليهم",
     joinCta: "ساهم على GitHub",
     contributions: "مساهمة",
+    error: "فشل تحميل المساهمين.",
   },
   contactPage: {
     meta: {
@@ -680,5 +814,62 @@ export default {
     title: "الصفحة غير موجودة",
     description: "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
     backToHome: "العودة إلى الصفحة الرئيسية",
+  },
+  a11y: {
+    toggleTheme: "تبديل السمة",
+    breadcrumb: "مسار التنقل",
+    articleNav: "تنقل المقال",
+    openMenu: "فتح القائمة",
+    closeMenu: "إغلاق القائمة",
+    navigationMenu: "قائمة التنقل",
+    changeLanguage: "تغيير اللغة",
+    discordCommunity: "مجتمع Discord",
+  },
+  mockups: {
+    terminal: {
+      title: "الطرفية",
+      downloading: "✓ جارٍ تنزيل bedrud v0.12.3...",
+      installing: "✓ جارٍ التثبيت في /usr/local/bin...",
+      ready: "✓ بدرود جاهز! (512 ميجابايت ذاكرة)",
+    },
+    invite: {
+      shareLink: "مشاركة رابط الاجتماع",
+      sendEmail: "إرسال عبر البريد الإلكتروني",
+      copyLink: "نسخ الرابط",
+      or: "أو",
+      meetingTitle: "اجتماع الفريق اليومي",
+      today: "اليوم، 2:00 م",
+      duration: "30 دقيقة",
+      participants: "5 مشاركين",
+      noAccount: "بدون حساب",
+      anyBrowser: "يعمل في أي متصفح",
+    },
+    meeting: {
+      title: "اجتماع الفريق اليومي",
+      micOn: "الميكروفون مفتوح",
+      cameraOn: "الكاميرا مفتوحة",
+      shareScreen: "مشاركة الشاشة",
+      raiseHand: "رفع اليد",
+      chat: "الدردشة",
+      leaveCall: "مغادرة المكالمة",
+    },
+    preview: {
+      title: "اجتماع الفريق اليومي",
+      you: "أنت",
+      chat: "الدردشة",
+      messagePlaceholder: "رسالة...",
+    },
+    scale: {
+      overview: "نظرة عامة",
+      last30Days: "آخر 30 يومًا",
+      meetings: "اجتماعات",
+      uptime: "وقت التشغيل",
+      availability: "التوفر",
+      activeUsers: "المستخدمون النشطون",
+      unlimitedUsers: "مستخدمون بلا حدود",
+      noPerSeat: "بدون تسعير بحسب المستخدم",
+      costPerSeat: "التكلفة لكل مستخدم:",
+      costFree: "$0.00",
+    },
   },
 };

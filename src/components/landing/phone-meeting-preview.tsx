@@ -1,4 +1,5 @@
 import { Mic, MicOff, Phone, Video } from "lucide-react";
+import type { Locale } from "../../i18n/utils";
 
 /* ------------------------------------------------------------------ */
 /*  Shared data (reuses same images as MeetingPreview)                 */
@@ -36,7 +37,7 @@ const participants = {
 /*  iPhone meeting – Speaker view                                      */
 /* ------------------------------------------------------------------ */
 
-export function IPhoneMeetingPreview() {
+export function IPhoneMeetingPreview({ lang: _lang }: { lang: Locale }) {
   return (
     <div
       aria-hidden="true"
@@ -96,7 +97,7 @@ export function IPhoneMeetingPreview() {
 /*  Android meeting – Gallery view                                     */
 /* ------------------------------------------------------------------ */
 
-export function AndroidMeetingPreview() {
+export function AndroidMeetingPreview({ lang: _lang }: { lang: Locale }) {
   const grid = [
     participants.sarah,
     participants.alex,

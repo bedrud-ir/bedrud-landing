@@ -83,7 +83,7 @@ Installieren Sie über den Paketmanager Ihrer Distribution.
 
 ## 2. Docker
 
-Bedrud in einem Container ausführen — kein Linux-Server-Setup, kein systemd, kein Binär-Download.
+Bedrud in einem Container ausführen - kein Linux-Server-Setup, kein systemd, kein Binär-Download.
 
 ### Vorgefertigtes Image (am schnellsten)
 
@@ -164,7 +164,7 @@ Das Installationsprogramm erkennt die Server-IP automatisch und fragt nach:
 | **E-Mail** | Leer | Für Let's Encrypt-Registrierung (nur wenn Domain gesetzt) |
 | **Selbstsigniertes TLS** | Ja | Wird angeboten, wenn keine Domain angegeben ist. Standard ist `Y` |
 
-Alle Abfragen werden übersprungen, wenn stdin gepiped wird (nicht-interaktiver Modus) — Flags und Standardwerte werden stattdessen verwendet.
+Alle Abfragen werden übersprungen, wenn stdin gepiped wird (nicht-interaktiver Modus) - Flags und Standardwerte werden stattdessen verwendet.
 
 ---
 
@@ -393,7 +393,7 @@ Dienste werden nach einem Paket-Upgrade automatisch neu gestartet.
 
 ### Binär-Download
 
-Laden Sie die neueste Version herunter und führen Sie die Installation erneut aus. Das Installationsprogramm kann sicher erneut ausgeführt werden — es überschreibt die Binärdatei und Konfiguration, während die Datenbank erhalten bleibt:
+Laden Sie die neueste Version herunter und führen Sie die Installation erneut aus. Das Installationsprogramm kann sicher erneut ausgeführt werden - es überschreibt die Binärdatei und Konfiguration, während die Datenbank erhalten bleibt:
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -445,7 +445,7 @@ Dies stoppt die Dienste, entfernt die systemd-Units, löscht die Binärdatei aus
 |---------|--------|
 | **Port 80/443 in Verwendung** | Konflikt-Webserver stoppen: `systemctl stop nginx apache2 caddy` |
 | **Dienste starten nicht** | Protokolle prüfen: `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| **TLS-Zertifikatsprobleme** | DNS prüfen: `dig +short meet.example.com` — muss die IP dieses Servers zurückgeben |
+| **TLS-Zertifikatsprobleme** | DNS prüfen: `dig +short meet.example.com` - muss die IP dieses Servers zurückgeben |
 | **LiveKit-Portkonflikte** | Flags `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` zum Ändern der Ports verwenden |
 | **Installation erfolgreich, aber 404 auf Web-UI** | Frontend nicht eingebettet. Vor `bedrud install` mit `make build` kompilieren. Rein binäre Builds überspringen das Frontend |
 | **Installation erfolgreich, aber Dienste abgestürzt** | Auf stille Fehler prüfen: `journalctl -u bedrud --no-pager -n 100`. Konfiguration unter `/etc/bedrud/config.yaml` verifizieren |

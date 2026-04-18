@@ -69,7 +69,7 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={GITHUB_URL}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="GitHub"
+                  aria-label={t(lang, "footer.social.github")}
                 >
                   <GitHubIcon className="size-4" />
                 </a>
@@ -79,7 +79,7 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={DISCORD_URL}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Discord community"
+                  aria-label={t(lang, "a11y.discordCommunity")}
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -96,7 +96,7 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={TWITTER_URL}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="X (Twitter)"
+                  aria-label={t(lang, "footer.social.twitter")}
                 >
                   <XIcon className="size-4" />
                 </a>

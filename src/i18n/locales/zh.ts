@@ -7,7 +7,7 @@ export default {
   nav: {
     home: "首页",
     features: "功能",
-    compare: "Feature",
+    compare: "功能对比",
     platforms: "平台",
     openSource: "开源",
     docs: "文档",
@@ -77,6 +77,26 @@ export default {
       title: "无按座位收费",
       description:
         "5个用户或5000个。价格一样：零。没有许可证密钥，没有席位计数器，没有'联系销售'按钮。",
+    },
+  },
+  problem: {
+    title: "你的会议不该这么贵",
+    subtitle:
+      "企业视频平台多年来一直对团队过度收费。以下是问题所在--以及开发者为什么在转向其他方案。",
+    perSeatPricing: {
+      title: "按座位收费是个陷阱",
+      description:
+        "Zoom、Teams、Meet--全都按用户收费。从 10 人增长到 100 人，账单直接翻 10 倍。跨部门、承包商和访客叠加后，你在一个每天只用 30 分钟的工具上大量流失预算。",
+    },
+    vendorLockIn: {
+      title: "供应商锁定扼杀主动权",
+      description:
+        "你的会议录制、转录、参会者数据--全都存储在你无法控制的服务器上。当供应商涨价、砍功能或被入侵时，你没有任何退出策略。",
+    },
+    selfHostedNightmare: {
+      title: "自建方案简直是噩梦",
+      description:
+        "Jitsi 需要 8+ 个 Docker 容器。BigBlueButton 要 8GB 内存。两者安装都超过一小时，扩展都不简单，周五下午调试它们绝不是你想度过周末的方式。",
     },
   },
   comparison: {
@@ -150,35 +170,25 @@ export default {
   features: {
     title: "开箱即用",
     subtitle: "视频、音频、认证、机器人--全部包含。无需微服务架构。",
-    e2eEncryption: {
-      title: "默认加密",
+    oneCommandDeploy: {
+      title: "一条命令部署",
       description:
-        "所有媒体通过 DTLS 和 SRTP 加密传输。自托管模式下数据保留在你的服务器上。无第三方遥测，无数据采集。",
+        "单一二进制文件，零依赖。在终端粘贴一行命令，Bedrud 60 秒内即可运行。无需 Docker、无需 Kubernetes、无需运维团队。",
     },
-    webrtcVideo: {
-      title: "WebRTC 视频",
+    fiveDollarVps: {
+      title: "5 美元 VPS 即可运行",
       description:
-        "内置 WebRTC 媒体服务器，亚秒级延迟视频通话。自适应码率应对不稳定网络。",
+        "空闲时约 200MB 内存（最低 512MB）。部署在任何廉价 VPS 上--Hetzner、DigitalOcean、AWS Lightsail 或你自己的硬件。同样功能，几分之一成本。",
     },
-    multiPlatform: {
-      title: "多平台",
+    webrtcLatency: {
+      title: "WebRTC 亚秒级延迟",
       description:
-        "Web、Android 和 iOS 原生应用。不是套壳--是真正的原生应用。还有服务端 SDK 用于自动化。",
+        "内置 WebRTC 媒体服务器，支持自适应码率。即使在不稳定连接下也能提供清晰的视频和音频。不通过第三方服务器中转。",
     },
-    flexibleAuth: {
-      title: "灵活认证",
+    enterpriseSso: {
+      title: "企业 SSO 和 OIDC",
       description:
-        "开箱即用的内置认证，加上 SSO 和 OAuth 集成。几分钟内连接现有身份提供商。",
-    },
-    botAgents: {
-      title: "机器人代理",
-      description:
-        "机器人以参与者身份加入会议。实时转录、翻译、推送到 CRM，或用 Go SDK 构建自定义工作流。",
-    },
-    selfHosted: {
-      title: "你的基础设施或我们的",
-      description:
-        "在你自己的服务器上运行，完全掌控。或用 Bedrud Cloud 无需操心运维。同样的产品，同样的功能。",
+        "几分钟内连接你的身份提供商。通行密钥、OAuth 2.0、OIDC--全部开箱即用。没有可能被泄露的密码数据库。",
     },
   },
   install: {
@@ -193,7 +203,7 @@ export default {
   platforms: {
     title: "原生应用，不是网页套壳",
     subtitle:
-      "真正的原生应用--Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova.",
+      "真正的原生应用--Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova。",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -236,59 +246,25 @@ export default {
     getStarted: "阅读快速入门",
     readDocs: "查看快速入门",
     starGithub: "在 GitHub 上星标",
+    copied: "已复制!",
   },
   faq: {
     title: "常见问题",
     subtitle: "技术问题，直接回答。",
-    updates: {
-      question: "更新是如何工作的？",
+    serverPower: {
+      question: "我的服务器需要多强？",
       answer:
-        "重新运行安装命令即可。Bedrud 会原地替换二进制文件--无需包管理器，无需依赖链。你也可以通过单个配置标志启用自动更新。",
+        "每月 5 美元、1GB 内存的 VPS 就足够起步。Bedrud 使用 512MB 内存，随硬件扩展。50+ 并发用户建议升级到 2GB。无需 GPU。",
     },
-    encryption: {
-      question: "是否端到端加密？",
+    installCommand: {
+      question: "安装命令具体做了什么？",
       answer:
-        "所有媒体通过 DTLS 和 SRTP（WebRTC 标准）加密传输。对于自托管部署，你控制服务器和所有数据。点对点通话的端到端加密已在路线图中。",
+        "下载适合你平台的 Bedrud 二进制文件并放置到 /usr/local/bin。无需 Docker、无需包管理器、无隐藏依赖。你可以在运行前检查脚本内容。",
     },
-    network: {
-      question: "网络和端口要求是什么？",
+    recordingScreenSharing: {
+      question: "支持录制和屏幕共享吗？",
       answer:
-        "端口 80/443 用于 HTTP/WebSocket，可配置的 UDP 范围（默认 50000–60000）用于 WebRTC 媒体。在 NAT 后面，需要设置 STUN/TURN 服务器--Bedrud 包含 coturn 设置文档。",
-    },
-    proxy: {
-      question: "可以运行在反向代理后面吗？",
-      answer:
-        "可以。Nginx、Caddy、Traefik--都支持。文档中包含每个的即用配置。只需转发 WebSocket 连接并设置适当的头部。",
-    },
-    cloudVsSelfHosted: {
-      question: "自托管和 Bedrud Cloud 有什么区别？",
-      answer:
-        "同样的产品，同样的功能。自托管在你自己的基础设施上运行，完全掌控数据。Bedrud Cloud 为你处理运维、更新和扩展。无供应商锁定--随时可以迁移。",
-    },
-  },
-  testimonials: {
-    title: "开发者信赖",
-    subtitle: "听听大家怎么说 Bedrud。",
-    one: {
-      quote:
-        "我们用一个下午就把 Jitsi 替换成了 Bedrud。单个二进制文件，512MB 内存，会议音质反而更好了。",
-      name: "Lena K.",
-      role: "欧洲某 SaaS 公司 DevOps 负责人",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "没有按席位收费，这是打动我们的关键。从 20 人增长到 200 人，没有收到过一封许可证邮件。",
-      name: "Marcus T.",
-      role: "远程初创公司 CTO",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "在一台 $5 VPS 上部署了 Bedrud，直接就能用。用 Bot SDK 一天内就把会议转录接入了 CRM。",
-      name: "Priya S.",
-      role: "某金融科技公司高级工程师",
-      initials: "PS",
+        "支持。内置屏幕共享和会议录制。录制文件保存到你的服务器--不是别人的云上。机器人代理还可以实时转录会议内容。",
     },
   },
   footer: {
@@ -308,8 +284,13 @@ export default {
     contribute: "贡献",
     reportIssue: "报告问题",
     contact: "联系",
+    install: "安装",
     privacy: "隐私政策",
     terms: "服务条款",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -436,6 +417,7 @@ export default {
     pressShortcut: "按",
     clearSearch: "清除搜索",
     searchDocs: "搜索文档",
+    searchError: "搜索失败，请重试。",
     notFound: "文档未找到",
     sections: {
       gettingStarted: "快速入门",
@@ -443,6 +425,74 @@ export default {
       backend: "后端",
       api: "API",
       guides: "指南",
+      contributing: "贡献",
+    },
+    titleSuffix: " - Bedrud",
+    diagramError: "图表渲染失败",
+    toggleMenu: "切换菜单",
+    mdx: {
+      systemdServices: {
+        title: "Systemd 服务",
+        description: "安装程序会创建两个 systemd 服务：",
+        headerService: "服务",
+        headerCommand: "命令",
+        headerPurpose: "用途",
+        purposeApi: "API + Web",
+        purposeMedia: "媒体服务器",
+      },
+      createAdmin: {
+        title: "提升用户为管理员",
+        registerViaWeb: "通过 Web 界面注册用户，然后提升为管理员：",
+        createDirectly: "或者，直接创建新的管理员用户：",
+      },
+      installerSteps: {
+        title: "安装程序的工作流程",
+        description: "运行 bedrud install 时，会执行以下操作：",
+        headerStep: "步骤",
+        headerAction: "操作",
+        step1Action: "创建目录：",
+        step2Action: "将二进制文件复制到",
+        step3Action: "根据你的设置生成 config.yaml",
+        step4Action: "为媒体服务器生成 livekit.yaml",
+        step5Action: "创建两个 systemd 服务：",
+        step6Action: "启用并启动两个服务",
+        step7Action: "初始化 SQLite 数据库和证书缓存",
+      },
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "快速入门",
+      "getting-started/installation": "服务器安装",
+      "getting-started/clients": "客户端安装",
+      "getting-started/configuration": "配置",
+      "getting-started/cli-reference": "CLI 参考",
+      "architecture/overview": "架构概览",
+      "architecture/server": "服务器架构",
+      "architecture/web": "Web 前端",
+      "architecture/android": "Android 应用",
+      "architecture/ios": "iOS 应用",
+      "architecture/desktop": "桌面应用",
+      "architecture/agents": "机器人代理",
+      "architecture/webrtc-connectivity": "WebRTC 连接",
+      "architecture/turn-server": "TURN 服务器",
+      "backend/index": "后端文档",
+      "backend/structure": "代码结构",
+      "backend/database": "数据库与模型",
+      "backend/authentication": "身份认证",
+      "backend/api-handlers": "API 处理器",
+      "backend/livekit": "LiveKit 集成",
+      "backend/deployment": "部署",
+      "backend/advanced": "高级主题",
+      "api/authentication": "认证 API",
+      "api/rooms": "房间 API",
+      "api/admin": "管理 API",
+      "api/passkeys": "通行密钥 API",
+      "guides/development": "开发工作流",
+      "guides/deployment": "部署指南",
+      "guides/docker": "Docker 指南",
+      "guides/internal-tls": "内部 TLS",
+      "guides/makefile": "Makefile 参考",
+      "guides/packages": "包安装",
+      "guides/appliance": "一体机模式",
       contributing: "贡献",
     },
   },
@@ -479,8 +529,34 @@ export default {
     tryDemo: "试试在线演示",
     otherPlatforms: "查看所有平台和包管理器",
     server: "服务器安装",
-    serverDesc: "在您自己的硬件上部署 Bedrud 服务器。",
+    serverDesc: "在你自己的硬件上部署 Bedrud 服务器。",
     serverGuide: "服务器安装指南",
+    heroClientTitle: "客户端版本",
+    heroClientDesc: "适用于每个平台的原生桌面和移动应用。",
+    heroServerTitle: "服务器版本",
+    heroServerDesc: "在你自己的硬件上部署 Bedrud 服务器。",
+    heroAllPlatforms: "查看所有平台",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "使用 Docker 容器运行。",
+    serverBinary: "Linux 二进制文件",
+    serverBinaryDesc: "下载预编译的 Linux 二进制文件。",
+    serverQuickInstall: "快速安装",
+    serverQuickInstallDesc: "一条命令，不到一分钟。",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "使用 Helm 部署到 Kubernetes。",
+    resourcesTitle: "资源",
+    resourcesDocs: "文档",
+    resourcesDocsDesc: "安装指南、API 参考和使用教程。",
+    resourcesCommunity: "社区",
+    resourcesCommunityDesc: "获取帮助和分享反馈。",
+    resourcesChangelog: "更新日志",
+    resourcesChangelogDesc: "最新版本和变更记录。",
+    repoSetup: "需要仓库配置",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "GitHub Releases",
     platform: {
       linux: "Linux",
       mac: "macOS",
@@ -498,6 +574,7 @@ export default {
     },
     title: "关于 Bedrud",
     subtitle: "由相信隐私应是默认设置的人打造的开源视频会议。",
+    error: "加载团队成员失败。",
     mission: {
       title: "我们的使命",
       text: "Bedrud 的存在是因为视频会议不应该要求将数据交给大型科技公司。我们相信一个单一二进制文件、一台便宜的 VPS 和开源代码就能取代价值数百万的 SaaS 合同 - 无需牺牲质量或功能。隐私不是一项功能。它是基础。",
@@ -516,12 +593,15 @@ export default {
     subtitle: "来自 Bedrud 团队的更新、技术深度解析和指南。",
     noPosts: "暂无文章。请稍后再来!",
     backToBlog: "返回博客",
+    titleSuffix: " - Bedrud Blog",
+    defaultAuthor: "Bedrud 团队",
   },
   skipToContent: "跳到内容",
   mobileNav: {
-    navigation: "Navigation",
-    language: "Language",
+    navigation: "导航",
+    language: "语言",
     getStarted: "立即开始",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -688,6 +768,8 @@ export default {
     subtitle: "Bedrud 有什么新功能。活动 = 信任。",
     viewOnGithub: "在 GitHub 上查看",
     noReleases: "还没有发布。请稍后再来！",
+    error: "加载版本发布失败。",
+    viewRelease: "在 GitHub 上查看 →",
   },
   contributorsPage: {
     meta: {
@@ -699,6 +781,7 @@ export default {
     joinThem: "加入他们",
     joinCta: "在 GitHub 上贡献",
     contributions: "贡献",
+    error: "加载贡献者失败。",
   },
   contactPage: {
     meta: {
@@ -723,9 +806,66 @@ export default {
       cta: "发送电子邮件",
     },
   },
+  a11y: {
+    toggleTheme: "切换主题",
+    breadcrumb: "面包屑导航",
+    articleNav: "文章导航",
+    openMenu: "打开菜单",
+    closeMenu: "关闭菜单",
+    navigationMenu: "导航菜单",
+    changeLanguage: "切换语言",
+    discordCommunity: "Discord 社区",
+  },
   notFound: {
     title: "页面未找到",
     description: "您查找的页面不存在或已被移动。",
     backToHome: "返回首页",
+  },
+  mockups: {
+    terminal: {
+      title: "终端",
+      downloading: "✓ 正在下载 bedrud v0.12.3...",
+      installing: "✓ 正在安装到 /usr/local/bin...",
+      ready: "✓ Bedrud 就绪！(512MB 内存)",
+    },
+    invite: {
+      shareLink: "分享会议链接",
+      sendEmail: "通过邮件发送",
+      copyLink: "复制链接",
+      or: "或",
+      meetingTitle: "团队站会",
+      today: "今天，下午 2:00",
+      duration: "30 分钟",
+      participants: "5 位参会者",
+      noAccount: "无需账户",
+      anyBrowser: "支持任何浏览器",
+    },
+    meeting: {
+      title: "团队站会",
+      micOn: "麦克风开启",
+      cameraOn: "摄像头开启",
+      shareScreen: "共享屏幕",
+      raiseHand: "举手",
+      chat: "聊天",
+      leaveCall: "离开通话",
+    },
+    preview: {
+      title: "团队站会",
+      you: "你",
+      chat: "聊天",
+      messagePlaceholder: "输入消息...",
+    },
+    scale: {
+      overview: "概览",
+      last30Days: "最近 30 天",
+      meetings: "会议",
+      uptime: "运行时间",
+      availability: "可用性",
+      activeUsers: "活跃用户",
+      unlimitedUsers: "无限用户",
+      noPerSeat: "无按座位收费",
+      costPerSeat: "每座位成本：",
+      costFree: "$0.00",
+    },
   },
 };

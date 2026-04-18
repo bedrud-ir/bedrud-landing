@@ -1,7 +1,7 @@
 import { Globe } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "~/lib/utils";
-import { type Locale, supportedLocales } from "../../i18n/utils";
+import { type Locale, supportedLocales, t } from "../../i18n/utils";
 
 interface LangMeta {
   flag: string;
@@ -18,6 +18,7 @@ const langMeta: Record<Locale, LangMeta> = {
   tr: { flag: "🇹🇷", label: "Türkçe" },
   fa: { flag: "🇮🇷", label: "فارسی ⟵" },
   ar: { flag: "🇸🇦", label: "العربية ⟵" },
+  ru: { flag: "🇷🇺", label: "Русский" },
 };
 
 export function LanguageSwitcher({
@@ -74,7 +75,7 @@ export function LanguageSwitcher({
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-haspopup="listbox"
-        aria-label="Change language"
+        aria-label={t(lang, "a11y.changeLanguage")}
         className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
       >
         <Globe className="size-4" />

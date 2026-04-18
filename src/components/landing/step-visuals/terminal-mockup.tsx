@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
 import { useInViewRef } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
+import { type Locale, t } from "../../../i18n/utils";
 
 const command = "curl -fsSL https://get.bedrud.org | bash";
 
-const outputLines = [
-  { text: "✓ Downloading bedrud v0.12.3...", color: "text-emerald-400/80" },
-  { text: "✓ Installing to /usr/local/bin...", color: "text-emerald-400/80" },
-  { text: "✓ Bedrud ready! (512MB RAM)", color: "text-emerald-400/80" },
-];
+function getOutputLines(lang: Locale) {
+  return [
+    {
+      text: t(lang, "mockups.terminal.downloading"),
+      color: "text-emerald-400/80",
+    },
+    {
+      text: t(lang, "mockups.terminal.installing"),
+      color: "text-emerald-400/80",
+    },
+    { text: t(lang, "mockups.terminal.ready"), color: "text-emerald-400/80" },
+  ];
+}
 
-export function TerminalMockup() {
+export function TerminalMockup({ lang }: { lang: Locale }) {
+  const outputLines = getOutputLines(lang);
   const [containerRef, isVisible] = useInViewRef();
   const [phase, setPhase] = useState<"typing" | "output" | "prompt">("typing");
   const [typedChars, setTypedChars] = useState(0);
@@ -49,7 +59,7 @@ export function TerminalMockup() {
     }, 250);
 
     return () => clearTimeout(timer);
-  }, [isVisible, phase, visibleOutput]);
+  }, [isVisible, phase, visibleOutput, outputLines.length]);
 
   return (
     <div
@@ -63,7 +73,7 @@ export function TerminalMockup() {
         <div className="size-2.5 rounded-full bg-[#febc2e]" />
         <div className="size-2.5 rounded-full bg-[#28c840]" />
         <span className="ms-2 text-[11px] font-medium text-white/30">
-          Terminal
+          {t(lang, "mockups.terminal.title")}
         </span>
       </div>
 

@@ -1,13 +1,17 @@
 import { BarChart3, ChevronDown } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { type Locale, t } from "../../../i18n/utils";
 
-const stats = [
-  { value: "1,247", label: "meetings" },
-  { value: "99.9%", label: "uptime" },
-  { value: "24/7", label: "availability" },
-];
+function getStats(lang: Locale) {
+  return [
+    { value: "1,247", label: t(lang, "mockups.scale.meetings") },
+    { value: "99.9%", label: t(lang, "mockups.scale.uptime") },
+    { value: "24/7", label: t(lang, "mockups.scale.availability") },
+  ];
+}
 
-export function ScaleMockup() {
+export function ScaleMockup({ lang }: { lang: Locale }) {
+  const stats = getStats(lang);
   return (
     <div
       aria-hidden="true"
@@ -22,7 +26,7 @@ export function ScaleMockup() {
             />
           </div>
           <span className="text-[15px] font-semibold tracking-tight">
-            Overview
+            {t(lang, "mockups.scale.overview")}
           </span>
         </div>
         <Button
@@ -30,7 +34,7 @@ export function ScaleMockup() {
           size="sm"
           className="gap-1 text-[13px] text-muted-foreground"
         >
-          Last 30 days
+          {t(lang, "mockups.scale.last30Days")}
           <ChevronDown className="size-3.5" />
         </Button>
       </div>
@@ -50,7 +54,9 @@ export function ScaleMockup() {
 
       <div className="mt-5">
         <div className="flex items-center justify-between text-[13px]">
-          <span className="font-medium">Active Users</span>
+          <span className="font-medium">
+            {t(lang, "mockups.scale.activeUsers")}
+          </span>
           <span className="text-muted-foreground">
             847 / <span className="text-foreground font-medium">&infin;</span>
           </span>
@@ -66,15 +72,17 @@ export function ScaleMockup() {
       <div dir="ltr" className="mt-5 flex flex-col gap-1.5">
         <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          Unlimited users
+          {t(lang, "mockups.scale.unlimitedUsers")}
         </div>
         <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          No per-seat pricing
+          {t(lang, "mockups.scale.noPerSeat")}
         </div>
         <div className="flex items-center gap-2 text-[13px]">
-          <span className="font-medium">Cost per seat:</span>
-          <span className="font-bold">$0.00</span>
+          <span className="font-medium">
+            {t(lang, "mockups.scale.costPerSeat")}
+          </span>
+          <span className="font-bold">{t(lang, "mockups.scale.costFree")}</span>
         </div>
       </div>
     </div>
