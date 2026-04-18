@@ -1,49 +1,49 @@
 ---
-title: Backend Documentation
-description: Overview of the Bedrud backend system architecture
+title: توثيق الخلفية
+description: نظرة عامة على بنية نظام الخلفية في Bedrud
 order: 15
 ---
 
-## Introduction
-The Bedrud backend is a single-binary meeting platform written in **Go 1.24+**. All dependencies - media server, web frontend, TURN server - are embedded in one executable.
+## مقدمة
+خلفية Bedrud هي منصة اجتماعات بملف ثنائي واحد مكتوبة بـ **Go 1.24+**. جميع التبعيات - خادم الوسائط، واجهة الويب، خادم TURN - مدمجة في ملف تنفيذي واحد.
 
-### Key Technologies
-- **Core Framework:** [Fiber v2](https://gofiber.io/) (Zero allocation router, Express-like API).
-- **Database Layer:** [GORM](https://gorm.io/) with support for **SQLite** (standard) and **PostgreSQL** (production).
-- **Media Engine:** [LiveKit](https://livekit.io/) (Embedded as a sibling binary).
-- **Auth System:** Multi-layered auth supporting JWT, OAuth2 (Google/GitHub/Twitter), and passwordless FIDO2 Passkeys.
-- **Embedded Static Assets:** Uses Go 1.16+ `embed` package to bundle the React frontend (SSR pre-rendered client assets).
-- **Deployment:** Integrated Debian/Ubuntu auto-installer with systemd orchestration and ACME (Let's Encrypt) support.
+### التقنيات الأساسية
+- **إطار العمل الأساسي:** [Fiber v2](https://gofiber.io/) (موجّه بدون تخصيص ذاكرة، واجهة برمجة تشبه Express).
+- **طبقة قاعدة البيانات:** [GORM](https://gorm.io/) مع دعم لـ **SQLite** (قياسي) و **PostgreSQL** (إنتاج).
+- **محرك الوسائط:** [LiveKit](https://livekit.io/) (مدمج كملف ثنائي شقيق).
+- **نظام المصادقة:** مصادقة متعددة الطبقات تدعم JWT و OAuth2 (Google/GitHub/Twitter) ومفاتيح المرور FIDO2 بدون كلمة مرور.
+- **الأصول الثابتة المدمجة:** يستخدم حزمة `embed` في Go 1.16+ لتجميع واجهة React الأمامية (أصول العميل المُعرَّضة مسبقًا عبر SSR).
+- **النشر:** مثبّت تلقائي متكامل لـ Debian/Ubuntu مع تنسيق systemd ودعم ACME (Let's Encrypt).
 
-## Why this Architecture?
-WebRTC platforms typically run separate services for signaling, TURN, web serving, and database management. Bedrud consolidates these into one binary by:
+## لماذا هذه البنية؟
+منصات WebRTC تعمل عادةً بخدمات منفصلة للإشارات و TURN وخدمة الويب وإدارة قواعد البيانات. يجمع Bedrud كل هذا في ملف ثنائي واحد عبر:
 
-1.  **Extracting** the media server binary at runtime.
-2.  **Proxying** media traffic through the main HTTP(S) port.
-3.  **Automating** OS-level configuration (SSL, systemd) via the binary itself.
+١.  **استخراج** ملف خادم الوسائط الثنائي أثناء التشغيل.
+٢.  **تمرير** حركة الوسائط عبر منفذ HTTP(S) الرئيسي.
+٣.  **أتمتة** تهيئة مستوى نظام التشغيل (SSL، systemd) عبر الملف الثنائي نفسه.
 
-## High-Level Architecture
-The backend follows a standard layered architecture:
+## البنية عالية المستوى
+تتبع الخلفية بنية طبقية قياسية:
 
-1.  **Server Layer (`internal/server`):** Sets up the Fiber app, routes, and middleware.
-2.  **Handler Layer (`internal/handlers`):** Manages HTTP requests and responses.
-3.  **Repository Layer (`internal/repository`):** Handles database queries using GORM.
-4.  **Model Layer (`internal/models`):** Defines the database tables and Go structures.
-5.  **Service/Logic Layer:** Integrated into handlers and repositories for simplicity, with specialized packages like `internal/auth` and `internal/livekit`.
+١.  **طبقة الخادم (`internal/server`):** تُعد تطبيق Fiber والمسارات والبرمجيات الوسيطة.
+٢.  **طبقة المعالجات (`internal/handlers`):** تدير طلبات واستجابات HTTP.
+٣.  **طبقة المستودعات (`internal/repository`):** تتعامل مع استعلامات قاعدة البيانات باستخدام GORM.
+٤.  **طبقة النماذج (`internal/models`):** تُعرّف جداول قاعدة البيانات وبنى Go.
+٥.  **طبقة الخدمات/المنطق:** مدمجة في المعالجات والمستودعات للتبسيط، مع حزم متخصصة مثل `internal/auth` و `internal/livekit`.
 
-## Main Entry Point
-The application starts in `server/cmd/bedrud/main.go`. It has three main modes:
+## نقطة الدخول الرئيسية
+يبدأ التطبيق في `server/cmd/bedrud/main.go`. يعمل بثلاثة أوضاع رئيسية:
 
-- `run`: Starts the full meeting server.
-- `livekit`: Starts only the embedded media server.
-- `install`: Automatically sets up the server on Debian/Ubuntu systems.
+- `run`: يشغّل خادم الاجتماعات الكامل.
+- `livekit`: يشغّل خادم الوسائط المدمج فقط.
+- `install`: يُعد الخادم تلقائيًا على أنظمة Debian/Ubuntu.
 
-## Documentation Sections
-- [**Code Structure**](/docs/backend/structure): Where is everything located?
-- [**Database & Models**](/docs/backend/database): How is data stored?
-- [**Authentication**](/docs/backend/authentication): How do users log in?
-- [**API Handlers**](/docs/backend/api-handlers): How are requests processed?
-- [**LiveKit Integration**](/docs/backend/livekit): How does the video server work?
-- [**WebRTC Connectivity**](/docs/architecture/webrtc-connectivity): How do clients establish media connections? (STUN/ICE/TURN/SFU)
-- [**TURN Server**](/docs/architecture/turn-server): TURN relay architecture, configuration, and troubleshooting
-- [**Installation & Deployment**](/docs/backend/deployment): How does the auto-installer work?
+## أقسام التوثيق
+- [**بنية الكود**](/docs/backend/structure): أين يقع كل شيء؟
+- [**قاعدة البيانات والنماذج**](/docs/backend/database): كيف تُخزَّن البيانات؟
+- [**المصادقة**](/docs/backend/authentication): كيف يسجّل المستخدمون الدخول؟
+- [**معالجات API**](/docs/backend/api-handlers): كيف تُعالَج الطلبات؟
+- [**تكامل LiveKit**](/docs/backend/livekit): كيف يعمل خادم الفيديو؟
+- [**اتصال WebRTC**](/docs/architecture/webrtc-connectivity): كيف يُنشئ العملاء اتصالات الوسائط؟ (STUN/ICE/TURN/SFU)
+- [**خادم TURN**](/docs/architecture/turn-server): بنية ترحيل TURN والتهيئة واستكشاف الأخطاء
+- [**التثبيت والنشر**](/docs/backend/deployment): كيف يعمل المثبّت التلقائي؟

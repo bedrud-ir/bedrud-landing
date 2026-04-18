@@ -1,16 +1,16 @@
 ---
-title: WebRTC Connectivity
-description: STUN/ICE/TURN and media routing
+title: WebRTC-Konnektivität
+description: STUN/ICE/TURN und Medienrouting
 order: 13
 ---
 
-How clients establish real-time media connections in Bedrud. Covers the full connectivity stack: signaling, ICE, STUN, TURN, and the SFU media path.
+Wie Clients in Bedrud Echtzeit-Medienverbindungen herstellen. Behandelt den vollständigen Verbindungs-Stack: Signalisierung, ICE, STUN, TURN und den SFU-Medienpfad.
 
 ---
 
-## Overview
+## Übersicht
 
-WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture - clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
+WebRTC erfordert eine Reihe von Schritten, bevor Audio und Video zwischen Client und Server fließen. Bedrud verwendet die SFU-Architektur (Selective Forwarding Unit) von LiveKit - Clients verbinden sich mit dem Server, nicht miteinander. **Das bedeutet, dass nur der Client-zu-Server-Netzwerkpfad relevant ist**, nicht die Verbindung zwischen einzelnen Teilnehmern.
 
 ```mermaid
 sequenceDiagram
@@ -46,9 +46,9 @@ sequenceDiagram
 
 ---
 
-## Connectivity Stack
+## Verbindungs-Stack
 
-Five layers work together to establish the media path:
+Fünf Schichten arbeiten zusammen, um den Medienpfad herzustellen:
 
 ```mermaid
 flowchart TB
@@ -68,21 +68,21 @@ flowchart TB
     TURN --> SFU
 ```
 
-### Layer Details
+### Schichtdetails
 
-**1. Signaling** - Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media - it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
+**1. Signalisierung** - Client und Server tauschen Verbindungsmetadaten über SDP-Angebote und -Antworten (Session Description Protocol) über WebSocket aus. Dies ist keine Medienübertragung - es ist die Aufbauphase. Bedrud leitet die Signalisierung über den API-Server an die eingebettete LiveKit-Instanz weiter.
 
-**2. ICE (Interactive Connectivity Establishment)** - Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework - it coordinates the connection attempts but is not a protocol itself.
+**2. ICE (Interactive Connectivity Establishment)** - Sammelt alle möglichen Verbindungspfade, sogenannte Kandidaten, und testet sie in Prioritätsreihenfolge. ICE ist ein Framework - es koordiniert die Verbindungsversuche, ist aber selbst kein Protokoll.
 
-**3. STUN (Session Traversal Utilities for NAT)** - Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
+**3. STUN (Session Traversal Utilities for NAT)** - Leichtgewichtiges Protokoll. Der Client sendet eine Binding-Anfrage an den STUN-Server, der mit der öffentlichen IP und dem Port des Clients antwortet. Dieser „Server-Reflexive"-Kandidat wird dann auf direkte Konnektivität getestet. Funktioniert bei ca. 80 % der Verbindungen.
 
-**4. TURN (Traversal Using Relays around NAT)** - When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost - server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
+**4. TURN (Traversal Using Relays around NAT)** - Wenn die direkte Konnektivität fehlschlägt, weist TURN eine Relay-Adresse auf dem Server zu. Alle Medienpakete werden über dieses Relay weitergeleitet. Höchste Kosten - die Serverbandbreite skaliert mit der Anzahl der Relay-Benutzer. Siehe den [TURN-Server-Leitfaden](turn-server.mdx) für ausführliche Informationen.
 
-**5. SFU (Selective Forwarding Unit)** - Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer - the server is always in the path.
+**5. SFU (Selective Forwarding Unit)** - Sobald der Transportpfad hergestellt ist, leitet die SFU von LiveKit Medien zwischen Teilnehmern weiter. Jeder Teilnehmer sendet einen Stream nach oben; die SFU leitet Kopien an andere Teilnehmer weiter. Dies ist kein Peer-to-Peer - der Server ist immer im Pfad.
 
 ---
 
-## ICE Candidate Gathering
+## ICE-Kandidatensammlung
 
 ```mermaid
 flowchart TD
@@ -98,21 +98,21 @@ flowchart TD
     TEST -->|"None work"| FAIL[Connection failed]
 ```
 
-ICE gathers three candidate types simultaneously:
+ICE sammelt gleichzeitig drei Kandidatentypen:
 
-| Type | Source | Priority | How it works |
-|------|--------|----------|-------------|
-| **host** | Local network interfaces | Highest | Direct IP from machine. Works on LAN. |
-| **srflx** (server reflexive) | STUN server response | Medium | Public IP discovered via STUN. Works for most NAT types. |
-| **relay** | TURN server allocation | Lowest | Address on TURN server. Always works. Highest cost. |
+| Typ | Quelle | Priorität | Funktionsweise |
+|-----|--------|-----------|----------------|
+| **host** | Lokale Netzwerkschnittstellen | Höchste | Direkte IP vom Rechner. Funktioniert im LAN. |
+| **srflx** (Server Reflexive) | STUN-Server-Antwort | Mittel | Öffentliche IP, ermittelt über STUN. Funktioniert bei den meisten NAT-Typen. |
+| **relay** | TURN-Server-Zuweisung | Niedrigste | Adresse auf dem TURN-Server. Funktioniert immer. Höchste Kosten. |
 
-ICE tests all candidates and selects the highest-priority pair that succeeds. If `srflx` works, it skips `relay`.
+ICE testet alle Kandidaten und wählt das Paar mit der höchsten Priorität, das erfolgreich ist. Wenn `srflx` funktioniert, wird `relay` übersprungen.
 
 ---
 
-## NAT Types & Connectivity
+## NAT-Typen und Konnektivität
 
-Different NAT types affect whether direct connectivity works:
+Unterschiedliche NAT-Typen beeinflussen, ob direkte Konnektivität funktioniert:
 
 ```mermaid
 flowchart LR
@@ -142,22 +142,22 @@ flowchart LR
 
 ```
 
-| NAT Type | Description | Direct P2P | Needs TURN |
-|----------|-------------|------------|-----------|
-| **Full Cone** | All requests from same internal IP/port map to same public IP/port. Any external host can send to it. | Yes | No |
-| **Restricted Cone** | Same mapping as Full Cone, but only external hosts that received a packet can send back. | Usually | No |
-| **Port Restricted Cone** | Similar to Restricted Cone, but the NAT also restricts the external port number. Most common home router type. | Usually | Rarely |
-| **Symmetric** | Different public IP/port mapping per destination. The STUN-discovered address cannot be reused. | No (when both symmetric) | **Yes** |
+| NAT-Typ | Beschreibung | Direktes P2P | TURN erforderlich |
+|---------|-------------|--------------|-------------------|
+| **Full Cone** | Alle Anfragen von derselben internen IP/Port werden auf dieselbe öffentliche IP/Port abgebildet. Jeder externe Host kann daran senden. | Ja | Nein |
+| **Restricted Cone** | Gleiche Abbildung wie Full Cone, aber nur externe Hosts, die ein Paket erhalten haben, können zurücksenden. | Meistens | Nein |
+| **Port Restricted Cone** | Ähnlich wie Restricted Cone, aber der NAT schränkt auch die externe Portnummer ein. Der häufigste Heimrouter-Typ. | Meistens | Selten |
+| **Symmetric** | Unterschiedliche öffentliche IP/Port-Abbildung pro Ziel. Die über STUN ermittelte Adresse kann nicht wiederverwendet werden. | Nein (wenn beide symmetrisch) | **Ja** |
 
-**Key insight:** Since the server has a public IP and predictable port range, most NAT types work directly. TURN is mainly needed when the client's firewall blocks outbound UDP entirely.
+**Wichtige Erkenntnis:** Da der Server eine öffentliche IP und einen vorhersagbaren Portbereich hat, funktionieren die meisten NAT-Typen direkt. TURN wird hauptsächlich benötigt, wenn die Firewall des Clients ausgehendes UDP vollständig blockiert.
 
 ---
 
-## Configuration Summary
+## Konfigurationsübersicht
 
-Which Bedrud/LiveKit config keys affect WebRTC connectivity:
+Welche Bedrud/LiveKit-Konfigurationsschlüssel die WebRTC-Konnektivität beeinflussen:
 
-**`livekit.yaml` keys:**
+**`livekit.yaml`-Schlüssel:**
 
 ```yaml
 rtc:
@@ -180,7 +180,7 @@ turn:
   external_tls: false           # L4 LB terminates TLS
 ```
 
-**`config.yaml` keys (Bedrud server):**
+**`config.yaml`-Schlüssel (Bedrud-Server):**
 
 ```yaml
 server:
@@ -189,23 +189,23 @@ server:
   domain: "meet.example.com"    # Public domain
 ```
 
-### Debugging Connectivity Issues
+### Fehlerbehebung bei Konnektivitätsproblemen
 
-| Symptom | Check |
-|---------|-------|
-| Can't connect at all | `rtc.use_external_ip: true`? Firewall open on 443 + UDP range? |
-| Connects but no audio/video | UDP 50000-60000 blocked? Check ICE candidates in browser. |
-| Slow connection | TURN relay active (check candidates). Expected if client behind strict NAT. |
-| Fails behind corporate network | TURN/TLS not configured. Set `turn.tls_port: 443` with valid cert. |
-| Works on LAN, fails remotely | Public IP not advertised. Set `rtc.use_external_ip: true`. |
+| Symptom | Prüfung |
+|---------|---------|
+| Überhaupt keine Verbindung möglich | `rtc.use_external_ip: true`? Firewall offen auf 443 + UDP-Bereich? |
+| Verbindet, aber kein Audio/Video | UDP 50000-60000 blockiert? ICE-Kandidaten im Browser prüfen. |
+| Langsame Verbindung | TURN-Relay aktiv (Kandidaten prüfen). Erwartet bei Client hinter striktem NAT. |
+| Scheitert in Unternehmensnetzwerken | TURN/TLS nicht konfiguriert. `turn.tls_port: 443` mit gültigem Zertifikat setzen. |
+| Funktioniert im LAN, nicht aus der Ferne | Öffentliche IP nicht angekündigt. `rtc.use_external_ip: true` setzen. |
 
-For deep TURN troubleshooting, see the [TURN Server Guide](/docs/architecture/turn-server).
+Für ausführliche TURN-Fehlerbehebung siehe den [TURN-Server-Leitfaden](/de/docs/architecture/turn-server).
 
 ---
 
-## See also
+## Siehe auch
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, debugging
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
+- [TURN-Server-Leitfaden](/de/docs/architecture/turn-server) - TURN-Architektur, Konfiguration, TLS, Fehlerbehebung
+- [LiveKit-Integration](/de/docs/backend/livekit) - wie Bedrud LiveKit einbettet
+- [Architekturübersicht](/de/docs/architecture/overview) - vollständige Systemarchitektur
+- [Internes TLS](/de/docs/guides/internal-tls) - TLS für isolierte Netzwerke

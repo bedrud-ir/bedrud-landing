@@ -682,4 +682,9 @@ export default {
       cta: "E-posta Gönder",
     },
   },
+  notFound: {
+    title: "Sayfa Bulunamadı",
+    description: "Aradığınız sayfa mevcut değil veya taşınmış.",
+    backToHome: "Ana Sayfaya Dön",
+  },
 };

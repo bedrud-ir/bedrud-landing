@@ -1,33 +1,33 @@
 ---
-title: Makefile Reference
-description: Build automation commands
+title: مرجع Makefile
+description: أوامر أتمتة البناء
 order: 31
 ---
 
-The root `Makefile` is the central build orchestration tool for the Bedrud monorepo. It provides commands for development, building, and deployment across all platforms.
+ملف `Makefile` الرئيسي هو أداة تنسيق البناء المركزية لمستودع Bedrud الأحادي. يوفر أوامر للتطوير والبناء والنشر عبر جميع المنصات.
 
-## Usage
+## الاستخدام
 
 ```bash
 make <target>
 make help       # Show all available targets
 ```
 
-## Development Targets
+## أهداف التطوير
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make init` | Install all dependencies (web + server) |
-| `make dev` | Run LiveKit + server + web concurrently |
-| `make dev-web` | Run frontend dev server only |
-| `make dev-server` | Run backend server only |
-| `make dev-livekit` | Run local LiveKit server |
-| `make dev-ios` | Open iOS project in Xcode |
-| `make dev-android` | Open Android project in Android Studio |
+| `make init` | تثبيت جميع التبعيات (الويب + الخادم) |
+| `make dev` | تشغيل LiveKit + الخادم + الويب بشكل متزامن |
+| `make dev-web` | تشغيل خادم تطوير الواجهة فقط |
+| `make dev-server` | تشغيل خادم الخلفية فقط |
+| `make dev-livekit` | تشغيل خادم LiveKit المحلي |
+| `make dev-ios` | فتح مشروع iOS في Xcode |
+| `make dev-android` | فتح مشروع Android في Android Studio |
 
 ### `make init`
 
-Installs dependencies for both the web frontend and Go server:
+يثبّت التبعيات لكل من واجهة الويب وخادم Go:
 
 ```bash
 cd apps/web && bun install
@@ -36,103 +36,103 @@ cd server && go mod tidy && go mod download
 
 ### `make dev`
 
-Starts all three development services concurrently. Press `Ctrl+C` to stop all:
+يُشغّل خدمات التطوير الثلاث بشكل متزامن. اضغط `Ctrl+C` لإيقاف الكل:
 
-- **LiveKit** at `localhost:7880`
-- **Server** at `localhost:8090`
-- **Web** at `localhost:3000`
+- **LiveKit** على `localhost:7880`
+- **الخادم** على `localhost:8090`
+- **الويب** على `localhost:3000`
 
-## Build Targets
+## أهداف البناء
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make build` | Build frontend + backend (embedded) |
-| `make build-front` | Build frontend only |
-| `make build-back` | Build backend only |
-| `make build-dist` | Build production linux/amd64 tarball |
+| `make build` | بناء الواجهة + الخلفية (مضمنة) |
+| `make build-front` | بناء الواجهة فقط |
+| `make build-back` | بناء الخلفية فقط |
+| `make build-dist` | بناء أرشيف إنتاج linux/amd64 |
 
 ### `make build`
 
-Full production build:
+بناء إنتاجي كامل:
 
-1. Runs `bun run build:embed` - SSR pre-renders the React app and copies assets to `server/frontend/`
-2. Builds the Go binary with the embedded frontend
+١. يُشغّل `bun run build:embed` - يجري SSR للعرض المسبق لتطبيق React وينسخ الأصول إلى `server/frontend/`
+٢. يبني الملف الثنائي Go مع الواجهة المضمنة
 
-Output: `server/dist/bedrud`
+المخرجات: `server/dist/bedrud`
 
 ### `make build-dist`
 
-Creates a compressed, production-ready distribution:
+ينشئ توزيعة إنتاجية مضغوطة:
 
-1. Runs `make build`
-2. Cross-compiles for `linux/amd64` with stripped debug symbols
-3. Creates `dist/bedrud_linux_amd64.tar.xz`
+١. يُشغّل `make build`
+٢. يُترجم تصادريًا لـ `linux/amd64` مع إزالة رموز التنقيح
+٣. ينشئ `dist/bedrud_linux_amd64.tar.xz`
 
-## Android Targets
+## أهداف Android
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make build-android-debug` | Build debug APK |
-| `make build-android` | Build release APK (requires keystore) |
-| `make install-android` | Install release APK on connected device |
-| `make release-android` | Build + install release APK |
+| `make build-android-debug` | بناء APK تصحيح |
+| `make build-android` | بناء APK إصدار (يتطلب مخزن مفاتيح) |
+| `make install-android` | تثبيت APK الإصدار على الجهاز المتصل |
+| `make release-android` | بناء + تثبيت APK الإصدار |
 
-### APK Output Paths
+### مسارات مخرجات APK
 
-- Debug: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
-- Release: `apps/android/app/build/outputs/apk/release/app-release.apk`
+- التصحيح: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
+- الإصدار: `apps/android/app/build/outputs/apk/release/app-release.apk`
 
-## iOS Targets
+## أهداف iOS
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make build-ios` | Build iOS archive (Release) |
-| `make export-ios` | Export IPA from archive |
-| `make build-ios-sim` | Build for iOS Simulator (Debug) |
+| `make build-ios` | بناء أرشيف iOS (إصدار) |
+| `make export-ios` | تصدير IPA من الأرشيف |
+| `make build-ios-sim` | بناء لمحاكي iOS (تصحيح) |
 
-### Output Paths
+### مسارات المخرجات
 
-- Archive: `apps/ios/build/Bedrud.xcarchive`
+- الأرشيف: `apps/ios/build/Bedrud.xcarchive`
 - IPA: `apps/ios/build/export/Bedrud.ipa`
 
-## Deploy Target
+## هدف النشر
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make deploy ARGS=...` | Run the deployment CLI tool |
+| `make deploy ARGS=...` | تشغيل أداة نشر CLI |
 
-### Example
+### مثال
 
 ```bash
 make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.com"
 ```
 
-This runs the Python CLI at `tools/cli/bedrud.py` with the provided arguments.
+يُشغّ هذا أداة CLI في Python عند `tools/cli/bedrud.py` بالمعطيات المقدمة.
 
-## Clean Targets
+## أهداف التنظيف
 
-| Target | Description |
+| الهدف | الوصف |
 |--------|-------------|
-| `make clean` | Remove build artifacts and compiled binaries |
-| `make full-clean` | Remove artifacts + all installed dependencies |
+| `make clean` | إزالة مُنتَجات البناء والملفات الثنائية المُترجمة |
+| `make full-clean` | إزالة المُنتَجات + جميع التبعيات المثبتة |
 
 ### `make clean`
 
-Removes:
+يزيل:
 
-- `dist/` - distribution tarballs
-- `server/dist/` - compiled server binary
-- `apps/web/dist/` - React build output
-- `server/frontend/` contents - embedded frontend assets
-- `apps/android/app/build/` - Android build outputs
-- `apps/ios/build/` - iOS build outputs
+- `dist/` - أرشيفات التوزيعة
+- `server/dist/` - الملف الثنائي المُترجم للخادم
+- `apps/web/dist/` - مخرجات بناء React
+- محتويات `server/frontend/` - أصول الواجهة المضمنة
+- `apps/android/app/build/` - مخرجات بناء Android
+- `apps/ios/build/` - مخرجات بناء iOS
 
 ### `make full-clean`
 
-Everything `clean` does, plus:
+كل ما يفعله `clean`، بالإضافة إلى:
 
 - `apps/web/node_modules/`
 - `apps/android/.gradle/`
-- Go module cache (`go clean -modcache`)
+- ذاكرة تخزين وحدات Go (`go clean -modcache`)
 
-Run `make init` afterwards to reinstall dependencies.
+شغّل `make init` بعدها لإعادة تثبيت التبعيات.

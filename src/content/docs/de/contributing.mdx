@@ -1,30 +1,30 @@
 ---
-title: Contributing
-description: How to contribute to Bedrud
+title: Mitwirken
+description: Wie Sie an Bedrud mitwirken können
 order: 34
 ---
 
-Contributions to Bedrud are welcome. This guide covers the process for submitting changes.
+Beiträge zu Bedrud sind herzlich willkommen. Dieser Leitfaden beschreibt den Prozess zur Einreichung von Änderungen.
 
-> **Note:** The canonical contributing guide is at the repository root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). This page is archived for reference only.
+> **Hinweis:** Der maßgebliche Leitfaden zum Mitwirken befindet sich im Repository-Root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). Diese Seite dient lediglich als Referenz.
 
-## Getting Started
+## Erste Schritte
 
-1. Fork the repository
-2. Clone your fork
-3. Create a feature branch from `main`
-4. Make your changes
-5. Submit a pull request
+1. Fork des Repository erstellen
+2. Ihren Fork klonen
+3. Einen Feature-Branch von `main` erstellen
+4. Änderungen vornehmen
+5. Pull Request einreichen
 
-## Prerequisites
+## Voraussetzungen
 
 - Go 1.22+
-- Bun (for web frontend)
-- Rust (for desktop app)
+- Bun (für das Web-Frontend)
+- Rust (für die Desktop-App)
 - Make
 - Git
 
-## Development Setup
+## Entwicklungseinrichtung
 
 ```bash
 # After forking on GitHub, clone your fork
@@ -34,75 +34,75 @@ make init
 make dev
 ```
 
-See the [Development Workflow](/en/docs/guides/development) for detailed setup instructions.
+Detaillierte Einrichtungsanweisungen finden Sie unter [Entwicklungs-Workflow](/de/docs/guides/development).
 
-## Project Structure
+## Projektstruktur
 
-| Directory       | Language         | Description                      |
+| Verzeichnis     | Sprache          | Beschreibung                     |
 |-----------------|------------------|----------------------------------|
-| `server/`       | Go               | Backend API and embedded LiveKit |
-| `apps/web/`     | TypeScript/React | Web frontend                     |
-| `apps/desktop/` | Rust + Slint     | Desktop app                      |
-| `apps/android/` | Kotlin           | Android app                      |
-| `apps/ios/`     | Swift            | iOS app                          |
-| `agents/`       | Python           | Bot agents                       |
-| `packages/`     | TypeScript       | Shared type definitions          |
-| `tools/cli/`    | Python           | Deployment CLI                   |
-| `docs/`         | Markdown         | Documentation                    |
+| `server/`       | Go               | Backend-API und eingebettetes LiveKit |
+| `apps/web/`     | TypeScript/React | Web-Frontend                     |
+| `apps/desktop/` | Rust + Slint     | Desktop-App                      |
+| `apps/android/` | Kotlin           | Android-App                      |
+| `apps/ios/`     | Swift            | iOS-App                          |
+| `agents/`       | Python           | Bot-Agenten                      |
+| `packages/`     | TypeScript       | Gemeinsame Typdefinitionen       |
+| `tools/cli/`    | Python           | Deployment-CLI                   |
+| `docs/`         | Markdown         | Dokumentation                    |
 
-## Code Style
+## Code-Stil
 
-| Language         | Standard                |
-|------------------|-------------------------|
-| Go               | `gofmt`                 |
-| TypeScript/React | Biome                   |
-| Kotlin           | Android Studio defaults |
-| Swift            | Xcode defaults          |
-| Python           | ruff                    |
+| Sprache          | Standard                 |
+|------------------|--------------------------|
+| Go               | `gofmt`                  |
+| TypeScript/React | Biome                    |
+| Kotlin           | Android Studio-Standards |
+| Swift            | Xcode-Standards          |
+| Python           | ruff                     |
 
-## Pull Request Process
+## Pull-Request-Prozess
 
-1. **Branch naming:** `feature/description`, `fix/description`, or `docs/description`
-2. **Commit messages:** `<action> <what> for <why>` (e.g., `add user model for auth feature`, `fix login redirect for expired sessions`)
-3. **CI checks:** All GitHub Actions checks must pass
-4. **Description:** Include what changed and why
+1. **Branch-Namensgebung:** `feature/beschreibung`, `fix/beschreibung` oder `docs/beschreibung`
+2. **Commit-Nachrichten:** `<aktion> <was> für <warum>` (z. B. `add user model for auth feature`, `fix login redirect for expired sessions`)
+3. **CI-Prüfungen:** Alle GitHub Actions-Prüfungen müssen bestanden werden
+4. **Beschreibung:** Beschreiben Sie, was sich geändert hat und warum
 
-### CI Checks
+### CI-Prüfungen
 
-Every PR runs these checks automatically:
+Jeder PR führt automatisch folgende Prüfungen durch:
 
-| Check   | What it validates            |
-|---------|------------------------------|
-| Server  | `go vet`, build, tests       |
-| Web     | TypeScript type check, build |
-| Android | Lint, unit tests             |
-| iOS     | Build, test (simulator)      |
+| Prüfung  | Was validiert wird            |
+|----------|-------------------------------|
+| Server   | `go vet`, Build, Tests        |
+| Web      | TypeScript-Typprüfung, Build  |
+| Android  | Lint, Unit-Tests              |
+| iOS      | Build, Test (Simulator)       |
 
-## Reporting Issues
+## Probleme melden
 
-File issues on [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) with:
+Melden Sie Probleme auf [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) mit folgenden Angaben:
 
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, browser, app version)
+- Schritte zur Reproduktion
+- Erwartetes vs. tatsächliches Verhalten
+- Umgebungsdetails (Betriebssystem, Browser, App-Version)
 
-## Documentation
+## Dokumentation
 
-Documentation lives in `docs/` and is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+Die Dokumentation befindet sich in `docs/` und wird mit [MkDocs Material](https://squidfunk.github.io/mkdocs-material/) erstellt.
 
-### Local Preview
+### Lokale Vorschau
 
 ```bash
 pip install mkdocs-material
 mkdocs serve
 ```
 
-Then open `http://localhost:8000` in your browser.
+Öffnen Sie dann `http://localhost:8000` in Ihrem Browser.
 
-### Structure
+### Struktur
 
-Documentation pages are organized by topic. The navigation is defined in `mkdocs.yml` at the project root.
+Dokumentationsseiten sind nach Themen organisiert. Die Navigation wird in `mkdocs.yml` im Projekt-Root definiert.
 
-## License
+## Lizenz
 
-By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).
+Durch Ihren Beitrag stimmen Sie zu, dass Ihre Beiträge unter der [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE) lizenziert werden.

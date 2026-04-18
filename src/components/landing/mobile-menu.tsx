@@ -98,7 +98,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
       <button
         type="button"
         aria-label="Close menu"
-        className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+        className="mobile-menu-backdrop absolute inset-0 bg-background/80 motion-safe:backdrop-blur-sm"
         onClick={backdropClickHandler}
       />
 
@@ -108,7 +108,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className="absolute inset-y-0 start-0 flex w-full max-w-sm flex-col bg-background shadow-xl"
+        className="mobile-menu-panel absolute inset-y-0 start-0 flex w-full max-w-sm flex-col bg-background shadow-xl"
       >
         <div className="flex h-full flex-col px-6 py-4">
           {/* Header */}

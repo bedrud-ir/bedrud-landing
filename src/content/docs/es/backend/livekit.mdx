@@ -1,21 +1,21 @@
 ---
-title: LiveKit Integration
-description: WebRTC media server integration
+title: Integración con LiveKit
+description: Integración del servidor de medios WebRTC
 order: 20
 ---
 
-Bedrud uses **LiveKit** to handle real-time video and audio communication. LiveKit provides the SFU (Selective Forwarding Unit) media server, and Bedrud handles authentication, room management, and admin controls.
+Bedrud utiliza **LiveKit** para manejar la comunicación de video y audio en tiempo real. LiveKit proporciona el servidor de medios SFU (Selective Forwarding Unit), y Bedrud maneja la autenticación, la gestión de salas y los controles de administrador.
 
-## Embedded vs. External
+## Modo Incrustado vs. Externo
 
-Bedrud supports two LiveKit deployment modes:
+Bedrud admite dos modos de despliegue de LiveKit:
 
-1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required - the backend handles the LiveKit process lifecycle.
-2.  **External Mode:** Bedrud connects to a separate LiveKit server or cluster. This is useful for horizontal scaling or when using a managed LiveKit Cloud instance.
+1.  **Modo Incrustado (Predeterminado):** El backend inicia y gestiona un proceso del servidor LiveKit internamente. No se requiere infraestructura adicional: el backend maneja el ciclo de vida del proceso LiveKit.
+2.  **Modo Externo:** Bedrud se conecta a un servidor o clúster de LiveKit separado. Esto es útil para escalabilidad horizontal o al usar una instancia administrada de LiveKit Cloud.
 
-### Configuring External Mode
+### Configuración del Modo Externo
 
-To use an external LiveKit server, set the following keys in `config.yaml`:
+Para usar un servidor LiveKit externo, establece las siguientes claves en `config.yaml`:
 
 ```yaml
 livekit:
@@ -25,73 +25,73 @@ livekit:
   embedded: false
 ```
 
-When `embedded` is `false`, Bedrud skips starting the embedded LiveKit binary. The API key and secret must match the external server's credentials.
+Cuando `embedded` es `false`, Bedrud omite iniciar el binario LiveKit incrustado. La clave de API y el secreto deben coincidir con las credenciales del servidor externo.
 
-For LiveKit cluster setup and configuration, refer to the [LiveKit documentation](https://docs.livekit.io).
+Para la configuración y configuración del clúster de LiveKit, consulta la [documentación de LiveKit](https://docs.livekit.io).
 
-## How It Works
+## Cómo Funciona
 
-### 1. Room Creation
+### 1. Creación de Sala
 
-When a user creates a room in Bedrud, the server does not create a LiveKit room immediately. LiveKit rooms are created on demand when the first participant joins.
+Cuando un usuario crea una sala en Bedrud, el servidor no crea una sala de LiveKit inmediatamente. Las salas de LiveKit se crean bajo demanda cuando se une el primer participante.
 
-### 2. Join Tokens
+### 2. Tokens de Unión
 
-When a user joins a meeting:
+Cuando un usuario se une a una reunión:
 
-1.  The frontend sends a request to `/api/room/join`.
-2.  The backend verifies the user has permission to join that room.
-3.  The backend uses its API Key and Secret to generate a signed JWT (Join Token).
-4.  The token contains:
+1.  El frontend envía una solicitud a `/api/room/join`.
+2.  El backend verifica que el usuario tiene permiso para unirse a esa sala.
+3.  El backend usa su clave de API y secreto para generar un JWT firmado (Join Token).
+4.  El token contiene:
 
-    - The room name.
-    - The user's identity (display name).
-    - Permissions - for example, whether the user can publish audio or share their screen.
-5.  The frontend receives this token and connects directly to the LiveKit media port (default `7880`).
+    - El nombre de la sala.
+    - La identidad del usuario (nombre para mostrar).
+    - Permisos: por ejemplo, si el usuario puede publicar audio o compartir su pantalla.
+5.  El frontend recibe este token y se conecta directamente al puerto de medios de LiveKit (predeterminado `7880`).
 
-### 3. Room Controls (Admin)
+### 3. Controles de Sala (Admin)
 
-The backend uses the LiveKit Go SDK to perform administrative actions:
+El backend usa el Go SDK de LiveKit para realizar acciones administrativas:
 
-- **Kick:** Disconnects a participant.
-- **Mute:** Force-mutes a participant's microphone.
-- **Permissions:** Changes what a participant can do in real-time.
+- **Expulsar:** Desconecta a un participante.
+- **Silenciar:** Silencia a la fuerza el micrófono de un participante.
+- **Permisos:** Cambia lo que un participante puede hacer en tiempo real.
 
-## Network Architecture
+## Arquitectura de Red
 
-- **API Port (8090/443):** Handles HTTP requests and WebSocket signaling for call setup.
-- **Media Port (7880):** Handles video and audio data using WebRTC protocols. ICE/TCP fallback uses port 7881 when UDP is blocked.
-- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/docs/architecture/turn-server).
+- **Puerto API (8090/443):** Maneja solicitudes HTTP y señalización WebSocket para la configuración de llamadas.
+- **Puerto de Medios (7880):** Maneja datos de video y audio usando protocolos WebRTC. La alternativa ICE/TCP usa el puerto 7881 cuando UDP está bloqueado.
+- **Puerto TURN (3478 UDP / 5349 TLS):** Retransmite medios para clientes detrás de NAT restrictivos o firewalls. Consulta la [Guía del Servidor TURN](/es/docs/architecture/turn-server).
 
-For firewall and port requirements, see [WebRTC Connectivity](/docs/architecture/webrtc-connectivity).
+Para los requisitos de firewall y puertos, consulta [Conectividad WebRTC](/es/docs/architecture/webrtc-connectivity).
 
-## Error Handling
+## Manejo de Errores
 
-### LiveKit Unreachable
+### LiveKit Inalcanzable
 
-If the LiveKit server is unreachable, token generation may still succeed (tokens are created locally using the API key and secret). However, the client will fail to connect to the media server. Symptoms:
+Si el servidor LiveKit es inalcanzable, la generación de tokens aún puede tener éxito (los tokens se crean localmente usando la clave de API y el secreto). Sin embargo, el cliente fallará al conectarse al servidor de medios. Síntomas:
 
-- Client receives a valid join token but the WebRTC connection times out.
-- LiveKit SDK emits a `Reconnecting` event or connection error.
+- El cliente recibe un token de unión válido pero la conexión WebRTC se agota.
+- El SDK de LiveKit emite un evento `Reconnecting` o un error de conexión.
 
-**Check:** Verify the LiveKit server is running (`systemctl status livekit`) and the host/port in `config.yaml` is correct.
+**Verificar:** Verifica que el servidor LiveKit esté en ejecución (`systemctl status livekit`) y que el host/puerto en `config.yaml` sea correcto.
 
-### Embedded LiveKit Process Crashes
+### Bloques del Proceso LiveKit Incrustado
 
-In embedded mode, if the LiveKit child process crashes:
+En modo incrustado, si el proceso secundario de LiveKit falla:
 
-- The Bedrud API server continues to run (rooms can be listed, users can log in).
-- Active meetings lose media connectivity.
-- New join requests will generate tokens, but clients cannot connect.
+- El servidor API de Bedrud continúa ejecutándose (se pueden listar salas, los usuarios pueden iniciar sesión).
+- Las reuniones activas pierden la conectividad de medios.
+- Las nuevas solicitudes de unión generarán tokens, pero los clientes no podrán conectarse.
 
-**Check:** Inspect logs at `/var/log/bedrud/bedrud.log` or run `journalctl -u livekit -f` for crash details.
+**Verificar:** Inspecciona los registros en `/var/log/bedrud/bedrud.log` o ejecuta `journalctl -u livekit -f` para obtener detalles del bloqueo.
 
-### Token Expiration
+### Expiración de Tokens
 
-LiveKit join tokens have a short validity window. If a client waits too long between receiving the token and connecting, the token will expire. The client must request a new token via `/api/room/join`.
+Los tokens de unión de LiveKit tienen una ventana de validez corta. Si un cliente espera demasiado tiempo entre recibir el token y conectarse, el token expirará. El cliente debe solicitar un nuevo token a través de `/api/room/join`.
 
-## See also
+## Ver también
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [Guía del Servidor TURN](/es/docs/architecture/turn-server) - arquitectura TURN, configuración, TLS y solución de problemas
+- [Conectividad WebRTC](/es/docs/architecture/webrtc-connectivity) - pila completa de conectividad STUN/ICE/TURN/SFU
+- [Descripción General de la Arquitectura](/es/docs/architecture/overview) - arquitectura completa del sistema

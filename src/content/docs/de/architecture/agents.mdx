@@ -1,22 +1,22 @@
 ---
-title: Bot Agents
-description: Python bots for streaming content
+title: Bot-Agenten
+description: Python-Bots zum Streamen von Inhalten
 order: 12
 ---
 
-Bedrud includes Python-based bot agents that can join meeting rooms and stream media content. These are useful for background music, radio streams, or sharing video content.
+Bedrud enthält Python-basierte Bot-Agenten, die Meeting-Räumen beitreten und Medieninhalte streamen können. Diese sind nützlich für Hintergrundmusik, Radiostreams oder die Freigabe von Videoinhalten.
 
-## Available Agents
+## Verfügbare Agenten
 
-| Agent | Description | Media Type |
+| Agent | Beschreibung | Medientyp |
 |-------|-------------|-----------|
-| `music_agent` | Plays audio files into a room | Audio (PCM) |
-| `radio_agent` | Streams internet radio stations | Audio (PCM via FFmpeg) |
-| `video_stream_agent` | Shares video content (HLS, MP4) | Video + Audio |
+| `music_agent` | Spielt Audiodateien in einem Raum ab | Audio (PCM) |
+| `radio_agent` | Streamt Internet-Radiosender | Audio (PCM über FFmpeg) |
+| `video_stream_agent` | Teilt Videoinhalte (HLS, MP4) | Video + Audio |
 
-## How Agents Work
+## Wie Agenten funktionieren
 
-All agents follow the same connection pattern:
+Alle Agenten folgen demselben Verbindungsmuster:
 
 ```
 1. Parse meeting URL ──► Extract room name
@@ -41,109 +41,109 @@ All agents follow the same connection pattern:
 
 ## Music Agent
 
-Plays audio files (MP3, WAV, etc.) into a meeting room.
+Spielt Audiodateien (MP3, WAV usw.) in einem Meeting-Raum ab.
 
-### Setup
+### Einrichtung
 
 ```bash
 cd agents/music_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`, `pydub`
+**Abhängigkeiten:** `httpx`, `livekit`, `pydub`
 
-### Usage
+### Verwendung
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### Funktionsweise
 
-1. Decodes audio files using `pydub`
-2. Converts to PCM frames
-3. Publishes audio frames to LiveKit as a microphone track
+1. Dekodiert Audiodateien mit `pydub`
+2. Konvertiert zu PCM-Frames
+3. Veröffentlicht Audio-Frames als Mikrofon-Track in LiveKit
 
-> See [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) for setup and usage instructions.
+> Siehe [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) für Einrichtungs- und Verwendungsanweisungen.
 
 ---
 
 ## Radio Agent
 
-Streams internet radio stations into a meeting room using FFmpeg for audio decoding.
+Streamt Internet-Radiosender in einen Meeting-Raum unter Verwendung von FFmpeg zur Audiodekodierung.
 
-### Setup
+### Einrichtung
 
 ```bash
 cd agents/radio_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`
+**Abhängigkeiten:** `httpx`, `livekit`
 
-**System requirement:** FFmpeg must be installed (`brew install ffmpeg` or `apt install ffmpeg`)
+**Systemanforderung:** FFmpeg muss installiert sein (`brew install ffmpeg` oder `apt install ffmpeg`)
 
-### Usage
+### Verwendung
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### Funktionsweise
 
-1. Connects to a radio stream URL
-2. Pipes the stream through FFmpeg to decode to raw PCM
-3. Publishes PCM audio frames to LiveKit
+1. Verbindet sich mit einer Radio-Stream-URL
+2. Leitet den Stream durch FFmpeg zur Dekodierung in rohes PCM
+3. Veröffentlicht PCM-Audio-Frames in LiveKit
 
-> See [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) for setup and usage instructions.
+> Siehe [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) für Einrichtungs- und Verwendungsanweisungen.
 
 ---
 
 ## Video Stream Agent
 
-Shares video and audio from a URL (HLS/m3u8, MP4) into a meeting room.
+Teilt Video und Audio von einer URL (HLS/m3u8, MP4) in einem Meeting-Raum.
 
-### Setup
+### Einrichtung
 
 ```bash
 cd agents/video_stream_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`
+**Abhängigkeiten:** `httpx`, `livekit`
 
-**System requirement:** FFmpeg must be installed
+**Systemanforderung:** FFmpeg muss installiert sein
 
-### Usage
+### Verwendung
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### Funktionsweise
 
-1. Runs two FFmpeg processes in parallel:
-    - **Video:** Decodes to YUV420p raw frames (1280x720 @ 30fps)
-    - **Audio:** Decodes to PCM samples
-2. Publishes video as a screen share track
-3. Publishes audio as a microphone track
+1. Führt zwei FFmpeg-Prozesse parallel aus:
+    - **Video:** Dekodiert zu YUV420p-Rohframes (1280x720 @ 30fps)
+    - **Audio:** Dekodiert zu PCM-Samples
+2. Veröffentlicht Video als Bildschirmfreigabe-Track
+3. Veröffentlicht Audio als Mikrofon-Track
 
-> See [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) for setup and usage instructions.
+> Siehe [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) für Einrichtungs- und Verwendungsanweisungen.
 
-### Video Specifications
+### Videospezifikationen
 
-| Setting | Value |
-|---------|-------|
-| Width | 1280 |
-| Height | 720 |
+| Einstellung | Wert |
+|------------|------|
+| Breite | 1280 |
+| Höhe | 720 |
 | FPS | 30 |
-| Pixel Format | YUV420p |
+| Pixelformat | YUV420p |
 
 ---
 
-## Writing a Custom Agent
+## Einen eigenen Agenten schreiben
 
-To create a new agent, follow this pattern:
+Um einen neuen Agenten zu erstellen, folgen Sie diesem Muster:
 
 ```python
 import httpx
@@ -179,8 +179,8 @@ while has_data:
 
 ---
 
-## See also
+## Siehe auch
 
-- [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) - setup and usage
-- [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) - setup and usage
-- [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) - setup and usage
+- [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) - Einrichtung und Verwendung
+- [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) - Einrichtung und Verwendung
+- [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) - Einrichtung und Verwendung

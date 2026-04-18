@@ -1,14 +1,14 @@
 ---
-title: Internal TLS
-description: Self-signed certificates for internal networks
+title: TLS Interno
+description: Certificados autofirmados para redes internas
 order: 30
 ---
 
-For isolated networks - no public domain, no outbound internet, restricted connectivity.
+Para redes aisladas - sin dominio público, sin internet saliente, conectividad restringida.
 
-Browsers require trusted HTTPS for camera/mic via WebRTC. Self-signed certs work but show warnings. For a clean setup, generate a private CA and distribute it to clients.
+Los navegadores requieren HTTPS confiable para cámara/micrófono vía WebRTC. Los certificados autofirmados funcionan pero muestran advertencias. Para una configuración limpia, genere una CA privada y distribúyala a los clientes.
 
-## Generate Private CA and Server Certificate
+## Generar CA Privada y Certificado del Servidor
 
 ```bash
 openssl genrsa -out ca.key 4096
@@ -17,21 +17,21 @@ openssl req -new -x509 -days 3650 -key ca.key -out ca.crt \
 
 openssl genrsa -out server.key 2048
 openssl req -new -key server.key -out server.csr \
-  -subj "/CN=<your-server-ip-or-hostname>"
+  -subj "/CN=<su-ip-o-hostname-del-servidor>"
 openssl x509 -req -days 365 -in server.csr \
   -CA ca.crt -CAkey ca.key -CAcreateserial -out server.crt
 
-sudo ./bedrud install --tls --cert server.crt --key server.key --ip YOUR_SERVER_IP
+sudo ./bedrud install --tls --cert server.crt --key server.key --ip SU_IP_DEL_SERVIDOR
 ```
 
-## Add CA to Client Trust Stores
+## Agregar CA a Almacenes de Confianza del Cliente
 
-Distribute `ca.crt` to all client machines:
+Distribuya `ca.crt` a todas las máquinas cliente:
 
 ### Windows
 
 ```powershell
-certmgr.msc  # Right-click ca.crt → Install Certificate → Trusted Root CAs
+certmgr.msc  # Clic derecho en ca.crt → Instalar Certificado → CAs Raíz de Confianza
 ```
 
 ### macOS
@@ -55,19 +55,19 @@ sudo cp ca.crt /etc/pki/ca-trust/source/anchors/bedrud-ca.crt
 sudo update-ca-trust
 ```
 
-Restart browsers, then open `https://YOUR_SERVER_IP` (replace with the server's actual IP address, e.g. `192.168.1.100`). After restarting, the certificate will be trusted and camera/microphone access will work without warnings.
+Reinicie los navegadores, luego abra `https://SU_IP_DEL_SERVIDOR` (reemplace con la dirección IP real del servidor, por ejemplo, `192.168.1.100`). Después de reiniciar, el certificado será confiable y el acceso a cámara/micrófono funcionará sin advertencias.
 
-## Troubleshooting
+## Solución de Problemas
 
-| Problem | Fix |
+| Problema | Solución |
 |---------|-----|
-| Browser still warns certificate untrusted | Clear browser cache, restart browser after CA install |
-| Camera/mic blocked | Verify CA is in Trusted Root CAs, not intermediate |
-| Certificate expired | Regenerate with longer `-days` value |
-| CN mismatch | Ensure server certificate CN matches IP or hostname in URL |
+| El navegador aún advierte certificado no confiable | Limpiar el caché del navegador, reiniciar el navegador después de instalar la CA |
+| Cámara/micrófono bloqueado | Verifique que la CA esté en CAs Raíz de Confianza, no intermedios |
+| Certificado expirado | Regenerar con un valor `-days` más largo |
+| Desajuste de CN | Asegúrese de que el CN del certificado del servidor coincida con la IP o el hostname en la URL |
 
 ---
 
-## See also
-- [Installation Guide](/docs/getting-started/installation) - install methods
-- [Configuration Reference](/docs/getting-started/configuration) - full config options
+## Véase también
+- [Guía de Instalación](/es/docs/getting-started/installation) - métodos de instalación
+- [Referencia de Configuración](/es/docs/getting-started/configuration) - opciones completas de configuración

@@ -1,12 +1,12 @@
 ---
-title: Docker Guide
-description: Run Bedrud with Docker
+title: دليل Docker
+description: تشغيل Bedrud باستخدام Docker
 order: 29
 ---
 
-Bedrud provides a multi-stage Dockerfile for building and running in containers.
+يوفر Bedrud ملف Dockerfile متعدد المراحل للبناء والتشغيل في حاويات.
 
-## Quick Start
+## البدء السريع
 
 ```bash
 # Build
@@ -20,11 +20,11 @@ docker run -d --name bedrud \
   bedrud
 ```
 
-## Dockerfile Overview
+## نظرة عامة على Dockerfile
 
-The Dockerfile uses three stages to minimize the final image size:
+يستخدم Dockerfile ثلاث مراحل لتقليل حجم الصورة النهائية:
 
-### Stage 1: Frontend Build
+### المرحلة ١: بناء الواجهة
 
 ```dockerfile
 FROM node:22-alpine AS frontend
@@ -36,9 +36,9 @@ COPY apps/web/ ./
 RUN bun run build:embed
 ```
 
-Installs Bun, SSR pre-renders the React app, and copies assets to `server/frontend/`.
+يثبّت Bun، ويُجري SSR للعرض المسبق لتطبيق React، وينسخ الأصول إلى `server/frontend/`.
 
-### Stage 2: Server Build
+### المرحلة ٢: بناء الخادم
 
 ```dockerfile
 FROM golang:1.24-alpine AS backend
@@ -52,9 +52,9 @@ RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /bedrud ./cmd/bedrud/m
 # CGO is required for SQLite (uses C bindings)
 ```
 
-Compiles the Go binary with the frontend embedded. CGO is enabled for SQLite support.
+يُترجم الملف الثنائي Go مع تضمين الواجهة. CGO مُفعَّل لدعم SQLite.
 
-### Stage 3: Runtime
+### المرحلة ٣: التشغيل
 
 ```dockerfile
 FROM alpine:3.21
@@ -65,21 +65,21 @@ ENTRYPOINT ["bedrud"]
 CMD ["run"]
 ```
 
-Minimal Alpine image with just the binary, CA certificates, and timezone data.
+صورة Alpine مصغّرة تحتوي فقط على الملف الثنائي وشهادات CA وبيانات المناطق الزمنية.
 
-## Ports
+## المنافذ
 
-| Port | Service | Protocol |
+| المنفذ | الخدمة | البروتوكول |
 |------|---------|----------|
-| 8090 | API + Web UI | HTTP |
+| 8090 | API + واجهة الويب | HTTP |
 | 7880 | LiveKit | WebSocket + HTTP |
-| 50000-60000 | RTC media | UDP |
+| 50000-60000 | وسائط RTC | UDP |
 
-For LiveKit media streams, you may also need to expose the RTC UDP port range (default: 50000-60000).
+لتدفقات وسائط LiveKit، قد تحتاج أيضًا إلى كشف نطاق منافذ RTC UDP (الافتراضي: 50000-60000).
 
-## Volumes
+## الأقراص
 
-Mount a volume for persistent data:
+وصِّل قرصًا للبيانات المستمرة:
 
 ```bash
 docker run -d \
@@ -90,9 +90,9 @@ docker run -d \
   bedrud
 ```
 
-## Configuration
+## الإعدادات
 
-Pass a custom configuration file:
+مرر ملف إعدادات مخصص:
 
 ```bash
 docker run -d \
@@ -104,7 +104,7 @@ docker run -d \
   bedrud run --config /etc/bedrud/config.yaml
 ```
 
-Or use environment variables:
+أو استخدم متغيرات البيئة:
 
 ```bash
 docker run -d \
@@ -117,9 +117,9 @@ docker run -d \
   bedrud
 ```
 
-## Pre-built Images
+## الصور المبنية مسبقًا
 
-Docker images are published to GitHub Container Registry on every release:
+تُنشر صور Docker إلى GitHub Container Registry مع كل إصدار:
 
 ```bash
 # Latest release
@@ -129,7 +129,7 @@ docker pull ghcr.io/bedrud-ir/bedrud:latest
 docker pull ghcr.io/bedrud-ir/bedrud:v1.0.0
 ```
 
-## Docker Compose Example
+## مثال Docker Compose
 
 ```yaml
 services:
@@ -151,7 +151,7 @@ volumes:
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Configuration Reference](/docs/getting-started/configuration) - full config options and environment variables
-- [Deployment Guide](/docs/guides/deployment) - production deployment with Docker
+- [مرجع الإعدادات](/docs/getting-started/configuration) - جميع خيارات الإعداد ومتغيرات البيئة
+- [دليل النشر](/docs/guides/deployment) - النشر في الإنتاج باستخدام Docker

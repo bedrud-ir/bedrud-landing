@@ -1,49 +1,49 @@
 ---
-title: Backend Documentation
-description: Overview of the Bedrud backend system architecture
+title: Documentación del Backend
+description: Resumen de la arquitectura del sistema backend de Bedrud
 order: 15
 ---
 
-## Introduction
-The Bedrud backend is a single-binary meeting platform written in **Go 1.24+**. All dependencies - media server, web frontend, TURN server - are embedded in one executable.
+## Introducción
+El backend de Bedrud es una plataforma de reuniones de un solo binario escrita en **Go 1.24+**. Todas las dependencias - servidor de medios, frontend web, servidor TURN - están incrustadas en un solo ejecutable.
 
-### Key Technologies
-- **Core Framework:** [Fiber v2](https://gofiber.io/) (Zero allocation router, Express-like API).
-- **Database Layer:** [GORM](https://gorm.io/) with support for **SQLite** (standard) and **PostgreSQL** (production).
-- **Media Engine:** [LiveKit](https://livekit.io/) (Embedded as a sibling binary).
-- **Auth System:** Multi-layered auth supporting JWT, OAuth2 (Google/GitHub/Twitter), and passwordless FIDO2 Passkeys.
-- **Embedded Static Assets:** Uses Go 1.16+ `embed` package to bundle the React frontend (SSR pre-rendered client assets).
-- **Deployment:** Integrated Debian/Ubuntu auto-installer with systemd orchestration and ACME (Let's Encrypt) support.
+### Tecnologías Clave
+- **Framework Principal:** [Fiber v2](https://gofiber.io/) (Enrutador sin asignación, API estilo Express).
+- **Capa de Base de Datos:** [GORM](https://gorm.io/) con soporte para **SQLite** (estándar) y **PostgreSQL** (producción).
+- **Motor de Medios:** [LiveKit](https://livekit.io/) (Incrustado como binario hermano).
+- **Sistema de Autenticación:** Autenticación multicapa que admite JWT, OAuth2 (Google/GitHub/Twitter) y Passkeys FIDO2 sin contraseña.
+- **Activos Estáticos Incrustados:** Utiliza el paquete `embed` de Go 1.16+ para agrupar el frontend de React (activos de cliente pre-renderizados con SSR).
+- **Despliegue:** Auto-instalador integrado para Debian/Ubuntu con orquestación de systemd y soporte para ACME (Let's Encrypt).
 
-## Why this Architecture?
-WebRTC platforms typically run separate services for signaling, TURN, web serving, and database management. Bedrud consolidates these into one binary by:
+## ¿Por qué esta Arquitectura?
+Las plataformas WebRTC generalmente ejecutan servicios separados para señalización, TURN, servicio web y gestión de base de datos. Bedrud consolida estos en un solo binario mediante:
 
-1.  **Extracting** the media server binary at runtime.
-2.  **Proxying** media traffic through the main HTTP(S) port.
-3.  **Automating** OS-level configuration (SSL, systemd) via the binary itself.
+1.  **Extracción** del binario del servidor de medios en tiempo de ejecución.
+2.  **Proxy** del tráfico de medios a través del puerto HTTP(S) principal.
+3.  **Automatización** de la configuración a nivel de sistema operativo (SSL, systemd) a través del propio binario.
 
-## High-Level Architecture
-The backend follows a standard layered architecture:
+## Arquitectura de Alto Nivel
+El backend sigue una arquitectura en capas estándar:
 
-1.  **Server Layer (`internal/server`):** Sets up the Fiber app, routes, and middleware.
-2.  **Handler Layer (`internal/handlers`):** Manages HTTP requests and responses.
-3.  **Repository Layer (`internal/repository`):** Handles database queries using GORM.
-4.  **Model Layer (`internal/models`):** Defines the database tables and Go structures.
-5.  **Service/Logic Layer:** Integrated into handlers and repositories for simplicity, with specialized packages like `internal/auth` and `internal/livekit`.
+1.  **Capa de Servidor (`internal/server`):** Configura la aplicación Fiber, rutas y middleware.
+2.  **Capa de Manejadores (`internal/handlers`):** Gestiona las solicitudes y respuestas HTTP.
+3.  **Capa de Repositorio (`internal/repository`):** Maneja las consultas de la base de datos utilizando GORM.
+4.  **Capa de Modelos (`internal/models`):** Define las tablas de la base de datos y las estructuras de Go.
+5.  **Capa de Servicio/Lógica:** Integrada en manejadores y repositorios por simplicidad, con paquetes especializados como `internal/auth` y `internal/livekit`.
 
-## Main Entry Point
-The application starts in `server/cmd/bedrud/main.go`. It has three main modes:
+## Punto de Entrada Principal
+La aplicación comienza en `server/cmd/bedrud/main.go`. Tiene tres modos principales:
 
-- `run`: Starts the full meeting server.
-- `livekit`: Starts only the embedded media server.
-- `install`: Automatically sets up the server on Debian/Ubuntu systems.
+- `run`: Inicia el servidor completo de reuniones.
+- `livekit`: Inicia solo el servidor de medios incrustado.
+- `install`: Configura automáticamente el servidor en sistemas Debian/Ubuntu.
 
-## Documentation Sections
-- [**Code Structure**](/docs/backend/structure): Where is everything located?
-- [**Database & Models**](/docs/backend/database): How is data stored?
-- [**Authentication**](/docs/backend/authentication): How do users log in?
-- [**API Handlers**](/docs/backend/api-handlers): How are requests processed?
-- [**LiveKit Integration**](/docs/backend/livekit): How does the video server work?
-- [**WebRTC Connectivity**](/docs/architecture/webrtc-connectivity): How do clients establish media connections? (STUN/ICE/TURN/SFU)
-- [**TURN Server**](/docs/architecture/turn-server): TURN relay architecture, configuration, and troubleshooting
-- [**Installation & Deployment**](/docs/backend/deployment): How does the auto-installer work?
+## Secciones de Documentación
+- [**Estructura del Código**](/es/docs/backend/structure): ¿Dónde está todo ubicado?
+- [**Base de Datos y Modelos**](/es/docs/backend/database): ¿Cómo se almacenan los datos?
+- [**Autenticación**](/es/docs/backend/authentication): ¿Cómo inician sesión los usuarios?
+- [**Manejadores de API**](/es/docs/backend/api-handlers): ¿Cómo se procesan las solicitudes?
+- [**Integración con LiveKit**](/es/docs/backend/livekit): ¿Cómo funciona el servidor de video?
+- [**Conectividad WebRTC**](/es/docs/architecture/webrtc-connectivity): ¿Cómo establecen los clientes las conexiones de medios? (STUN/ICE/TURN/SFU)
+- [**Servidor TURN**](/es/docs/architecture/turn-server): Arquitectura de retransmisión TURN, configuración y solución de problemas
+- [**Instalación y Despliegue**](/es/docs/backend/deployment): ¿Cómo funciona el auto-instalador?

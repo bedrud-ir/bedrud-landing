@@ -1,108 +1,108 @@
 ---
-title: Contributing
-description: How to contribute to Bedrud
+title: Contribuir
+description: Cómo contribuir a Bedrud
 order: 34
 ---
 
-Contributions to Bedrud are welcome. This guide covers the process for submitting changes.
+Las contribuciones a Bedrud son bienvenidas. Esta guía cubre el proceso para enviar cambios.
 
-> **Note:** The canonical contributing guide is at the repository root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). This page is archived for reference only.
+> **Nota:** La guía de contribución canónica está en la raíz del repositorio: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). Esta página se archiva solo como referencia.
 
-## Getting Started
+## Primeros pasos
 
-1. Fork the repository
-2. Clone your fork
-3. Create a feature branch from `main`
-4. Make your changes
-5. Submit a pull request
+1. Bifurca el repositorio
+2. Clona tu bifurcación
+3. Crea una rama de características desde `main`
+4. Realiza tus cambios
+5. Envía una solicitud de extracción
 
-## Prerequisites
+## Requisitos previos
 
 - Go 1.22+
-- Bun (for web frontend)
-- Rust (for desktop app)
+- Bun (para el frontend web)
+- Rust (para la aplicación de escritorio)
 - Make
 - Git
 
-## Development Setup
+## Configuración del desarrollo
 
 ```bash
-# After forking on GitHub, clone your fork
-git clone https://github.com/<your-username>/bedrud.git
+# Después de bifurcar en GitHub, clona tu bifurcación
+git clone https://github.com/<tu-usuario>/bedrud.git
 cd bedrud
 make init
 make dev
 ```
 
-See the [Development Workflow](/en/docs/guides/development) for detailed setup instructions.
+Consulta el [Flujo de trabajo de desarrollo](/es/docs/guides/development) para instrucciones detalladas de configuración.
 
-## Project Structure
+## Estructura del proyecto
 
-| Directory       | Language         | Description                      |
-|-----------------|------------------|----------------------------------|
-| `server/`       | Go               | Backend API and embedded LiveKit |
-| `apps/web/`     | TypeScript/React | Web frontend                     |
-| `apps/desktop/` | Rust + Slint     | Desktop app                      |
-| `apps/android/` | Kotlin           | Android app                      |
-| `apps/ios/`     | Swift            | iOS app                          |
-| `agents/`       | Python           | Bot agents                       |
-| `packages/`     | TypeScript       | Shared type definitions          |
-| `tools/cli/`    | Python           | Deployment CLI                   |
-| `docs/`         | Markdown         | Documentation                    |
+| Directorio       | Idioma           | Descripción                       |
+|------------------|------------------|-----------------------------------|
+| `server/`        | Go               | API de backend y LiveKit integrado|
+| `apps/web/`      | TypeScript/React | Frontend web                      |
+| `apps/desktop/`  | Rust + Slint     | Aplicación de escritorio          |
+| `apps/android/`  | Kotlin           | Aplicación Android                |
+| `apps/ios/`      | Swift            | Aplicación iOS                    |
+| `agents/`        | Python           | Agentes de bot                    |
+| `packages/`      | TypeScript       | Definiciones de tipos compartidos |
+| `tools/cli/`     | Python           | CLI de implementación             |
+| `docs/`          | Markdown         | Documentación                     |
 
-## Code Style
+## Estilo de código
 
-| Language         | Standard                |
-|------------------|-------------------------|
-| Go               | `gofmt`                 |
-| TypeScript/React | Biome                   |
-| Kotlin           | Android Studio defaults |
-| Swift            | Xcode defaults          |
-| Python           | ruff                    |
+| Idioma           | Estándar                   |
+|------------------|----------------------------|
+| Go               | `gofmt`                    |
+| TypeScript/React | Biome                      |
+| Kotlin           | Predeterminados de Android Studio |
+| Swift            | Predeterminados de Xcode   |
+| Python           | ruff                       |
 
-## Pull Request Process
+## Proceso de solicitud de extracción
 
-1. **Branch naming:** `feature/description`, `fix/description`, or `docs/description`
-2. **Commit messages:** `<action> <what> for <why>` (e.g., `add user model for auth feature`, `fix login redirect for expired sessions`)
-3. **CI checks:** All GitHub Actions checks must pass
-4. **Description:** Include what changed and why
+1. **Nomenclatura de ramas:** `feature/descripción`, `fix/descripción` o `docs/descripción`
+2. **Mensajes de confirmación:** `<acción> <qué> por <por qué>` (por ejemplo, `add user model for auth feature`, `fix login redirect for expired sessions`)
+3. **Verificaciones de CI:** Todas las verificaciones de GitHub Actions deben pasar
+4. **Descripción:** Incluye qué cambió y por qué
 
-### CI Checks
+### Verificaciones de CI
 
-Every PR runs these checks automatically:
+Cada PR ejecuta estas verificaciones automáticamente:
 
-| Check   | What it validates            |
-|---------|------------------------------|
-| Server  | `go vet`, build, tests       |
-| Web     | TypeScript type check, build |
-| Android | Lint, unit tests             |
-| iOS     | Build, test (simulator)      |
+| Verificación | Qué valida                              |
+|--------------|-----------------------------------------|
+| Server       | `go vet`, compilación, pruebas          |
+| Web          | Verificación de tipos TypeScript, build |
+| Android      | Lint, pruebas unitarias                 |
+| iOS          | Compilación, prueba (simulador)         |
 
-## Reporting Issues
+## Reportar problemas
 
-File issues on [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) with:
+Informa problemas en [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) con:
 
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, browser, app version)
+- Pasos para reproducir
+- Comportamiento esperado vs real
+- Detalles del entorno (sistema operativo, navegador, versión de la aplicación)
 
-## Documentation
+## Documentación
 
-Documentation lives in `docs/` and is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+La documentación reside en `docs/` y se construye con [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-### Local Preview
+### Vista previa local
 
 ```bash
 pip install mkdocs-material
 mkdocs serve
 ```
 
-Then open `http://localhost:8000` in your browser.
+Luego abre `http://localhost:8000` en tu navegador.
 
-### Structure
+### Estructura
 
-Documentation pages are organized by topic. The navigation is defined in `mkdocs.yml` at the project root.
+Las páginas de documentación se organizan por tema. La navegación se define en `mkdocs.yml` en la raíz del proyecto.
 
-## License
+## Licencia
 
-By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).
+Al contribuir, aceptas que tus contribuciones se licenciarán bajo la [Licencia Apache 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).

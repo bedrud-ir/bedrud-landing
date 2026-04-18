@@ -114,8 +114,6 @@ No downloads, no extensions, no account required if guest access is enabled.
     ```bash
     yay -S bedrud-desktop-bin
     ```
-  </TabsContent>
-  <TabsContent value="fedora-rhel-dnf">
 
     If the Bedrud DNF repository is already configured:
 
@@ -142,8 +140,10 @@ No downloads, no extensions, no account required if guest access is enabled.
 <Tabs>
   <TabsList>
     <TabsTrigger value="homebrew-recommended">Homebrew (recommended)</TabsTrigger>
-    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (arm64)</TabsTrigger>
-    <TabsTrigger value="intel-x8664">Intel (x86_64)</TabsTrigger>
+    <TabsTrigger value="dmg-apple-silicon">Apple Silicon (.dmg)</TabsTrigger>
+    <TabsTrigger value="dmg-intel">Intel (.dmg)</TabsTrigger>
+    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (tar.gz)</TabsTrigger>
+    <TabsTrigger value="intel-x8664">Intel (tar.gz)</TabsTrigger>
   </TabsList>
   <TabsContent value="homebrew-recommended">
 
@@ -151,6 +151,26 @@ No downloads, no extensions, no account required if guest access is enabled.
     brew tap bedrud-ir/bedrud
     brew install bedrud-desktop
     ```
+  </TabsContent>
+  <TabsContent value="dmg-apple-silicon">
+
+    Download the DMG from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+
+    | Architecture | File |
+    |---|---|
+    | Apple Silicon | `bedrud-desktop-macos-arm64.dmg` |
+
+    Open the DMG, drag Bedrud to Applications. If Gatekeeper blocks the app, go to **System Settings → Privacy & Security** and click **Open Anyway**.
+  </TabsContent>
+  <TabsContent value="dmg-intel">
+
+    Download the DMG from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+
+    | Architecture | File |
+    |---|---|
+    | Intel | `bedrud-desktop-macos-x86_64.dmg` |
+
+    Open the DMG, drag Bedrud to Applications. If Gatekeeper blocks the app, go to **System Settings → Privacy & Security** and click **Open Anyway**.
   </TabsContent>
   <TabsContent value="apple-silicon-arm64">
 

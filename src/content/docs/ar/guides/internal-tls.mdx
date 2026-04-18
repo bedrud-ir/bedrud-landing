@@ -1,14 +1,14 @@
 ---
-title: Internal TLS
-description: Self-signed certificates for internal networks
+title: TLS الداخلي
+description: شهادات موقعة ذاتيًا للشبكات الداخلية
 order: 30
 ---
 
-For isolated networks - no public domain, no outbound internet, restricted connectivity.
+للشبكات المعزولة - لا نطاق عام، لا إنترنت صادر، اتصال محدود.
 
-Browsers require trusted HTTPS for camera/mic via WebRTC. Self-signed certs work but show warnings. For a clean setup, generate a private CA and distribute it to clients.
+تتطلب المتصفحات HTTPS موثوقًا للوصول إلى الكاميرا/الميكروفون عبر WebRTC. الشهادات الموقعة ذاتيًا تعمل لكنها تظهر تحذيرات. لإعداد نظيف، أنشئ CA خاصًا ووزّعه على العملاء.
 
-## Generate Private CA and Server Certificate
+## إنشاء CA خاص وشهادة خادم
 
 ```bash
 openssl genrsa -out ca.key 4096
@@ -24,9 +24,9 @@ openssl x509 -req -days 365 -in server.csr \
 sudo ./bedrud install --tls --cert server.crt --key server.key --ip YOUR_SERVER_IP
 ```
 
-## Add CA to Client Trust Stores
+## إضافة CA إلى مخازن ثقة العملاء
 
-Distribute `ca.crt` to all client machines:
+وزّع `ca.crt` على جميع أجهزة العملاء:
 
 ### Windows
 
@@ -55,19 +55,19 @@ sudo cp ca.crt /etc/pki/ca-trust/source/anchors/bedrud-ca.crt
 sudo update-ca-trust
 ```
 
-Restart browsers, then open `https://YOUR_SERVER_IP` (replace with the server's actual IP address, e.g. `192.168.1.100`). After restarting, the certificate will be trusted and camera/microphone access will work without warnings.
+أعد تشغيل المتصفحات، ثم افتح `https://YOUR_SERVER_IP` (استبدل بعنوان IP الفعلي للخادم، مثلاً `192.168.1.100`). بعد إعادة التشغيل، ستكون الشهادة موثوقة وسيعمل الوصول إلى الكاميرا/الميكروفون بدون تحذيرات.
 
-## Troubleshooting
+## حل المشكلات
 
-| Problem | Fix |
+| المشكلة | الحل |
 |---------|-----|
-| Browser still warns certificate untrusted | Clear browser cache, restart browser after CA install |
-| Camera/mic blocked | Verify CA is in Trusted Root CAs, not intermediate |
-| Certificate expired | Regenerate with longer `-days` value |
-| CN mismatch | Ensure server certificate CN matches IP or hostname in URL |
+| المتصفح لا يزال يحذر من عدم ثقة الشهادة | امسح ذاكرة التخزين المؤقت للمتصفح، أعد التشغيل بعد تثبيت CA |
+| الكاميرا/الميكروفون محظوران | تحقق أن CA في Trusted Root CAs، وليس وسيطًا |
+| الشهادة منتهية الصلاحية | أعد التوليد بقيمة `-days` أطول |
+| عدم تطابق CN | تأكد أن CN في شهادة الخادم يطابق IP أو اسم المضيف في URL |
 
 ---
 
-## See also
-- [Installation Guide](/docs/getting-started/installation) - install methods
-- [Configuration Reference](/docs/getting-started/configuration) - full config options
+## انظر أيضًا
+- [دليل التثبيت](/docs/getting-started/installation) - طرق التثبيت
+- [مرجع الإعدادات](/docs/getting-started/configuration) - جميع خيارات الإعداد

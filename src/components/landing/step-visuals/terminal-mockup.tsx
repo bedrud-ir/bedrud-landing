@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useInViewRef } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
 
 const command = "curl -fsSL https://get.bedrud.org | bash";
@@ -10,11 +11,13 @@ const outputLines = [
 ];
 
 export function TerminalMockup() {
+  const [containerRef, isVisible] = useInViewRef();
   const [phase, setPhase] = useState<"typing" | "output" | "prompt">("typing");
   const [typedChars, setTypedChars] = useState(0);
   const [visibleOutput, setVisibleOutput] = useState(0);
 
   useEffect(() => {
+    if (!isVisible) return;
     if (phase !== "typing") return;
 
     if (typedChars >= command.length) {
@@ -30,9 +33,10 @@ export function TerminalMockup() {
     );
 
     return () => clearTimeout(timer);
-  }, [phase, typedChars]);
+  }, [isVisible, phase, typedChars]);
 
   useEffect(() => {
+    if (!isVisible) return;
     if (phase !== "output") return;
 
     if (visibleOutput >= outputLines.length) {
@@ -45,13 +49,14 @@ export function TerminalMockup() {
     }, 250);
 
     return () => clearTimeout(timer);
-  }, [phase, visibleOutput]);
+  }, [isVisible, phase, visibleOutput]);
 
   return (
     <div
+      ref={containerRef}
       dir="ltr"
       aria-hidden="true"
-      className="overflow-hidden rounded-2xl bg-[#111127] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04),0px_0px_0px_1px_#fafafa] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_2px_2px_rgba(0,0,0,0.3),0px_8px_8px_-8px_rgba(0,0,0,0.4)]"
+      className="min-h-[260px] overflow-hidden rounded-2xl bg-[#111127] shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08),0px_2px_2px_rgba(0,0,0,0.04),0px_8px_8px_-8px_rgba(0,0,0,0.04),0px_0px_0px_1px_#fafafa] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.06),0px_2px_2px_rgba(0,0,0,0.3),0px_8px_8px_-8px_rgba(0,0,0,0.4)]"
     >
       <div className="flex h-9 items-center gap-2 border-b border-white/[0.05] bg-[#0c0c20] px-4">
         <div className="size-2.5 rounded-full bg-[#ff5f57]" />

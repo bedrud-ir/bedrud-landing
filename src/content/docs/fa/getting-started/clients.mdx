@@ -1,18 +1,18 @@
 ---
-title: Client Installation
-description: Install desktop and mobile apps
+title: نصب کلاینت
+description: نصب اپلیکیشن‌های دسکتاپ و موبایل
 order: 3
 ---
 
-Open the meeting link in a browser to join - no installation required. For a native app experience, install the client for your platform below.
+لینک جلسه را در مرورگر باز کنید تا بپیوندید - نصب لازم نیست. برای تجربه اپلیکیشن بومی، کلاینت را برای پلتفرم خود در زیر نصب کنید.
 
 ---
 
-## Browser (Zero Install)
+## مرورگر (بدون نصب)
 
-Open the meeting URL in **Chrome**, **Firefox**, **Edge**, or **Safari**. Camera and microphone access requires HTTPS (your server admin handles this).
+URL جلسه را در **Chrome**، **Firefox**، **Edge**، یا **Safari** باز کنید. دسترسی به دوربین و میکروفون نیاز به HTTPS دارد (ادمین سرور شما این را مدیریت می‌کند).
 
-No downloads, no extensions, no account required if guest access is enabled.
+بدون دانلود، بدون افزونه، بدون حساب مورد نیاز اگر دسترسی مهمان فعال باشد.
 
 ---
 
@@ -25,17 +25,17 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsList>
   <TabsContent value="google-play">
 
-    Search for **Bedrud** on Google Play, or follow the direct link from your server admin.
+    در Google Play برای **Bedrud** جستجو کنید، یا لینک مستقیم را از ادمین سرور خود دنبال کنید.
   </TabsContent>
   <TabsContent value="apk-sideload">
 
-    Download the latest APK from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    آخرین APK را از [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) دانلود کنید:
 
     ```bash
-    # Transfer to your phone, then open to install
+    # به تلفن خود منتقل کنید، سپس برای نصب باز کنید
     ```
 
-    You may need to enable **Install from unknown sources** in your device settings.
+    ممکن است نیاز به فعال کردن **نصب از منابع ناشناخته** در تنظیمات دستگاه خود داشته باشید.
   </TabsContent>
 </Tabs>
 
@@ -50,21 +50,21 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsList>
   <TabsContent value="app-store">
 
-    Search for **Bedrud** on the App Store, or follow the direct link from your server admin.
+    در App Store برای **Bedrud** جستجو کنید، یا لینک مستقیم را از ادمین سرور خود دنبال کنید.
   </TabsContent>
   <TabsContent value="ipa-sideload">
 
-    Download the latest IPA from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Sideload using AltStore or a similar tool.
+    آخرین IPA را از [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) دانلود کنید. با استفاده از AltStore یا ابزار مشابه sideload کنید.
   </TabsContent>
 </Tabs>
 
 ---
 
-## Linux Desktop
+## دسکتاپ Linux
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="appimage-recommended">AppImage (recommended)</TabsTrigger>
+    <TabsTrigger value="appimage-recommended">AppImage (توصیه شده)</TabsTrigger>
     <TabsTrigger value="flatpak">Flatpak</TabsTrigger>
     <TabsTrigger value="snap">Snap</TabsTrigger>
     <TabsTrigger value="ubuntu-debian-apt">Ubuntu / Debian (apt)</TabsTrigger>
@@ -74,7 +74,7 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsList>
   <TabsContent value="appimage-recommended">
 
-    No installation required. Download, make executable, run:
+    نصب لازم نیست. دانلود کنید، قابل اجرا کنید، اجرا کنید:
 
     ```bash
     wget https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.AppImage
@@ -83,7 +83,7 @@ No downloads, no extensions, no account required if guest access is enabled.
     ```
 
     <Callout type="tip">
-        To integrate AppImage into your application launcher, use [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
+        برای ادغام AppImage در راه‌انداز اپلیکیشن خود، از [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) استفاده کنید.
     </Callout>
   </TabsContent>
   <TabsContent value="flatpak">
@@ -101,13 +101,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="ubuntu-debian-apt">
 
-    If the Bedrud apt repository is already configured on your system:
+    اگر مخزن apt بدرود قبلاً روی سیستم شما پیکربندی شده است:
 
     ```bash
     sudo apt install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    برای تنظیم مخزن به [راهنمای نصب بسته](/docs/guides/packages) مراجعه کنید.
   </TabsContent>
   <TabsContent value="arch-linux-aur">
 
@@ -117,13 +117,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="fedora-rhel-dnf">
 
-    If the Bedrud DNF repository is already configured:
+    اگر مخزن DNF بدرود قبلاً پیکربندی شده است:
 
     ```bash
     sudo dnf install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    برای تنظیم مخزن به [راهنمای نصب بسته](/docs/guides/packages) مراجعه کنید.
   </TabsContent>
   <TabsContent value="portable-tarxz">
 
@@ -141,7 +141,7 @@ No downloads, no extensions, no account required if guest access is enabled.
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="homebrew-recommended">Homebrew (recommended)</TabsTrigger>
+    <TabsTrigger value="homebrew-recommended">Homebrew (توصیه شده)</TabsTrigger>
     <TabsTrigger value="apple-silicon-arm64">Apple Silicon (arm64)</TabsTrigger>
     <TabsTrigger value="intel-x8664">Intel (x86_64)</TabsTrigger>
   </TabsList>
@@ -171,7 +171,7 @@ No downloads, no extensions, no account required if guest access is enabled.
 </Tabs>
 
 <Callout type="warning">
-    macOS builds may be **unsigned**. If Gatekeeper blocks the app, run the `xattr` command above, or go to **System Settings → Privacy & Security** and click **Open Anyway**.
+    ساخت‌های macOS ممکن است **بدون امضا** باشند. اگر Gatekeeper اپلیکیشن را مسدود کرد، دستور `xattr` بالا را اجرا کنید، یا به **تنظیمات سیستم → حریم خصوصی و امنیت** بروید و **به هر حال باز کنید** را کلیک کنید.
 </Callout>
 
 ---
@@ -182,7 +182,7 @@ No downloads, no extensions, no account required if guest access is enabled.
   <TabsList>
     <TabsTrigger value="winget">WinGet</TabsTrigger>
     <TabsTrigger value="chocolatey">Chocolatey</TabsTrigger>
-    <TabsTrigger value="nsis-installer">NSIS Installer</TabsTrigger>
+    <TabsTrigger value="nsis-installer">نصب‌کننده NSIS</TabsTrigger>
     <TabsTrigger value="portable-zip">Portable .zip</TabsTrigger>
   </TabsList>
   <TabsContent value="winget">
@@ -199,44 +199,44 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="nsis-installer">
 
-    Download the installer from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    نصب‌کننده را از [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) دانلود کنید:
 
-    | Architecture | File |
-    |---|---|
-    | x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
-    | ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
+    | معماری | فایل |
+|---|---|
+| x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
+| ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
 
-    Run the installer. The app appears in Start Menu and Add/Remove Programs.
+    نصب‌کننده را اجرا کنید. اپلیکیشن در منوی استارت و افزودن/حذف برنامه‌ها ظاهر می‌شود.
   </TabsContent>
   <TabsContent value="portable-zip">
 
-    Download and extract from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    دانلود و استخراج از [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
 
-    | Architecture | File |
-    |---|---|
-    | x86_64 | `bedrud-desktop-windows-x86_64.zip` |
-    | ARM64 | `bedrud-desktop-windows-arm64.zip` |
+    | معماری | فایل |
+|---|---|
+| x86_64 | `bedrud-desktop-windows-x86_64.zip` |
+| ARM64 | `bedrud-desktop-windows-arm64.zip` |
 
-    No installation required - run `bedrud-desktop.exe` from the extracted folder.
+    نصب لازم نیست - `bedrud-desktop.exe` را از پوشه استخراج شده اجرا کنید.
   </TabsContent>
 </Tabs>
 
 ---
 
-## Connecting to a Server
+## اتصال به سرور
 
-When you first open the desktop app, you'll be prompted for a server URL.
+وقتی برای اولین بار اپلیکیشن دسکتاپ را باز می‌کنید، از شما URL سرور درخواست می‌شود.
 
-1. Enter the URL provided by your server admin (e.g. `https://meet.example.com`)
-2. Register an account or sign in
-3. Create or join a meeting room
+۱. URL ارائه شده توسط ادمین سرور خود را وارد کنید (مثلاً `https://meet.example.com`)
+۲. ثبت‌نام کنید یا وارد شوید
+۳. اتاق جلسه ایجاد کنید یا به آن بپیوندید
 
-The desktop app supports connecting to **multiple servers**. Add more in **Settings**.
+اپلیکیشن دسکتاپ اتصال به **چندین سرور** را پشتیبانی می‌کند. موارد بیشتر را در **تنظیمات** اضافه کنید.
 
 ---
 
-## All Downloads
+## تمام دانلود‌ها
 
-All client installers and binaries are available on the [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) page.
+همه نصب‌کننده‌ها و باینری‌های کلاینت در صفحه [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) موجود هستند.
 
-For the complete reference of all package managers, repositories, and platforms, see the [Package Installation Guide](/docs/guides/packages).
+برای مرجع کامل همه مدیران بسته، مخازن و پلتفرم‌ها، به [راهنمای نصب بسته](/docs/guides/packages) مراجعه کنید.

@@ -18,14 +18,27 @@ function formatCount(n: number): string {
   return String(n);
 }
 
-export function Navbar({ lang }: { lang: Locale }) {
+export function Navbar({
+  lang,
+  currentPath,
+}: {
+  lang: Locale;
+  currentPath?: string;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [stars, setStars] = useState<string | null>(null);
 
   useEffect(() => {
+    let ticking = false;
     function onScroll() {
-      setScrolled(window.scrollY > SCROLL_THRESHOLD);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > SCROLL_THRESHOLD);
+          ticking = false;
+        });
+        ticking = true;
+      }
     }
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -66,36 +79,56 @@ export function Navbar({ lang }: { lang: Locale }) {
             </a>
 
             <div className="hidden flex-1 items-center justify-center gap-0.5 md:flex">
-              {navLinks.map((link) => (
-                <a
-                  key={link.key}
-                  href={`/${lang}${link.route ? `/${link.route}` : ""}${link.hash ? `#${link.hash}` : ""}`}
-                  className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {t(lang, link.key)}
-                </a>
-              ))}
-              {navRouteLinks.map((link) => (
-                <a
-                  key={link.key}
-                  href={`/${lang}/${link.route}`}
-                  className="rounded-full px-3.5 py-1.5 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-                >
-                  {t(lang, link.key)}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const href = `/${lang}${link.route ? `/${link.route}` : ""}${link.hash ? `#${link.hash}` : ""}`;
+                const isActive =
+                  currentPath === href ||
+                  (!link.route && !link.hash && currentPath === `/${lang}`);
+                return (
+                  <a
+                    key={link.key}
+                    href={href}
+                    className={cn(
+                      "rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
+                      isActive
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                    )}
+                  >
+                    {t(lang, link.key)}
+                  </a>
+                );
+              })}
+              {navRouteLinks.map((link) => {
+                const href = `/${lang}/${link.route}`;
+                const isActive = currentPath === href;
+                return (
+                  <a
+                    key={link.key}
+                    href={href}
+                    className={cn(
+                      "rounded-full px-3.5 py-1.5 text-[13px] font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
+                      isActive
+                        ? "bg-accent text-foreground"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
+                    )}
+                  >
+                    {t(lang, link.key)}
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="hidden shrink-0 items-center gap-0.5 md:flex">
               <a
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
                 aria-label="GitHub"
-                className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <GitHubIcon className="size-3.5" />
               </a>
-            </div>
-
-            <div className="hidden shrink-0 items-center gap-0.5 md:flex">
               <ThemeToggle />
               <LanguageSwitcher lang={lang} />
               {scrolled && stars && (
@@ -103,7 +136,7 @@ export function Navbar({ lang }: { lang: Locale }) {
                   href={`https://github.com/bedrud-ir/bedrud`}
                   target="_blank"
                   rel="noreferrer"
-                  className="ms-1.5 inline-flex items-center gap-1 rounded-full border border-border/60 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground"
+                  className="ms-1.5 inline-flex items-center gap-1 rounded-full border border-border/60 px-2.5 py-1 text-[12px] font-medium text-muted-foreground transition-colors hover:border-border hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                 >
                   <Star className="size-3 fill-amber-400 text-amber-400" />
                   {stars}
@@ -112,7 +145,7 @@ export function Navbar({ lang }: { lang: Locale }) {
               <Button
                 size="sm"
                 className={cn(
-                  "ms-1.5 rounded-md px-4 transition-all duration-300",
+                  "ms-1.5 rounded-md px-4 transition-all duration-300 active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none",
                   scrolled &&
                     "bg-emerald-600 shadow-md shadow-emerald-600/20 hover:bg-emerald-700 dark:bg-emerald-500 dark:hover:bg-emerald-600",
                 )}

@@ -1,58 +1,58 @@
 ---
-title: Appliance Mode
-description: Pre-configured appliance setup
+title: حالت لوازم
+description: تنظیمات لوازم از پیش پیکربندی‌شده
 order: 33
 ---
 
-Bedrud is designed to run as a self-contained "appliance" for video meetings. A single executable binary packages everything needed - frontend, backend, and the LiveKit media server.
+Bedrud برای اجرا به عنوان یک "لوازم" مستقل برای جلسات ویدیویی طراحی شده است. یک فایل اجرایی باینری همه چیز مورد نیاز را بسته‌بندی می‌کند - فرانت‌اند، بک‌اند و سرور رسانه LiveKit.
 
-## Key Features
+## ویژگی‌های کلیدی
 
-| Feature | Description |
+| ویژگی | توضیحات |
 |---------|-------------|
-| Zero external dependencies | No Node.js, Redis, or separate media server needed |
-| Embedded media server | LiveKit binary included and managed automatically |
-| Embedded frontend | React UI compiled and SSR pre-rendered into the Go binary |
-| SQLite storage | No database server required |
-| Built-in TLS | Self-signed certificates or Let's Encrypt |
-| Built-in installer | Configures systemd, directories, and configs |
+| بدون وابستگی خارجی | نیازی به Node.js، Redis یا سرور رسانه جداگانه نیست |
+| سرور رسانه جاسازی‌شده | باینری LiveKit شامل و به صورت خودکار مدیریت می‌شود |
+| فرانت‌اند جاسازی‌شده | UI React کامپایل و SSR از پیش رندرشده در باینری Go |
+| ذخیره‌سازی SQLite | نیازی به سرور پایگاه داده نیست |
+| TLS داخلی | گواهی‌های امضاشده خود یا Let's Encrypt |
+| نصب‌کننده داخلی | پیکربندی systemd، دایرکتوری‌ها و تنظیمات |
 
-## Running the Binary
+## اجرای باینری
 
-### Start the Bedrud Server
+### شروع سرور Bedrud
 
 ```bash
 ./bedrud --run --config config.yaml
 ```
 
-### Start the LiveKit Media Server
+### شروع سرور رسانه LiveKit
 
 ```bash
 ./bedrud --livekit --config livekit.yaml
 ```
 
-The binary contains both the API server and the media server. Use flags to choose which to start.
+باینری شامل هر دو سرور API و سرور رسانه است. از پرچم‌ها برای انتخاب کدام‌یک را شروع کنید استفاده کنید.
 
-## Installation
+## نصب
 
-### Quick Install (Debian/Ubuntu)
+### نصب سریع (Debian/Ubuntu)
 
 ```bash
-# With Let's Encrypt TLS
+# با TLS Let's Encrypt
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 
-# With self-signed certificate
+# با گواهی امضاشده خود
 sudo ./bedrud install --tls --ip 1.2.3.4
 
-# Plain HTTP (dev only)
+# HTTP ساده (فقط توسعه)
 sudo ./bedrud install --ip 1.2.3.4
 ```
 
 <InstallerSteps />
 
-### Service Architecture
+### معماری سرویس
 
-After installation, two systemd services run:
+پس از نصب، دو سرویس systemd اجرا می‌شوند:
 
 ```
 ┌──────────────────┐     ┌──────────────────┐
@@ -61,54 +61,54 @@ After installation, two systemd services run:
 │  bedrud --run    │────►│  bedrud --livekit │
 │  (API + Web UI)  │     │  (WebRTC media)   │
 └──────────────────┘     └───────────────────┘
-         │
-         ▼
-   ┌──────────┐
-   │  SQLite  │
-   │ database │
-   └──────────┘
+          │
+          ▼
+    ┌──────────┐
+    │  SQLite  │
+    │ database │
+    └──────────┘
 ```
 
-## Configuration Files
+## فایل‌های پیکربندی
 
-| File | Purpose |
+| فایل | هدف |
 |------|---------|
-| `/etc/bedrud/config.yaml` | Main server configuration |
-| `/etc/bedrud/livekit.yaml` | Media server configuration |
-| `/var/lib/bedrud/bedrud.db` | SQLite database |
-| `/var/log/bedrud/bedrud.log` | Application logs |
+| `/etc/bedrud/config.yaml` | پیکربندی اصلی سرور |
+| `/etc/bedrud/livekit.yaml` | پیکربندی سرور رسانه |
+| `/var/lib/bedrud/bedrud.db` | پایگاه داده SQLite |
+| `/var/log/bedrud/bedrud.log` | لاگ‌های برنامه |
 
-See the [Configuration Reference](/docs/getting-started/configuration) for all options.
+به [مرجع پیکربندی](/docs/getting-started/configuration) برای همه گزینه‌ها مراجعه کنید.
 
-## Post-Installation
+## پس از نصب
 
-### Create Your First Admin
+### ایجاد اولین مدیر خود
 
 <CreateAdmin />
 
-### Check Service Status
+### بررسی وضعیت سرویس
 
 ```bash
 systemctl status bedrud livekit
 ```
 
-### View Logs
+### مشاهده لاگ‌ها
 
 ```bash
 tail -f /var/log/bedrud/bedrud.log
 journalctl -u bedrud -f
 ```
 
-## Uninstallation
+## حذف نصب
 
 ```bash
 sudo ./bedrud uninstall
 ```
 
-This completely removes:
+این به طور کامل حذف می‌کند:
 
-- Systemd service files
-- Binary from `/usr/local/bin/`
-- Configuration in `/etc/bedrud/`
-- Data in `/var/lib/bedrud/`
-- Logs in `/var/log/bedrud`
+- فایل‌های سرویس systemd
+- باینری از `/usr/local/bin/`
+- پیکربندی در `/etc/bedrud/`
+- داده‌ها در `/var/lib/bedrud/`
+- لاگ‌ها در `/var/log/bedrud`

@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: واجهة برمجة المصادقة
+description: نقاط نهاية المصادقة وطرقها
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+جميع نقاط نهاية المصادقة تحت `/api/auth/`.
 
-## Overview
+## نظرة عامة
 
-Bedrud supports multiple authentication methods:
+يدعم Bedrud عدة طرق للمصادقة:
 
-| Method | Endpoint | Description |
+| الطريقة | نقطة النهاية | الوصف |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
-| Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| البريد الإلكتروني/كلمة المرور | `POST /api/auth/login` | تسجيل الدخول التقليدي |
+| التسجيل | `POST /api/auth/register` | إنشاء حساب |
+| الضيف | `POST /api/auth/guest-login` | وصول مؤقت |
+| OAuth | `GET /api/auth/:provider/login` | تسجيل الدخول الاجتماعي |
+| مفاتيح المرور | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
+| تحديث الرمز | `POST /api/auth/refresh` | تجديد رمز الوصول |
 
-## Token Format
+## تنسيق الرمز
 
-Successful authentication returns a pair of JWT tokens:
+المصادقة الناجحة تُرجع زوجًا من رموز JWT:
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **رمز الوصول** - قصير الأمد، يُستخدم في رأس `Authorization`
+- **رمز التحديث** - طويل الأمد، يُستخدم للحصول على رموز وصول جديدة
 
-### Using Tokens
+### استخدام الرموز
 
-Include the access token in all authenticated requests:
+أضف رمز الوصول في جميع الطلبات المُصدَّقة:
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## نقاط النهاية
 
-### Register
+### التسجيل
 
-Create a new user account.
+إنشاء حساب مستخدم جديد.
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### تسجيل الدخول
 
-Authenticate with email and password.
+المصادقة بالبريد الإلكتروني وكلمة المرور.
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### تسجيل دخول الضيف
 
-Join as a guest without creating an account. Guests have limited permissions.
+الدخول كضيف دون إنشاء حساب. للضيوف صلاحيات محدودة.
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### الحصول على المستخدم الحالي
 
-Retrieve the authenticated user's profile.
+استرجاع ملف المستخدم المُصدَّق.
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### تحديث الرمز
 
-Exchange a refresh token for a new access token.
+استبدال رمز التحديث برمز وصول جديد.
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### تسجيل الخروج
 
-Invalidate the current refresh token.
+إبطال رمز التحديث الحالي.
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### تسجيل دخول OAuth
 
-Start an OAuth flow with a social provider.
+بدء تدفق OAuth مع مزوّد اجتماعي.
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**المزوّدون المدعومون:**
 
-| Provider | Path |
+| المزوّد | المسار |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+يُعيد الخادم توجيه المستخدم إلى صفحة ترخيص المزوّد. بعد الموافقة، يُعيد المزوّد التوجيه إلى رابط الاستدعاء ويُرجع الخادم رموز JWT.
 
 ---
 
-## Error Responses
+## استجابات الخطأ
 
-All auth endpoints return errors in this format:
+جميع نقاط نهاية المصادقة تُرجع الأخطاء بهذا التنسيق:
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
+| الحالة | المعنى |
 |--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| 400 | طلب غير صالح (حقول مفقودة، خطأ في التحقق) |
+| 401 | بيانات اعتماد غير صالحة أو رمز منتهي الصلاحية |
+| 409 | البريد الإلكتروني مُسجَّل مسبقًا |
+| 500 | خطأ داخلي في الخادم |
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [تدفق المصادقة](/docs/backend/authentication) - كيف تعمل JWT وOAuth ومفاتيح المرور داخليًا
+- [واجهة برمجة مفاتيح المرور](/docs/api/passkeys) - مرجع نقاط نهاية FIDO2/WebAuthn

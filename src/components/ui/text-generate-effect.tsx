@@ -1,5 +1,6 @@
 import { motion, useInView } from "motion/react";
 import { useRef } from "react";
+import { useReducedMotion } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
 
 interface TextGenerateEffectProps {
@@ -21,6 +22,7 @@ export function TextGenerateEffect({
 }: TextGenerateEffectProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
+  const reduced = useReducedMotion();
 
   const wordArray = words.split(" ");
 
@@ -30,18 +32,19 @@ export function TextGenerateEffect({
         <motion.span
           key={`${word}-${i}-${wordArray.length}`}
           className="inline-block"
-          initial={{
-            opacity: 0,
-            filter: filter ? "blur(8px)" : "none",
-          }}
+          initial={
+            reduced
+              ? { opacity: 1, filter: "none" }
+              : { opacity: 0, filter: filter ? "blur(8px)" : "none" }
+          }
           animate={
             isInView
               ? { opacity: 1, filter: filter ? "blur(0px)" : "none" }
               : {}
           }
           transition={{
-            duration,
-            delay: i * delayIncrement,
+            duration: reduced ? 0 : duration,
+            delay: reduced ? 0 : i * delayIncrement,
             ease: "easeOut",
           }}
         >

@@ -1,27 +1,27 @@
 ---
-title: Server Architecture
-description: Backend server design and components
+title: بنية الخادم
+description: تصميم الخادم الخلفي ومكوناته
 order: 7
 ---
 
-The Bedrud server is a Go application that provides the REST API, serves the embedded web frontend, and manages the LiveKit media server.
+خادم بدرود هو تطبيق Go يوفر REST API، ويخدم واجهة الويب المدمجة، ويدير خادم وسائط LiveKit.
 
-## Technology Stack
+## حزمة التقنيات
 
-| Technology | Purpose |
+| التقنية | الغرض |
 |-----------|---------|
-| Go 1.24 | Core language |
-| Fiber v2 | Web framework (Express-like) |
-| GORM | ORM for SQLite and PostgreSQL |
-| LiveKit Protocol SDK | WebRTC room and token management |
-| Zerolog | Structured JSON logging |
-| Goth | Multi-provider OAuth2 |
-| go-passkeys | FIDO2/WebAuthn support |
-| golang-jwt | JWT token creation and validation |
-| gocron | Background job scheduling |
-| Swagger (swaggo) | API documentation generation |
+| Go 1.24 | اللغة الأساسية |
+| Fiber v2 | إطار عمل الويب (مشابه لـ Express) |
+| GORM | ORM لـ SQLite وPostgreSQL |
+| LiveKit Protocol SDK | إدارة غرف `WebRTC` والرموز |
+| Zerolog | تسجيل JSON منظم |
+| Goth | OAuth2 متعدد المزودين |
+| go-passkeys | دعم FIDO2/WebAuthn |
+| golang-jwt | إنشاء رموز JWT والتحقق منها |
+| gocron | جدولة المهام في الخلفية |
+| Swagger (swaggo) | توليد توثيق API |
 
-## Directory Structure
+## هيكل المجلدات
 
 ```
 server/
@@ -58,9 +58,9 @@ server/
 └── go.sum
 ```
 
-## Layered Architecture
+## بنية الطبقات
 
-The server follows a three-layer architecture:
+يتبع الخادم بنية ثلاثية الطبقات:
 
 ```
 HTTP Request
@@ -91,61 +91,61 @@ HTTP Request
 └─────────────┘
 ```
 
-## Key Patterns
+## الأنماط الرئيسية
 
-### Embedded Frontend
+### الواجهة المدمجة
 
-The web frontend is compiled to static files and embedded into the Go binary using `//go:embed`:
+تُجمَّع واجهة الويب كملفات ثابتة وتُدمَج في الملف الثنائي Go باستخدام `//go:embed`:
 
 ```go
 //go:embed frontend/*
 var frontendFS embed.FS
 ```
 
-At build time, `bun run build:embed` SSR pre-renders the React app and copies `dist/client/` into `server/frontend/`. The Go compiler then bundles it into the binary. The Fiber server serves these files for any non-API route.
+في وقت البناء، يقوم `bun run build:embed` بالعرض المسبق SSR لتطبيق React وينسخ `dist/client/` إلى `server/frontend/`. ثم يقوم مترجم Go بحزمها في الملف الثنائي. يخدم خادم Fiber هذه الملفات لأي مسار غير API.
 
-### JWT Authentication
+### مصادقة JWT
 
-The middleware extracts the JWT from the `Authorization: Bearer <token>` header, validates it, and attaches the user context to the request. Protected routes use `RequireAccess` middleware to check user roles.
+يستخرج الوسيطة رمز JWT من ترويسة `Authorization: Bearer <token>`، ويتحقق منه، ويربط سياق المستخدم بالطلب. تستخدم المسارات المحمية وسيطة `RequireAccess` للتحقق من أدوار المستخدم.
 
-### LiveKit Token Generation
+### توليد رموز LiveKit
 
-When a user joins a room, the server:
+عند انضمام مستخدم إلى غرفة، يقوم الخادم بما يلي:
 
-1. Validates room permissions
-2. Creates a LiveKit access token signed with the API secret
-3. Returns the token to the client
-4. The client connects directly to LiveKit using the token
+١. التحقق من صلاحيات الغرفة
+٢. إنشاء رمز وصول LiveKit موقّع بمفتاح API السري
+٣. إرجاع الرمز للعميل
+٤. يتصل العميل مباشرة بـ LiveKit باستخدام الرمز
 
-### Swagger Documentation
+### توثيق Swagger
 
-API documentation is auto-generated from code annotations using swaggo. In development, it's available at `/api/swagger/`.
+يُولَّد توثيق API تلقائيًا من التعليقات التوضيحية في الكود باستخدام swaggo. في بيئة التطوير، يتوفر على `/api/swagger/`.
 
-## Database
+## قاعدة البيانات
 
-### SQLite (Default)
+### SQLite (الافتراضي)
 
-For development and small deployments, Bedrud uses SQLite. The database file is stored at the configured `database.path` (default: `data.db`).
+للتطوير والنشر الصغير، يستخدم بدرود SQLite. يُخزَّن ملف قاعدة البيانات في المسار المُهيأ `database.path` (الافتراضي: `data.db`).
 
 ### PostgreSQL
 
-For production with higher concurrency requirements, configure a PostgreSQL connection string. GORM handles both dialects transparently.
+للإنتاج مع متطلبات تزامن أعلى، اضبط سلسلة اتصال PostgreSQL. يتعامل GORM مع اللهجتين بشفافية.
 
-### Migrations
+### الترحيلات
 
-GORM auto-migrates the schema on startup based on the model structs. The models are defined in `internal/models/`.
+يقوم GORM بالترحيل التلقائي للمخطط عند البدء بناءً على هياكل النماذج. تُعرَّف النماذج في `internal/models/`.
 
-## Background Jobs
+## المهام في الخلفية
 
-The `gocron` scheduler runs periodic tasks such as:
-- Cleaning up expired refresh tokens
-- Removing stale room participants
+يقوم مجدول `gocron` بتشغيل مهام دورية مثل:
+- تنظيف رموز التحديث المنتهية الصلاحية
+- إزالة المشاركين غير النشطين في الغرف
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Backend Code Structure](/docs/backend/structure) - directory map and coding standards
-- [API Handlers](/docs/backend/api-handlers) - routing and request lifecycle
-- [Database and Models](/docs/backend/database) - GORM models and repository pattern
-- [Authentication Flow](/docs/backend/authentication) - JWT, OAuth, and passkey internals
+- [هيكل كود الخلفية](/docs/backend/structure) - خريطة المجلدات ومعايير البرمجة
+- [معالجات API](/docs/backend/api-handlers) - التوجيه ودورة حياة الطلبات
+- [قاعدة البيانات والنماذج](/docs/backend/database) - نماذج GORM ونمط المستودع
+- [مسار المصادقة](/docs/backend/authentication) - تفاصيل JWT وOAuth ومفاتيح المرور

@@ -740,4 +740,9 @@ export default {
       cta: "Envoyer un email",
     },
   },
+  notFound: {
+    title: "Page non trouvée",
+    description: "La page que vous cherchez n'existe pas ou a été déplacée.",
+    backToHome: "Retour à l'accueil",
+  },
 };

@@ -16,8 +16,8 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
   title={t(lang, "downloadPage.meta.title")}
   description={t(lang, "downloadPage.meta.description")}
 >
-  <section class="py-20">
-    <div class="mx-auto max-w-4xl px-6 text-center">
+  <section class="pt-20 pb-2">
+    <div class="mx-auto max-w-7xl px-6 text-center">
       <h1
         data-animate="fade-up"
         class="text-4xl font-bold tracking-tight sm:text-5xl"
@@ -33,5 +33,5 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
       </p>
     </div>
   </section>
-  <DownloadSection client:visible lang={lang} />
+  <DownloadSection client:load lang={lang} />
 </Landing>

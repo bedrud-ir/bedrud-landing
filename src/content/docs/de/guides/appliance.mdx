@@ -1,41 +1,41 @@
 ---
-title: Appliance Mode
-description: Pre-configured appliance setup
+title: Appliance-Modus
+description: Vorkonfiguriertes Appliance-Setup
 order: 33
 ---
 
-Bedrud is designed to run as a self-contained "appliance" for video meetings. A single executable binary packages everything needed - frontend, backend, and the LiveKit media server.
+Bedrud ist als eigenständige „Appliance" für Videokonferenzen konzipiert. Ein einzelnes ausführbares Binary enthält alles Notwendige - Frontend, Backend und den LiveKit-Medienserver.
 
-## Key Features
+## Wichtige Funktionen
 
-| Feature | Description |
-|---------|-------------|
-| Zero external dependencies | No Node.js, Redis, or separate media server needed |
-| Embedded media server | LiveKit binary included and managed automatically |
-| Embedded frontend | React UI compiled and SSR pre-rendered into the Go binary |
-| SQLite storage | No database server required |
-| Built-in TLS | Self-signed certificates or Let's Encrypt |
-| Built-in installer | Configures systemd, directories, and configs |
+| Funktion | Beschreibung |
+|----------|-------------|
+| Keine externen Abhängigkeiten | Kein Node.js, Redis oder separater Medienserver erforderlich |
+| Eingebetteter Medienserver | LiveKit-Binary automatisch eingebunden und verwaltet |
+| Eingebettetes Frontend | React-UI kompiliert und SSR-prerendert im Go-Binary |
+| SQLite-Speicher | Kein Datenbankserver erforderlich |
+| Integriertes TLS | Selbstsignierte Zertifikate oder Let's Encrypt |
+| Integriertes Installationsprogramm | Konfiguriert systemd, Verzeichnisse und Konfigurationen |
 
-## Running the Binary
+## Binary ausführen
 
-### Start the Bedrud Server
+### Bedrud-Server starten
 
 ```bash
 ./bedrud --run --config config.yaml
 ```
 
-### Start the LiveKit Media Server
+### LiveKit-Medienserver starten
 
 ```bash
 ./bedrud --livekit --config livekit.yaml
 ```
 
-The binary contains both the API server and the media server. Use flags to choose which to start.
+Das Binary enthält sowohl den API-Server als auch den Medienserver. Verwenden Sie Flags, um auszuwählen, welcher gestartet werden soll.
 
 ## Installation
 
-### Quick Install (Debian/Ubuntu)
+### Schnellinstallation (Debian/Ubuntu)
 
 ```bash
 # With Let's Encrypt TLS
@@ -50,9 +50,9 @@ sudo ./bedrud install --ip 1.2.3.4
 
 <InstallerSteps />
 
-### Service Architecture
+### Dienstarchitektur
 
-After installation, two systemd services run:
+Nach der Installation laufen zwei systemd-Dienste:
 
 ```
 ┌──────────────────┐     ┌──────────────────┐
@@ -69,46 +69,46 @@ After installation, two systemd services run:
    └──────────┘
 ```
 
-## Configuration Files
+## Konfigurationsdateien
 
-| File | Purpose |
-|------|---------|
-| `/etc/bedrud/config.yaml` | Main server configuration |
-| `/etc/bedrud/livekit.yaml` | Media server configuration |
-| `/var/lib/bedrud/bedrud.db` | SQLite database |
-| `/var/log/bedrud/bedrud.log` | Application logs |
+| Datei | Zweck |
+|-------|-------|
+| `/etc/bedrud/config.yaml` | Haupt-Serverkonfiguration |
+| `/etc/bedrud/livekit.yaml` | Medienserver-Konfiguration |
+| `/var/lib/bedrud/bedrud.db` | SQLite-Datenbank |
+| `/var/log/bedrud/bedrud.log` | Anwendungsprotokolle |
 
-See the [Configuration Reference](/docs/getting-started/configuration) for all options.
+Siehe die [Konfigurationsreferenz](/de/docs/getting-started/configuration) für alle Optionen.
 
-## Post-Installation
+## Nach der Installation
 
-### Create Your First Admin
+### Ersten Administrator erstellen
 
 <CreateAdmin />
 
-### Check Service Status
+### Dienststatus prüfen
 
 ```bash
 systemctl status bedrud livekit
 ```
 
-### View Logs
+### Protokolle anzeigen
 
 ```bash
 tail -f /var/log/bedrud/bedrud.log
 journalctl -u bedrud -f
 ```
 
-## Uninstallation
+## Deinstallation
 
 ```bash
 sudo ./bedrud uninstall
 ```
 
-This completely removes:
+Dies entfernt vollständig:
 
-- Systemd service files
-- Binary from `/usr/local/bin/`
-- Configuration in `/etc/bedrud/`
-- Data in `/var/lib/bedrud/`
-- Logs in `/var/log/bedrud`
+- systemd-Dienstdateien
+- Binary aus `/usr/local/bin/`
+- Konfiguration in `/etc/bedrud/`
+- Daten in `/var/lib/bedrud/`
+- Protokolle in `/var/log/bedrud`

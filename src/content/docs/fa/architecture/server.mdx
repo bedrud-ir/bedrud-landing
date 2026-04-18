@@ -1,151 +1,151 @@
 ---
-title: Server Architecture
-description: Backend server design and components
+title: معماری سرور
+description: طراحی و اجزای سرور بک‌اند
 order: 7
 ---
 
-The Bedrud server is a Go application that provides the REST API, serves the embedded web frontend, and manages the LiveKit media server.
+سرور بدرود یک اپلیکیشن Go است که API REST را فراهم می‌کند، فرانت‌اند وب جاسازی‌شده را سرویس می‌دهد، و سرور مدیا LiveKit را مدیریت می‌کند.
 
-## Technology Stack
+## پشته فناوری
 
-| Technology | Purpose |
-|-----------|---------|
-| Go 1.24 | Core language |
-| Fiber v2 | Web framework (Express-like) |
-| GORM | ORM for SQLite and PostgreSQL |
-| LiveKit Protocol SDK | WebRTC room and token management |
-| Zerolog | Structured JSON logging |
-| Goth | Multi-provider OAuth2 |
-| go-passkeys | FIDO2/WebAuthn support |
-| golang-jwt | JWT token creation and validation |
-| gocron | Background job scheduling |
-| Swagger (swaggo) | API documentation generation |
+| فناوری | هدف |
+|-----------|-----|
+| Go 1.24 | زبان اصلی |
+| Fiber v2 | فریم‌ورک وب (شبیه Express) |
+| GORM | ORM برای SQLite و PostgreSQL |
+| LiveKit Protocol SDK | مدیریت اتاق و توکن WebRTC |
+| Zerolog | لاگ‌بندی ساختاریافته JSON |
+| Goth | OAuth2 چند فراهم‌کننده |
+| go-passkeys | پشتیبانی FIDO2/WebAuthn |
+| golang-jwt | ایجاد و تأیید توکن JWT |
+| gocron | زمان‌بندی کار پس‌زمینه |
+| Swagger (swaggo) | تولید مستندات API |
 
-## Directory Structure
+## ساختار دایرکتوری
 
 ```
 server/
 ├── cmd/
-│   ├── server/main.go        # Development entry point
-│   └── bedrud/main.go        # Production entry point (with install/livekit flags)
+│   ├── server/main.go        # نقطه ورودی توسعه
+│   └── bedrud/main.go        # نقطه ورودی تولید (با پرچم‌های install/livekit)
 ├── internal/
-│   ├── auth/                  # Authentication services
-│   │   ├── auth.go            # Core auth service (register, login, OAuth)
-│   │   ├── jwt.go             # JWT token creation and validation
-│   │   └── session_store.go   # Gorilla session store for OAuth state
-│   ├── database/              # Database initialization and migrations
-│   ├── handlers/              # HTTP request handlers (controller layer)
-│   │   ├── auth_handler.go    # Auth endpoints
-│   │   ├── room.go            # Room endpoints
-│   │   └── users.go           # User management endpoints
-│   ├── middleware/             # Fiber middleware
-│   │   └── auth.go            # JWT validation, permission checks
-│   ├── models/                # GORM models (database schemas)
-│   │   ├── user.go            # User model
-│   │   ├── room.go            # Room model
-│   │   └── passkey.go         # Passkey model
-│   ├── repository/            # Data access layer (SQL via GORM)
+│   ├── auth/                  # خدمات احراز هویت
+│   │   ├── auth.go            # سرویس احراز هویت اصلی (ثبت‌نام، ورود، OAuth)
+│   │   ├── jwt.go             # ایجاد و تأیید توکن JWT
+│   │   └── session_store.go   # ذخیره جلسه Gorilla برای وضعیت OAuth
+│   ├── database/              # مقداردهی اولیه پایگاه داده و مهاجرت‌ها
+│   ├── handlers/              # هندلرهای درخواست HTTP (لایه کنترلر)
+│   │   ├── auth_handler.go    # نقاط پایانی احراز هویت
+│   │   ├── room.go            # نقاط پایانی اتاق
+│   │   └── users.go           # نقاط پایانی مدیریت کاربر
+│   ├── middleware/             # میل‌ور Fiber
+│   │   └── auth.go            # تأیید JWT، بررسی مجوزها
+│   ├── models/                # مدل‌های GORM (اسکیم‌های پایگاه داده)
+│   │   ├── user.go            # مدل کاربر
+│   │   ├── room.go            # مدل اتاق
+│   │   └── passkey.go         # مدل کلید عبور
+│   ├── repository/            # لایه دسترسی به داده (SQL از طریق GORM)
 │   │   ├── user_repository.go
 │   │   ├── room_repository.go
 │   │   └── passkey_repository.go
-│   ├── livekit/               # Embedded LiveKit server management
-│   ├── scheduler/             # Background job scheduling
-│   └── utils/                 # TLS and other utilities
-├── frontend/                  # Embedded web frontend (populated at build time)
-├── config.yaml                # Development configuration
-├── livekit.yaml               # Development LiveKit configuration
+│   ├── livekit/               # مدیریت سرور LiveKit جاسازی‌شده
+│   ├── scheduler/             # زمان‌بندی کار پس‌زمینه
+│   └── utils/                 # TLS و سایر ابزارها
+├── frontend/                  # فرانت‌اند وب جاسازی‌شده (در زمان ساخت پر می‌شود)
+├── config.yaml                # پیکربندی توسعه
+├── livekit.yaml               # پیکربندی LiveKit توسعه
 ├── go.mod
 └── go.sum
 ```
 
-## Layered Architecture
+## معماری لایه‌ای
 
-The server follows a three-layer architecture:
+سرور یک معماری سه لایه را دنبال می‌کند:
 
 ```
 HTTP Request
      │
      ▼
 ┌─────────────┐
-│  Middleware  │  JWT validation, CORS, logging
+│  Middleware  │  تأیید JWT، CORS، لاگ‌بندی
 └──────┬──────┘
        │
        ▼
 ┌─────────────┐
-│  Handlers   │  Parse requests, call services, format responses
+│  Handlers   │  تجزیه درخواست‌ها، فراخوانی سرویس‌ها، فرمت پاسخ‌ها
 └──────┬──────┘
        │
        ▼
 ┌─────────────┐
-│  Services   │  Business logic (auth, room management)
+│  Services   │  منطق کسب و کار (احراز هویت، مدیریت اتاق)
 └──────┬──────┘
        │
        ▼
 ┌─────────────┐
-│ Repository  │  Database queries via GORM
+│ Repository  │  پرس‌وجوی پایگاه داده از طریق GORM
 └──────┬──────┘
        │
        ▼
 ┌─────────────┐
-│  Database   │  SQLite (dev) or PostgreSQL (production)
+│  Database   │  SQLite (توسعه) یا PostgreSQL (تولید)
 └─────────────┘
 ```
 
-## Key Patterns
+## الگوهای کلیدی
 
-### Embedded Frontend
+### فرانت‌اند جاسازی‌شده
 
-The web frontend is compiled to static files and embedded into the Go binary using `//go:embed`:
+فرانت‌اند وب به فایل‌های استاتیک کامپایل می‌شود و در باینری Go با استفاده از `//go:embed` جاسازی می‌شود:
 
 ```go
 //go:embed frontend/*
 var frontendFS embed.FS
 ```
 
-At build time, `bun run build:embed` SSR pre-renders the React app and copies `dist/client/` into `server/frontend/`. The Go compiler then bundles it into the binary. The Fiber server serves these files for any non-API route.
+در زمان ساخت، `bun run build:embed` SSR اپلیکیشن React را از پیش رندر می‌کند و `dist/client/` را در `server/frontend/` کپی می‌کند. کامپایلر Go سپس آن را در باینری بسته می‌کند. سرور Fiber این فایل‌ها را برای هر مسیر غیر API سرویس می‌کند.
 
-### JWT Authentication
+### احراز هویت JWT
 
-The middleware extracts the JWT from the `Authorization: Bearer <token>` header, validates it, and attaches the user context to the request. Protected routes use `RequireAccess` middleware to check user roles.
+میل‌ور JWT را از هدر `Authorization: Bearer <token>` استخراج می‌کند، آن را تأیید می‌کند، و زمینه کاربر را به درخواست متصل می‌کند. مسیرهای محافظت شده از میل‌ور `RequireAccess` برای بررسی نقش‌های کاربر استفاده می‌کنند.
 
-### LiveKit Token Generation
+### تولید توکن LiveKit
 
-When a user joins a room, the server:
+وقتی کاربری به اتاقی می‌پیوندد، سرور:
 
-1. Validates room permissions
-2. Creates a LiveKit access token signed with the API secret
-3. Returns the token to the client
-4. The client connects directly to LiveKit using the token
+۱. مجوزهای اتاق را تأیید می‌کند
+۲. یک توکن دسترسی LiveKit امضا شده با رمز API ایجاد می‌کند
+۳. توکن را به کلاینت برمی‌گرداند
+۴. کلاینت مستقیماً به LiveKit با استفاده از توکن متصل می‌شود
 
-### Swagger Documentation
+### مستندات Swagger
 
-API documentation is auto-generated from code annotations using swaggo. In development, it's available at `/api/swagger/`.
+مستندات API به طور خودکار از حاشیه‌نویسی‌های کد با استفاده از swaggo تولید می‌شوند. در توسعه، در `/api/swagger/` در دسترس است.
 
-## Database
+## پایگاه داده
 
-### SQLite (Default)
+### SQLite (پیش‌فرض)
 
-For development and small deployments, Bedrud uses SQLite. The database file is stored at the configured `database.path` (default: `data.db`).
+برای توسعه و استقرارهای کوچک، بدرود از SQLite استفاده می‌کند. فایل پایگاه داده در `database.path` پیکربندی شده ذخیره می‌شود (پیش‌فرض: `data.db`).
 
 ### PostgreSQL
 
-For production with higher concurrency requirements, configure a PostgreSQL connection string. GORM handles both dialects transparently.
+برای تولید با نیازهای همروندی بالاتر، یک رشته اتصال PostgreSQL پیکربندی کنید. GORM هر دو لهجه را به شفاف مدیریت می‌کند.
 
-### Migrations
+### مهاجرت‌ها
 
-GORM auto-migrates the schema on startup based on the model structs. The models are defined in `internal/models/`.
+GORM اسکیم را در شروع به صورت خودکار بر اساس ساختارهای مدل مهاجرت می‌کند. مدل‌ها در `internal/models/` تعریف شده‌اند.
 
-## Background Jobs
+## کارهای پس‌زمینه
 
-The `gocron` scheduler runs periodic tasks such as:
-- Cleaning up expired refresh tokens
-- Removing stale room participants
+زمان‌سنج `gocron` وظایف دوره‌ای مانند زیر را اجرا می‌کند:
+- پاک کردن توکن‌های تازه‌سازی منقضی شده
+- حذف شرکت‌کنندگان اتاق قدیمی
 
 ---
 
-## See also
+## همچنین ببینید
 
-- [Backend Code Structure](/docs/backend/structure) - directory map and coding standards
-- [API Handlers](/docs/backend/api-handlers) - routing and request lifecycle
-- [Database and Models](/docs/backend/database) - GORM models and repository pattern
-- [Authentication Flow](/docs/backend/authentication) - JWT, OAuth, and passkey internals
+- [ساختار کد بک‌اند](/docs/backend/structure) - نقشه دایرکتوری و استانداردهای کدنویسی
+- [هندلرهای API](/docs/backend/api-handlers) - مسیریابی و چرخه عمر درخواست
+- [پایگاه داده و مدل‌ها](/docs/backend/database) - مدل‌های GORM و الگوی repository
+- [جریان احراز هویت](/docs/backend/authentication) - جزئیات داخلی JWT، OAuth، و کلیدهای عبور

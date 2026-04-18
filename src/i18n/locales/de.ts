@@ -736,4 +736,10 @@ export default {
       cta: "E-Mail senden",
     },
   },
+  notFound: {
+    title: "Seite nicht gefunden",
+    description:
+      "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
+    backToHome: "Zurück zur Startseite",
+  },
 };

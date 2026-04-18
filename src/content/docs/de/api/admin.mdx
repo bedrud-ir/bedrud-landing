@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: Admin-API
+description: Administrative Vorgänge
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+Admin-Endpunkte befinden sich unter `/api/admin/`. Diese erfordern die Rolle **Super Admin**.
 
-## Overview
+## Übersicht
 
-| Endpoint | Method | Description |
+| Endpunkt | Methode | Beschreibung |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | Alle Benutzer auflisten |
+| `/api/admin/users/:id/status` | PUT | Benutzer aktivieren oder deaktivieren |
 
 ---
 
-## Endpoints
+## Endpunkte
 
-### List All Users
+### Alle Benutzer auflisten
 
-Retrieve a list of all registered users.
+Eine Liste aller registrierten Benutzer abrufen.
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Header:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Erforderliche Rolle:** Super Admin
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### Benutzerstatus aktualisieren
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+Ein Benutzerkonto aktivieren oder deaktivieren. Deaktivierte Benutzer können sich nicht anmelden.
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Header:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Erforderliche Rolle:** Super Admin
 
-**URL Parameters:**
+**URL-Parameter:**
 
-| Parameter | Description |
+| Parameter | Beschreibung |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | Benutzer-UUID |
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -100,17 +100,17 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## Benutzerrollen
 
-| Role | Description | Permissions |
+| Rolle | Beschreibung | Berechtigungen |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | Vorübergehender Benutzer | Nur Räumen beitreten |
+| `user` | Regulärer Benutzer | Räume erstellen/beitreten, eigenes Profil verwalten |
+| `admin` | Super Admin | Alle Benutzerberechtigungen + Benutzer verwalten, alle Räume einsehen |
 
-### Creating an Admin
+### Admin erstellen
 
-Admin users are created via the CLI:
+Admin-Benutzer werden über die CLI erstellt:
 
 ```bash
 # Create a user
@@ -120,11 +120,11 @@ bedrud user create --email "admin@example.com" --password "securepassword" --nam
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+Es gibt keinen API-Endpunkt zur Beförderung von Benutzern — dies ist aus Sicherheitsgründen beabsichtigt.
 
 ---
 
-## Error Responses
+## Fehlerantworten
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
+| Status | Bedeutung |
 |--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| 401 | Nicht authentifiziert |
+| 403 | Kein Super Admin |
+| 404 | Benutzer nicht gefunden |
+| 500 | Interner Serverfehler |
 
 ---
 
-## See also
+## Siehe auch
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [API-Handler und Routing](/de/docs/backend/api-handlers) - wie Admin-Routen implementiert sind
+- [Räume-API](/de/docs/api/rooms) - Raumverwaltungs-Endpunkte

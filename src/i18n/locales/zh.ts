@@ -723,4 +723,9 @@ export default {
       cta: "发送电子邮件",
     },
   },
+  notFound: {
+    title: "页面未找到",
+    description: "您查找的页面不存在或已被移动。",
+    backToHome: "返回首页",
+  },
 };

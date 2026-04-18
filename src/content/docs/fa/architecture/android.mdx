@@ -1,89 +1,89 @@
 ---
-title: Android App
-description: Native Android application
+title: اپلیکیشن Android
+description: اپلیکیشن بومی Android
 order: 9
 ---
 
-The Bedrud Android app is built with Jetpack Compose and Kotlin, providing a native video meeting experience with picture-in-picture, deep linking, and multi-instance support.
+اپلیکیشن Android بدرود با Jetpack Compose و Kotlin ساخته شده است، تجربه جلسه ویدیویی بومی با تصویر در تصویر، لینک عمیق، و پشتیبانی چند نمونه را فراهم می‌کند.
 
-## Technology Stack
+## پشته فناوری
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Kotlin | 2.1.0 | Language |
-| Jetpack Compose | Material 3 | UI toolkit |
-| Koin | 4.0.0 | Dependency injection |
-| Retrofit + OkHttp | Latest | HTTP client |
-| LiveKit Android SDK | 2.23.3 | WebRTC media |
-| Credentials API | Latest | Passkey support |
-| Encrypted SharedPreferences | Latest | Secure storage |
-| Coil | Latest | Image loading |
+| فناوری | نسخه | هدف |
+|-----------|-------|-----|
+| Kotlin | 2.1.0 | زبان |
+| Jetpack Compose | Material 3 | جعبه ابزار UI |
+| Koin | 4.0.0 | تزریق وابستگی |
+| Retrofit + OkHttp | Latest | کلاینت HTTP |
+| LiveKit Android SDK | 2.23.3 | مدیا WebRTC |
+| Credentials API | Latest | پشتیبانی کلید عبور |
+| Encrypted SharedPreferences | Latest | ذخیره امن |
+| Coil | Latest | بارگذاری تصویر |
 
-**Target:** Min SDK 28, Target SDK 35, JDK 17
+**هدف:** Min SDK 28، Target SDK 35، JDK 17
 
-## Directory Structure
+## ساختار دایرکتوری
 
 ```
 apps/android/app/src/main/java/com/bedrud/app/
-├── BedrudApplication.kt           # Application class (Koin init)
-├── MainActivity.kt                # Single-activity entry point
+├── BedrudApplication.kt           # کلاس Application (init Koin)
+├── MainActivity.kt                # نقطه ورودی single-activity
 ├── core/
-│   ├── api/                       # Retrofit API client
-│   │   ├── ApiClient.kt           # Base HTTP client with auth interceptor
-│   │   ├── AuthApi.kt             # Auth endpoint definitions
-│   │   └── RoomApi.kt             # Room endpoint definitions
+│   ├── api/                       # کلاینت API Retrofit
+│   │   ├── ApiClient.kt           # کلاینت HTTP پایه با interceptor احراز هویت
+│   │   ├── AuthApi.kt             # تعاریف نقطه پایانی Auth
+│   │   └── RoomApi.kt             # تعاریف نقطه پایانی Room
 │   ├── auth/
-│   │   └── AuthManager.kt         # Token management, login/logout
+│   │   └── AuthManager.kt         # مدیریت توکن، ورود/خروج
 │   ├── call/
-│   │   ├── CallService.kt         # Foreground service for calls
-│   │   └── CallConnectionService.kt  # Android ConnectionService
+│   │   ├── CallService.kt         # سرویس پیش‌زمینه برای تماس‌ها
+│   │   └── CallConnectionService.kt  # ConnectionService اندروید
 │   ├── deeplink/
-│   │   └── DeepLinkHandler.kt     # Handle bedrud.com deep links
+│   │   └── DeepLinkHandler.kt     # مدیریت لینک‌های عمیق bedrud.com
 │   ├── di/
-│   │   └── AppModule.kt           # Koin module definitions
+│   │   └── AppModule.kt           # تعاریف ماژول Koin
 │   ├── instance/
-│   │   ├── InstanceManager.kt     # Central multi-instance orchestrator
-│   │   ├── InstanceStore.kt       # Persistent instance storage
-│   │   └── InstanceDeps.kt        # Per-instance dependency container
+│   │   ├── InstanceManager.kt     # ارکستراتور چند نمونه مرکزی
+│   │   ├── InstanceStore.kt       # ذخیره نمونه پایدار
+│   │   └── InstanceDeps.kt        # کانتینر وابستگی هر نمونه
 │   ├── livekit/
-│   │   └── RoomManager.kt         # LiveKit room connection manager
+│   │   └── RoomManager.kt         # مدیر اتصال اتاق LiveKit
 │   └── pip/
-│       └── PipManager.kt          # Picture-in-Picture controller
+│       └── PipManager.kt          # کنترل‌کننده تصویر در تصویر
 ├── models/
-│   ├── User.kt                    # User data model
-│   ├── Room.kt                    # Room data model
-│   ├── Instance.kt                # Server instance model
-│   └── ApiResponse.kt             # API response wrappers
+│   ├── User.kt                    # مدل داده کاربر
+│   ├── Room.kt                    # مدل داده اتاق
+│   ├── Instance.kt                # مدل داده نمونه سرور
+│   └── ApiResponse.kt             # wrappers پاسخ API
 └── ui/
     ├── screens/
     │   ├── auth/
-    │   │   ├── LoginScreen.kt     # Email/password + passkey login
-    │   │   └── RegisterScreen.kt  # Account registration
+    │   │   ├── LoginScreen.kt     # ورود ایمیل/رمز + کلید عبور
+    │   │   └── RegisterScreen.kt  # ثبت‌نام حساب
     │   ├── dashboard/
-    │   │   └── DashboardScreen.kt # Room list and management
+    │   │   └── DashboardScreen.kt # لیست اتاق و مدیریت
     │   ├── meeting/
-    │   │   └── MeetingScreen.kt   # Video call interface
+    │   │   └── MeetingScreen.kt   # رابط تماس ویدیویی
     │   ├── instance/
-    │   │   ├── AddInstanceScreen.kt    # Add server instance
-    │   │   └── InstanceSwitcher.kt     # Switch between instances
+    │   │   ├── AddInstanceScreen.kt    # افزودن نمونه سرور
+    │   │   └── InstanceSwitcher.kt     # جابجایی بین نمونه‌ها
     │   ├── profile/
-    │   │   └── ProfileScreen.kt   # User profile
+    │   │   └── ProfileScreen.kt   # پروفایل کاربر
     │   └── settings/
-    │       └── SettingsScreen.kt  # App settings
-    ├── components/                 # Reusable Compose components
-    └── theme/                      # Material 3 theme definition
+    │       └── SettingsScreen.kt  # تنظیمات اپلیکیشن
+    ├── components/                 # کامپوننت‌های قابل استفاده مجدد Compose
+    └── theme/                      # تعریف تم Material 3
 ```
 
-## Multi-Instance Architecture
+## معماری چند نمونه
 
-The Android app supports connecting to multiple Bedrud servers simultaneously.
+اپلیکیشن Android اتصال همزمان به چندین سرور بدرود را پشتیبانی می‌کند.
 
 ```
 ┌──────────────────────────┐
-│     InstanceManager      │  (Koin singleton)
+│     InstanceManager      │  (singleton Koin)
 │                          │
 │  ┌────────────────────┐  │
-│  │   InstanceStore    │  │  Persists list to SharedPreferences
+│  │   InstanceStore    │  │  لیست را در SharedPreferences پایدار می‌کند
 │  └────────────────────┘  │
 │                          │
 │  ┌────────────────────┐  │
@@ -96,68 +96,68 @@ The Android app supports connecting to multiple Bedrud servers simultaneously.
 └──────────────────────────┘    └── RoomManager
 ```
 
-### Key Pattern
+### الگوی کلیدی
 
-All per-instance dependencies are exposed as `StateFlow<T?>` on `InstanceManager`. Composables collect them:
+همه وابستگی‌های هر نمونه به عنوان `StateFlow<T?>` در `InstanceManager` در معرض قرار می‌گیرند. Composable‌ها آنها را جمع می‌کنند:
 
 ```kotlin
 val authManager = instanceManager.authManager.collectAsState().value ?: return
 val roomApi = instanceManager.roomApi.collectAsState().value ?: return
 ```
 
-The `?: return` pattern ensures the composable doesn't render until the instance is fully initialized.
+الگوی `?: return` تضمین می‌کند که composable تا زمانی که نمونه به طور کامل مقداردهی نشود، رندر نمی‌شود.
 
-### Navigation Flow
+### جریان ناوبری
 
 ```
-No instances ──► AddInstanceScreen
-Has instances, not logged in ──► LoginScreen
-Has instances, logged in ──► DashboardScreen
+بدون نمونه ──► AddInstanceScreen
+نمونه دارد، وارد نشده ──► LoginScreen
+نمونه دارد، وارد شده ──► DashboardScreen
 ```
 
-The instance switcher appears as a `ModalBottomSheet` triggered from the Dashboard toolbar.
+جابجایی نمونه به عنوان `ModalBottomSheet` که از نوار Dashboard راه‌اندازی می‌شود ظاهر می‌شود.
 
-## Features
+## ویژگی‌ها
 
-### Deep Linking
+### لینک عمیق
 
-The app handles URLs matching:
+اپلیکیشن URLهای مطابق را مدیریت می‌کند:
 
-- `https://bedrud.com/m/*` - Direct room join
-- `https://bedrud.com/c/*` - Room join by code
+- `https://bedrud.com/m/*` - پیوستن مستقیم به اتاق
+- `https://bedrud.com/c/*` - پیوستن به اتاق با کد
 
-Configured via intent filters in `AndroidManifest.xml`.
+از طریق فیلترهای intent در `AndroidManifest.xml` پیکربندی شده است.
 
-### Call Management
+### مدیریت تماس
 
-- **CallService** - Foreground service that keeps the connection alive during calls
-- **CallConnectionService** - Integrates with Android's telephony framework for proper call UI
-- Required permissions: `MANAGE_OWN_CALLS`, `FOREGROUND_SERVICE_PHONE_CALL`, `FOREGROUND_SERVICE_CAMERA`, `FOREGROUND_SERVICE_MICROPHONE`
+- **CallService** - سرویس پیش‌زمینه که اتصال را در حین تماس زنده نگه می‌دارد
+- **CallConnectionService** - با چارچوب تلفنی اندروید برای رابط تماس مناسب یکپارچه می‌شود
+- مجوزهای مورد نیاز: `MANAGE_OWN_CALLS`، `FOREGROUND_SERVICE_PHONE_CALL`، `FOREGROUND_SERVICE_CAMERA`، `FOREGROUND_SERVICE_MICROPHONE`
 
-### Picture-in-Picture
+### تصویر در تصویر
 
-The meeting screen supports PiP mode, allowing users to see the video feed while using other apps.
+صفحه جلسه از حالت PiP پشتیبانی می‌کند، به کاربران اجازه می‌دهد در حالی که از اپلیکیشن‌های دیگر استفاده می‌کنند، فید ویدیو را ببینند.
 
-### Passkeys
+### کلیدهای عبور
 
-Uses Android's Credentials API for FIDO2/WebAuthn passkey registration and login.
+از Credentials API اندروید برای ثبت‌نام و ورود کلید عبور FIDO2/WebAuthn استفاده می‌کند.
 
-## Building
+## ساخت
 
 ```bash
 # Debug APK
 make build-android-debug
 
-# Release APK (requires keystore.properties)
+# Release APK (نیاز به keystore.properties دارد)
 make build-android
 
-# Build + install on connected device
+# ساخت + نصب روی دستگاه متصل
 make release-android
 
-# Open in Android Studio
+# باز کردن در Android Studio
 make dev-android
 ```
 
-### Release Signing
+### امضای Release
 
-Release builds require a `keystore.properties` file in the android project root with your signing configuration.
+ساخت‌های Release نیاز به یک فایل `keystore.properties` در ریشه پروژه android با پیکربندی امضای شما دارند.

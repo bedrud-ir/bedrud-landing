@@ -1,29 +1,29 @@
 ---
-title: Web Frontend
-description: React web application architecture
+title: واجهة الويب
+description: بنية تطبيق الويب React
 order: 8
 ---
 
-The Bedrud web frontend is a React application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, server-side rendering pre-renders an HTML shell. The Go binary embeds this shell alongside the static client assets.
+واجهة بدرود الوي هي تطبيق React مبني بـ TanStack Start وTailwindCSS v4 وshadcn/ui. في الإنتاج، يقوم العرض من جانب الخادم بتهيئة هيكل HTML مسبقًا. يُدمِج الملف الثنائي Go هذا الهيكل مع أصول العميل الثابتة.
 
-## Technology Stack
+## حزمة التقنيات
 
-| Technology | Purpose |
+| التقنية | الغرض |
 |-----------|---------|
-| React 19 | UI framework |
-| TanStack Start | SSR framework and file-based routing |
-| TanStack Router | Client-side routing |
-| TanStack Query | Server state and data fetching |
-| TailwindCSS 4 | Utility-first styling |
-| shadcn/ui + Radix UI | Accessible component primitives |
-| Zustand | Client-side auth state |
-| Vite 7 | Build tool and dev server |
-| LiveKit React SDK | WebRTC media handling |
-| Zod | Schema validation |
-| Lucide React | Icon library |
-| Bun | Package manager |
+| React 19 | إطار عمل واجهة المستخدم |
+| TanStack Start | إطار عمل SSR والتوجيه القائم على الملفات |
+| TanStack Router | التوجيه من جانب العميل |
+| TanStack Query | حالة الخادم وجلب البيانات |
+| TailwindCSS 4 | تنسيق قائم على الأدوات |
+| shadcn/ui + Radix UI | مكونات أولية سهلة الوصول |
+| Zustand | حالة المصادقة من جانب العميل |
+| Vite 7 | أداة البناء وخادم التطوير |
+| LiveKit React SDK | معالجة وسائط WebRTC |
+| Zod | التحقق من المخططات |
+| Lucide React | مكتبة الأيقونات |
+| Bun | مدير الحزم |
 
-## Directory Structure
+## هيكل المجلدات
 
 ```
 apps/web/
@@ -67,82 +67,82 @@ apps/web/
 └── vite.config.ts
 ```
 
-## Authentication Flow
+## مسار المصادقة
 
-Auth state is managed by a Zustand store in `src/lib/auth.store.ts`:
+تُدار حالة المصادقة عبر مخزن Zustand في `src/lib/auth.store.ts`:
 
-1. **Login** - User submits credentials to `POST /api/auth/login`
-2. **Token Storage** - Access and refresh tokens saved to `localStorage`
-3. **Automatic Injection** - `authFetch` wraps every API call, adding the `Authorization: Bearer` header
-4. **Auto-Refresh** - When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
-5. **Logout** - Clears tokens and redirects to the login page
+١. **تسجيل الدخول** - يرسل المستخدم بيانات الاعتماد إلى `POST /api/auth/login`
+٢. **تخزين الرموز** - تُحفَظ رموز الوصول والتحديث في `localStorage`
+٣. **الإرفاق التلقائي** - `authFetch` يغلف كل استدعاء API، مضيفًا ترويسة `Authorization: Bearer`
+٤. **التحديث التلقائي** - عندما يُرجِع الطلب خطأ 401، يحاول `authFetch` تحديث الرمز باستخدام رمز التحديث
+٥. **تسجيل الخروج** - يمسح الرموز ويعيد التوجيه لصفحة تسجيل الدخول
 
 ### authFetch
 
-The `authFetch` function in `src/lib/api.ts` is a drop-in replacement for `fetch` that:
+دالة `authFetch` في `src/lib/api.ts` هي بديل مباشر لـ `fetch` تقوم بما يلي:
 
-- Attaches the JWT access token to every request
-- Catches 401 responses and attempts a token refresh
-- Logs out the user if the refresh fails
+- إرفاق رمز وصول JWT بكل طلب
+- التقاط استجابات 401 ومحاولة تحديث الرمز
+- تسجيل خروج المستخدم إذا فشل التحديث
 
-## Meeting Page
+## صفحة الاجتماع
 
-The meeting room at `/m/$meetId` handles:
+صفحة الغرفة على `/m/$meetId` تتولى:
 
-- **LiveKit connection** - Connects to the media server with the token from the join API
-- **Track rendering** - Subscribes to audio/video tracks from other participants
-- **Device selection** - Switch camera, microphone, or speaker mid-call without leaving the room
-- **Admin controls** - Room creator sees kick, mute, and video-off buttons
-- **Chat** - In-room text chat via `ChatPanel`
-- **Spotlight view** - Focus a single participant
+- **اتصال LiveKit** - الاتصال بخادم الوسائط بالرمز من API الانضمام
+- **عرض المسارات** - الاشتراك في مسارات الصوت/الفيديو من المشاركين الآخرين
+- **اختيار الأجهزة** - تبديل الكاميرا أو الميكروفون أو السماعة أثناء المكالمة بدون مغادرة الغرفة
+- **أدوات المسؤول** - يرى منشئ الغرفة أزرار الطرد والكتم وإيقاف الفيديو
+- **الدردشة** - دردشة نصية داخل الغرفة عبر `ChatPanel`
+- **عرض التركيز** - التركيز على مشارك واحد
 
-## Admin Panel
+## لوحة تحكم المسؤول
 
-The admin panel at `/admin` provides:
+توفر لوحة تحكم المسؤول على `/admin`:
 
-- **Room management** - table view with drill-down to room detail pages
-- **User management** - table view with drill-down to individual user accounts and role editing
-- **Server settings** - configure instance-wide options, access controls, and invite links
-- **Invite tokens** - generate and revoke invite links to control who can join
+- **إدارة الغرف** - عرض جدولي مع إمكانية الوصول لصفحات تفاصيل الغرف
+- **إدارة المستخدمين** - عرض جدولي مع إمكانية الوصول لحسابات المستخدمين الفردية وتعديل الأدوار
+- **إعدادات الخادم** - تهيئة الخيارات على مستوى المثيل، وأدوات التحكم في الوصول، وروابط الدعوة
+- **رموز الدعوة** - إنشاء وإلغاء روابط الدعوة للتحكم فيمن يمكنه الانضمام
 
-## Dark Mode
+## الوضع الداكن
 
-A `ThemeToggle` component lets users switch between light and dark themes from anywhere in the app. The preference is persisted to `localStorage` and applied on load.
+يتيح مكون `ThemeToggle` للمستخدمين التبديل بين السمات الفاتحة والداكنة من أي مكان في التطبيق. تُحفَظ التفضيلات في `localStorage` وتُطبَّق عند التحميل.
 
-## Build
+## البناء
 
-### Development
+### التطوير
 
 ```bash
 cd apps/web
 bun run dev      # Starts Vite dev server with HMR at localhost:3000
 ```
 
-The dev server proxies `/api` and `/livekit` requests to the Go server at `localhost:8090`.
+يُوجِّه خادم التطوير طلبات `/api` و`/livekit` إلى خادم Go على `localhost:8090`.
 
-### Production (standalone web bundle)
+### الإنتاج (حزمة ويب مستقلة)
 
 ```bash
 cd apps/web
 bun run build    # Outputs static client assets to dist/client/ and SSR server to dist/server/
 ```
 
-### Production (embedded in Go binary)
+### الإنتاج (مدمج في الملف الثنائي Go)
 
 ```bash
 cd apps/web
 bun run build:embed
 ```
 
-This runs `scripts/embed.mjs` which:
+يشغّل `scripts/embed.mjs` الذي يقوم بما يلي:
 
-1. Runs `bun run build` to produce `dist/client/` and `dist/server/`
-2. Starts the SSR server locally
-3. Fetches `/` to capture the pre-rendered HTML shell
-4. Copies `dist/client/` into `server/frontend/`
-5. Writes the rendered HTML as `server/frontend/index.html`
+١. تشغيل `bun run build` لإنتاج `dist/client/` و`dist/server/`
+٢. بدء تشغيل خادم SSR محليًا
+٣. جلب `/` لالتقاط هيكل HTML المُعرَض مسبقًا
+٤. نسخ `dist/client/` إلى `server/frontend/`
+٥. كتابة HTML المعروض كـ `server/frontend/index.html`
 
-### Type Checking
+### فحص الأنواع
 
 ```bash
 bun run check    # Runs tsc --noEmit
@@ -150,6 +150,6 @@ bun run check    # Runs tsc --noEmit
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI component patterns, color tokens, and styling rules
+- [نظام تصميم الويب](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - أنماط مكونات واجهة المستخدم، والرموز المميزة للألوان، وقواعد التنسيق

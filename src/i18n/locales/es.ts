@@ -737,4 +737,9 @@ export default {
       cta: "Enviar email",
     },
   },
+  notFound: {
+    title: "Página no encontrada",
+    description: "La página que buscas no existe o ha sido movida.",
+    backToHome: "Volver al inicio",
+  },
 };

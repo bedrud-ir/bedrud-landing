@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: واجهة برمجة المشرفين
+description: العمليات الإدارية
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+نقاط نهاية المشرفين تحت `/api/admin/`. تتطلب دور **المشرف العام**.
 
-## Overview
+## نظرة عامة
 
-| Endpoint | Method | Description |
+| نقطة النهاية | الطريقة | الوصف |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | عرض جميع المستخدمين |
+| `/api/admin/users/:id/status` | PUT | تفعيل أو تعطيل مستخدم |
 
 ---
 
-## Endpoints
+## نقاط النهاية
 
-### List All Users
+### عرض جميع المستخدمين
 
-Retrieve a list of all registered users.
+استرجاع قائمة بجميع المستخدمين المُسجَّلين.
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**الدور المطلوب:** مشرف عام
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### تحديث حالة المستخدم
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+تفعيل أو تعطيل حساب مستخدم. لا يمكن للمستخدمين المُعطَّلين تسجيل الدخول.
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**الدور المطلوب:** مشرف عام
 
-**URL Parameters:**
+**معاملات URL:**
 
-| Parameter | Description |
+| المعامل | الوصف |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | UUID المستخدم |
 
-**Request Body:**
+**نص الطلب:**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -100,17 +100,17 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## أدوار المستخدمين
 
-| Role | Description | Permissions |
+| الدور | الوصف | الصلاحيات |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | مستخدم مؤقت | الانضمام إلى الغرف فقط |
+| `user` | مستخدم عادي | إنشاء/الانضمام إلى الغرف، إدارة الملف الشخصي |
+| `admin` | مشرف عام | جميع صلاحيات المستخدم + إدارة المستخدمين، عرض جميع الغرف |
 
-### Creating an Admin
+### إنشاء مشرف
 
-Admin users are created via the CLI:
+يتم إنشاء المستخدمين المشرفين عبر سطر الأوامر:
 
 ```bash
 # Create a user
@@ -120,11 +120,11 @@ bedrud user create --email "admin@example.com" --password "securepassword" --nam
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+لا توجد نقطة نهاية API لترقية المستخدمين - وهذا متعمد لأسباب أمنية.
 
 ---
 
-## Error Responses
+## استجابات الخطأ
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
+| الحالة | المعنى |
 |--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| 401 | غير مُصدَّق |
+| 403 | ليس مشرفًا عامًا |
+| 404 | المستخدم غير موجود |
+| 500 | خطأ داخلي في الخادم |
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [معالجات API والتوجيه](/docs/backend/api-handlers) - كيفية تنفيذ مسارات المشرفين
+- [واجهة برمجة الغرف](/docs/api/rooms) - نقاط نهاية إدارة الغرف

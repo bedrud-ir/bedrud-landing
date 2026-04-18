@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: Authentifizierungs-API
+description: Authentifizierungs-Endpunkte und Methoden
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+Alle Authentifizierungs-Endpunkte befinden sich unter `/api/auth/`.
 
-## Overview
+## Übersicht
 
-Bedrud supports multiple authentication methods:
+Bedrud unterstützt mehrere Authentifizierungsmethoden:
 
-| Method | Endpoint | Description |
+| Methode | Endpunkt | Beschreibung |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
+| E-Mail/Passwort | `POST /api/auth/login` | Klassische Anmeldung |
+| Registrierung | `POST /api/auth/register` | Konto erstellen |
+| Gast | `POST /api/auth/guest-login` | Vorübergehender Zugriff |
+| OAuth | `GET /api/auth/:provider/login` | Social Login |
 | Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| Token-Aktualisierung | `POST /api/auth/refresh` | Zugriffstoken erneuern |
 
-## Token Format
+## Token-Format
 
-Successful authentication returns a pair of JWT tokens:
+Eine erfolgreiche Authentifizierung gibt ein Paar JWT-Token zurück:
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **Access Token** - Kurzlebig, wird im `Authorization`-Header verwendet
+- **Refresh Token** - Langlebig, wird verwendet, um neue Zugriffstoken zu erhalten
 
-### Using Tokens
+### Tokens verwenden
 
-Include the access token in all authenticated requests:
+Fügen Sie das Zugriffstoken in alle authentifizierten Anfragen ein:
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## Endpunkte
 
-### Register
+### Registrieren
 
-Create a new user account.
+Ein neues Benutzerkonto erstellen.
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### Anmelden
 
-Authenticate with email and password.
+Mit E-Mail und Passwort authentifizieren.
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### Gast-Anmeldung
 
-Join as a guest without creating an account. Guests have limited permissions.
+Als Gast ohne Kontoerstellung beitreten. Gäste haben eingeschränkte Berechtigungen.
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### Aktuellen Benutzer abrufen
 
-Retrieve the authenticated user's profile.
+Das Profil des authentifizierten Benutzers abrufen.
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Header:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### Token aktualisieren
 
-Exchange a refresh token for a new access token.
+Ein Refresh Token gegen ein neues Zugriffstoken eintauschen.
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### Abmelden
 
-Invalidate the current refresh token.
+Das aktuelle Refresh Token ungültig machen.
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Header:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**Anfrage-Body:**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**Antwort (200):**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### OAuth-Anmeldung
 
-Start an OAuth flow with a social provider.
+Einen OAuth-Ablauf mit einem Social-Provider starten.
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**Unterstützte Provider:**
 
-| Provider | Path |
+| Provider | Pfad |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+Der Server leitet den Benutzer zur Autorisierungsseite des Providers weiter. Nach der Zustimmung leitet der Provider zur Callback-URL zurück, und der Server gibt JWT-Token zurück.
 
 ---
 
-## Error Responses
+## Fehlerantworten
 
-All auth endpoints return errors in this format:
+Alle Authentifizierungs-Endpunkte geben Fehler in diesem Format zurück:
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
+| Status | Bedeutung |
 |--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| 400 | Ungültige Anfrage (fehlende Felder, Validierungsfehler) |
+| 401 | Ungültige Anmeldedaten oder abgelaufenes Token |
+| 409 | E-Mail bereits registriert |
+| 500 | Interner Serverfehler |
 
 ---
 
-## See also
+## Siehe auch
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [Authentifizierungs-Ablauf](/de/docs/backend/authentication) - wie JWT, OAuth und Passkeys intern funktionieren
+- [Passkeys-API](/de/docs/api/passkeys) - FIDO2/WebAuthn-Endpunktreferenz

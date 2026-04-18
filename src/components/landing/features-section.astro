@@ -42,7 +42,7 @@ const features = [
 
 <section id="features" class="relative scroll-mt-20 section-y">
   <div class="section-container">
-    <div class="max-w-lg">
+    <div class="max-w-lg" data-animate="fade-up">
       <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">
         {t(lang, "features.title")}
       </h2>
@@ -52,9 +52,11 @@ const features = [
     </div>
 
     <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
-      {features.map(({ key, icon, iconBg, iconColor, link }) => (
+      {features.map(({ key, icon, iconBg, iconColor, link }, i) => (
         <a
           href={`/${lang}${link}`}
+          data-animate="fade-up"
+          style={`transition-delay: ${(i + 1) * 80}ms`}
           class="group relative block rounded-2xl bg-card p-7 shadow-[0px_0px_0px_1px_rgba(0,0,0,0.08)] transition-[shadow] duration-300 hover:shadow-[0px_0px_0px_1px_rgba(0,0,0,0.12),0px_2px_4px_rgba(0,0,0,0.04)] dark:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.1)] dark:hover:shadow-[0px_0px_0px_1px_rgba(255,255,255,0.14),0px_2px_4px_rgba(0,0,0,0.2)] sm:p-8"
         >
           <div class={`inline-flex size-11 items-center justify-center rounded-xl ${iconBg}`}>

@@ -15,6 +15,9 @@ function applyTheme(theme: "light" | "dark") {
     document.documentElement.classList.remove("dark");
   }
   localStorage.setItem("theme", theme);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta)
+    meta.setAttribute("content", theme === "dark" ? "#09090b" : "#ffffff");
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
@@ -22,6 +25,15 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   useEffect(() => {
     setTheme(getTheme());
+
+    const observer = new MutationObserver(() => {
+      setTheme(getTheme());
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
   }, []);
 
   const handleToggle = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,10 +52,14 @@ export function ThemeToggle({ className }: { className?: string }) {
 
     document.documentElement.style.setProperty("--x", `${x}px`);
     document.documentElement.style.setProperty("--y", `${y}px`);
+    document.documentElement.classList.add("theme-transitioning");
 
-    document.startViewTransition(() => {
+    const transition = document.startViewTransition(() => {
       applyTheme(newTheme);
       setTheme(newTheme);
+    });
+    transition.finished.then(() => {
+      document.documentElement.classList.remove("theme-transitioning");
     });
   };
 
@@ -55,11 +71,8 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label="Toggle theme"
       className={cn("cursor-pointer", className)}
     >
-      {theme === "light" ? (
-        <Sun className="size-4" />
-      ) : (
-        <Moon className="size-4" />
-      )}
+      <Sun className="size-4 block dark:hidden" />
+      <Moon className="size-4 hidden dark:block" />
     </Button>
   );
 }

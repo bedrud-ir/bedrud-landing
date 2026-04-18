@@ -8,6 +8,7 @@ import {
 } from "motion/react";
 import type React from "react";
 import { useRef } from "react";
+import { useReducedMotion } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
 
 export const MacbookScroll = ({
@@ -22,15 +23,32 @@ export const MacbookScroll = ({
   children?: React.ReactNode;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const scaleX = useTransform(scrollYProgress, [0, 0.3], [1.2, 1.5]);
-  const scaleY = useTransform(scrollYProgress, [0, 0.3], [0.6, 1.5]);
-  const translate = useTransform(scrollYProgress, [0, 0.6], [0, 800]);
-  const rotate = useTransform(scrollYProgress, [0.1, 0.12, 0.3], [-28, -28, 0]);
+  const scaleX = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    reduced ? [1.2, 1.2] : [1.2, 1.5],
+  );
+  const scaleY = useTransform(
+    scrollYProgress,
+    [0, 0.3],
+    reduced ? [0.6, 0.6] : [0.6, 1.5],
+  );
+  const translate = useTransform(
+    scrollYProgress,
+    [0, 0.6],
+    reduced ? [0, 0] : [0, 800],
+  );
+  const rotate = useTransform(
+    scrollYProgress,
+    [0.1, 0.12, 0.3],
+    reduced ? [-28, -28, -28] : [-28, -28, 0],
+  );
 
   return (
     <div
@@ -195,7 +213,7 @@ export const Keypad = () => {
         </KBtn>
         <KBtn>
           <span className="text-[5px]">⏭</span>
-          <span className="mt-1 inline-block">F8</span>
+          <span className="mt-1 inline-block">F9</span>
         </KBtn>
         <KBtn>
           <span className="text-[5px]">🔇</span>

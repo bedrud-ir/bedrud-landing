@@ -1,35 +1,35 @@
 ---
-title: Passkeys API
-description: FIDO2/WebAuthn integration
+title: واجهة برمجة مفاتيح المرور
+description: تكامل FIDO2/WebAuthn
 order: 26
 ---
 
-FIDO2/WebAuthn passkey endpoints allow users to register and authenticate using biometrics or security keys.
+تتيح نقاط نهاية مفاتيح المرور FIDO2/WebAuthn للمستخدمين التسجيل والمصادقة باستخدام القياسات الحيوية أو مفاتيح الأمان.
 
-## Overview
+## نظرة عامة
 
-Passkey flows use a challenge-response protocol with two phases each:
+تستخدم تدفقات مفاتيح المرور بروتوكول تحدٍّ-استجابة بمرحلتين لكل تدفق:
 
-| Flow | Phase 1 (Begin) | Phase 2 (Finish) |
+| التدفق | المرحلة ١ (البدء) | المرحلة ٢ (الإنهاء) |
 |------|-----------------|-------------------|
-| Registration | `POST /api/auth/passkey/register/begin` | `POST /api/auth/passkey/register/finish` |
-| Login | `POST /api/auth/passkey/login/begin` | `POST /api/auth/passkey/login/finish` |
+| التسجيل | `POST /api/auth/passkey/register/begin` | `POST /api/auth/passkey/register/finish` |
+| تسجيل الدخول | `POST /api/auth/passkey/login/begin` | `POST /api/auth/passkey/login/finish` |
 
 ---
 
-## Registration Flow
+## تدفق التسجيل
 
-Users must be logged in to register a passkey (it's linked to their existing account).
+يجب على المستخدمين تسجيل الدخول لتسجيل مفتاح مرور (يُربط بحسابهم الحالي).
 
-### Step 1: Begin Registration
+### الخطوة ١: بدء التسجيل
 
 ```
 POST /api/auth/passkey/register/begin
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -55,7 +55,7 @@ POST /api/auth/passkey/register/begin
 }
 ```
 
-Pass this to the browser's WebAuthn API:
+مرر هذا إلى واجهة WebAuthn في المتصفح:
 
 ```javascript
 const credential = await navigator.credentials.create({
@@ -63,15 +63,15 @@ const credential = await navigator.credentials.create({
 });
 ```
 
-### Step 2: Finish Registration
+### الخطوة ٢: إنهاء التسجيل
 
 ```
 POST /api/auth/passkey/register/finish
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**الرؤوس:** `Authorization: Bearer <accessToken>`
 
-**Request Body:** The credential response from the browser, base64url-encoded:
+**نص الطلب:** استجابة بيانات الاعتماد من المتصفح، بترميز base64url:
 
 ```json
 {
@@ -85,7 +85,7 @@ POST /api/auth/passkey/register/finish
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -95,17 +95,17 @@ POST /api/auth/passkey/register/finish
 
 ---
 
-## Login Flow
+## تدفق تسجيل الدخول
 
-### Step 1: Begin Login
+### الخطوة ١: بدء تسجيل الدخول
 
 ```
 POST /api/auth/passkey/login/begin
 ```
 
-No authentication required.
+لا تتطلب مصادقة.
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -117,7 +117,7 @@ No authentication required.
 }
 ```
 
-Pass this to the browser's WebAuthn API:
+مرر هذا إلى واجهة WebAuthn في المتصفح:
 
 ```javascript
 const assertion = await navigator.credentials.get({
@@ -125,13 +125,13 @@ const assertion = await navigator.credentials.get({
 });
 ```
 
-### Step 2: Finish Login
+### الخطوة ٢: إنهاء تسجيل الدخول
 
 ```
 POST /api/auth/passkey/login/finish
 ```
 
-**Request Body:** The assertion response from the browser:
+**نص الطلب:** استجابة التأكيد من المتصفح:
 
 ```json
 {
@@ -146,7 +146,7 @@ POST /api/auth/passkey/login/finish
 }
 ```
 
-**Response (200):**
+**الاستجابة (200):**
 
 ```json
 {
@@ -162,36 +162,36 @@ POST /api/auth/passkey/login/finish
 
 ---
 
-## Security
+## الأمان
 
-| Measure | Description |
+| الإجراء | الوصف |
 |---------|-------------|
-| Challenge/Response | Server-generated random challenges stored in session |
-| Origin Verification | Strict origin and Relying Party ID validation |
-| Counter Validation | Protects against cloned authenticators |
-| Secure Transport | Designed for HTTPS with URL-safe base64 encoding |
+| تحدٍّ/استجابة | تحديات عشوائية يُنشئها الخادم وتُخزَّن في الجلسة |
+| التحقق من الأصل | التحقق الصارم من الأصل ومعرف جهة الاعتماد |
+| التحقق من العداد | الحماية من بيانات الاعتماد المستنسخة |
+| النقل الآمن | مُصمَّم لـ HTTPS مع ترميز base64url الآمن للروابط |
 
-## Implementation Details
+## تفاصيل التنفيذ
 
-- **Backend:** Uses `go-passkeys/go-passkeys` for pure Go WebAuthn verification
-- **Session Storage:** Challenges are stored in Gorilla sessions (via `gothic.Store`)
-- **Database:** Passkey credentials stored in the `Passkey` model (credential ID, public key, counter)
-- **Frontend (Web):** `navigator.credentials` API with base64url helpers in `src/lib/auth.ts`
-- **Android:** Credentials API for native passkey support
-- **iOS:** ASAuthorizationController for passkey support
+- **الخلفية:** يستخدم `go-passkeys/go-passkeys` للتحقق من WebAuthn بلغة Go بحتة
+- **تخزين الجلسات:** تُخزَّن التحديات في جلسات Gorilla (عبر `gothic.Store`)
+- **قاعدة البيانات:** تُخزَّن بيانات اعتماد مفاتيح المرور في نموذج `Passkey` (معرف بيانات الاعتماد، المفتاح العام، العداد)
+- **الواجهة (الويب):** واجهة `navigator.credentials` مع أدوات مساعدة base64url في `src/lib/auth.ts`
+- **أندرويد:** واجهة Credentials API لدعم مفاتيح المرور الأصلية
+- **iOS:** ASAuthorizationController لدعم مفاتيح المرور
 
-## How to Test
+## كيفية الاختبار
 
-1. Log in with an existing account
-2. Click the passkey registration button (fingerprint icon in the header/dashboard)
-3. Complete the biometric prompt
-4. Log out
-5. Click "Sign in with Passkey" on the login page
-6. Complete the biometric prompt to authenticate
+١. سجّل الدخول بحساب موجود
+٢. انقر على زر تسجيل مفتاح المرور (أيقونة البصمة في الشريط العلوي/لوحة التحكم)
+٣. أكمل مطالبة القياسات الحيوية
+٤. سجّل الخروج
+٥. انقر "تسجيل الدخول بمفتاح المرور" في صفحة تسجيل الدخول
+٦. أكمل مطالبة القياسات الحيوية للمصادقة
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Authentication Flow](/docs/backend/authentication) - passkey registration/login ceremonies explained
-- [Authentication API](/docs/api/authentication) - all auth endpoints
+- [تدفق المصادقة](/docs/backend/authentication) - شرح مراسم تسجيل/تسجيل الدخول بمفاتيح المرور
+- [واجهة برمجة المصادقة](/docs/api/authentication) - جميع نقاط نهاية المصادقة

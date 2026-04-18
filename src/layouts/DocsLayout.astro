@@ -55,6 +55,10 @@ const year = new Date().getFullYear();
             buttonText={t(lang, "docs.searchButton")}
             noResultsText={t(lang, "docs.noResults")}
             loadingText={t(lang, "docs.loading")}
+            clearSearchLabel={t(lang, "docs.clearSearch")}
+            searchResultsLabel={t(lang, "docs.searchDocs")}
+            searchDocsLabel={t(lang, "docs.searchDocs")}
+            errorText={t(lang, "docs.searchError")}
           />
           <ThemeToggle client:load />
           <LanguageSwitcher client:load lang={lang} />

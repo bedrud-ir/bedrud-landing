@@ -7,6 +7,7 @@ import {
 } from "motion/react";
 import type React from "react";
 import { useRef } from "react";
+import { useReducedMotion } from "~/hooks/use-animation";
 
 export function MobilePhoneScroll({
   children,
@@ -14,18 +15,27 @@ export function MobilePhoneScroll({
   children?: React.ReactNode;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.4], [0.8, 1]);
+  const scale = useTransform(
+    scrollYProgress,
+    [0, 0.4],
+    reduced ? [0.8, 0.8] : [0.8, 1],
+  );
   const rotateX = useTransform(
     scrollYProgress,
     [0.1, 0.15, 0.4],
-    [-20, -20, 0],
+    reduced ? [-20, -20, -20] : [-20, -20, 0],
   );
-  const translate = useTransform(scrollYProgress, [0, 0.7], [0, 100]);
+  const translate = useTransform(
+    scrollYProgress,
+    [0, 0.7],
+    reduced ? [0, 0] : [0, 100],
+  );
 
   return (
     <div

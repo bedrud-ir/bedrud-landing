@@ -1,9 +1,9 @@
 export const navLinks = [
   { key: "nav.home", route: "", hash: "", icon: "home" },
   {
-    key: "nav.compare",
+    key: "nav.features",
     route: "features",
-    hash: "comparison",
+    hash: "",
     icon: "git-compare",
   },
 ] as const;

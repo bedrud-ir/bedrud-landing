@@ -1,3 +1,4 @@
+import { Globe } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "~/lib/utils";
 import { type Locale, supportedLocales } from "../../i18n/utils";
@@ -30,7 +31,6 @@ export function LanguageSwitcher({
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const currentLang = lang;
-  const current = langMeta[currentLang];
 
   const switchTo = useCallback(
     (locale: Locale) => {
@@ -75,9 +75,9 @@ export function LanguageSwitcher({
         aria-expanded={open}
         aria-haspopup="listbox"
         aria-label="Change language"
-        className="inline-flex size-9 items-center justify-center rounded-md text-lg transition-colors hover:bg-accent"
+        className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
       >
-        {current.flag}
+        <Globe className="size-4" />
       </button>
 
       {open && (

@@ -20,10 +20,11 @@ const {
   jsonLd,
 } = Astro.props;
 const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || `/${lang}`;
 ---
 
 <Base lang={lang} title={title} description={description} jsonLd={jsonLd}>
-  <Navbar client:load lang={lang} />
+  <Navbar client:load lang={lang} currentPath={currentPath} />
   <div class="h-16" />
   <main id="main-content" class={narrow ? "mx-auto max-w-3xl px-6 py-16" : undefined}>
     <slot />

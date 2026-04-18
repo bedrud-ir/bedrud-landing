@@ -1,12 +1,12 @@
 ---
-title: Development Workflow
-description: Set up development environment
+title: Entwicklungs-Workflow
+description: Entwicklungsumgebung einrichten
 order: 27
 ---
 
-This guide covers the day-to-day development workflow for contributing to Bedrud.
+Diese Anleitung behandelt den täglichen Entwicklungs-Workflow für Beiträge zu Bedrud.
 
-## Repository Layout
+## Repository-Struktur
 
 ```
 bedrud/
@@ -25,20 +25,20 @@ bedrud/
 └── Dockerfile       # Container build
 ```
 
-## Prerequisites
+## Voraussetzungen
 
-| Tool | Required For |
-|------|-------------|
+| Tool | Erforderlich für |
+|------|-----------------|
 | Go 1.24+ | Server |
-| Bun | Web frontend |
-| LiveKit Server | Local media server |
-| Android Studio + JDK 17 | Android app |
-| Xcode | iOS app |
-| Rust (stable) | Desktop app |
-| Python 3.10+ | Bot agents |
-| FFmpeg | Radio and video agents |
+| Bun | Web-Frontend |
+| LiveKit Server | Lokaler Medienserver |
+| Android Studio + JDK 17 | Android-App |
+| Xcode | iOS-App |
+| Rust (stable) | Desktop-App |
+| Python 3.10+ | Bot-Agenten |
+| FFmpeg | Radio- und Video-Agenten |
 
-## Initial Setup
+## Ersteinrichtung
 
 ```bash
 git clone https://github.com/bedrud-ir/bedrud.git
@@ -46,22 +46,22 @@ cd bedrud
 make init
 ```
 
-## Full-Stack Development
+## Full-Stack-Entwicklung
 
-To run the entire stack locally:
+Um den gesamten Stack lokal auszuführen:
 
 ```bash
 make dev
 ```
 
-This starts LiveKit, the Go server, and the React dev server concurrently. Press `Ctrl+C` to stop all processes.
+Dies startet LiveKit, den Go-Server und den React-Dev-Server gleichzeitig. Drücken Sie `Ctrl+C`, um alle Prozesse zu stoppen.
 
-### Running Services Individually
+### Dienste einzeln ausführen
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="web-frontend">Web Frontend</TabsTrigger>
-    <TabsTrigger value="go-server">Go Server</TabsTrigger>
+    <TabsTrigger value="web-frontend">Web-Frontend</TabsTrigger>
+    <TabsTrigger value="go-server">Go-Server</TabsTrigger>
     <TabsTrigger value="livekit">LiveKit</TabsTrigger>
   </TabsList>
 
@@ -69,87 +69,87 @@ This starts LiveKit, the Go server, and the React dev server concurrently. Press
     ```bash
     make dev-web
     ```
-    Runs at `http://localhost:3000` with hot module replacement.
+    Läuft unter `http://localhost:3000` mit Hot Module Replacement.
   </TabsContent>
 
   <TabsContent value="go-server">
     ```bash
     make dev-server
     ```
-    Runs at `http://localhost:8090`. Restart manually after Go code changes.
+    Läuft unter `http://localhost:8090`. Nach Go-Codeänderungen manuell neu starten.
   </TabsContent>
 
   <TabsContent value="livekit">
     ```bash
     make dev-livekit
     ```
-    Runs at `http://localhost:7880` with development credentials.
+    Läuft unter `http://localhost:7880` mit Entwicklungszugangsdaten.
   </TabsContent>
 </Tabs>
 
-## Server Development
+## Server-Entwicklung
 
-The Go server entry point is `server/cmd/server/main.go`.
+Der Einstiegspunkt des Go-Servers ist `server/cmd/server/main.go`.
 
-### Adding an API Endpoint
+### Einen API-Endpunkt hinzufügen
 
-1. **Define the handler** in `server/internal/handlers/`
-2. **Add repository methods** in `server/internal/repository/` if new DB queries are needed
-3. **Register the route** in the server setup (usually in `main.go` or a routes file)
-4. **Add middleware** if the endpoint needs auth or admin checks
+1. **Handler definieren** in `server/internal/handlers/`
+2. **Repository-Methoden hinzufügen** in `server/internal/repository/`, falls neue DB-Abfragen benötigt werden
+3. **Route registrieren** im Server-Setup (normalerweise in `main.go` oder einer Routen-Datei)
+4. **Middleware hinzufügen**, falls der Endpunkt Authentifizierung oder Admin-Prüfungen benötigt
 
-### Database Changes
+### Datenbankänderungen
 
-Add or modify GORM model structs in `server/internal/models/`. GORM auto-migrates on startup.
+Fügen Sie GORM-Model-Structs hinzu oder ändern Sie diese in `server/internal/models/`. GORM migriert automatisch beim Start.
 
-### Swagger Docs
+### Swagger-Dokumentation
 
-API documentation annotations use swaggo format. After changes, regenerate:
+API-Dokumentationsannotationen verwenden das swaggo-Format. Nach Änderungen neu generieren:
 
 ```bash
 cd server
 swag init -g cmd/server/main.go
 ```
 
-> See [Server Architecture](/docs/architecture/server) for the full directory layout and layered design.
+> Siehe [Server-Architektur](/de/docs/architecture/server) für das vollständige Verzeichnislayout und das Layered-Design.
 
-## Web Frontend Development
+## Web-Frontend-Entwicklung
 
-The frontend is at `apps/web/` and uses React 19 with TanStack Start.
+Das Frontend befindet sich in `apps/web/` und verwendet React 19 mit TanStack Start.
 
-### Adding a Page
+### Eine Seite hinzufügen
 
-Create a new file under `src/routes/` following [TanStack Router's file-based routing convention](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing) (e.g. `src/routes/settings.tsx`). Export a `Route` created with `createFileRoute`.
+Erstellen Sie eine neue Datei unter `src/routes/` gemäß der [dateibasierten Routing-Konvention von TanStack Router](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing) (z. B. `src/routes/settings.tsx`). Exportieren Sie eine `Route`, die mit `createFileRoute` erstellt wurde.
 
-### Adding an API Client Function
+### Eine API-Client-Funktion hinzufügen
 
-1. Add the function in `src/lib/api.ts` using `authFetch`
-2. Define TypeScript types inline or in a shared types file
-3. Use the function from your route component, typically via a TanStack Query `useQuery` hook
+1. Funktion in `src/lib/api.ts` mit `authFetch` hinzufügen
+2. TypeScript-Typen inline oder in einer gemeinsamen Typdatei definieren
+3. Funktion aus Ihrer Routen-Komponente verwenden, typischerweise über einen TanStack Query `useQuery`-Hook
 
-### Type Checking
+### Typprüfung
 
 ```bash
 cd apps/web
 bun run check    # runs Biome lint + TypeScript type check
 ```
 
-> See [Web Frontend Architecture](/docs/architecture/web) for the complete frontend structure and patterns.
+> Siehe [Web-Frontend-Architektur](/de/docs/architecture/web) für die vollständige Frontend-Struktur und Muster.
 
-## Android Development
+## Android-Entwicklung
 
 ```bash
 make dev-android    # Opens in Android Studio
 ```
 
-### Key Patterns
+### Wichtige Muster
 
-- All screens are Composable functions
-- Dependencies come from `InstanceManager` via `koinInject()`
-- Use `collectAsState().value ?: return` for nullable `StateFlow` values
-- Navigation is handled in `MainActivity.kt`
+- Alle Bildschirme sind Composable-Funktionen
+- Abhängigkeiten kommen vom `InstanceManager` über `koinInject()`
+- Verwenden Sie `collectAsState().value ?: return` für nullable `StateFlow`-Werte
+- Navigation wird in `MainActivity.kt` verwaltet
 
-### Building
+### Build
 
 ```bash
 make build-android-debug    # Debug APK
@@ -157,31 +157,31 @@ make build-android          # Release APK (needs keystore)
 make release-android        # Build + install on device
 ```
 
-> See [Android App Architecture](/docs/architecture/android) for detailed mobile app architecture.
+> Siehe [Android-App-Architektur](/de/docs/architecture/android) für detaillierte mobile App-Architektur.
 
-## iOS Development
+## iOS-Entwicklung
 
 ```bash
 make dev-ios    # Opens in Xcode
 ```
 
-### Key Patterns
+### Wichtige Muster
 
-- Views are SwiftUI structs
-- Dependencies come from `InstanceManager` via `@EnvironmentObject`
-- Use optional binding for nullable published properties
-- Navigation uses SwiftUI's native navigation stack
+- Views sind SwiftUI-Structs
+- Abhängigkeiten kommen vom `InstanceManager` über `@EnvironmentObject`
+- Verwenden Sie Optional Binding für nullable Published Properties
+- Navigation verwendet den nativen Navigation-Stack von SwiftUI
 
-### Project Generation
+### Projektgenerierung
 
-If you modify `project.yml`, regenerate the Xcode project:
+Wenn Sie `project.yml` ändern, generieren Sie das Xcode-Projekt neu:
 
 ```bash
 cd apps/ios
 xcodegen generate
 ```
 
-### Building
+### Build
 
 ```bash
 make build-ios          # Release archive
@@ -189,13 +189,13 @@ make build-ios-sim      # Simulator build
 make export-ios         # Export IPA
 ```
 
-> See [iOS App Architecture](/docs/architecture/ios) for detailed mobile app architecture.
+> Siehe [iOS-App-Architektur](/de/docs/architecture/ios) für detaillierte mobile App-Architektur.
 
-## Desktop Development
+## Desktop-Entwicklung
 
-The desktop app lives in `apps/desktop/` and is a Rust crate in the workspace.
+Die Desktop-App befindet sich in `apps/desktop/` und ist ein Rust-Crate im Workspace.
 
-### Prerequisites (Linux)
+### Voraussetzungen (Linux)
 
 ```bash
 sudo apt-get install -y \
@@ -205,31 +205,31 @@ sudo apt-get install -y \
   libasound2-dev
 ```
 
-Windows requires Visual Studio Build Tools with the C++ workload (MSVC).
+Windows erfordert Visual Studio Build Tools mit der C++-Workload (MSVC).
 
-### Running
+### Ausführen
 
 ```bash
 make dev-desktop    # cargo run -p bedrud-desktop
 ```
 
-### Building
+### Build
 
 ```bash
 make build-desktop           # optimised binary for the current platform
 ```
 
-### Key Patterns
+### Wichtige Muster
 
-- All UI is defined in `.slint` files under `apps/desktop/ui/`; compiled to Rust at build time by `build.rs`
-- `apps/desktop/src/ui/bridge.rs` is the only place where Slint callbacks are wired to Rust logic - keep business logic out of the `.slint` files
-- Use `Weak<AppWindow>` when spawning background tasks that need to update the UI
+- Die gesamte UI ist in `.slint`-Dateien unter `apps/desktop/ui/` definiert; wird zur Build-Zeit von `build.rs` zu Rust kompiliert
+- `apps/desktop/src/ui/bridge.rs` ist der einzige Ort, an dem Slint-Callbacks mit Rust-Logik verbunden werden - halten Sie Geschäftslogik aus den `.slint`-Dateien heraus
+- Verwenden Sie `Weak<AppWindow>`, wenn Sie Hintergrundaufgaben starten, die die UI aktualisieren müssen
 
-> See [Desktop App Architecture](/docs/architecture/desktop) for detailed desktop app architecture.
+> Siehe [Desktop-App-Architektur](/de/docs/architecture/desktop) für detaillierte Desktop-App-Architektur.
 
-## Bot Agent Development
+## Bot-Agenten-Entwicklung
 
-Agents are in `agents/` with one directory per agent.
+Agenten befinden sich in `agents/` mit einem Verzeichnis pro Agent.
 
 ```bash
 cd agents/music_agent
@@ -237,28 +237,28 @@ pip install -r requirements.txt
 python agent.py "http://localhost:8090/m/test-room"
 ```
 
-All agents need a running Bedrud server to authenticate against.
+Alle Agenten benötigen einen laufenden Bedrud-Server zur Authentifizierung.
 
 ## CI/CD
 
-GitHub Actions runs on every push to `main` and on pull requests:
+GitHub Actions wird bei jedem Push auf `main` und bei Pull Requests ausgeführt:
 
-| Job | What it checks |
-|-----|---------------|
-| Server | `go vet`, build, tests |
-| Web | Type check, build |
-| Android | Lint, unit tests, debug APK |
-| iOS | Build + test (simulator, with coverage) |
+| Job | Was geprüft wird |
+|-----|-----------------|
+| Server | `go vet`, Build, Tests |
+| Web | Typprüfung, Build |
+| Android | Lint, Unit-Tests, Debug-APK |
+| iOS | Build + Test (Simulator, mit Coverage) |
 | Desktop | `cargo build`, `cargo test` |
 
-Release builds are triggered by version tags (`v*`).
+Release-Builds werden durch Versions-Tags (`v*`) ausgelöst.
 
-## Code Style
+## Code-Stil
 
-- **Go:** Standard `gofmt` formatting
-- **TypeScript/React:** Biome (configured in `apps/web/biome.json`)
-- **Kotlin:** Android Studio default formatting
-- **Swift:** Xcode default formatting
+- **Go:** Standard `gofmt`-Formatierung
+- **TypeScript/React:** Biome (konfiguriert in `apps/web/biome.json`)
+- **Kotlin:** Android Studio-Standardformatierung
+- **Swift:** Xcode-Standardformatierung
 
 ## Testing
 
@@ -300,7 +300,7 @@ Release builds are triggered by version tags (`v*`).
 
 ---
 
-## See also
+## Siehe auch
 
-- [Makefile Reference](/docs/guides/makefile) - all build and dev commands
-- [Architecture Overview](/docs/architecture/overview) - how components fit together
+- [Makefile-Referenz](/de/docs/guides/makefile) - alle Build- und Dev-Befehle
+- [Architekturübersicht](/de/docs/architecture/overview) - wie die Komponenten zusammenpassen

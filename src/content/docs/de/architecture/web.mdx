@@ -1,29 +1,29 @@
 ---
-title: Web Frontend
-description: React web application architecture
+title: Web-Frontend
+description: React-Webanwendungsarchitektur
 order: 8
 ---
 
-The Bedrud web frontend is a React application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, server-side rendering pre-renders an HTML shell. The Go binary embeds this shell alongside the static client assets.
+Das Bedrud-Web-Frontend ist eine React-Anwendung, die mit TanStack Start, TailwindCSS v4 und shadcn/ui erstellt wurde. Im Produktivbetrieb rendert das serverseitige Rendering eine HTML-Hülle vor. Das Go-Binary bettet diese Hülle zusammen mit den statischen Client-Assets ein.
 
-## Technology Stack
+## Technologie-Stack
 
-| Technology | Purpose |
-|-----------|---------|
-| React 19 | UI framework |
-| TanStack Start | SSR framework and file-based routing |
-| TanStack Router | Client-side routing |
-| TanStack Query | Server state and data fetching |
-| TailwindCSS 4 | Utility-first styling |
-| shadcn/ui + Radix UI | Accessible component primitives |
-| Zustand | Client-side auth state |
-| Vite 7 | Build tool and dev server |
-| LiveKit React SDK | WebRTC media handling |
-| Zod | Schema validation |
-| Lucide React | Icon library |
-| Bun | Package manager |
+| Technologie | Zweck |
+|------------|-------|
+| React 19 | UI-Framework |
+| TanStack Start | SSR-Framework und dateibasiertes Routing |
+| TanStack Router | Clientseitiges Routing |
+| TanStack Query | Serverstatus und Datenabfrage |
+| TailwindCSS 4 | Utility-First-Styling |
+| shadcn/ui + Radix UI | Zugängliche Komponentenprimitive |
+| Zustand | Clientseitiger Authentifizierungsstatus |
+| Vite 7 | Build-Tool und Dev-Server |
+| LiveKit React SDK | WebRTC-Medienverarbeitung |
+| Zod | Schema-Validierung |
+| Lucide React | Icon-Bibliothek |
+| Bun | Paketmanager |
 
-## Directory Structure
+## Verzeichnisstruktur
 
 ```
 apps/web/
@@ -67,82 +67,82 @@ apps/web/
 └── vite.config.ts
 ```
 
-## Authentication Flow
+## Authentifizierungsablauf
 
-Auth state is managed by a Zustand store in `src/lib/auth.store.ts`:
+Der Authentifizierungsstatus wird von einem Zustand-Store in `src/lib/auth.store.ts` verwaltet:
 
-1. **Login** - User submits credentials to `POST /api/auth/login`
-2. **Token Storage** - Access and refresh tokens saved to `localStorage`
-3. **Automatic Injection** - `authFetch` wraps every API call, adding the `Authorization: Bearer` header
-4. **Auto-Refresh** - When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
-5. **Logout** - Clears tokens and redirects to the login page
+1. **Anmeldung** - Der Benutzer sendet Anmeldeinformationen an `POST /api/auth/login`
+2. **Token-Speicherung** - Access- und Refresh-Token werden in `localStorage` gespeichert
+3. **Automatische Injektion** - `authFetch` umschließt jeden API-Aufruf und fügt den `Authorization: Bearer`-Header hinzu
+4. **Automatisches Refresh** - Wenn eine Anfrage 401 zurückgibt, versucht `authFetch`, das Token mit dem Refresh-Token zu erneuern
+5. **Abmeldung** - Löscht Token und leitet zur Anmeldeseite weiter
 
 ### authFetch
 
-The `authFetch` function in `src/lib/api.ts` is a drop-in replacement for `fetch` that:
+Die `authFetch`-Funktion in `src/lib/api.ts` ist ein direkter Ersatz für `fetch`, der:
 
-- Attaches the JWT access token to every request
-- Catches 401 responses and attempts a token refresh
-- Logs out the user if the refresh fails
+- Das JWT-Access-Token an jede Anfrage anhängt
+- 401-Antworten abfängt und ein Token-Refresh versucht
+- Den Benutzer abmeldet, wenn das Refresh fehlschlägt
 
-## Meeting Page
+## Meeting-Seite
 
-The meeting room at `/m/$meetId` handles:
+Der Meeting-Raum unter `/m/$meetId` übernimmt:
 
-- **LiveKit connection** - Connects to the media server with the token from the join API
-- **Track rendering** - Subscribes to audio/video tracks from other participants
-- **Device selection** - Switch camera, microphone, or speaker mid-call without leaving the room
-- **Admin controls** - Room creator sees kick, mute, and video-off buttons
-- **Chat** - In-room text chat via `ChatPanel`
-- **Spotlight view** - Focus a single participant
+- **LiveKit-Verbindung** - Verbindet sich mit dem Media-Server unter Verwendung des Tokens von der Join-API
+- **Track-Rendering** - Abonniert Audio-/Video-Tracks von anderen Teilnehmern
+- **Geräteauswahl** - Kamera, Mikrofon oder Lautsprecher während des Anrufs wechseln, ohne den Raum zu verlassen
+- **Admin-Kontrollen** - Der Raumersteller sieht Kick-, Stumm- und Video-Aus-Schaltflächen
+- **Chat** - Text-Chat im Raum über `ChatPanel`
+- **Spotlight-Ansicht** - Fokussierung auf einen einzelnen Teilnehmer
 
-## Admin Panel
+## Admin-Panel
 
-The admin panel at `/admin` provides:
+Das Admin-Panel unter `/admin` bietet:
 
-- **Room management** - table view with drill-down to room detail pages
-- **User management** - table view with drill-down to individual user accounts and role editing
-- **Server settings** - configure instance-wide options, access controls, and invite links
-- **Invite tokens** - generate and revoke invite links to control who can join
+- **Raumverwaltung** - Tabellenansicht mit Detailseiten für einzelne Räume
+- **Benutzerverwaltung** - Tabellenansicht mit Detailseiten für einzelne Benutzerkonten und Rollenbearbeitung
+- **Servereinstellungen** - Instanzweite Optionen, Zugriffssteuerungen und Einladungslinks konfigurieren
+- **Einladungs-Token** - Einladungslinks generieren und widerrufen, um zu steuern, wer beitreten kann
 
-## Dark Mode
+## Dunkelmodus
 
-A `ThemeToggle` component lets users switch between light and dark themes from anywhere in the app. The preference is persisted to `localStorage` and applied on load.
+Eine `ThemeToggle`-Komponente ermöglicht Benutzern, überall in der App zwischen hellem und dunklem Thema zu wechseln. Die Einstellung wird in `localStorage` gespeichert und beim Laden angewendet.
 
 ## Build
 
-### Development
+### Entwicklung
 
 ```bash
 cd apps/web
 bun run dev      # Starts Vite dev server with HMR at localhost:3000
 ```
 
-The dev server proxies `/api` and `/livekit` requests to the Go server at `localhost:8090`.
+Der Dev-Server leitet `/api`- und `/livekit`-Anfragen an den Go-Server unter `localhost:8090` weiter.
 
-### Production (standalone web bundle)
+### Produktion (eigenständiges Web-Bundle)
 
 ```bash
 cd apps/web
 bun run build    # Outputs static client assets to dist/client/ and SSR server to dist/server/
 ```
 
-### Production (embedded in Go binary)
+### Produktion (in Go-Binary eingebettet)
 
 ```bash
 cd apps/web
 bun run build:embed
 ```
 
-This runs `scripts/embed.mjs` which:
+Dies führt `scripts/embed.mjs` aus, welches:
 
-1. Runs `bun run build` to produce `dist/client/` and `dist/server/`
-2. Starts the SSR server locally
-3. Fetches `/` to capture the pre-rendered HTML shell
-4. Copies `dist/client/` into `server/frontend/`
-5. Writes the rendered HTML as `server/frontend/index.html`
+1. `bun run build` ausführt, um `dist/client/` und `dist/server/` zu erzeugen
+2. Den SSR-Server lokal startet
+3. `/` abruft, um die vorgerenderte HTML-Hülle zu erfassen
+4. `dist/client/` nach `server/frontend/` kopiert
+5. Das gerenderte HTML als `server/frontend/index.html` speichert
 
-### Type Checking
+### Typprüfung
 
 ```bash
 bun run check    # Runs tsc --noEmit
@@ -150,6 +150,6 @@ bun run check    # Runs tsc --noEmit
 
 ---
 
-## See also
+## Siehe auch
 
-- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI component patterns, color tokens, and styling rules
+- [Web-Designsystem](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI-Komponentenmuster, Color-Tokens und Styling-Regeln

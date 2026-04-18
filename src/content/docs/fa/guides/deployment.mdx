@@ -1,28 +1,28 @@
 ---
-title: Deployment Guide
-description: Deploy Bedrud to production
+title: راهنمای استقرار
+description: استقرار Bedrud در محیط تولید
 order: 28
 ---
 
-This guide explains how to deploy Bedrud to a production server.
+این راهنما نحوه استقرار Bedrud در یک سرور تولید را توضیح می‌دهد.
 
-## Deployment Options
+## گزینه‌های استقرار
 
-| Method | Best For |
+| روش | بهترین برای |
 |--------|----------|
-| [Package Manager (apt/AUR)](#package-manager) | Managed install on supported Linux distros |
-| [Automated CLI](#automated-cli-deployment) | Quick remote setup |
-| [Manual Install](#manual-installation) | Full control over configuration |
-| [Docker](#docker-deployment) | Containerized environments |
-| [Appliance Mode](/docs/guides/appliance) | Single-binary all-in-one setup |
+| [مدیریت بسته (apt/AUR)](#package-manager) | نصب مدیریت‌شده در توزیع‌های Linux پشتیبانی‌شده |
+| [CLI خودکار](#automated-cli-deployment) | راه‌اندازی سریع از راه دور |
+| [نصب دستی](#manual-installation) | کنترل کامل بر پیکربندی |
+| [Docker](#docker-deployment) | محیط‌های کانتینری |
+| [حالت لوازم](/docs/guides/appliance) | تنظیمات همه‌کاره تک‌باینری |
 
 ---
 
-## Package Manager
+## مدیریت بسته
 
-Install Bedrud on Debian/Ubuntu or Arch Linux using the native package manager. This is the recommended method for persistent server deployments where you want automatic updates via `apt upgrade` or the AUR.
+Bedrud را در Debian/Ubuntu یا Arch Linux با استفاده از مدیر بسته بومی نصب کنید. این روش برای استقرارهای سرور مداوم که می‌خواهید به‌روزرسانی‌های خودکار از طریق `apt upgrade` یا AUR داشته باشید، توصیه می‌شود.
 
-See the [Package Installation guide](/docs/guides/packages) for full instructions, including adding the apt GPG key and repository.
+به [راهنمای نصب بسته](/docs/guides/packages) برای دستورالعمل‌های کامل، از جمله افزودن کلید GPG apt و مخزن مراجعه کنید.
 
 ```bash
 # Ubuntu / Debian
@@ -32,7 +32,7 @@ sudo apt install bedrud
 yay -S bedrud-bin
 ```
 
-After installation, run the interactive installer to configure TLS, systemd services, and the database:
+پس از نصب، نصب‌کننده تعاملی را برای پیکربندی TLS، سرویس‌های systemd و پایگاه داده اجرا کنید:
 
 ```bash
 sudo bedrud install
@@ -40,11 +40,11 @@ sudo bedrud install
 
 ---
 
-## Automated CLI Deployment
+## استقرار CLI خودکار
 
-The fastest way to deploy. Run from your local machine:
+سریع‌ترین راه استقرار. از ماشین محلی خود اجرا کنید:
 
-**Prerequisites:** Python 3.10+, [uv](https://github.com/astral-sh/uv), and SSH access to the target server.
+**پیش‌نیازها:** Python 3.10+، [uv](https://github.com/astral-sh/uv)، و دسترسی SSH به سرور هدف.
 
 ```bash
 cd tools/cli
@@ -56,79 +56,79 @@ uv run python bedrud.py --auto-config \
   --acme-email admin@example.com
 ```
 
-This will:
+این کار انجام می‌دهد:
 
-1. Build the backend binary locally
-2. Compress and upload it via rsync
-3. Clear conflicting web servers
-4. Configure the firewall
-5. Install and start services on the server
+۱. ساخت باینری بک‌اند به صورت محلی
+۲. فشرده‌سازی و آپلود از طریق rsync
+۳. پاک کردن سرورهای وب متضاد
+۴. پیکربندی فایروال
+۵. نصب و شروع سرویس‌ها روی سرور
 
-### CLI Options
+### گزینه‌های CLI
 
-| Flag | Description |
+| پرچم | توضیحات |
 |------|-------------|
-| `--ip` | Server IP address |
-| `--user` | SSH user (default: root) |
-| `--auth-key` | Path to SSH private key |
-| `--domain` | Domain name for Let's Encrypt |
-| `--acme-email` | Email for Let's Encrypt |
-| `--uninstall` | Remove Bedrud from server |
+| `--ip` | آدرس IP سرور |
+| `--user` | کاربر SSH (پیش‌فرض: root) |
+| `--auth-key` | مسیر به کلید خصوصی SSH |
+| `--domain` | نام دامنه برای Let's Encrypt |
+| `--acme-email` | ایمیل برای Let's Encrypt |
+| `--uninstall` | حذف Bedrud از سرور |
 
 ---
 
-## Manual Installation
+## نصب دستی
 
-### 1. Build the Binary
+### ۱. ساخت باینری
 
 ```bash
 make build-dist
 ```
 
-This produces `dist/bedrud_linux_amd64.tar.xz`.
+این `dist/bedrud_linux_amd64.tar.xz` تولید می‌کند.
 
-### 2. Upload to Server
+### ۲. آپلود به سرور
 
 ```bash
 scp dist/bedrud_linux_amd64.tar.xz root@server:/tmp/
 ssh root@server "cd /tmp && tar xf bedrud_linux_amd64.tar.xz"
 ```
 
-### 3. Install
+### ۳. نصب
 
 ```bash
 ssh root@server
 sudo /tmp/bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-See the [Installation Guide](/docs/getting-started/installation) for all installation scenarios.
+به [راهنمای نصب](/docs/getting-started/installation) برای تمام سناریوهای نصب مراجعه کنید.
 
-### 4. Create Admin User
+### ۴. ایجاد کاربر مدیر
 
 <CreateAdmin />
 
 ---
 
-## Docker Deployment
+## استقرار Docker
 
-Build and run with Docker:
+ساخت و اجرا با Docker:
 
 ```bash
 docker build -t bedrud .
 docker run -d --name bedrud -p 8090:8090 -p 7880:7880 -v bedrud-data:/var/lib/bedrud bedrud
 ```
 
-A pre-built image is also available:
+تصویر از پیش ساخته‌شده نیز موجود است:
 
 ```bash
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-See the [Docker Guide](/docs/guides/docker) for full details including volumes, configuration, and Docker Compose.
+به [راهنمای Docker](/docs/guides/docker) برای جزئیات کامل شامل حجم‌ها، پیکربندی و Docker Compose مراجعه کنید.
 
 ---
 
-## Production Architecture
+## معماری تولید
 
 ```
 Internet
@@ -154,78 +154,78 @@ Internet
 └──────────┘
 ```
 
-For WebRTC connectivity, also open these ports on the firewall:
+برای اتصال WebRTC، این پورت‌ها را نیز روی فایروال باز کنید:
 
-| Port | Protocol | Purpose |
+| پورت | پروتکل | هدف |
 |------|----------|---------|
 | 3478 | UDP | TURN/UDP + STUN |
-| 5349 | TCP | TURN/TLS (or use 443) |
-| 7881 | TCP | ICE/TCP fallback |
-| 50000-60000 | UDP | RTC media streams |
+| 5349 | TCP | TURN/TLS (یا از 443 استفاده کنید) |
+| 7881 | TCP | بازگشت ICE/TCP |
+| 50000-60000 | UDP | جریان‌های رسانه RTC |
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+به [اتصال WebRTC](/docs/architecture/webrtc-connectivity) برای پشته اتصال کامل مراجعه کنید.
 
 <SystemdServices />
 
-### Managing Services
+### مدیریت سرویس‌ها
 
 ```bash
-# Check status
+# بررسی وضعیت
 systemctl status bedrud livekit
 
-# Restart
+# راه‌اندازی مجدد
 systemctl restart bedrud
 
-# View logs
+# مشاهده لاگ‌ها
 journalctl -u bedrud -f
 tail -f /var/log/bedrud/bedrud.log
 ```
 
 ---
 
-## File Locations (Production)
+## مکان‌های فایل (تولید)
 
-| Path | Content |
+| مسیر | محتوا |
 |------|---------|
-| `/usr/local/bin/bedrud` | Binary |
-| `/etc/bedrud/config.yaml` | Server configuration |
-| `/etc/bedrud/livekit.yaml` | LiveKit configuration |
-| `/var/lib/bedrud/bedrud.db` | SQLite database |
-| `/var/log/bedrud/bedrud.log` | Application logs |
+| `/usr/local/bin/bedrud` | باینری |
+| `/etc/bedrud/config.yaml` | پیکربندی سرور |
+| `/etc/bedrud/livekit.yaml` | پیکربندی LiveKit |
+| `/var/lib/bedrud/bedrud.db` | پایگاه داده SQLite |
+| `/var/log/bedrud/bedrud.log` | لاگ‌های برنامه |
 
 ---
 
 ## CI/CD
 
-### Release Pipeline
+### خط تولید انتشار
 
-The `release.yml` workflow triggers on version tags (`v*`) and produces:
+گردش کار `release.yml` بر روی تگ‌های نسخه (`v*`) فعال می‌شود و تولید می‌کند:
 
-| Artifact | Description |
+| مصنوع | توضیحات |
 |---|---|
-| `bedrud_linux_amd64.tar.xz` / `bedrud_linux_arm64.tar.xz` | Server binaries (Linux x86_64 / ARM64) |
-| `bedrud_amd64.deb` / `bedrud_arm64.deb` | Debian/Ubuntu packages (server) |
-| Docker image (`ghcr.io/bedrud-ir/bedrud`) | Multi-arch container image pushed to GHCR |
-| `bedrud-desktop-linux-x86_64.AppImage` | Desktop - universal Linux AppImage |
-| `bedrud-desktop-linux-x86_64.deb` | Desktop - Debian/Ubuntu package |
-| `bedrud-desktop-linux-x86_64.tar.xz` | Desktop - Linux portable tarball |
-| `bedrud-desktop-windows-x86_64-setup.exe` / `-arm64-setup.exe` | Desktop - Windows NSIS installer |
-| `bedrud-desktop-windows-x86_64.zip` / `-arm64.zip` | Desktop - Windows portable |
-| `bedrud-desktop-macos-x86_64.tar.gz` / `-arm64.tar.gz` | Desktop - macOS portable (unsigned) |
-| Android APK (debug + release, per-arch) | Android client builds |
-| iOS IPA (optional, requires signing) | iOS client archive |
+| `bedrud_linux_amd64.tar.xz` / `bedrud_linux_arm64.tar.xz` | باینری‌های سرور (Linux x86_64 / ARM64) |
+| `bedrud_amd64.deb` / `bedrud_arm64.deb` | بسته‌های Debian/Ubuntu (سرور) |
+| تصویر Docker (`ghcr.io/bedrud-ir/bedrud`) | تصویر کانتینر چندمعماری فشرده شده به GHCR |
+| `bedrud-desktop-linux-x86_64.AppImage` | دسکتاپ - AppImage Linux جهانی |
+| `bedrud-desktop-linux-x86_64.deb` | دسکتاپ - بسته Debian/Ubuntu |
+| `bedrud-desktop-linux-x86_64.tar.xz` | دسکتاپ - tarball قابل حمل Linux |
+| `bedrud-desktop-windows-x86_64-setup.exe` / `-arm64-setup.exe` | دسکتاپ - نصب‌کننده NSIS Windows |
+| `bedrud-desktop-windows-x86_64.zip` / `-arm64.zip` | دسکتاپ - قابل حمل Windows |
+| `bedrud-desktop-macos-x86_64.tar.gz` / `-arm64.tar.gz` | دسکتاپ - قابل حمل macOS (امضانشده) |
+| Android APK (debug + release, per-arch) | ساخت‌های کلاینت Android |
+| iOS IPA (اختیاری، نیاز به امضا) | بایگانی کلاینت iOS |
 
-All artifacts are attached to the GitHub release.
+همه مصنوعات به انتشار GitHub متصل می‌شوند.
 
-### Nightly Builds
+### ساخت‌های شبانه
 
-The `dev-nightly.yml` workflow produces development builds on a schedule.
+گردش کار `dev-nightly.yml` ساخت‌های توسعه را به صورت زمان‌بندی‌شده تولید می‌کند.
 
-### CI Checks
+### بررسی‌های CI
 
-Every push to `main` and every pull request runs:
+هر push به `main` و هر درخواست pull اجرا می‌کند:
 
-| Check | Platform |
+| بررسی | پلتفرم |
 |-------|----------|
 | `go vet` + build + tests | ubuntu-latest (Go 1.24) |
 | Type check + build | ubuntu-latest (Bun) |

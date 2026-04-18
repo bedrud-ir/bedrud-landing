@@ -678,4 +678,9 @@ export default {
     language: "Language",
     getStarted: "شروع کنید",
   },
+  notFound: {
+    title: "صفحه یافت نشد",
+    description: "صفحه‌ای که به دنبال آن هستید وجود ندارد یا جابه‌جا شده است.",
+    backToHome: "بازگشت به صفحه اصلی",
+  },
 };

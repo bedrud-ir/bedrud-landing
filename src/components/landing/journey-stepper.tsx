@@ -2,7 +2,8 @@
 
 import type { LucideIcon } from "lucide-react";
 import { Link, Server, Video } from "lucide-react";
-import { type ReactNode, useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import { useInViewRef, useReducedMotion } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
 import { type Locale, t } from "../../i18n/utils";
 import { InviteMockup } from "./step-visuals/invite-mockup";
@@ -84,41 +85,6 @@ function StepCard({
       </p>
     </>
   );
-}
-
-function useInViewRef(
-  once = true,
-): [React.RefObject<HTMLDivElement | null>, boolean] {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          if (once) observer.disconnect();
-        }
-      },
-      { threshold: 0.15 },
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [once]);
-  return [ref, inView];
-}
-
-function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(mq.matches);
-    const h = (e: MediaQueryListEvent) => setReduced(e.matches);
-    mq.addEventListener("change", h);
-    return () => mq.removeEventListener("change", h);
-  }, []);
-  return reduced;
 }
 
 function JourneySteps({ lang }: { lang: Locale }) {

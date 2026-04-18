@@ -1,74 +1,74 @@
 ---
-title: iOS App
-description: Native iOS application
+title: اپلیکیشن iOS
+description: اپلیکیشن بومی iOS
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+اپلیکیشن iOS بدرود با SwiftUI ساخته شده است، تجربه جلسه ویدیویی بومی با پشتیبانی چند نمونه و ذخیره امن اعتبارنامه را فراهم می‌کند.
 
-## Technology Stack
+## پشته فناوری
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| فناوری | نسخه | هدف |
+|-----------|-------|-----|
+| Swift | 5.9+ | زبان |
+| SwiftUI | Latest | فریم‌ورک UI |
+| LiveKit Swift SDK | 2.0+ | مدیا WebRTC |
+| KeychainAccess | 4.2.2+ | ذخیره امن اعتبارنامه |
 
-**Deployment target:** iOS 18.0
+**هدف استقرار:** iOS 18.0
 
-## Project Configuration
+## پیکربندی پروژه
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+پروژه از **XCodeGen** برای تولید پروژه از `project.yml` استفاده می‌کند:
 
 - Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- تولید شده با: `xcodegen generate`
 
-## Directory Structure
+## ساختار دایرکتوری
 
 ```text
 apps/ios/Bedrud/
-├── BedrudApp.swift                # App entry point
+├── BedrudApp.swift                # نقطه ورودی اپ
 ├── Core/
 │   ├── API/
-│   │   └── APIClient.swift        # URLSession-based REST client
+│   │   └── APIClient.swift        # کلاینت REST مبتنی بر URLSession
 │   ├── Auth/
-│   │   └── AuthManager.swift      # Token management, login/logout
+│   │   └── AuthManager.swift      # مدیریت توکن، ورود/خروج
 │   ├── Instance/
-│   │   ├── InstanceManager.swift  # Central multi-instance orchestrator
-│   │   └── InstanceStore.swift    # Persistent instance storage (UserDefaults)
+│   │   ├── InstanceManager.swift  # ارکستراتور چند نمونه مرکزی
+│   │   └── InstanceStore.swift    # ذخیره نمونه پایدار (UserDefaults)
 │   └── LiveKit/
-│       └── RoomManager.swift      # LiveKit room connection manager
+│       └── RoomManager.swift      # مدیر اتصال اتاق LiveKit
 ├── Features/
 │   ├── Auth/
-│   │   ├── LoginView.swift        # Login screen
-│   │   └── RegisterView.swift     # Registration screen
+│   │   ├── LoginView.swift        # صفحه ورود
+│   │   └── RegisterView.swift     # صفحه ثبت‌نام
 │   ├── Dashboard/
-│   │   └── DashboardView.swift    # Room list and management
+│   │   └── DashboardView.swift    # لیست اتاق و مدیریت
 │   ├── Meeting/
-│   │   └── MeetingView.swift      # Video call interface
+│   │   └── MeetingView.swift      # رابط تماس ویدیویی
 │   ├── Profile/
-│   │   └── ProfileView.swift      # User profile
+│   │   └── ProfileView.swift      # پروفایل کاربر
 │   ├── Instance/
-│   │   ├── AddInstanceView.swift  # Add server instance
-│   │   └── InstanceSwitcherView.swift  # Switch between instances
+│   │   ├── AddInstanceView.swift  # افزودن نمونه سرور
+│   │   └── InstanceSwitcherView.swift  # جابجایی بین نمونه‌ها
 │   ├── Settings/
-│   │   └── SettingsView.swift     # App settings
+│   │   └── SettingsView.swift     # تنظیمات اپلیکیشن
 │   ├── JoinByURL/
-│   │   └── JoinByURLView.swift    # Deep link handling
+│   │   └── JoinByURLView.swift    # مدیریت لینک عمیق
 │   └── Main/
-│       └── MainTabView.swift      # Tab navigation
+│       └── MainTabView.swift      # ناوبری تب
 ├── Models/
 │   ├── User.swift
 │   ├── Room.swift
 │   └── Instance.swift
 └── Design/
-    └── Components/                # Reusable SwiftUI components
+    └── Components/                # کامپوننت‌های قابل استفاده مجدد SwiftUI
 ```
 
-## Multi-Instance Architecture
+## معماری چند نمونه
 
-The iOS app mirrors the Android architecture for multi-instance support.
+اپلیکیشن iOS معماری Android را برای پشتیبانی چند نمونه منعکس می‌کند.
 
 ```text
 ┌──────────────────────────┐
@@ -77,16 +77,16 @@ The iOS app mirrors the Android architecture for multi-instance support.
 │  @Published properties:  │
 │  ├── instances: [Instance]│
 │  ├── activeInstance       │
-│  ├── authManager          │──► Per-instance
+│  ├── authManager          ├──► Per-instance
 │  ├── apiClient            │    dependency
 │  ├── roomManager          │    container
 │  └── ...                  │
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### الگوی کلیدی
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+وابستگی‌ها ویژگی‌های `@Published` روی `InstanceManager` هستند، که یک `ObservableObject` است. Views آن را از طریق `@EnvironmentObject` دریافت می‌کنند:
 
 ```swift
 struct DashboardView: View {
@@ -100,19 +100,19 @@ struct DashboardView: View {
 }
 ```
 
-### Navigation Flow
+### جریان ناوبری
 
 ```text
-No instances ──► AddInstanceView
-Has instances, not logged in ──► LoginView
-Has instances, logged in ──► DashboardView
+بدون نمونه ──► AddInstanceView
+نمونه دارد، وارد نشده ──► LoginView
+نمونه دارد، وارد شده ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+جابجایی نمونه به عنوان `.sheet` که از نوار Dashboard راه‌اندازی می‌شود ظاهر می‌شود.
 
-## App Entry Point
+## نقطه ورودی اپلیکیشن
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` سرویس‌های اصلی را مقداردهی اولیه می‌کند و آنها را در محیط SwiftUI تزریق می‌کند:
 
 ```swift
 @main
@@ -132,38 +132,38 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## ویژگی‌ها
 
-### Secure Storage
+### ذخیره امن
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+از **KeychainAccess** برای ذخیره توکن‌های JWT و اعتبارنامه‌های حساس استفاده می‌کند، به جای UserDefaults.
 
-### Deep Linking
+### لینک عمیق
 
-Handles URLs for direct room joining and room codes.
+URLها را برای پیوستن مستقیم به اتاق و کدهای اتاق مدیریت می‌کند.
 
-### Settings
+### تنظیمات
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+ترجیحات کاربر از طریق `SettingsStore` با استفاده از UserDefaults پایدار می‌شوند.
 
-## Building
+## ساخت
 
 ```bash
-# Open in Xcode
+# باز کردن در Xcode
 make dev-ios
 
-# Build archive (Release)
+# ساخت آرشیو (Release)
 make build-ios
 
-# Export IPA (requires ExportOptions.plist)
+# صادر IPA (نیاز به ExportOptions.plist دارد)
 make export-ios
 
-# Build for simulator (Debug)
+# ساخت برای شبیه‌ساز (Debug)
 make build-ios-sim
 ```
 
-### Requirements
+### نیازمندی‌ها
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode (آخرین نسخه پایدار)
+- هدف استقرار iOS 18.0
+- برای ساخت دستگاه: حساب توسعه‌ده اپل و پروفایل تأمین

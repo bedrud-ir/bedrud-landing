@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: API مدیر
+description: عملیات مدیریتی
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+نقاط پایانی مدیر تحت `/api/admin/` هستند. این‌ها نیاز به نقش **مدیر ارشد** دارند.
 
-## Overview
+## نمای کلی
 
-| Endpoint | Method | Description |
+| نقطه پایانی | روش | توضیحات |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | لیست همه کاربران |
+| `/api/admin/users/:id/status` | PUT | فعال یا غیرفعال کردن یک کاربر |
 
 ---
 
-## Endpoints
+## نقاط پایانی
 
-### List All Users
+### لیست همه کاربران
 
-Retrieve a list of all registered users.
+دریافت لیست همه کاربران ثبت‌نام شده.
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**هدرها:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**نقش مورد نیاز:** مدیر ارشد
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### به‌روزرسانی وضعیت کاربر
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+فعال یا غیرفعال کردن یک حساب کاربری. کاربران غیرفعال نمی‌توانند وارد شوند.
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**هدرها:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**نقش مورد نیاز:** مدیر ارشد
 
-**URL Parameters:**
+**پارامترهای URL:**
 
-| Parameter | Description |
+| پارامتر | توضیحات |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | UUID کاربر |
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -100,31 +100,31 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## نقش‌های کاربر
 
-| Role | Description | Permissions |
+| نقش | توضیحات | مجوزها |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | کاربر موقت | فقط پیوستن به اتاق‌ها |
+| `user` | کاربر عادی | ایجاد/پیوستن به اتاق‌ها، مدیریت پروفایل خود |
+| `admin` | مدیر ارشد | تمام مجوزهای کاربر + مدیریت کاربران، مشاهده همه اتاق‌ها |
 
-### Creating an Admin
+### ایجاد یک مدیر
 
-Admin users are created via the CLI:
+کاربران مدیر از طریق CLI ایجاد می‌شوند:
 
 ```bash
-# Create a user
+# ایجاد یک کاربر
 bedrud user create --email "admin@example.com" --password "securepassword" --name "Admin"
 
-# Promote to admin
+# ارتقا به مدیر
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+هیچ نقطه پایانی API برای ارتقای کاربران وجود ندارد - این امر عمدی برای امنیت است.
 
 ---
 
-## Error Responses
+## پاسخ‌های خطا
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
+| وضعیت | معنی |
 |--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| 401 | احراز هویت نشده |
+| 403 | مدیر ارشد نیست |
+| 404 | کاربر یافت نشد |
+| 500 | خطای داخلی سرور |
 
 ---
 
-## See also
+## مشاهده همچنین
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [مدیریت‌کننده‌های API و مسیریابی](/docs/backend/api-handlers) - نحوه پیاده‌سازی مسیرهای مدیر
+- [API اتاق‌ها](/docs/api/rooms) - نقاط پایانی مدیریت اتاق

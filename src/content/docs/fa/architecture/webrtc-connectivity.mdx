@@ -1,16 +1,16 @@
 ---
-title: WebRTC Connectivity
-description: STUN/ICE/TURN and media routing
+title: اتصال WebRTC
+description: STUN/ICE/TURN و مسیریابی مدیا
 order: 13
 ---
 
-How clients establish real-time media connections in Bedrud. Covers the full connectivity stack: signaling, ICE, STUN, TURN, and the SFU media path.
+نحوه برقراری اتصالات مدیا زمان واقعی کلاینت‌ها در بدرود. پشته اتصال کامل را پوشش می‌دهد: سیگنالینگ، ICE، STUN، TURN، و مسیر مدیا SFU.
 
 ---
 
-## Overview
+## نمای کلی
 
-WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture - clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
+WebRTC نیاز به یک سری مراحل قبل از جریان صدا و ویدیو بین کلاینت و سرور دارد. بدرود از معماری SFU (واحد ارسال انتخابی) LiveKit استفاده می‌کند - کلاینت‌ها به سرور متصل می‌شوند، نه به همدیگر. **این یعنی فقط مسیر شبکه کلاینت-به-سرور مهم است**، نه اتصال بین شرکت‌کنندگان فردی.
 
 ```mermaid
 sequenceDiagram
@@ -46,9 +46,9 @@ sequenceDiagram
 
 ---
 
-## Connectivity Stack
+## پشته اتصال
 
-Five layers work together to establish the media path:
+پنج لایه با هم کار می‌کنند تا مسیر مدیا را برقرار کنند:
 
 ```mermaid
 flowchart TB
@@ -68,21 +68,21 @@ flowchart TB
     TURN --> SFU
 ```
 
-### Layer Details
+### جزئیات لایه
 
-**1. Signaling** - Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media - it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
+**۱. سیگنالینگ** - کلاینت و سرور متادیت اتصال را با استفاده از پیشنهادها و پاسخ‌های SDP (پروتکل توضیح جلسه) از طریق WebSocket تبادل می‌کنند. این مدیا نیست - این فاز راه‌اندازی است. بدرود سیگنالینگ را از طریق سرور API به نمونه جاسازی‌شده LiveKit پراکسی می‌کند.
 
-**2. ICE (Interactive Connectivity Establishment)** - Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework - it coordinates the connection attempts but is not a protocol itself.
+**۲. ICE (ایجاد اتصال تعاملی)** - تمام مسیرهای اتصال ممکن، نامزدها، جمع‌آوری می‌کند و آنها را به ترتیب اولویت تست می‌کند. ICE یک چارچوب است - تلاش‌های اتصال را هماهنگ می‌کند اما خود پروتکل نیست.
 
-**3. STUN (Session Traversal Utilities for NAT)** - Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
+**۳. STUN (ابزارهای عبور جلسه برای NAT)** - پروتکل سبک. کلاینت یک درخواست اتصال به سرور STUN می‌فرستد، که با IP و پورت عمومی کلاینت پاسخ می‌دهد. این نامزد "بازتابی سرور" سپس برای اتصال مستقیم تست می‌شود. برای ~۸۰٪ اتصالات کار می‌کند.
 
-**4. TURN (Traversal Using Relays around NAT)** - When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost - server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
+**۴. TURN (عبور با استفاده از رله‌ها در اطراف NAT)** - وقتی اتصال مستقیم شکست می‌خورد، TURN یک آدرس رله روی سرور تخصیص می‌دهد. همه بسته‌های مدیا از طریق این رله ارسال می‌شوند. بالاترین هزینه - پهنای باند سرور با کاربران رله شده مقیاس می‌شود. برای پوشش عمیق به [راهنمای سرور TURN](turn-server.mdx) مراجعه کنید.
 
-**5. SFU (Selective Forwarding Unit)** - Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer - the server is always in the path.
+**۵. SFU (واحد ارسال انتخابی)** - پس از برقراری مسیر حمل، SFU LiveKit مدیا را بین شرکت‌کنندگان مسیریابی می‌کند. هر شرکت‌کننده یک جریان بالا می‌فرستد؛ SFU کپی‌ها را به شرکت‌کنندگان دیگر ارسال می‌کند. این همتا به همتا نیست - سرور همیشه در مسیر است.
 
 ---
 
-## ICE Candidate Gathering
+## جمع‌آوری نامزد ICE
 
 ```mermaid
 flowchart TD
@@ -98,21 +98,21 @@ flowchart TD
     TEST -->|"None work"| FAIL[Connection failed]
 ```
 
-ICE gathers three candidate types simultaneously:
+ICE سه نوع نامزد را همزمان جمع‌آوری می‌کند:
 
-| Type | Source | Priority | How it works |
-|------|--------|----------|-------------|
-| **host** | Local network interfaces | Highest | Direct IP from machine. Works on LAN. |
-| **srflx** (server reflexive) | STUN server response | Medium | Public IP discovered via STUN. Works for most NAT types. |
-| **relay** | TURN server allocation | Lowest | Address on TURN server. Always works. Highest cost. |
+| نوع | منبع | اولویت | نحوه کارکرد |
+|------|--------|---------|-------------|
+| **host** | رابط‌های شبکه محلی | بالاترین | IP مستقیم از ماشین. روی LAN کار می‌کند. |
+| **srflx** (بازتابی سرور) | پاسخ سرور STUN | متوسط | IP عمومی کشف شده از طریق STUN. برای اکثر انواع NAT کار می‌کند. |
+| **relay** | تخصیص سرور TURN | پایین‌ترین | آدرس روی سرور TURN. همیشه کار می‌کند. بالاترین هزینه. |
 
-ICE tests all candidates and selects the highest-priority pair that succeeds. If `srflx` works, it skips `relay`.
+ICE همه نامزدها را تست می‌کند و بالاترین جفت موفق را انتخاب می‌کند. اگر `srflx` کار کند، `relay` را رد می‌کند.
 
 ---
 
-## NAT Types & Connectivity
+## انواع NAT و اتصال
 
-Different NAT types affect whether direct connectivity works:
+انواع مختلف NAT بر روی اینکه آیا اتصال مستقیم کار می‌کند تأثیر می‌گذارند:
 
 ```mermaid
 flowchart LR
@@ -142,70 +142,70 @@ flowchart LR
 
 ```
 
-| NAT Type | Description | Direct P2P | Needs TURN |
-|----------|-------------|------------|-----------|
-| **Full Cone** | All requests from same internal IP/port map to same public IP/port. Any external host can send to it. | Yes | No |
-| **Restricted Cone** | Same mapping as Full Cone, but only external hosts that received a packet can send back. | Usually | No |
-| **Port Restricted Cone** | Similar to Restricted Cone, but the NAT also restricts the external port number. Most common home router type. | Usually | Rarely |
-| **Symmetric** | Different public IP/port mapping per destination. The STUN-discovered address cannot be reused. | No (when both symmetric) | **Yes** |
+| نوع NAT | توضیح | P2P مستقیم | نیاز به TURN |
+|----------|-------|-------------|---------------|
+| **Full Cone** | تمام درخواست‌ها از همان IP/پورت داخلی به همان IP/پورت عمومی نگاشت می‌شوند. هر میزبان بیرونی می‌تواند به آن ارسال کند. | بله | خیر |
+| **Restricted Cone** | نگاشت مشابه Full Cone، اما فقط میزبان‌های بیرونی که بسته دریافت کرده‌اند می‌توانند پاسخ دهند. | معمولاً | خیر |
+| **Port Restricted Cone** | شبیه Restricted Cone، اما NAT همچنین شماره پورت بیرونی را محدود می‌کند. رایج‌ترین نوع روتر خانگی. | معمولاً | به ندرت |
+| **Symmetric** | نگاشت IP/پورت عمومی متفاوت برای هر مقصد. آدرس کشف شده توسط STUN قابل استفاده مجدد نیست. | خیر (وقتی هر دو symmetric) | **بله** |
 
-**Key insight:** Since the server has a public IP and predictable port range, most NAT types work directly. TURN is mainly needed when the client's firewall blocks outbound UDP entirely.
+**بینش کلیدی:** از آنجا که سرور IP عمومی و محدوده پورت قابل پیش‌بینی دارد، اکثر انواع NAT به طور مستقیم کار می‌کنند. TURN عمدتاً زمانی لازم است که فایروال کلاینت خروجی UDP را به طور کامل مسدود کند.
 
 ---
 
-## Configuration Summary
+## خلاصه پیکربندی
 
-Which Bedrud/LiveKit config keys affect WebRTC connectivity:
+چه کلیدهای پیکربندی Bedrud/LiveKit بر اتصال WebRTC تأثیر می‌گذارند:
 
-**`livekit.yaml` keys:**
+**کلیدهای `livekit.yaml`:**
 
 ```yaml
 rtc:
-  port_range_start: 50000       # UDP media port range start
-  port_range_end: 60000         # UDP media port range end
-  tcp_port: 7881                # ICE/TCP fallback port
-  stun_servers:                 # External STUN servers (optional)
+  port_range_start: 50000       # شروع محدوده پورت مدیا UDP
+  port_range_end: 60000         # پایان محدوده پورت مدیا UDP
+  tcp_port: 7881                # پورت فallback ICE/TCP
+  stun_servers:                 # سرورهای STUN خارجی (اختیاری)
     - stun:stun.l.google.com:19302
   use_external_ip: true         # Advertise public IP in ICE candidates
 
 turn:
-  enabled: true                 # Enable embedded TURN
-  domain: "turn.example.com"    # TURN domain (DNS must resolve)
-  udp_port: 3478                # TURN/UDP + STUN port
-  tls_port: 5349                # TURN/TLS port (or 443)
-  cert_file: /path/to/turn.crt  # TLS cert for TURN/TLS
-  key_file: /path/to/turn.key   # TLS key for TURN/TLS
-  relay_range_start: 30000      # Relay port range start
-  relay_range_end: 40000        # Relay port range end
-  external_tls: false           # L4 LB terminates TLS
+  enabled: true                 # فعال کردن TURN جاسازی‌شده
+  domain: "turn.example.com"    # دامنه TURN (DNS باید حل شود)
+  udp_port: 3478                # پورت TURN/UDP + STUN
+  tls_port: 5349                # پورت TURN/TLS (یا 443)
+  cert_file: /path/to/turn.crt  # گواهی TLS برای TURN/TLS
+  key_file: /path/to/turn.key   # کلید TLS برای TURN/TLS
+  relay_range_start: 30000      # شروع محدوده پورت رله
+  relay_range_end: 40000        # پایان محدوده پورت رله
+  external_tls: false           # L4 LB خاتمه TLS را انجام می‌دهد
 ```
 
-**`config.yaml` keys (Bedrud server):**
+**کلیدهای `config.yaml` (سرور Bedrud):**
 
 ```yaml
 server:
-  port: 8090                    # API port (signaling proxied through this)
-  enableTLS: true               # HTTPS for signaling
-  domain: "meet.example.com"    # Public domain
+  port: 8090                    # پورت API (سیگنالینگ از طریق این پراکسی می‌شود)
+  enableTLS: true               # HTTPS برای سیگنالینگ
+  domain: "meet.example.com"    # دامنه عمومی
 ```
 
-### Debugging Connectivity Issues
+### عیب‌یابی مشکلات اتصال
 
-| Symptom | Check |
-|---------|-------|
-| Can't connect at all | `rtc.use_external_ip: true`? Firewall open on 443 + UDP range? |
-| Connects but no audio/video | UDP 50000-60000 blocked? Check ICE candidates in browser. |
-| Slow connection | TURN relay active (check candidates). Expected if client behind strict NAT. |
-| Fails behind corporate network | TURN/TLS not configured. Set `turn.tls_port: 443` with valid cert. |
-| Works on LAN, fails remotely | Public IP not advertised. Set `rtc.use_external_ip: true`. |
+| علامت | بررسی |
+|--------|-------|
+| اصلاً نمی‌تواند متصل شود | `rtc.use_external_ip: true`؟ فایروال باز در ۴۴۳ + محدوده UDP؟ |
+| متصل می‌شود اما صدا/ویدیو ندارد | UDP ۵۰۰۰۰-۶۰۰۰۰ مسدود است؟ نامزدهای ICE را در مرورگر بررسی کنید. |
+| اتصال کند | رله TURN فعال است (نامزدها را بررسی کنید). مورد انتظار اگر کلاینت پشت NAT سختگیر باشد. |
+| شکست خورد پشت شبکه شرکتی | TURN/TLS پیکربندی نشده است. `turn.tls_port: 443` را با گواهی معتبر تنظیم کنید. |
+| روی LAN کار می‌کند، از راه شکست می‌خورد | IP عمومی آگه نشده است. `rtc.use_external_ip: true` را تنظیم کنید. |
 
-For deep TURN troubleshooting, see the [TURN Server Guide](/docs/architecture/turn-server).
+برای عیب‌یابی عمیق TURN، به [راهنمای سرور TURN](/docs/architecture/turn-server) مراجعه کنید.
 
 ---
 
-## See also
+## همچنین ببینید
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, debugging
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
+- [راهنمای سرور TURN](/docs/architecture/turn-server) - معماری، پیکربندی، TLS، عیب‌یابی TURN
+- [یکپارچگی LiveKit](/docs/backend/livekit) - نحوه جاسازی LiveKit در بدرود
+- [نمای کلی معماری](/docs/architecture/overview) - معماری کامل سیستم
+- [TLS داخلی](/docs/guides/internal-tls) - TLS برای شبکه‌های ایزوله

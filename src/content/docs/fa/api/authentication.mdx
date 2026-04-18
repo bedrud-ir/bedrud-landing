@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: API احراز هویت
+description: نقاط پایانی و روش‌های احراز هویت
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+تمام نقاط پایانی احراز هویت تحت `/api/auth/` هستند.
 
-## Overview
+## نمای کلی
 
-Bedrud supports multiple authentication methods:
+Bedrud از چندین روش احراز هویت پشتیبانی می‌کند:
 
-| Method | Endpoint | Description |
+| روش | نقطه پایانی | توضیحات |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
-| Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| ایمیل/رمز عبور | `POST /api/auth/login` | ورود سنتی |
+| ثبت‌نام | `POST /api/auth/register` | ایجاد حساب کاربری |
+| مهمان | `POST /api/auth/guest-login` | دسترسی موقت |
+| OAuth | `GET /api/auth/:provider/login` | ورود از طریق شبکه‌های اجتماعی |
+| کلیدهای عبور | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
+| تازه‌سازی توکن | `POST /api/auth/refresh` | تمدید توکن دسترسی |
 
-## Token Format
+## فرمت توکن
 
-Successful authentication returns a pair of JWT tokens:
+احراز هویت موفق جفت توکن JWT برمی‌گرداند:
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **توکن دسترسی** - کوتاه‌مدت، در هدر `Authorization` استفاده می‌شود
+- **توکن تازه‌سازی** - طولانی‌مدت، برای دریافت توکن‌های دسترسی جدید استفاده می‌شود
 
-### Using Tokens
+### استفاده از توکن‌ها
 
-Include the access token in all authenticated requests:
+توکن دسترسی را در تمام درخواست‌های احراز هویت شده شامل کنید:
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## نقاط پایانی
 
-### Register
+### ثبت‌نام
 
-Create a new user account.
+ایجاد یک حساب کاربری جدید.
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### ورود
 
-Authenticate with email and password.
+احراز هویت با ایمیل و رمز عبور.
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### ورود مهمان
 
-Join as a guest without creating an account. Guests have limited permissions.
+به عنوان مهمان بدون ایجاد حساب کاربری وارد شوید. مهمانان دسترسی محدودی دارند.
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### دریافت کاربر فعلی
 
-Retrieve the authenticated user's profile.
+دریافت پروفایل کاربر احراز هویت شده.
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**هدرها:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### تازه‌سازی توکن
 
-Exchange a refresh token for a new access token.
+تبدیل یک توکن تازه‌سازی به یک توکن دسترسی جدید.
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### خروج
 
-Invalidate the current refresh token.
+باطل کردن توکن تازه‌سازی فعلی.
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**هدرها:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**بدنه درخواست:**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**پاسخ (200):**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### ورود OAuth
 
-Start an OAuth flow with a social provider.
+شروع یک فرآیند OAuth با یک ارائه‌دهنده اجتماعی.
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**ارائه‌دهندگان پشتیبانی‌شده:**
 
-| Provider | Path |
+| ارائه‌دهنده | مسیر |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+سرور کاربر را به صفحه مجوز ارائه‌دهنده هدایت می‌کند. پس از موافقت، ارائه‌دهنده کاربر را به URL برگشت هدایت می‌کند و سرور توکن‌های JWT را برمی‌گرداند.
 
 ---
 
-## Error Responses
+## پاسخ‌های خطا
 
-All auth endpoints return errors in this format:
+تمام نقاط پایانی احراز هویت خطاها را با این فرمت برمی‌گردانند:
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
+| وضعیت | معنی |
 |--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| 400 | درخواست نامعتبر (فیلدهای گم‌شده، خطای اعتبارسنجی) |
+| 401 | اعتبارنامه نامعتبر یا توکن منقضی شده |
+| 409 | ایمیل قبلاً ثبت‌نام شده است |
+| 500 | خطای داخلی سرور |
 
 ---
 
-## See also
+## مشاهده همچنین
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [جریان احراز هویت](/docs/backend/authentication) - نحوه کار داخلی JWT، OAuth و کلیدهای عبور
+- [API کلیدهای عبور](/docs/api/passkeys) - مرجع نقاط پایانی FIDO2/WebAuthn

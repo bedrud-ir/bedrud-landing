@@ -1,18 +1,18 @@
 ---
-title: Client Installation
-description: Install desktop and mobile apps
+title: Client-Installation
+description: Desktop- und mobile Apps installieren
 order: 3
 ---
 
-Open the meeting link in a browser to join - no installation required. For a native app experience, install the client for your platform below.
+Öffnen Sie den Meeting-Link in einem Browser, um beizutreten — keine Installation erforderlich. Für ein natives App-Erlebnis installieren Sie den Client für Ihre Plattform unten.
 
 ---
 
-## Browser (Zero Install)
+## Browser (keine Installation)
 
-Open the meeting URL in **Chrome**, **Firefox**, **Edge**, or **Safari**. Camera and microphone access requires HTTPS (your server admin handles this).
+Öffnen Sie die Meeting-URL in **Chrome**, **Firefox**, **Edge** oder **Safari**. Kamera- und Mikrofonzugriff erfordert HTTPS (Ihr Server-Administrator kümmert sich darum).
 
-No downloads, no extensions, no account required if guest access is enabled.
+Keine Downloads, keine Erweiterungen, kein Konto erforderlich, wenn Gastzugriff aktiviert ist.
 
 ---
 
@@ -21,21 +21,21 @@ No downloads, no extensions, no account required if guest access is enabled.
 <Tabs>
   <TabsList>
     <TabsTrigger value="google-play">Google Play</TabsTrigger>
-    <TabsTrigger value="apk-sideload">APK (sideload)</TabsTrigger>
+    <TabsTrigger value="apk-sideload">APK (Sideloading)</TabsTrigger>
   </TabsList>
   <TabsContent value="google-play">
 
-    Search for **Bedrud** on Google Play, or follow the direct link from your server admin.
+    Suchen Sie nach **Bedrud** auf Google Play oder folgen Sie dem direkten Link Ihres Server-Administrators.
   </TabsContent>
   <TabsContent value="apk-sideload">
 
-    Download the latest APK from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    Laden Sie die neueste APK von [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) herunter:
 
     ```bash
     # Transfer to your phone, then open to install
     ```
 
-    You may need to enable **Install from unknown sources** in your device settings.
+    Möglicherweise müssen Sie **Installation aus unbekannten Quellen** in Ihren Geräteeinstellungen aktivieren.
   </TabsContent>
 </Tabs>
 
@@ -46,35 +46,35 @@ No downloads, no extensions, no account required if guest access is enabled.
 <Tabs>
   <TabsList>
     <TabsTrigger value="app-store">App Store</TabsTrigger>
-    <TabsTrigger value="ipa-sideload">IPA (sideload)</TabsTrigger>
+    <TabsTrigger value="ipa-sideload">IPA (Sideloading)</TabsTrigger>
   </TabsList>
   <TabsContent value="app-store">
 
-    Search for **Bedrud** on the App Store, or follow the direct link from your server admin.
+    Suchen Sie nach **Bedrud** im App Store oder folgen Sie dem direkten Link Ihres Server-Administrators.
   </TabsContent>
   <TabsContent value="ipa-sideload">
 
-    Download the latest IPA from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Sideload using AltStore or a similar tool.
+    Laden Sie die neueste IPA von [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) herunter. Sideloading mit AltStore oder einem ähnlichen Tool durchführen.
   </TabsContent>
 </Tabs>
 
 ---
 
-## Linux Desktop
+## Linux-Desktop
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="appimage-recommended">AppImage (recommended)</TabsTrigger>
+    <TabsTrigger value="appimage-recommended">AppImage (empfohlen)</TabsTrigger>
     <TabsTrigger value="flatpak">Flatpak</TabsTrigger>
     <TabsTrigger value="snap">Snap</TabsTrigger>
     <TabsTrigger value="ubuntu-debian-apt">Ubuntu / Debian (apt)</TabsTrigger>
     <TabsTrigger value="arch-linux-aur">Arch Linux (AUR)</TabsTrigger>
     <TabsTrigger value="fedora-rhel-dnf">Fedora / RHEL (DNF)</TabsTrigger>
-    <TabsTrigger value="portable-tarxz">Portable tar.xz</TabsTrigger>
+    <TabsTrigger value="portable-tarxz">Portables tar.xz</TabsTrigger>
   </TabsList>
   <TabsContent value="appimage-recommended">
 
-    No installation required. Download, make executable, run:
+    Keine Installation erforderlich. Herunterladen, ausführbar machen, starten:
 
     ```bash
     wget https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.AppImage
@@ -83,7 +83,7 @@ No downloads, no extensions, no account required if guest access is enabled.
     ```
 
     <Callout type="tip">
-        To integrate AppImage into your application launcher, use [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
+        Um AppImage in Ihren Anwendungsstarter zu integrieren, verwenden Sie [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
     </Callout>
   </TabsContent>
   <TabsContent value="flatpak">
@@ -101,13 +101,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="ubuntu-debian-apt">
 
-    If the Bedrud apt repository is already configured on your system:
+    Wenn das Bedrud-apt-Repository bereits auf Ihrem System konfiguriert ist:
 
     ```bash
     sudo apt install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    Siehe die [Paketinstallationsanleitung](/de/docs/guides/packages) für die Repository-Einrichtung.
   </TabsContent>
   <TabsContent value="arch-linux-aur">
 
@@ -117,13 +117,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="fedora-rhel-dnf">
 
-    If the Bedrud DNF repository is already configured:
+    Wenn das Bedrud-DNF-Repository bereits konfiguriert ist:
 
     ```bash
     sudo dnf install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    Siehe die [Paketinstallationsanleitung](/de/docs/guides/packages) für die Repository-Einrichtung.
   </TabsContent>
   <TabsContent value="portable-tarxz">
 
@@ -141,7 +141,7 @@ No downloads, no extensions, no account required if guest access is enabled.
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="homebrew-recommended">Homebrew (recommended)</TabsTrigger>
+    <TabsTrigger value="homebrew-recommended">Homebrew (empfohlen)</TabsTrigger>
     <TabsTrigger value="apple-silicon-arm64">Apple Silicon (arm64)</TabsTrigger>
     <TabsTrigger value="intel-x8664">Intel (x86_64)</TabsTrigger>
   </TabsList>
@@ -171,7 +171,7 @@ No downloads, no extensions, no account required if guest access is enabled.
 </Tabs>
 
 <Callout type="warning">
-    macOS builds may be **unsigned**. If Gatekeeper blocks the app, run the `xattr` command above, or go to **System Settings → Privacy & Security** and click **Open Anyway**.
+    macOS-Builds sind möglicherweise **nicht signiert**. Wenn Gatekeeper die App blockiert, führen Sie den obigen `xattr`-Befehl aus oder gehen Sie zu **Systemeinstellungen → Datenschutz & Sicherheit** und klicken Sie auf **Trotzdem öffnen**.
 </Callout>
 
 ---
@@ -182,8 +182,8 @@ No downloads, no extensions, no account required if guest access is enabled.
   <TabsList>
     <TabsTrigger value="winget">WinGet</TabsTrigger>
     <TabsTrigger value="chocolatey">Chocolatey</TabsTrigger>
-    <TabsTrigger value="nsis-installer">NSIS Installer</TabsTrigger>
-    <TabsTrigger value="portable-zip">Portable .zip</TabsTrigger>
+    <TabsTrigger value="nsis-installer">NSIS-Installer</TabsTrigger>
+    <TabsTrigger value="portable-zip">Portables .zip</TabsTrigger>
   </TabsList>
   <TabsContent value="winget">
 
@@ -199,44 +199,44 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="nsis-installer">
 
-    Download the installer from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    Laden Sie den Installer von [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) herunter:
 
-    | Architecture | File |
-    |---|---|
+    | Architektur | Datei |
+    |-------------|-------|
     | x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
     | ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
 
-    Run the installer. The app appears in Start Menu and Add/Remove Programs.
+    Führen Sie den Installer aus. Die App erscheint im Startmenü und unter Programme hinzufügen/entfernen.
   </TabsContent>
   <TabsContent value="portable-zip">
 
-    Download and extract from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    Von [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) herunterladen und entpacken:
 
-    | Architecture | File |
-    |---|---|
+    | Architektur | Datei |
+    |-------------|-------|
     | x86_64 | `bedrud-desktop-windows-x86_64.zip` |
     | ARM64 | `bedrud-desktop-windows-arm64.zip` |
 
-    No installation required - run `bedrud-desktop.exe` from the extracted folder.
+    Keine Installation erforderlich — `bedrud-desktop.exe` aus dem entpackten Ordner starten.
   </TabsContent>
 </Tabs>
 
 ---
 
-## Connecting to a Server
+## Verbindung zu einem Server
 
-When you first open the desktop app, you'll be prompted for a server URL.
+Beim ersten Öffnen der Desktop-App werden Sie nach einer Server-URL gefragt.
 
-1. Enter the URL provided by your server admin (e.g. `https://meet.example.com`)
-2. Register an account or sign in
-3. Create or join a meeting room
+1. Geben Sie die URL ein, die Ihr Server-Administrator Ihnen bereitgestellt hat (z. B. `https://meet.example.com`)
+2. Registrieren Sie ein Konto oder melden Sie sich an
+3. Erstellen Sie einen Meetingraum oder treten Sie einem bei
 
-The desktop app supports connecting to **multiple servers**. Add more in **Settings**.
+Die Desktop-App unterstützt Verbindungen zu **mehreren Servern**. Weitere können unter **Einstellungen** hinzugefügt werden.
 
 ---
 
-## All Downloads
+## Alle Downloads
 
-All client installers and binaries are available on the [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) page.
+Alle Client-Installer und Binärdateien sind auf der [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest)-Seite verfügbar.
 
-For the complete reference of all package managers, repositories, and platforms, see the [Package Installation Guide](/docs/guides/packages).
+Für die vollständige Referenz aller Paketmanager, Repositories und Plattformen siehe die [Paketinstallationsanleitung](/de/docs/guides/packages).

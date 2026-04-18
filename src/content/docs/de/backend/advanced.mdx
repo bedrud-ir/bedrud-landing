@@ -1,17 +1,17 @@
 ---
-title: Advanced Topics
-description: Advanced backend features
+title: Erweiterte Themen
+description: Erweiterte Backend-Funktionen
 order: 22
 ---
 
-This document covers the internal technical decisions behind Bedrud's single-binary architecture.
+Dieses Dokument behandelt die internen technischen Entscheidungen hinter Bedruds Single-Binary-Architektur.
 
-## 1. The Fiber-to-Standard Bridge
-Bedrud uses **Fiber** for its speed, but some dependencies like **Goth** (OAuth) and **LiveKit SDK** (Twirp) expect standard Go `http.ResponseWriter` and `http.Request`.
+## 1. Die Fiber-zu-Standard-Bridge
+Bedrud verwendet **Fiber** für seine Geschwindigkeit, aber einige Abhängigkeiten wie **Goth** (OAuth) und **LiveKit SDK** (Twirp) erwarten das Standard-Go `http.ResponseWriter` und `http.Request`.
 
-To bridge these two worlds, Bedrud implements an **Adapter Pattern** in `internal/handlers/auth.go`:
+Um diese beiden Welten zu verbinden, implementiert Bedrud ein **Adapter-Muster** in `internal/handlers/auth.go`:
 
-### `responseWriter` Adapter
+### `responseWriter`-Adapter
 ```go
 type responseWriter struct {
     ctx     *fiber.Ctx
@@ -19,49 +19,49 @@ type responseWriter struct {
     status  int
 }
 ```
-This struct implements the `http.ResponseWriter` interface. When a standard library function (like Goth) calls `Header().Add()`, the adapter stores it in a local `headers` map. When `WriteHeader()` is called, it manually copies all headers back into the **Fiber Context**.
+Diese Struktur implementiert das `http.ResponseWriter`-Interface. Wenn eine Standardbibliotheksfunktion (wie Goth) `Header().Add()` aufruft, speichert der Adapter dies in einer lokalen `headers`-Map. Wenn `WriteHeader()` aufgerufen wird, kopiert er manuell alle Header zurück in den **Fiber-Kontext**.
 
-### Purpose
-It allows Bedrud to remain extremely fast (using Fiber) while maintaining full compatibility with the vast ecosystem of standard Go web libraries.
+### Zweck
+Dies ermöglicht es Bedrud, extrem schnell zu bleiben (durch Verwendung von Fiber) und gleichzeitig volle Kompatibilität mit dem riesigen Ökosystem der Standard-Go-Webbibliotheken zu gewährleisten.
 
-## 2. LiveKit Reverse Proxying
-Bedrud avoids port management issues by routing all media signaling through its main port.
+## 2. LiveKit-Reverse-Proxying
+Bedrud vermeidet Port-Verwaltungsprobleme, indem es die gesamte Medien-Signalisierung über seinen Haupt-Port leitet.
 
-### How it works:
+### Funktionsweise:
 
-1.  **Detection:** If `LIVEKIT_INTERNAL_HOST` points to `127.0.0.1`, Bedrud starts the internal media engine.
-2.  **Mounting:** It mounts a `httputil.NewSingleHostReverseProxy` on the `/livekit` route.
-3.  **Path Stripping:** A custom **Director** function is used to strip the `/livekit` prefix so that the media server receives the request as if it were at root.
-4.  **WebSocket Support:** Since the proxy operates on the underlying TCP stream via `adaptor.HTTPHandler`, it natively supports the WebSockets used by LiveKit for real-time signaling.
+1.  **Erkennung:** Wenn `LIVEKIT_INTERNAL_HOST` auf `127.0.0.1` verweist, startet Bedrud die interne Medien-Engine.
+2.  **Einhängen:** Es mountet einen `httputil.NewSingleHostReverseProxy` auf der `/livekit`-Route.
+3.  **Pfad-Bereinigung:** Eine benutzerdefinierte **Director**-Funktion wird verwendet, um das `/livekit`-Präfix zu entfernen, sodass der Medienserver die Anfrage so erhält, als wäre er unter Root.
+4.  **WebSocket-Unterstützung:** Da der Proxy auf dem zugrunde liegenden TCP-Stream über `adaptor.HTTPHandler` arbeitet, unterstützt er nativ die WebSockets, die LiveKit für die Echtzeit-Signalisierung verwendet.
 
-## 3. Storage Efficiency: Embedded Structs
-Bedrud makes heavy use of GORM's `embedded` tag to keep the database schema flat and optimized.
+## 3. Speichereffizienz: Embedded Structs
+Bedrud nutzt extensively GORMs `embedded`-Tag, um das Datenbankschema flach und optimiert zu halten.
 
-**Example from `models/room.go`:**
+**Beispiel aus `models/room.go`:**
 ```go
 type Room struct {
     ID       string       `gorm:"primaryKey"`
     Settings RoomSettings `gorm:"embedded;embeddedPrefix:settings_"`
 }
 ```
-This causes GORM to create columns like `settings_allow_chat` directly in the `rooms` table. This is faster than a `JOIN` and more searchable than a `JSON` blob.
+Dies bewirkt, dass GORM Spalten wie `settings_allow_chat` direkt in der Tabelle `rooms` erstellt. Dies ist schneller als ein `JOIN` und besser durchsuchbar als ein `JSON`-Blob.
 
-## 4. Testing Infrastructure
-Bedrud follows a "DB-First" testing strategy using the `internal/testutil` package.
+## 4. Test-Infrastruktur
+Bedrud folgt einer „DB-First"-Teststrategie unter Verwendung des Pakets `internal/testutil`.
 
-### `SetupTestDB` logic:
+### `SetupTestDB`-Logik:
 
-- Creates a unique **SQLite in-memory** database for every test.
-- Automatically runs all migrations.
-- Provides a clean slate, ensuring tests are deterministic and can run in parallel.
+- Erstellt eine eindeutige **SQLite In-Memory**-Datenbank für jeden Test.
+- Führt automatisch alle Migrationen aus.
+- Bietet einen sauberen Ausgangszustand, der sicherstellt, dass Tests deterministisch sind und parallel ausgeführt werden können.
 
-To run backend tests:
+Um die Backend-Tests auszuführen:
 ```bash
 go test ./internal/...
 ```
 
-## 5. Security: Token Rotation & Revocation
-Unlike simple JWT implementations, Bedrud rotates **both** tokens on every refresh.
+## 5. Sicherheit: Token-Rotation & -Sperrung
+Im Gegensatz zu einfachen JWT-Implementierungen rotiert Bedrud bei jeder Aktualisierung **beide** Tokens.
 
-- **Refresh Token Reuse Detection:** Once a refresh token is used to get a new pair, it is blocked.
-- **Cleanup:** The `BlockedRefreshToken` table ensures that even if a refresh token is stolen, it cannot be used after the user has cleanly logged out or refreshed their session.
+- **Erkennung von Refresh-Token-Wiederverwendung:** Sobald ein Refresh Token verwendet wurde, um ein neues Paar zu erhalten, wird es blockiert.
+- **Bereinigung:** Die Tabelle `BlockedRefreshToken` stellt sicher, dass selbst wenn ein Refresh Token gestohlen wurde, es nicht verwendet werden kann, nachdem sich der Benutzer sauber abgemeldet oder seine Sitzung aktualisiert hat.

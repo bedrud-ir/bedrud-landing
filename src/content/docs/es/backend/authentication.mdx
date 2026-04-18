@@ -1,38 +1,38 @@
 ---
-title: Authentication
-description: Auth implementation details
+title: Autenticación
+description: Detalles de implementación de autenticación
 order: 18
 ---
 
-Bedrud supports multiple authentication methods.
+Bedrud admite múltiples métodos de autenticación.
 
 ## JWT (JSON Web Tokens)
-Bedrud uses JWT for session management. On login, the server returns two tokens:
+Bedrud utiliza JWT para la gestión de sesiones. Al iniciar sesión, el servidor devuelve dos tokens:
 
-1.  **Access Token:** Short-lived (e.g., 1 hour). Used to access protected API endpoints.
-2.  **Refresh Token:** Long-lived (e.g., 30 days). Used to get a new Access Token without logging in again.
+1.  **Token de Acceso:** De corta duración (ej., 1 hora). Se utiliza para acceder a endpoints de API protegidos.
+2.  **Token de Actualización:** De larga duración (ej., 30 días). Se utiliza para obtener un nuevo Token de Acceso sin volver a iniciar sesión.
 
-The backend validates these tokens in the `internal/middleware/auth.go` file.
+El backend valida estos tokens en el archivo `internal/middleware/auth.go`.
 
-## Token Management & Security
+## Gestión y Seguridad de Tokens
 
-### 1. Token Pair Strategy (Rotation)
-Bedrud uses a secure token rotation strategy. When a user authenticates, they receive:
+### 1. Estrategia de Par de Tokens (Rotación)
+Bedrud utiliza una estrategia segura de rotación de tokens. Cuando un usuario se autentica, recibe:
 
-- **Access Token:** Signed with HS256, contains user ID, name, and permissions. Valid for a short duration (configured via `tokenDuration`).
-- **Refresh Token:** A separate long-lived token.
+- **Token de Acceso:** Firmado con HS256, contiene ID de usuario, nombre y permisos. Válido por una duración corta (configurado vía `tokenDuration`).
+- **Token de Actualización:** Un token de larga duración separado.
 
-**Rotation:** When the Access Token expires, the client sends the Refresh Token to `/api/auth/refresh`. The server then issues a **brand new pair** of tokens and updates the stored refresh token in the database. This limits the window of opportunity even if a token is stolen.
+**Rotación:** Cuando el Token de Acceso expira, el cliente envía el Token de Actualización a `/api/auth/refresh`. El servidor entonces emite un **nuevo par completo** de tokens y actualiza el token de actualización almacenado en la base de datos. Esto limita la ventana de oportunidad incluso si un token es robado.
 
-### 2. Token Revocation (Blacklisting)
-To support secure logout, Bedrud implements a **Token Blacklist**.
+### 2. Revocación de Tokens (Lista Negra)
+Para admitir el cierre de sesión seguro, Bedrud implementa una **Lista Negra de Tokens**.
 
-- When a user logs out, their current Refresh Token is added to the `blocked_refresh_tokens` table.
-- Before refreshing any session, the server checks this table. If a token is blocked, the request is rejected immediately.
-- A background task (Scheduler) is designed to clean up these blocked tokens once they naturally expire.
+- Cuando un usuario cierra sesión, su Token de Actualización actual se agrega a la tabla `blocked_refresh_tokens`.
+- Antes de actualizar cualquier sesión, el servidor verifica esta tabla. Si un token está bloqueado, la solicitud se rechaza inmediatamente.
+- Una tarea en segundo plano (Scheduler) está diseñada para limpiar estos tokens bloqueados una vez que expiran naturalmente.
 
-### 3. JWT Claims Structure
-The tokens carry metadata that allows the backend and frontend to make quick decisions without database hits:
+### 3. Estructura de Claims JWT
+Los tokens llevan metadatos que permiten al backend y al frontend tomar decisiones rápidas sin consultas a la base de datos:
 ```json
 {
   "userId": "uuid-string",
@@ -44,47 +44,47 @@ The tokens carry metadata that allows the backend and frontend to make quick dec
 }
 ```
 
-## Authentication Methods
+## Métodos de Autenticación
 
-### 1. Local Email & Password
+### 1. Correo Electrónico y Contraseña Local
 
-- Passwords are hashed using **bcrypt** - never stored as plain text.
-- When you register, a new User record is created in the database.
+- Las contraseñas se hashean usando **bcrypt** - nunca se almacenan como texto plano.
+- Cuando te registras, se crea un nuevo registro de Usuario en la base de datos.
 
-### 2. Social Login (OAuth2)
-Bedrud uses the `Goth` library to support:
+### 2. Inicio de Sesión Social (OAuth2)
+Bedrud utiliza la biblioteca `Goth` para admitir:
 
 - **Google**
 - **GitHub**
 - **Twitter**
 
-You can enable these by filling in the `auth:` section in your `config.yaml` with your Client ID and API Secret.
+Puedes habilitar estos llenando la sección `auth:` en tu `config.yaml` con tu ID de Cliente y Secreto de API.
 
 ### 3. Passkeys (WebAuthn/FIDO2)
-Bedrud supports passwordless authentication via the FIDO2 standard (WebAuthn).
+Bedrud admite autenticación sin contraseña a través del estándar FIDO2 (WebAuthn).
 
-- **Registration Ceremony:**
-  1.  **Begin:** The server generates a cryptographically secure **Challenge** and stores it in the user's session.
-  2.  **Finish:** The client's authenticator (e.g., TouchID, YubiKey) signs the challenge. The server verifies the attestation, extracts the **Public Key**, and saves it in the `passkeys` table.
-- **Authentication Ceremony:**
-  1.  **Begin:** The server issues a new challenge.
-  2.  **Finish:** The client signs the challenge with their private key. The server retrieves the Public Key from the database, verifies the signature, and checks the **Sign Counter**.
-- **Security:** The matching of the `Counter` field prevents **Replay Attacks**. If the authenticator's counter is not higher than the stored counter, the login is rejected.
+- **Ceremonia de Registro:**
+  1.  **Inicio:** El servidor genera un **Desafío** criptográficamente seguro y lo almacena en la sesión del usuario.
+  2.  **Finalización:** El autenticador del cliente (ej., TouchID, YubiKey) firma el desafío. El servidor verifica la atestación, extrae la **Clave Pública** y la guarda en la tabla `passkeys`.
+- **Ceremonia de Autenticación:**
+  1.  **Inicio:** El servidor emite un nuevo desafío.
+  2.  **Finalización:** El cliente firma el desafío con su clave privada. El servidor recupera la Clave Pública de la base de datos, verifica la firma y verifica el **Contador de Firma**.
+- **Seguridad:** La coincidencia del campo `Counter` previene **Ataques de Reproducción**. Si el contador del autenticador no es más alto que el contador almacenado, el inicio de sesión se rechaza.
 
-### 4. Guest Login
-Allows users to join a meeting instantly with just a name. The server creates a temporary user record with the role `guest`.
+### 4. Inicio de Sesión de Invitado
+Permite a los usuarios unirse a una reunión instantáneamente con solo un nombre. El servidor crea un registro de usuario temporal con el rol `guest`.
 
-## Interoperability & CORS
-Bedrud is designed to be accessible from multiple origins, which is crucial for development (React dev server) and production (different subdomains).
+## Interoperabilidad y CORS
+Bedrud está diseñado para ser accesible desde múltiples orígenes, lo cual es crucial para el desarrollo (servidor de desarrollo de React) y la producción (diferentes subdominios).
 
-- **CORS Policy:** Defined in `config.yaml`. It supports `AllowCredentials: true`, which is required for the session cookies used during OAuth and Passkey ceremonies.
-- **Allowed Origins:** By default, it allows the server's own domain and `localhost:3000` (the React dev server port).
+- **Política de CORS:** Definida en `config.yaml`. Admite `AllowCredentials: true`, que es necesario para las cookies de sesión utilizadas durante las ceremonias de OAuth y Passkey.
+- **Orígenes Permitidos:** Por defecto, permite el dominio propio del servidor y `localhost:3000` (el puerto del servidor de desarrollo de React).
 
-## User Roles (Access Control)
-Each user has a list of "accesses" (roles).
+## Roles de Usuario (Control de Acceso)
+Cada usuario tiene una lista de "accesses" (roles).
 
-- `user`: Standard user. Can join and create rooms.
-- `guest`: Temporary user. Can join rooms.
-- `superadmin`: Can manage all users and rooms through the `/admin` dashboard.
+- `user`: Usuario estándar. Puede unirse y crear salas.
+- `guest`: Usuario temporal. Puede unirse a salas.
+- `superadmin`: Puede gestionar todos los usuarios y salas a través del panel `/admin`.
 
-The `middleware.RequireAccess("superadmin")` guard protects admin routes.
+El guardia `middleware.RequireAccess("superadmin")` protege las rutas de administración.

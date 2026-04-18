@@ -1,14 +1,14 @@
 ---
-title: Internal TLS
-description: Self-signed certificates for internal networks
+title: Internes TLS
+description: Selbstsignierte Zertifikate für interne Netzwerke
 order: 30
 ---
 
-For isolated networks - no public domain, no outbound internet, restricted connectivity.
+Für isolierte Netzwerke - keine öffentliche Domain, kein ausgehendes Internet, eingeschränkte Konnektivität.
 
-Browsers require trusted HTTPS for camera/mic via WebRTC. Self-signed certs work but show warnings. For a clean setup, generate a private CA and distribute it to clients.
+Browser erfordern vertrauenswürdiges HTTPS für Kamera/Mikrofon über WebRTC. Selbstsignierte Zertifikate funktionieren, zeigen jedoch Warnungen. Für eine saubere Einrichtung generieren Sie eine private CA und verteilen Sie diese an die Clients.
 
-## Generate Private CA and Server Certificate
+## Private CA und Serverzertifikat generieren
 
 ```bash
 openssl genrsa -out ca.key 4096
@@ -24,9 +24,9 @@ openssl x509 -req -days 365 -in server.csr \
 sudo ./bedrud install --tls --cert server.crt --key server.key --ip YOUR_SERVER_IP
 ```
 
-## Add CA to Client Trust Stores
+## CA zu Client-Trust-Stores hinzufügen
 
-Distribute `ca.crt` to all client machines:
+Verteilen Sie `ca.crt` an alle Client-Rechner:
 
 ### Windows
 
@@ -55,19 +55,19 @@ sudo cp ca.crt /etc/pki/ca-trust/source/anchors/bedrud-ca.crt
 sudo update-ca-trust
 ```
 
-Restart browsers, then open `https://YOUR_SERVER_IP` (replace with the server's actual IP address, e.g. `192.168.1.100`). After restarting, the certificate will be trusted and camera/microphone access will work without warnings.
+Starten Sie die Browser neu und öffnen Sie dann `https://YOUR_SERVER_IP` (ersetzen Sie dies durch die tatsächliche IP-Adresse des Servers, z. B. `192.168.1.100`). Nach dem Neustart wird das Zertifikat als vertrauenswürdig eingestuft und Kamera-/Mikrofonzugriff funktioniert ohne Warnungen.
 
-## Troubleshooting
+## Fehlerbehebung
 
-| Problem | Fix |
-|---------|-----|
-| Browser still warns certificate untrusted | Clear browser cache, restart browser after CA install |
-| Camera/mic blocked | Verify CA is in Trusted Root CAs, not intermediate |
-| Certificate expired | Regenerate with longer `-days` value |
-| CN mismatch | Ensure server certificate CN matches IP or hostname in URL |
+| Problem | Lösung |
+|---------|--------|
+| Browser warnt weiterhin vor nicht vertrauenswürdigem Zertifikat | Browser-Cache leeren, Browser nach CA-Installation neu starten |
+| Kamera/Mikrofon blockiert | Prüfen Sie, ob sich die CA in den Vertrauenswürdigen Stammzertifikaten befindet, nicht als Zwischenzertifikat |
+| Zertifikat abgelaufen | Mit längerem `-days`-Wert neu generieren |
+| CN-Konflikt | Stellen Sie sicher, dass das Serverzertifikat-CN mit der IP oder dem Hostnamen in der URL übereinstimmt |
 
 ---
 
-## See also
-- [Installation Guide](/docs/getting-started/installation) - install methods
-- [Configuration Reference](/docs/getting-started/configuration) - full config options
+## Siehe auch
+- [Installationsanleitung](/de/docs/getting-started/installation) - Installationsmethoden
+- [Konfigurationsreferenz](/de/docs/getting-started/configuration) - vollständige Konfigurationsoptionen

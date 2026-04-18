@@ -1,34 +1,36 @@
 ---
-title: Deployment
-description: Backend deployment strategies
+title: استقرار
+description: استراتژی‌های استقرار بک‌اند
 order: 21
 ---
 
-The built-in installer configures a fresh Linux server for production use with a single command.
+نصب‌کننده داخلی یک سرور Linux تازه را با یک دستور برای استفاده در تولید پیکربندی می‌کند.
 
 <InstallerSteps />
 
 <SystemdServices />
 
-## Security and TLS
+## امنیت و TLS
 
-The installer handles security automatically:
+نصب‌کننده امنیت را به صورت خودکار مدیریت می‌کند:
 
-- **ACME (Let's Encrypt):** If you provide a domain and email, it sets up automatic certificate renewal.
-- **Self-Signed Certs:** If no domain is provided, it generates a self-signed certificate so that the site still works over HTTPS.
-- **Reverse Proxy:** The backend acts as a reverse proxy. It receives traffic on port 443 and sends `/livekit` requests to the internal media server.
+- **ACME (Let's Encrypt):** اگر یک دامنه و ایمیل ارائه دهید، تمدید خودکار گواهی را تنظیم می‌کند.
+- **گواهی‌های امضاشده خود:** اگر دامنه‌ای ارائه نشده باشد، یک گواهی امضاشده خود تولید می‌کند تا سایت همچنان از طریق HTTPS کار کند.
+- **پروکسی معکوس:** بک‌اند به عنوان پروکسی معکوس عمل می‌کند. ترافیک را در پورت ۴۴۳ دریافت می‌کند و درخواست‌های `/livekit` را به سرور رسانه داخلی می‌فرستد.
 
-## Uninstallation
+## حذف نصب
 
-If you need to remove Bedrud, you can run:
+اگر نیاز به حذف Bedrud دارید، می‌توانید اجرا کنید:
+
 ```bash
 sudo bedrud uninstall
 ```
-This stops the services, deletes the systemd files, and removes the configuration and data folders.
+
+این سرویس‌ها را متوقف می‌کند، فایل‌های systemd را حذف می‌کند، و پوشه‌های پیکربندی و داده را حذف می‌کند.
 
 ---
 
-## See also
+## مشاهده همچنین
 
-- [Deployment Guide](/docs/guides/deployment) - full production deployment instructions
-- [Appliance Mode](/docs/guides/appliance) - single-binary setup reference
+- [راهنمای استقرار](/docs/guides/deployment) - دستورالعمل‌های کامل استقرار در تولید
+- [حالت لوازم](/docs/guides/appliance) - مرجع تنظیم تک‌باینری

@@ -1,17 +1,19 @@
 ---
-title: Advanced Topics
-description: Advanced backend features
+title: موضوعات پیشرفته
+description: ویژگی‌های پیشرفته بک‌اند
 order: 22
 ---
 
-This document covers the internal technical decisions behind Bedrud's single-binary architecture.
+این سند تصمیمات فنی داخلی پشت معماری تک‌باینری Bedrud را پوشش می‌دهد.
 
-## 1. The Fiber-to-Standard Bridge
-Bedrud uses **Fiber** for its speed, but some dependencies like **Goth** (OAuth) and **LiveKit SDK** (Twirp) expect standard Go `http.ResponseWriter` and `http.Request`.
+## ۱. پل Fiber به استاندارد
 
-To bridge these two worlds, Bedrud implements an **Adapter Pattern** in `internal/handlers/auth.go`:
+Bedrud از **Fiber** برای سرعت خود استفاده می‌کند، اما برخی وابستگی‌ها مانند **Goth** (OAuth) و **LiveKit SDK** (Twirp) انتظار `http.ResponseWriter` و `http.Request` استاندارد Go را دارند.
 
-### `responseWriter` Adapter
+برای اتصال این دو جهان، Bedrud یک **الگوی آداپتور** در `internal/handlers/auth.go` پیاده‌سازی می‌کند:
+
+### آداپتور `responseWriter`
+
 ```go
 type responseWriter struct {
     ctx     *fiber.Ctx
@@ -19,49 +21,58 @@ type responseWriter struct {
     status  int
 }
 ```
-This struct implements the `http.ResponseWriter` interface. When a standard library function (like Goth) calls `Header().Add()`, the adapter stores it in a local `headers` map. When `WriteHeader()` is called, it manually copies all headers back into the **Fiber Context**.
 
-### Purpose
-It allows Bedrud to remain extremely fast (using Fiber) while maintaining full compatibility with the vast ecosystem of standard Go web libraries.
+این ساختار رابط `http.ResponseWriter` را پیاده‌سازی می‌کند. وقتی یک تابع کتابخانه استاندارد (مانند Goth) `Header().Add()` را فراخوانی می‌کند، آداپتور آن را در یک نقشه محلی `headers` ذخیره می‌کند. وقتی `WriteHeader()` فراخوانی می‌شود، تمام هدرها را به صورت دستی به **Fiber Context** کپی می‌کند.
 
-## 2. LiveKit Reverse Proxying
-Bedrud avoids port management issues by routing all media signaling through its main port.
+### هدف
 
-### How it works:
+این به Bedrud اجازه می‌دهد در حالی که سازگاری کامل با اکوسیستم وسیع کتابخانه‌های وب استاندارد Go را حفظ می‌کند، به شدت سریع باقی بماند (با استفاده از Fiber).
 
-1.  **Detection:** If `LIVEKIT_INTERNAL_HOST` points to `127.0.0.1`, Bedrud starts the internal media engine.
-2.  **Mounting:** It mounts a `httputil.NewSingleHostReverseProxy` on the `/livekit` route.
-3.  **Path Stripping:** A custom **Director** function is used to strip the `/livekit` prefix so that the media server receives the request as if it were at root.
-4.  **WebSocket Support:** Since the proxy operates on the underlying TCP stream via `adaptor.HTTPHandler`, it natively supports the WebSockets used by LiveKit for real-time signaling.
+## ۲. پروکسی معکوس LiveKit
 
-## 3. Storage Efficiency: Embedded Structs
-Bedrud makes heavy use of GORM's `embedded` tag to keep the database schema flat and optimized.
+Bedrud با مسیریابی تمام سیگنالینگ رسانه از طریق پورت اصلی، از مشکلات مدیریت پورت جلوگیری می‌کند.
 
-**Example from `models/room.go`:**
+### نحوه کار:
+
+۱. **تشخیص:** اگر `LIVEKIT_INTERNAL_HOST` به `127.0.0.1` اشاره کند، Bedrud موتور رسانه داخلی را شروع می‌کند.
+۲. **نصب:** یک `httputil.NewSingleHostReverseProxy` در مسیر `/livekit` نصب می‌کند.
+۳. **حذف مسیر:** یک تابع سفارشی **Director** برای حذف پیشوند `/livekit` استفاده می‌شود تا سرور رسانه درخواست را دریافت کند گویی که در روت است.
+۴. **پشتیبانی WebSocket:** از آنجا که پروکسی از طریق `adaptor.HTTPHandler` روی جریان TCP زیرین عمل می‌کند، به طور بومی از WebSocketهایی که LiveKit برای سیگنالینگ بلادرنگ استفاده می‌کند، پشتیبانی می‌کند.
+
+## ۳. کارایی ذخیره‌سازی: ساختارهای جاسازی‌شده
+
+Bedrud به شدت از تگ `embedded` GORM برای نگه داشتن طرح‌واره پایگاه داده صاف و بهینه استفاده می‌کند.
+
+**مثال از `models/room.go`:**
+
 ```go
 type Room struct {
     ID       string       `gorm:"primaryKey"`
     Settings RoomSettings `gorm:"embedded;embeddedPrefix:settings_"`
 }
 ```
-This causes GORM to create columns like `settings_allow_chat` directly in the `rooms` table. This is faster than a `JOIN` and more searchable than a `JSON` blob.
 
-## 4. Testing Infrastructure
-Bedrud follows a "DB-First" testing strategy using the `internal/testutil` package.
+این باعث می‌شود GORM ستون‌هایی مانند `settings_allow_chat` را مستقیماً در جدول `rooms` ایجاد کند. این سریعتر از `JOIN` و قابل جستجوی بیشتر از یک blob `JSON` است.
 
-### `SetupTestDB` logic:
+## ۴. زیرساخت تست
 
-- Creates a unique **SQLite in-memory** database for every test.
-- Automatically runs all migrations.
-- Provides a clean slate, ensuring tests are deterministic and can run in parallel.
+Bedrud یک استراتژی تست "DB-First" با استفاده از بسته `internal/testutil` دنبال می‌کند.
 
-To run backend tests:
+### منطق `SetupTestDB`:
+
+- برای هر تست یک پایگاه داده **SQLite در حافظه** منحصر به فرد ایجاد می‌کند.
+- به طور خودکار تمام مهاجرت‌ها را اجرا می‌کند.
+- یک صفحه تمیز ارائه می‌دهد، که اطمینان حاصل می‌کند تست‌ها قطعی هستند و می‌توانند به صورت موازی اجرا شوند.
+
+برای اجرای تست‌های بک‌اند:
+
 ```bash
 go test ./internal/...
 ```
 
-## 5. Security: Token Rotation & Revocation
-Unlike simple JWT implementations, Bedrud rotates **both** tokens on every refresh.
+## ۵. امنیت: چرخش و لغو توکن
 
-- **Refresh Token Reuse Detection:** Once a refresh token is used to get a new pair, it is blocked.
-- **Cleanup:** The `BlockedRefreshToken` table ensures that even if a refresh token is stolen, it cannot be used after the user has cleanly logged out or refreshed their session.
+برخلاف پیاده‌سازی‌های ساده JWT، Bedrud **هر دو** توکن را در هر تازه‌سازی می‌چرخاند.
+
+- **تشخیص استفاده مجدد توکن تازه‌سازی:** هنگامی که توکن تازه‌سازی برای دریافت جفت جدید استفاده می‌شود، مسدود می‌شود.
+- **پاکسازی:** جدول `BlockedRefreshToken` اطمینان حاصل می‌کند که حتی اگر توکن تازه‌سازی دزدیده شود، پس از خروج تمیز کاربر یا تازه‌سازی جلسه نمی‌تواند استفاده شود.

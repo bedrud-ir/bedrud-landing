@@ -1,21 +1,21 @@
 ---
-title: LiveKit Integration
-description: WebRTC media server integration
+title: تكامل LiveKit
+description: تكامل خادم وسائط WebRTC
 order: 20
 ---
 
-Bedrud uses **LiveKit** to handle real-time video and audio communication. LiveKit provides the SFU (Selective Forwarding Unit) media server, and Bedrud handles authentication, room management, and admin controls.
+يستخدم Bedrud **LiveKit** للتعامل مع اتصالات الفيديو والصوت في الوقت الفعلي. يوفر LiveKit خادم وسائط SFU (وحدة التوجيه الانتقائي)، ويتعامل Bedrud مع المصادقة وإدارة الغرف وضوابط المشرفين.
 
-## Embedded vs. External
+## مدمج مقابل خارجي
 
-Bedrud supports two LiveKit deployment modes:
+يدعم Bedrud وضعين لنشر LiveKit:
 
-1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required - the backend handles the LiveKit process lifecycle.
-2.  **External Mode:** Bedrud connects to a separate LiveKit server or cluster. This is useful for horizontal scaling or when using a managed LiveKit Cloud instance.
+١.  **الوضع المدمج (الافتراضي):** تبدأ الخلفية وتدير عملية خادم LiveKit داخليًا. لا حاجة لبنية تحتية إضافية - تتعامل الخلفية مع دورة حياة عملية LiveKit.
+٢.  **الوضع الخارجي:** يتصل Bedrud بخادم LiveKit منفصل أو مجموعة. هذا مفيد للتوسع الأفقي أو عند استخدام مثيل LiveKit Cloud مُدار.
 
-### Configuring External Mode
+### تهيئة الوضع الخارجي
 
-To use an external LiveKit server, set the following keys in `config.yaml`:
+لاستخدام خادم LiveKit خارجي، اضبط المفاتيح التالية في `config.yaml`:
 
 ```yaml
 livekit:
@@ -25,73 +25,73 @@ livekit:
   embedded: false
 ```
 
-When `embedded` is `false`, Bedrud skips starting the embedded LiveKit binary. The API key and secret must match the external server's credentials.
+عندما يكون `embedded` بقيمة `false`، يتخطى Bedrud بدء تشغيل ملف LiveKit الثنائي المدمج. يجب أن تتطابق مفتاح API والسر مع بيانات اعتماد الخادم الخارجي.
 
-For LiveKit cluster setup and configuration, refer to the [LiveKit documentation](https://docs.livekit.io).
+لإعداد وتحويم مجموعة LiveKit، راجع [توثيق LiveKit](https://docs.livekit.io).
 
-## How It Works
+## كيف يعمل
 
-### 1. Room Creation
+### ١. إنشاء الغرفة
 
-When a user creates a room in Bedrud, the server does not create a LiveKit room immediately. LiveKit rooms are created on demand when the first participant joins.
+عندما ينشئ مستخدم غرفة في Bedrud، لا ينشئ الخادم غرفة LiveKit فورًا. تُنشأ غرف LiveKit عند الطلب عندما ينضم أول مشارك.
 
-### 2. Join Tokens
+### ٢. رموز الانضمام
 
-When a user joins a meeting:
+عندما ينضم مستخدم إلى اجتماع:
 
-1.  The frontend sends a request to `/api/room/join`.
-2.  The backend verifies the user has permission to join that room.
-3.  The backend uses its API Key and Secret to generate a signed JWT (Join Token).
-4.  The token contains:
+١.  يُرسل الواجهة الأمامية طلبًا إلى `/api/room/join`.
+٢.  تتحقق الخلفية من أن المستخدم لديه إذن للانضمام إلى تلك الغرفة.
+٣.  تستخدم الخلفية مفتاح API وسرها لتوليد JWT مُوقَّع (رمز الانضمام).
+٤.  يحتوي الرمز على:
 
-    - The room name.
-    - The user's identity (display name).
-    - Permissions - for example, whether the user can publish audio or share their screen.
-5.  The frontend receives this token and connects directly to the LiveKit media port (default `7880`).
+    - اسم الغرفة.
+    - هوية المستخدم (اسم العرض).
+    - الصلاحيات - على سبيل المثال، ما إذا كان يمكن للمستخدم نشر الصوت أو مشاركة شاشته.
+٥.  تتلقى الواجهة الأمامية هذا الرمز وتتصل مباشرة بمنفذ وسائط LiveKit (الافتراضي `7880`).
 
-### 3. Room Controls (Admin)
+### ٣. ضوابط الغرفة (المشرف)
 
-The backend uses the LiveKit Go SDK to perform administrative actions:
+تستخدم الخلفية LiveKit Go SDK لتنفيذ إجراءات إدارية:
 
-- **Kick:** Disconnects a participant.
-- **Mute:** Force-mutes a participant's microphone.
-- **Permissions:** Changes what a participant can do in real-time.
+- **طرد:** يفصل مشاركًا.
+- **كتم:** يكتم صوت ميكروفون مشارك قسرًا.
+- **الصلاحيات:** يغيّر ما يمكن لمشارك فعله في الوقت الفعلي.
 
-## Network Architecture
+## بنية الشبكة
 
-- **API Port (8090/443):** Handles HTTP requests and WebSocket signaling for call setup.
-- **Media Port (7880):** Handles video and audio data using WebRTC protocols. ICE/TCP fallback uses port 7881 when UDP is blocked.
-- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/docs/architecture/turn-server).
+- **منفذ API (8090/443):** يتعامل مع طلبات HTTP وإشارات WebSocket لإعداد المكالمات.
+- **منفذ الوسائط (7880):** يتعامل مع بيانات الفيديو والصوت باستخدام بروتوكولات WebRTC. احتياطي ICE/TCP يستخدم المنفذ 7881 عندما يكون UDP محظورًا.
+- **منفذ TURN (3478 UDP / 5349 TLS):** يرحل الوسائط للعملاء خلف NATs أو جدران حماية مقيدة. راجع [دليل خادم TURN](/docs/architecture/turn-server).
 
-For firewall and port requirements, see [WebRTC Connectivity](/docs/architecture/webrtc-connectivity).
+لمتطلبات جدار الحماية والمنافذ، راجع [اتصال WebRTC](/docs/architecture/webrtc-connectivity).
 
-## Error Handling
+## معالجة الأخطاء
 
-### LiveKit Unreachable
+### LiveKit غير قابل للوصول
 
-If the LiveKit server is unreachable, token generation may still succeed (tokens are created locally using the API key and secret). However, the client will fail to connect to the media server. Symptoms:
+إذا كان خادم LiveKit غير قابل للوصول، قد ينجح توليد الرموز (تُنشأ الرموز محليًا باستخدام مفتاح API والسر). ومع ذلك، سيفشل العميل في الاتصال بخادم الوسائط. الأعراض:
 
-- Client receives a valid join token but the WebRTC connection times out.
-- LiveKit SDK emits a `Reconnecting` event or connection error.
+- يتلقى العميل رمز انضمام صالح لكن اتصال WebRTC ينتهي وقته.
+- يُصدر LiveKit SDK حدث `Reconnecting` أو خطأ اتصال.
 
-**Check:** Verify the LiveKit server is running (`systemctl status livekit`) and the host/port in `config.yaml` is correct.
+**تحقق:** تأكد من أن خادم LiveKit يعمل (`systemctl status livekit`) وأن المضيف/المنفذ في `config.yaml` صحيح.
 
-### Embedded LiveKit Process Crashes
+### تعطل عملية LiveKit المدمجة
 
-In embedded mode, if the LiveKit child process crashes:
+في الوضع المدمج، إذا تعطلت عملية LiveKit الفرعية:
 
-- The Bedrud API server continues to run (rooms can be listed, users can log in).
-- Active meetings lose media connectivity.
-- New join requests will generate tokens, but clients cannot connect.
+- يستمر خادم API الخاص بـ Bedrud في العمل (يمكن عرض الغرف، يمكن للمستخدمين تسجيل الدخول).
+- تفقد الاجتماعات النشطة اتصال الوسائط.
+- طلبات الانضمام الجديدة ستنشئ رموزًا، لكن العملاء لا يمكنهم الاتصال.
 
-**Check:** Inspect logs at `/var/log/bedrud/bedrud.log` or run `journalctl -u livekit -f` for crash details.
+**تحقق:** افحص السجلات في `/var/log/bedrud/bedrud.log` أو شغّل `journalctl -u livekit -f` لتفاصيل التعطل.
 
-### Token Expiration
+### انتهاء صلاحية الرمز
 
-LiveKit join tokens have a short validity window. If a client waits too long between receiving the token and connecting, the token will expire. The client must request a new token via `/api/room/join`.
+رموز انضمام LiveKit لها نافذة صلاحية قصيرة. إذا انتظر العميل طويلًا بين تلقي الرمز والاتصال، ستنتهي صلاحية الرمز. يجب على العميل طلب رمز جديد عبر `/api/room/join`.
 
-## See also
+## انظر أيضًا
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [دليل خادم TURN](/docs/architecture/turn-server) - بنية TURN والتهيئة و TLS واستكشاف الأخطاء
+- [اتصال WebRTC](/docs/architecture/webrtc-connectivity) - مكدس اتصال STUN/ICE/TURN/SFU الكامل
+- [نظرة عامة على البنية](/docs/architecture/overview) - بنية النظام الكاملة

@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: API de Administración
+description: Operaciones administrativas
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+Los endpoints de administración están bajo `/api/admin/`. Estos requieren el rol **Super Admin**.
 
-## Overview
+## Resumen
 
-| Endpoint | Method | Description |
+| Endpoint | Método | Descripción |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | Listar todos los usuarios |
+| `/api/admin/users/:id/status` | PUT | Activar o desactivar un usuario |
 
 ---
 
 ## Endpoints
 
-### List All Users
+### Listar Todos los Usuarios
 
-Retrieve a list of all registered users.
+Recupera una lista de todos los usuarios registrados.
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Rol Requerido:** Super Admin
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### Actualizar Estado de Usuario
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+Activa o desactiva una cuenta de usuario. Los usuarios desactivados no pueden iniciar sesión.
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Rol Requerido:** Super Admin
 
-**URL Parameters:**
+**Parámetros de URL:**
 
-| Parameter | Description |
+| Parámetro | Descripción |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | UUID del usuario |
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -100,31 +100,31 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## Roles de Usuario
 
-| Role | Description | Permissions |
+| Rol | Descripción | Permisos |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | Usuario temporal | Solo unirse a salas |
+| `user` | Usuario regular | Crear/unirse a salas, administrar su propio perfil |
+| `admin` | Super Admin | Todos los permisos de usuario + administrar usuarios, ver todas las salas |
 
-### Creating an Admin
+### Crear un Admin
 
-Admin users are created via the CLI:
+Los usuarios administradores se crean a través de la CLI:
 
 ```bash
-# Create a user
+# Crear un usuario
 bedrud user create --email "admin@example.com" --password "securepassword" --name "Admin"
 
-# Promote to admin
+# Promocionar a admin
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+No hay un endpoint de API para promocionar usuarios - esto es intencional por seguridad.
 
 ---
 
-## Error Responses
+## Respuestas de Error
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
-|--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| Estado | Significado |
+|--------|-------------|
+| 401 | No autenticado |
+| 403 | No es un Super Admin |
+| 404 | Usuario no encontrado |
+| 500 | Error interno del servidor |
 
 ---
 
-## See also
+## Véase también
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [Handlers de API y Enrutamiento](/es/docs/backend/api-handlers) - cómo se implementan las rutas de administración
+- [API de Salas](/es/docs/api/rooms) - endpoints de gestión de salas

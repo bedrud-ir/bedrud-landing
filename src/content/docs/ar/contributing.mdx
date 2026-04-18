@@ -1,30 +1,30 @@
 ---
-title: Contributing
-description: How to contribute to Bedrud
+title: المساهمة
+description: كيفية المساهمة في Bedrud
 order: 34
 ---
 
-Contributions to Bedrud are welcome. This guide covers the process for submitting changes.
+نرحب بمساهماتكم في Bedrud. يغطي هذا الدليل عملية تقديم التغييرات.
 
-> **Note:** The canonical contributing guide is at the repository root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). This page is archived for reference only.
+> **ملاحظة:** دليل المساهمة الرسمي موجود في جذر المستودع: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). هذه الصفحة محفوظة للرجوع إليها فقط.
 
-## Getting Started
+## البدء
 
-1. Fork the repository
-2. Clone your fork
-3. Create a feature branch from `main`
-4. Make your changes
-5. Submit a pull request
+١. قم بعمل نسخة fork للمستودع
+٢. انسخ نسختك fork
+٣. أنشئ فرع ميزة من `main`
+٤. أجرِ تغييراتك
+٥. قدّم طلب سحب pull request
 
-## Prerequisites
+## المتطلبات المسبقة
 
 - Go 1.22+
-- Bun (for web frontend)
-- Rust (for desktop app)
+- Bun (لواجهة الويب الأمامية)
+- Rust (لتطبيق سطح المكتب)
 - Make
 - Git
 
-## Development Setup
+## إعداد بيئة التطوير
 
 ```bash
 # After forking on GitHub, clone your fork
@@ -34,75 +34,75 @@ make init
 make dev
 ```
 
-See the [Development Workflow](/en/docs/guides/development) for detailed setup instructions.
+راجع [سير عمل التطوير](/docs/guides/development) للحصول على تعليمات الإعداد التفصيلية.
 
-## Project Structure
+## هيكل المشروع
 
-| Directory       | Language         | Description                      |
-|-----------------|------------------|----------------------------------|
-| `server/`       | Go               | Backend API and embedded LiveKit |
-| `apps/web/`     | TypeScript/React | Web frontend                     |
-| `apps/desktop/` | Rust + Slint     | Desktop app                      |
-| `apps/android/` | Kotlin           | Android app                      |
-| `apps/ios/`     | Swift            | iOS app                          |
-| `agents/`       | Python           | Bot agents                       |
-| `packages/`     | TypeScript       | Shared type definitions          |
-| `tools/cli/`    | Python           | Deployment CLI                   |
-| `docs/`         | Markdown         | Documentation                    |
+| الدليل          | اللغة            | الوصف                                      |
+|-----------------|------------------|--------------------------------------------|
+| `server/`       | Go               | واجهة برمجة التطبيقات الخلفية وخادم LiveKit المدمج |
+| `apps/web/`     | TypeScript/React | واجهة الويب الأمامية                       |
+| `apps/desktop/` | Rust + Slint     | تطبيق سطح المكتب                           |
+| `apps/android/` | Kotlin           | تطبيق أندرويد                              |
+| `apps/ios/`     | Swift            | تطبيق iOS                                  |
+| `agents/`       | Python           | وكلاء البوت                                |
+| `packages/`     | TypeScript       | تعريفات الأنواع المشتركة                   |
+| `tools/cli/`    | Python           | واجهة سطر الأوامر للنشر                    |
+| `docs/`         | Markdown         | التوثيق                                    |
 
-## Code Style
+## أسلوب الكتابة
 
-| Language         | Standard                |
-|------------------|-------------------------|
-| Go               | `gofmt`                 |
-| TypeScript/React | Biome                   |
-| Kotlin           | Android Studio defaults |
-| Swift            | Xcode defaults          |
-| Python           | ruff                    |
+| اللغة            | المعيار                                 |
+|------------------|-----------------------------------------|
+| Go               | `gofmt`                                 |
+| TypeScript/React | Biome                                   |
+| Kotlin           | الإعدادات الافتراضية لـ Android Studio |
+| Swift            | الإعدادات الافتراضية لـ Xcode          |
+| Python           | ruff                                    |
 
-## Pull Request Process
+## عملية طلب السحب
 
-1. **Branch naming:** `feature/description`, `fix/description`, or `docs/description`
-2. **Commit messages:** `<action> <what> for <why>` (e.g., `add user model for auth feature`, `fix login redirect for expired sessions`)
-3. **CI checks:** All GitHub Actions checks must pass
-4. **Description:** Include what changed and why
+١. **تسمية الفروع:** `feature/description` أو `fix/description` أو `docs/description`
+٢. **رسائل الالتزام:** `<action> <what> for <why>` (مثال: `add user model for auth feature` أو `fix login redirect for expired sessions`)
+٣. **فحوصات CI:** يجب أن تجتاز جميع فحوصات GitHub Actions
+٤. **الوصف:** أدرج ما الذي تغير ولماذا
 
-### CI Checks
+### فحوصات CI
 
-Every PR runs these checks automatically:
+يُشغَّل على كل طلب سحب هذه الفحوصات تلقائيًا:
 
-| Check   | What it validates            |
-|---------|------------------------------|
-| Server  | `go vet`, build, tests       |
-| Web     | TypeScript type check, build |
-| Android | Lint, unit tests             |
-| iOS     | Build, test (simulator)      |
+| الفحص    | ما الذي يتم التحقق منه         |
+|----------|-------------------------------|
+| الخادم   | `go vet`، البناء، الاختبارات  |
+| الويب    | فحص أنواع TypeScript، البناء  |
+| أندرويد  | Lint، اختبارات الوحدة         |
+| iOS      | البناء، الاختبار (المحاكي)    |
 
-## Reporting Issues
+## الإبلاغ عن المشكلات
 
-File issues on [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) with:
+قدّم مشكلاتك على [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) مع:
 
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, browser, app version)
+- خطوات إعادة الإنتاج
+- السلوك المتوقع مقابل الفعلي
+- تفاصيل البيئة (نظام التشغيل، المتصفح، إصدار التطبيق)
 
-## Documentation
+## التوثيق
 
-Documentation lives in `docs/` and is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+يوجد التوثيق في `docs/` ويُبنى باستخدام [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-### Local Preview
+### المعاينة المحلية
 
 ```bash
 pip install mkdocs-material
 mkdocs serve
 ```
 
-Then open `http://localhost:8000` in your browser.
+ثم افتح `http://localhost:8000` في متصفحك.
 
-### Structure
+### الهيكل
 
-Documentation pages are organized by topic. The navigation is defined in `mkdocs.yml` at the project root.
+تُنظَّم صفحات التوثيق حسب الموضوع. يُعرَّف التنقل في `mkdocs.yml` في جذر المشروع.
 
-## License
+## الترخيص
 
-By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).
+بمساهمتك، فإنك توافق على أن مساهماتك ستكون مرخصة بموجب [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).

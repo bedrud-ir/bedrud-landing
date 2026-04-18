@@ -682,4 +682,9 @@ export default {
       cta: "メール送信",
     },
   },
+  notFound: {
+    title: "ページが見つかりません",
+    description: "お探しのページは存在しないか、移動されました。",
+    backToHome: "ホームに戻る",
+  },
 };

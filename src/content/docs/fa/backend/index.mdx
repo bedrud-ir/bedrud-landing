@@ -1,49 +1,55 @@
 ---
-title: Backend Documentation
-description: Overview of the Bedrud backend system architecture
+title: مستندات بک‌اند
+description: نمای کلی از معماری سیستم بک‌اند Bedrud
 order: 15
 ---
 
-## Introduction
-The Bedrud backend is a single-binary meeting platform written in **Go 1.24+**. All dependencies - media server, web frontend, TURN server - are embedded in one executable.
+## مقدمه
 
-### Key Technologies
-- **Core Framework:** [Fiber v2](https://gofiber.io/) (Zero allocation router, Express-like API).
-- **Database Layer:** [GORM](https://gorm.io/) with support for **SQLite** (standard) and **PostgreSQL** (production).
-- **Media Engine:** [LiveKit](https://livekit.io/) (Embedded as a sibling binary).
-- **Auth System:** Multi-layered auth supporting JWT, OAuth2 (Google/GitHub/Twitter), and passwordless FIDO2 Passkeys.
-- **Embedded Static Assets:** Uses Go 1.16+ `embed` package to bundle the React frontend (SSR pre-rendered client assets).
-- **Deployment:** Integrated Debian/Ubuntu auto-installer with systemd orchestration and ACME (Let's Encrypt) support.
+بک‌اند Bedrud یک پلتفرم جلسه تک‌باینری نوشته شده در **Go 1.24+** است. تمام وابستگی‌ها - سرور رسانه، فرانت‌اند وب، سرور TURN - در یک فایل اجرایی جاسازی شده‌اند.
 
-## Why this Architecture?
-WebRTC platforms typically run separate services for signaling, TURN, web serving, and database management. Bedrud consolidates these into one binary by:
+### فناوری‌های کلیدی
 
-1.  **Extracting** the media server binary at runtime.
-2.  **Proxying** media traffic through the main HTTP(S) port.
-3.  **Automating** OS-level configuration (SSL, systemd) via the binary itself.
+- **فریمورک اصلی:** [Fiber v2](https://gofiber.io/) (روتر بدون تخصیص حافظه، API شبیه Express).
+- **لایه پایگاه داده:** [GORM](https://gorm.io/) با پشتیبانی از **SQLite** (استاندارد) و **PostgreSQL** (تولید).
+- **موتور رسانه:** [LiveKit](https://livekit.io/) (جاسازی‌شده به عنوان یک باینری خواهر).
+- **سیستم احراز هویت:** احراز هویت چندلایه پشتیبانی‌کننده JWT، OAuth2 (Google/GitHub/Twitter)، و کلیدهای عبور FIDO2 بدون رمز عبور.
+- **دارایی‌های استاتیک جاسازی‌شده:** از بسته `embed` Go 1.16+ برای بسته‌بندی فرانت‌اند React (دارایی‌های کلایت از پیش رندرشده SSR) استفاده می‌کند.
+- **استقرار:** نصب‌کننده خودکار Debian/Ubuntu با ارکستراسیون systemd و پشتیبانی ACME (Let's Encrypt).
 
-## High-Level Architecture
-The backend follows a standard layered architecture:
+## چرا این معماری؟
 
-1.  **Server Layer (`internal/server`):** Sets up the Fiber app, routes, and middleware.
-2.  **Handler Layer (`internal/handlers`):** Manages HTTP requests and responses.
-3.  **Repository Layer (`internal/repository`):** Handles database queries using GORM.
-4.  **Model Layer (`internal/models`):** Defines the database tables and Go structures.
-5.  **Service/Logic Layer:** Integrated into handlers and repositories for simplicity, with specialized packages like `internal/auth` and `internal/livekit`.
+پلتفرم‌های WebRTC معمولاً سرویس‌های جداگانه‌ای برای سیگنالینگ، TURN، سرویس وب و مدیریت پایگاه داده اجرا می‌کنند. Bedrud این‌ها را با روش‌های زیر در یک باینری ادغام می‌کند:
 
-## Main Entry Point
-The application starts in `server/cmd/bedrud/main.go`. It has three main modes:
+۱. **استخراج** باینری سرور رسانه در زمان اجرا.
+۲. **پروکسی کردن** ترافیک رسانه از طریق پورت اصلی HTTP(S).
+۳. **اتوماسیون** پیکربندی سطح سیستم (SSL، systemd) از طریق خود باینری.
 
-- `run`: Starts the full meeting server.
-- `livekit`: Starts only the embedded media server.
-- `install`: Automatically sets up the server on Debian/Ubuntu systems.
+## معماری سطح بالا
 
-## Documentation Sections
-- [**Code Structure**](/docs/backend/structure): Where is everything located?
-- [**Database & Models**](/docs/backend/database): How is data stored?
-- [**Authentication**](/docs/backend/authentication): How do users log in?
-- [**API Handlers**](/docs/backend/api-handlers): How are requests processed?
-- [**LiveKit Integration**](/docs/backend/livekit): How does the video server work?
-- [**WebRTC Connectivity**](/docs/architecture/webrtc-connectivity): How do clients establish media connections? (STUN/ICE/TURN/SFU)
-- [**TURN Server**](/docs/architecture/turn-server): TURN relay architecture, configuration, and troubleshooting
-- [**Installation & Deployment**](/docs/backend/deployment): How does the auto-installer work?
+بک‌اند یک معماری لایه‌ای استاندارد دنبال می‌کند:
+
+۱. **لایه سرور (`internal/server`):** برنامه Fiber، مسیرها و میان‌افزار را تنظیم می‌کند.
+۲. **لایه هندلر (`internal/handlers`):** درخواست‌ها و پاسخ‌های HTTP را مدیریت می‌کند.
+۳. **لایه مخزن (`internal/repository`):** پرس‌وجوهای پایگاه داده را با استفاده از GORM مدیریت می‌کند.
+۴. **لایه مدل (`internal/models`):** جداول پایگاه داده و ساختارهای Go را تعریف می‌کند.
+۵. **لایه سرویس/منطق:** برای سادگی در هندلرها و مخازن ادغام شده است، با بسته‌های تخصصی مانند `internal/auth` و `internal/livekit`.
+
+## نقطه ورودی اصلی
+
+برنامه در `server/cmd/bedrud/main.go` شروع می‌شود. سه حالت اصلی دارد:
+
+- `run`: سرور کامل جلسات را شروع می‌کند.
+- `livekit`: فقط سرور رسانه جاسازی‌شده را شروع می‌کند.
+- `install`: سرور را به صورت خودکار در سیستم‌های Debian/Ubuntu تنظیم می‌کند.
+
+## بخش‌های مستندات
+
+- [**ساختار کد**](/docs/backend/structure): همه چیز کجا قرار دارد؟
+- [**پایگاه داده و مدل‌ها**](/docs/backend/database): داده‌ها چگونه ذخیره می‌شوند؟
+- [**احراز هویت**](/docs/backend/authentication): کاربران چگونه وارد می‌شوند؟
+- [**هندلرهای API**](/docs/backend/api-handlers): درخواست‌ها چگونه پردازش می‌شوند؟
+- [**یکپارچگی LiveKit**](/docs/backend/livekit): سرور ویدیو چگونه کار می‌کند؟
+- [**اتصال WebRTC**](/docs/architecture/webrtc-connectivity): کلاینت‌ها چگونه اتصالات رسانه ایجاد می‌کنند؟ (STUN/ICE/TURN/SFU)
+- [**سرور TURN**](/docs/architecture/turn-server): معماری، پیکربندی و عیب‌یابی رله TURN
+- [**نصب و استقرار**](/docs/backend/deployment): نصب‌کننده خودکار چگونه کار می‌کند؟

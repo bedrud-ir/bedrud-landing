@@ -1,33 +1,33 @@
 ---
-title: Makefile Reference
-description: Build automation commands
+title: Referencia de Makefile
+description: Comandos de automatización de construcción
 order: 31
 ---
 
-The root `Makefile` is the central build orchestration tool for the Bedrud monorepo. It provides commands for development, building, and deployment across all platforms.
+El `Makefile` raíz es la herramienta central de orquestación de construcción para el monorepo de Bedrud. Proporciona comandos para desarrollo, construcción y despliegue en todas las plataformas.
 
-## Usage
+## Uso
 
 ```bash
 make <target>
-make help       # Show all available targets
+make help       # Mostrar todos los objetivos disponibles
 ```
 
-## Development Targets
+## Objetivos de Desarrollo
 
-| Target | Description |
-|--------|-------------|
-| `make init` | Install all dependencies (web + server) |
-| `make dev` | Run LiveKit + server + web concurrently |
-| `make dev-web` | Run frontend dev server only |
-| `make dev-server` | Run backend server only |
-| `make dev-livekit` | Run local LiveKit server |
-| `make dev-ios` | Open iOS project in Xcode |
-| `make dev-android` | Open Android project in Android Studio |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make init` | Instalar todas las dependencias (web + servidor) |
+| `make dev` | Ejecutar LiveKit + servidor + web simultáneamente |
+| `make dev-web` | Ejecutar solo el servidor de desarrollo del frontend |
+| `make dev-server` | Ejecutar solo el servidor del backend |
+| `make dev-livekit` | Ejecutar el servidor LiveKit local |
+| `make dev-ios` | Abrir el proyecto iOS en Xcode |
+| `make dev-android` | Abrir el proyecto Android en Android Studio |
 
 ### `make init`
 
-Installs dependencies for both the web frontend and Go server:
+Instala dependencias tanto para el frontend web como para el servidor de Go:
 
 ```bash
 cd apps/web && bun install
@@ -36,103 +36,103 @@ cd server && go mod tidy && go mod download
 
 ### `make dev`
 
-Starts all three development services concurrently. Press `Ctrl+C` to stop all:
+Inicia los tres servicios de desarrollo simultáneamente. Presione `Ctrl+C` para detener todos:
 
-- **LiveKit** at `localhost:7880`
-- **Server** at `localhost:8090`
-- **Web** at `localhost:3000`
+- **LiveKit** en `localhost:7880`
+- **Servidor** en `localhost:8090`
+- **Web** en `localhost:3000`
 
-## Build Targets
+## Objetivos de Construcción
 
-| Target | Description |
-|--------|-------------|
-| `make build` | Build frontend + backend (embedded) |
-| `make build-front` | Build frontend only |
-| `make build-back` | Build backend only |
-| `make build-dist` | Build production linux/amd64 tarball |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make build` | Construir frontend + backend (incrustado) |
+| `make build-front` | Construir solo el frontend |
+| `make build-back` | Construir solo el backend |
+| `make build-dist` | Construir tarball de linux/amd64 para producción |
 
 ### `make build`
 
-Full production build:
+Construcción completa de producción:
 
-1. Runs `bun run build:embed` - SSR pre-renders the React app and copies assets to `server/frontend/`
-2. Builds the Go binary with the embedded frontend
+1. Ejecuta `bun run build:embed` - pre-renderiza la aplicación React con SSR y copia los activos a `server/frontend/`
+2. Construye el binario de Go con el frontend incrustado
 
-Output: `server/dist/bedrud`
+Salida: `server/dist/bedrud`
 
 ### `make build-dist`
 
-Creates a compressed, production-ready distribution:
+Crea una distribución comprimida lista para producción:
 
-1. Runs `make build`
-2. Cross-compiles for `linux/amd64` with stripped debug symbols
-3. Creates `dist/bedrud_linux_amd64.tar.xz`
+1. Ejecuta `make build`
+2. Compila cruzadamente para `linux/amd64` con símbolos de depuración eliminados
+3. Crea `dist/bedrud_linux_amd64.tar.xz`
 
-## Android Targets
+## Objetivos de Android
 
-| Target | Description |
-|--------|-------------|
-| `make build-android-debug` | Build debug APK |
-| `make build-android` | Build release APK (requires keystore) |
-| `make install-android` | Install release APK on connected device |
-| `make release-android` | Build + install release APK |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make build-android-debug` | Construir APK de depuración |
+| `make build-android` | Construir APK de lanzamiento (requiere keystore) |
+| `make install-android` | Instalar APK de lanzamiento en dispositivo conectado |
+| `make release-android` | Construir + instalar APK de lanzamiento |
 
-### APK Output Paths
+### Rutas de Salida de APK
 
-- Debug: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
-- Release: `apps/android/app/build/outputs/apk/release/app-release.apk`
+- Depuración: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
+- Lanzamiento: `apps/android/app/build/outputs/apk/release/app-release.apk`
 
-## iOS Targets
+## Objetivos de iOS
 
-| Target | Description |
-|--------|-------------|
-| `make build-ios` | Build iOS archive (Release) |
-| `make export-ios` | Export IPA from archive |
-| `make build-ios-sim` | Build for iOS Simulator (Debug) |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make build-ios` | Construir archivo iOS (Release) |
+| `make export-ios` | Exportar IPA del archivo |
+| `make build-ios-sim` | Construir para iOS Simulator (Debug) |
 
-### Output Paths
+### Rutas de Salida
 
-- Archive: `apps/ios/build/Bedrud.xcarchive`
+- Archivo: `apps/ios/build/Bedrud.xcarchive`
 - IPA: `apps/ios/build/export/Bedrud.ipa`
 
-## Deploy Target
+## Objetivo de Despliegue
 
-| Target | Description |
-|--------|-------------|
-| `make deploy ARGS=...` | Run the deployment CLI tool |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make deploy ARGS=...` | Ejecutar la herramienta CLI de despliegue |
 
-### Example
+### Ejemplo
 
 ```bash
 make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.com"
 ```
 
-This runs the Python CLI at `tools/cli/bedrud.py` with the provided arguments.
+Esto ejecuta la CLI de Python en `tools/cli/bedrud.py` con los argumentos proporcionados.
 
-## Clean Targets
+## Objetivos de Limpieza
 
-| Target | Description |
-|--------|-------------|
-| `make clean` | Remove build artifacts and compiled binaries |
-| `make full-clean` | Remove artifacts + all installed dependencies |
+| Objetivo | Descripción |
+|----------|-------------|
+| `make clean` | Eliminar artefactos de construcción y binarios compilados |
+| `make full-clean` | Eliminar artefactos + todas las dependencias instaladas |
 
 ### `make clean`
 
-Removes:
+Elimina:
 
-- `dist/` - distribution tarballs
-- `server/dist/` - compiled server binary
-- `apps/web/dist/` - React build output
-- `server/frontend/` contents - embedded frontend assets
-- `apps/android/app/build/` - Android build outputs
-- `apps/ios/build/` - iOS build outputs
+- `dist/` - tarballs de distribución
+- `server/dist/` - binario del servidor compilado
+- `apps/web/dist/` - salida de construcción de React
+- Contenido de `server/frontend/` - activos del frontend incrustado
+- `apps/android/app/build/` - salidas de construcción de Android
+- `apps/ios/build/` - salidas de construcción de iOS
 
 ### `make full-clean`
 
-Everything `clean` does, plus:
+Todo lo que hace `clean`, más:
 
 - `apps/web/node_modules/`
 - `apps/android/.gradle/`
-- Go module cache (`go clean -modcache`)
+- Caché de módulos de Go (`go clean -modcache`)
 
-Run `make init` afterwards to reinstall dependencies.
+Ejecute `make init` después para reinstalar las dependencias.

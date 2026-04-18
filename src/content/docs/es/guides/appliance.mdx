@@ -1,58 +1,58 @@
 ---
-title: Appliance Mode
-description: Pre-configured appliance setup
+title: Modo Appliance
+description: Configuración de appliance preconfigurado
 order: 33
 ---
 
-Bedrud is designed to run as a self-contained "appliance" for video meetings. A single executable binary packages everything needed - frontend, backend, and the LiveKit media server.
+Bedrud está diseñado para ejecutarse como un "appliance" autocontenido para videoconferencias. Un único binario ejecutable empaqueta todo lo necesario - frontend, backend y el servidor de medios LiveKit.
 
-## Key Features
+## Características Clave
 
-| Feature | Description |
+| Característica | Descripción |
 |---------|-------------|
-| Zero external dependencies | No Node.js, Redis, or separate media server needed |
-| Embedded media server | LiveKit binary included and managed automatically |
-| Embedded frontend | React UI compiled and SSR pre-rendered into the Go binary |
-| SQLite storage | No database server required |
-| Built-in TLS | Self-signed certificates or Let's Encrypt |
-| Built-in installer | Configures systemd, directories, and configs |
+| Cero dependencias externas | No se necesita Node.js, Redis o servidor de medios separado |
+| Servidor de medios incrustado | Binario LiveKit incluido y gestionado automáticamente |
+| Frontend incrustado | UI de React compilada y pre-renderizada SSR en el binario Go |
+| Almacenamiento SQLite | No se requiere servidor de base de datos |
+| TLS incorporado | Certificados autofirmados o Let's Encrypt |
+| Instalador incorporado | Configura systemd, directorios y configuraciones |
 
-## Running the Binary
+## Ejecución del Binario
 
-### Start the Bedrud Server
+### Iniciar el Servidor Bedrud
 
 ```bash
 ./bedrud --run --config config.yaml
 ```
 
-### Start the LiveKit Media Server
+### Iniciar el Servidor de Medios LiveKit
 
 ```bash
 ./bedrud --livekit --config livekit.yaml
 ```
 
-The binary contains both the API server and the media server. Use flags to choose which to start.
+El binario contiene tanto el servidor API como el servidor de medios. Use las banderas para elegir cuál iniciar.
 
-## Installation
+## Instalación
 
-### Quick Install (Debian/Ubuntu)
+### Instalación Rápida (Debian/Ubuntu)
 
 ```bash
-# With Let's Encrypt TLS
+# Con TLS de Let's Encrypt
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 
-# With self-signed certificate
+# Con certificado autofirmado
 sudo ./bedrud install --tls --ip 1.2.3.4
 
-# Plain HTTP (dev only)
+# HTTP plano (solo desarrollo)
 sudo ./bedrud install --ip 1.2.3.4
 ```
 
 <InstallerSteps />
 
-### Service Architecture
+### Arquitectura del Servicio
 
-After installation, two systemd services run:
+Después de la instalación, se ejecutan dos servicios systemd:
 
 ```
 ┌──────────────────┐     ┌──────────────────┐
@@ -69,46 +69,46 @@ After installation, two systemd services run:
    └──────────┘
 ```
 
-## Configuration Files
+## Archivos de Configuración
 
-| File | Purpose |
+| Archivo | Propósito |
 |------|---------|
-| `/etc/bedrud/config.yaml` | Main server configuration |
-| `/etc/bedrud/livekit.yaml` | Media server configuration |
-| `/var/lib/bedrud/bedrud.db` | SQLite database |
-| `/var/log/bedrud/bedrud.log` | Application logs |
+| `/etc/bedrud/config.yaml` | Configuración principal del servidor |
+| `/etc/bedrud/livekit.yaml` | Configuración del servidor de medios |
+| `/var/lib/bedrud/bedrud.db` | Base de datos SQLite |
+| `/var/log/bedrud/bedrud.log` | Registros de la aplicación |
 
-See the [Configuration Reference](/docs/getting-started/configuration) for all options.
+Consulte la [Referencia de Configuración](/es/docs/getting-started/configuration) para todas las opciones.
 
-## Post-Installation
+## Post-Instalación
 
-### Create Your First Admin
+### Crear Su Primer Administrador
 
 <CreateAdmin />
 
-### Check Service Status
+### Verificar Estado del Servicio
 
 ```bash
 systemctl status bedrud livekit
 ```
 
-### View Logs
+### Ver Registros
 
 ```bash
 tail -f /var/log/bedrud/bedrud.log
 journalctl -u bedrud -f
 ```
 
-## Uninstallation
+## Desinstalación
 
 ```bash
 sudo ./bedrud uninstall
 ```
 
-This completely removes:
+Esto elimina completamente:
 
-- Systemd service files
-- Binary from `/usr/local/bin/`
-- Configuration in `/etc/bedrud/`
-- Data in `/var/lib/bedrud/`
-- Logs in `/var/log/bedrud`
+- Archivos de servicio systemd
+- Binario de `/usr/local/bin/`
+- Configuración en `/etc/bedrud/`
+- Datos en `/var/lib/bedrud/`
+- Registros en `/var/log/bedrud`

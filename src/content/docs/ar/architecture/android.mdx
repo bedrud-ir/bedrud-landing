@@ -1,27 +1,27 @@
 ---
-title: Android App
-description: Native Android application
+title: تطبيق Android
+description: تطبيق Android الأصلي
 order: 9
 ---
 
-The Bedrud Android app is built with Jetpack Compose and Kotlin, providing a native video meeting experience with picture-in-picture, deep linking, and multi-instance support.
+تطبيق بدرود لنظام Android مبني بـ Jetpack Compose وKotlin، يوفر تجربة اجتماعات فيديو أصلية مع وضع الصورة داخل الصورة والروابط العميقة ودعم تعدد المثيلات.
 
-## Technology Stack
+## حزمة التقنيات
 
-| Technology | Version | Purpose |
+| التقنية | الإصدار | الغرض |
 |-----------|---------|---------|
-| Kotlin | 2.1.0 | Language |
-| Jetpack Compose | Material 3 | UI toolkit |
-| Koin | 4.0.0 | Dependency injection |
-| Retrofit + OkHttp | Latest | HTTP client |
-| LiveKit Android SDK | 2.23.3 | WebRTC media |
-| Credentials API | Latest | Passkey support |
-| Encrypted SharedPreferences | Latest | Secure storage |
-| Coil | Latest | Image loading |
+| Kotlin | 2.1.0 | اللغة |
+| Jetpack Compose | Material 3 | أدوات واجهة المستخدم |
+| Koin | 4.0.0 | حقن التبعية |
+| Retrofit + OkHttp | Latest | عميل HTTP |
+| LiveKit Android SDK | 2.23.3 | وسائط WebRTC |
+| Credentials API | Latest | دعم مفاتيح المرور |
+| Encrypted SharedPreferences | Latest | التخزين الآمن |
+| Coil | Latest | تحميل الصور |
 
-**Target:** Min SDK 28, Target SDK 35, JDK 17
+**الهدف:** الحد الأدنى SDK 28، الهدف SDK 35، JDK 17
 
-## Directory Structure
+## هيكل المجلدات
 
 ```
 apps/android/app/src/main/java/com/bedrud/app/
@@ -74,9 +74,9 @@ apps/android/app/src/main/java/com/bedrud/app/
     └── theme/                      # Material 3 theme definition
 ```
 
-## Multi-Instance Architecture
+## بنية تعدد المثيلات
 
-The Android app supports connecting to multiple Bedrud servers simultaneously.
+يدعم تطبيق Android الاتصال بعدة خوادم بدرود في وقت واحد.
 
 ```
 ┌──────────────────────────┐
@@ -96,18 +96,18 @@ The Android app supports connecting to multiple Bedrud servers simultaneously.
 └──────────────────────────┘    └── RoomManager
 ```
 
-### Key Pattern
+### النمط الرئيسي
 
-All per-instance dependencies are exposed as `StateFlow<T?>` on `InstanceManager`. Composables collect them:
+جميع التبعيات لكل مثيل مُعرَضة كـ `StateFlow<T?>` على `InstanceManager`. تجمعها المكونات القابلة للتركيب:
 
 ```kotlin
 val authManager = instanceManager.authManager.collectAsState().value ?: return
 val roomApi = instanceManager.roomApi.collectAsState().value ?: return
 ```
 
-The `?: return` pattern ensures the composable doesn't render until the instance is fully initialized.
+نمط `?: return` يضمن أن المكون القابل للتركيب لا يُعرَض حتى يُهيَّأ المثيل بالكامل.
 
-### Navigation Flow
+### مسار التنقل
 
 ```
 No instances ──► AddInstanceScreen
@@ -115,34 +115,34 @@ Has instances, not logged in ──► LoginScreen
 Has instances, logged in ──► DashboardScreen
 ```
 
-The instance switcher appears as a `ModalBottomSheet` triggered from the Dashboard toolbar.
+يظهر مبدّل المثيلات كـ `ModalBottomSheet` يُنشَط من شريط أدوات لوحة التحكم.
 
-## Features
+## الميزات
 
-### Deep Linking
+### الروابط العميقة
 
-The app handles URLs matching:
+يتعامل التطبيق مع الروابط التالية:
 
-- `https://bedrud.com/m/*` - Direct room join
-- `https://bedrud.com/c/*` - Room join by code
+- `https://bedrud.com/m/*` - انضمام مباشر للغرفة
+- `https://bedrud.com/c/*` - انضمام للغرفة بالرمز
 
-Configured via intent filters in `AndroidManifest.xml`.
+تُهيَّأ عبر فلاتر الأهداف في `AndroidManifest.xml`.
 
-### Call Management
+### إدارة المكالمات
 
-- **CallService** - Foreground service that keeps the connection alive during calls
-- **CallConnectionService** - Integrates with Android's telephony framework for proper call UI
-- Required permissions: `MANAGE_OWN_CALLS`, `FOREGROUND_SERVICE_PHONE_CALL`, `FOREGROUND_SERVICE_CAMERA`, `FOREGROUND_SERVICE_MICROPHONE`
+- **CallService** - خدمة أمامية تحافظ على الاتصال أثناء المكالمات
+- **CallConnectionService** - يتكامل مع إطار الاتصالات في Android لواجهة مكالمات مناسبة
+- الصلاحيات المطلوبة: `MANAGE_OWN_CALLS`، `FOREGROUND_SERVICE_PHONE_CALL`، `FOREGROUND_SERVICE_CAMERA`، `FOREGROUND_SERVICE_MICROPHONE`
 
-### Picture-in-Picture
+### الصورة داخل الصورة
 
-The meeting screen supports PiP mode, allowing users to see the video feed while using other apps.
+تدعم شاشة الاجتماع وضع PiP، مما يسمح للمستخدمين برؤية بث الفيديو أثناء استخدام تطبيقات أخرى.
 
-### Passkeys
+### مفاتيح المرور
 
-Uses Android's Credentials API for FIDO2/WebAuthn passkey registration and login.
+يستخدم Credentials API في Android لتسجيل والدخول بمفاتيح مرور FIDO2/WebAuthn.
 
-## Building
+## البناء
 
 ```bash
 # Debug APK
@@ -158,6 +158,6 @@ make release-android
 make dev-android
 ```
 
-### Release Signing
+### توقيع الإصدار
 
-Release builds require a `keystore.properties` file in the android project root with your signing configuration.
+تتطلب بنيات الإصدار ملف `keystore.properties` في جذر مشروع Android يحتوي على تهيئة التوقيع.

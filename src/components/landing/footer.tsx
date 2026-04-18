@@ -1,4 +1,4 @@
-import { Globe } from "lucide-react";
+import { ExternalLink, Globe } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "~/components/ui/button";
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "~/lib/config";
@@ -111,7 +111,7 @@ export function Footer({ lang }: { lang: Locale }) {
           </div>
 
           <div>
-            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               {t(lang, "footer.platform")}
             </h4>
             <ul className="mt-3 space-y-3">
@@ -141,6 +141,11 @@ export function Footer({ lang }: { lang: Locale }) {
                 </a>
               </li>
               <li>
+                <a href={`/${lang}/install`} className={linkClass}>
+                  {t(lang, "footer.install")}
+                </a>
+              </li>
+              <li>
                 <a href={`/${lang}/download`} className={linkClass}>
                   {t(lang, "footer.download")}
                 </a>
@@ -149,7 +154,7 @@ export function Footer({ lang }: { lang: Locale }) {
           </div>
 
           <div>
-            <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-foreground">
               {t(lang, "footer.resources")}
             </h4>
             <ul className="mt-3 space-y-3">
@@ -168,9 +173,10 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={`${GITHUB_URL}/blob/main/CONTRIBUTING.md`}
                   target="_blank"
                   rel="noreferrer"
-                  className={linkClass}
+                  className={cn(linkClass, "inline-flex items-center")}
                 >
                   {t(lang, "footer.contribute")}
+                  <ExternalLink className="ml-1 size-3" />
                 </a>
               </li>
               <li>
@@ -178,9 +184,10 @@ export function Footer({ lang }: { lang: Locale }) {
                   href={`${GITHUB_URL}/issues/new`}
                   target="_blank"
                   rel="noreferrer"
-                  className={linkClass}
+                  className={cn(linkClass, "inline-flex items-center")}
                 >
                   {t(lang, "footer.reportIssue")}
+                  <ExternalLink className="ml-1 size-3" />
                 </a>
               </li>
               <li>

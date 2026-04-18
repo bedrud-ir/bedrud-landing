@@ -1,30 +1,30 @@
 ---
-title: iOS App
-description: Native iOS application
+title: iOS-App
+description: Native iOS-Anwendung
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+Die Bedrud iOS-App ist mit SwiftUI erstellt und bietet ein natives Video-Meeting-Erlebnis mit Multi-Instance-Unterstützung und sicherer Speicherung von Anmeldeinformationen.
 
-## Technology Stack
+## Technologie-Stack
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| Technologie | Version | Zweck |
+|------------|---------|-------|
+| Swift | 5.9+ | Sprache |
+| SwiftUI | Aktuell | UI-Framework |
+| LiveKit Swift SDK | 2.0+ | WebRTC-Medien |
+| KeychainAccess | 4.2.2+ | Sichere Speicherung von Anmeldeinformationen |
 
-**Deployment target:** iOS 18.0
+**Deployment-Ziel:** iOS 18.0
 
-## Project Configuration
+## Projektkonfiguration
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+Das Projekt verwendet **XCodeGen** zur Projektgenerierung aus `project.yml`:
 
-- Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- Bundle-ID: `com.bedrud.ios`
+- Generierung mit: `xcodegen generate`
 
-## Directory Structure
+## Verzeichnisstruktur
 
 ```text
 apps/ios/Bedrud/
@@ -66,9 +66,9 @@ apps/ios/Bedrud/
     └── Components/                # Reusable SwiftUI components
 ```
 
-## Multi-Instance Architecture
+## Multi-Instance-Architektur
 
-The iOS app mirrors the Android architecture for multi-instance support.
+Die iOS-App spiegelt die Android-Architektur für die Multi-Instance-Unterstützung wider.
 
 ```text
 ┌──────────────────────────┐
@@ -84,9 +84,9 @@ The iOS app mirrors the Android architecture for multi-instance support.
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### Schlüsselmuster
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+Abhängigkeiten sind `@Published`-Eigenschaften auf `InstanceManager`, einem `ObservableObject`. Views empfangen ihn über `@EnvironmentObject`:
 
 ```swift
 struct DashboardView: View {
@@ -100,7 +100,7 @@ struct DashboardView: View {
 }
 ```
 
-### Navigation Flow
+### Navigationsablauf
 
 ```text
 No instances ──► AddInstanceView
@@ -108,11 +108,11 @@ Has instances, not logged in ──► LoginView
 Has instances, logged in ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+Der Instanzwechsler erscheint als `.sheet`, der aus der Dashboard-Toolbar aufgerufen wird.
 
-## App Entry Point
+## App-Einstiegspunkt
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` initialisiert die Kerndienste und injiziert sie in die SwiftUI-Umgebung:
 
 ```swift
 @main
@@ -132,21 +132,21 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## Funktionen
 
-### Secure Storage
+### Sichere Speicherung
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+Verwendet **KeychainAccess** zur Speicherung von JWT-Token und sensiblen Anmeldeinformationen anstelle von UserDefaults.
 
 ### Deep Linking
 
-Handles URLs for direct room joining and room codes.
+Verarbeitet URLs für den direkten Raumbeitritt und Raum-Codes.
 
-### Settings
+### Einstellungen
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+Benutzereinstellungen werden über `SettingsStore` mithilfe von UserDefaults gespeichert.
 
-## Building
+## Build
 
 ```bash
 # Open in Xcode
@@ -162,8 +162,8 @@ make export-ios
 make build-ios-sim
 ```
 
-### Requirements
+### Voraussetzungen
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode (aktuellste stabile Version)
+- iOS 18.0 als Deployment-Ziel
+- Für Geräte-Builds: Apple-Entwicklerkonto und Provisioning-Profil

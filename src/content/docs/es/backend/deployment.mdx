@@ -1,34 +1,34 @@
 ---
-title: Deployment
-description: Backend deployment strategies
+title: Despliegue
+description: Estrategias de despliegue del backend
 order: 21
 ---
 
-The built-in installer configures a fresh Linux server for production use with a single command.
+El instalador integrado configura un servidor Linux fresco para uso de producción con un solo comando.
 
 <InstallerSteps />
 
 <SystemdServices />
 
-## Security and TLS
+## Seguridad y TLS
 
-The installer handles security automatically:
+El instalador maneja la seguridad automáticamente:
 
-- **ACME (Let's Encrypt):** If you provide a domain and email, it sets up automatic certificate renewal.
-- **Self-Signed Certs:** If no domain is provided, it generates a self-signed certificate so that the site still works over HTTPS.
-- **Reverse Proxy:** The backend acts as a reverse proxy. It receives traffic on port 443 and sends `/livekit` requests to the internal media server.
+- **ACME (Let's Encrypt):** Si proporcionas un dominio y correo electrónico, configura la renovación automática de certificados.
+- **Certificados Autofirmados:** Si no se proporciona un dominio, genera un certificado autofirmado para que el sitio aún funcione a través de HTTPS.
+- **Proxy Inverso:** El backend actúa como un proxy inverso. Recibe tráfico en el puerto 443 y envía solicitudes `/livekit` al servidor de medios interno.
 
-## Uninstallation
+## Desinstalación
 
-If you need to remove Bedrud, you can run:
+Si necesitas eliminar Bedrud, puedes ejecutar:
 ```bash
 sudo bedrud uninstall
 ```
-This stops the services, deletes the systemd files, and removes the configuration and data folders.
+Esto detiene los servicios, elimina los archivos de systemd y elimina las carpetas de configuración y datos.
 
 ---
 
-## See also
+## Ver también
 
-- [Deployment Guide](/docs/guides/deployment) - full production deployment instructions
-- [Appliance Mode](/docs/guides/appliance) - single-binary setup reference
+- [Guía de Despliegue](/es/docs/guides/deployment) - instrucciones completas de despliegue en producción
+- [Modo Dispositivo](/es/docs/guides/appliance) - referencia de configuración de binario único

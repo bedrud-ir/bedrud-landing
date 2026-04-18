@@ -1,37 +1,37 @@
 ---
-title: Rooms API
-description: Room management endpoints
+title: API de Salas
+description: Endpoints de gestión de salas
 order: 24
 ---
 
-Room management endpoints are under `/api/room/`. All endpoints require authentication.
+Los endpoints de gestión de salas están bajo `/api/room/`. Todos los endpoints requieren autenticación.
 
-## Overview
+## Resumen
 
-| Endpoint | Method | Description |
+| Endpoint | Método | Descripción |
 |----------|--------|-------------|
-| `/api/room/create` | POST | Create a new room |
-| `/api/room/join` | POST | Join a room and get a LiveKit token |
-| `/api/room/list` | GET | List available rooms |
-| `/api/room/:roomId/kick/:identity` | POST | Kick a participant (admin) |
-| `/api/room/:roomId/mute/:identity` | POST | Mute a participant (admin) |
-| `/api/room/:roomId/video/:identity/off` | POST | Disable participant video (admin) |
+| `/api/room/create` | POST | Crear una nueva sala |
+| `/api/room/join` | POST | Unirse a una sala y obtener un token de LiveKit |
+| `/api/room/list` | GET | Listar salas disponibles |
+| `/api/room/:roomId/kick/:identity` | POST | Expulsar a un participante (admin) |
+| `/api/room/:roomId/mute/:identity` | POST | Silenciar a un participante (admin) |
+| `/api/room/:roomId/video/:identity/off` | POST | Desactivar video de participante (admin) |
 
 ---
 
 ## Endpoints
 
-### Create Room
+### Crear Sala
 
-Create a new meeting room. The authenticated user becomes the room admin.
+Crea una nueva sala de reunión. El usuario autenticado se convierte en el administrador de la sala.
 
 ```
 POST /api/room/create
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```json
 {
@@ -48,25 +48,25 @@ POST /api/room/create
 }
 ```
 
-> **Note:** The `name` field is **optional**. If omitted or empty, the server will
-> auto-generate a random URL-safe name in the format `xxx-xxxx-xxx` (e.g. `bkf-qmzl-rja`).
+> **Nota:** El campo `name` es **opcional**. Si se omite o está vacío, el servidor
+> generará automáticamente un nombre seguro para URL aleatorio en el formato `xxx-xxxx-xxx` (ej. `bkf-qmzl-rja`).
 
-**Room Name Rules:**
+**Reglas de Nombres de Sala:**
 
-Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL-safe:
+Los nombres de sala aparecen en la URL como `https://bedrud.xyz/m/NAME`, por lo que deben ser seguros para URL:
 
-| Rule | Description |
-|------|-------------|
-| **Allowed characters** | Lowercase letters (`a-z`), digits (`0-9`), and hyphens (`-`) |
-| **Minimum length** | 3 characters |
-| **Maximum length** | 63 characters |
-| **No special characters** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, spaces, etc. are **not allowed** |
-| **No leading/trailing hyphens** | `-room` and `room-` are invalid |
-| **No consecutive hyphens** | `room--name` is invalid |
-| **Lowercase only** | Uppercase letters are rejected; input is auto-lowercased |
-| **Unique** | Each room name must be unique |
+| Regla | Descripción |
+|-------|-------------|
+| **Caracteres permitidos** | Letras minúsculas (`a-z`), dígitos (`0-9`) y guiones (`-`) |
+| **Longitud mínima** | 3 caracteres |
+| **Longitud máxima** | 63 caracteres |
+| **Sin caracteres especiales** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, espacios, etc. **no están permitidos** |
+| **Sin guiones al principio/final** | `-sala` y `sala-` son inválidos |
+| **Sin guiones consecutivos** | `sala--nombre` es inválido |
+| **Solo minúsculas** | Las mayúsculas se rechazan; la entrada se convierte automáticamente a minúsculas |
+| **Único** | Cada nombre de sala debe ser único |
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -88,33 +88,33 @@ Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL
 }
 ```
 
-### Fields
+### Campos
 
-| Field | Type | Required | Description |
+| Campo | Tipo | Requerido | Descripción |
 |-------|------|----------|-------------|
-| `name` | string | No | URL-safe room name (auto-generated if omitted) |
-| `isPublic` | boolean | No | Whether the room appears in public listings |
-| `mode` | string | No | Room mode (e.g. `"standard"`) |
-| `maxParticipants` | number | No | Maximum number of participants |
-| `settings.allowChat` | boolean | No | Whether text chat is enabled |
-| `settings.allowVideo` | boolean | No | Whether video is enabled |
-| `settings.allowAudio` | boolean | No | Whether audio is enabled |
-| `settings.requireApproval` | boolean | No | Whether participants need admin approval |
-| `settings.e2ee` | boolean | No | Whether end-to-end encryption is enabled |
+| `name` | string | No | Nombre de sala seguro para URL (se genera automáticamente si se omite) |
+| `isPublic` | boolean | No | Si la sala aparece en listados públicos |
+| `mode` | string | No | Modo de sala (ej. `"standard"`) |
+| `maxParticipants` | number | No | Número máximo de participantes |
+| `settings.allowChat` | boolean | No | Si el chat de texto está habilitado |
+| `settings.allowVideo` | boolean | No | Si el video está habilitado |
+| `settings.allowAudio` | boolean | No | Si el audio está habilitado |
+| `settings.requireApproval` | boolean | No | Si los participantes necesitan aprobación del administrador |
+| `settings.e2ee` | boolean | No | Si el cifrado de extremo a extremo está habilitado |
 
 ---
 
-### Join Room
+### Unirse a Sala
 
-Join an existing room and receive a LiveKit token for media connection.
+Únete a una sala existente y recibe un token de LiveKit para la conexión multimedia.
 
 ```
 POST /api/room/join
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**Cuerpo de la Solicitud:**
 
 ```json
 {
@@ -122,7 +122,7 @@ POST /api/room/join
 }
 ```
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -141,7 +141,7 @@ POST /api/room/join
 }
 ```
 
-The `token` is a signed LiveKit access token. Use it to connect to the LiveKit server via WebSocket:
+El `token` es un token de acceso firmado de LiveKit. Úsalo para conectarte al servidor de LiveKit a través de WebSocket:
 
 ```javascript
 import { Room } from 'livekit-client';
@@ -152,17 +152,17 @@ await room.connect(livekitUrl, token);
 
 ---
 
-### List Rooms
+### Listar Salas
 
-Get a list of rooms the user has created.
+Obtén una lista de salas que el usuario ha creado.
 
 ```
 GET /api/room/list
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 [
@@ -182,17 +182,17 @@ GET /api/room/list
 
 ---
 
-### Kick Participant
+### Expulsar Participante
 
-Remove a participant from the room. Only the room admin can do this.
+Elimina a un participante de la sala. Solo el administrador de la sala puede hacer esto.
 
 ```
 POST /api/room/:roomId/kick/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -202,17 +202,17 @@ POST /api/room/:roomId/kick/:identity
 
 ---
 
-### Mute Participant
+### Silenciar Participante
 
-Mute a participant's microphone. Only the room admin can do this.
+Silencia el micrófono de un participante. Solo el administrador de la sala puede hacer esto.
 
 ```
 POST /api/room/:roomId/mute/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -222,17 +222,17 @@ POST /api/room/:roomId/mute/:identity
 
 ---
 
-### Disable Participant Video
+### Desactivar Video de Participante
 
-Turn off a participant's camera. Only the room admin can do this.
+Apaga la cámara de un participante. Solo el administrador de la sala puede hacer esto.
 
 ```
 POST /api/room/:roomId/video/:identity/off
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Encabezados:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Respuesta (200):**
 
 ```json
 {
@@ -242,24 +242,24 @@ POST /api/room/:roomId/video/:identity/off
 
 ---
 
-## Admin Controls
+## Controles de Administrador
 
-Room admin actions (kick, mute, video off) are only available to the user who created the room (`adminId`). Attempting these actions as a non-admin returns a 403 error.
+Las acciones de administrador de sala (expulsar, silenciar, apagar video) solo están disponibles para el usuario que creó la sala (`adminId`). Intentar estas acciones como no administrador devuelve un error 403.
 
-### Permissions Matrix
+### Matriz de Permisos
 
-| Action | Room Admin | Super Admin | Regular User | Guest |
-|--------|-----------|-------------|-------------|-------|
-| Create room | Yes | Yes | Yes | No |
-| Join room | Yes | Yes | Yes | Yes |
-| List rooms | Yes | Yes | Yes | Yes |
-| Kick | Yes | Yes | No | No |
-| Mute | Yes | Yes | No | No |
-| Video off | Yes | Yes | No | No |
+| Acción | Admin de Sala | Super Admin | Usuario Regular | Invitado |
+|--------|---------------|-------------|-----------------|----------|
+| Crear sala | Sí | Sí | Sí | No |
+| Unirse a sala | Sí | Sí | Sí | Sí |
+| Listar salas | Sí | Sí | Sí | Sí |
+| Expulsar | Sí | Sí | No | No |
+| Silenciar | Sí | Sí | No | No |
+| Apagar video | Sí | Sí | No | No |
 
-## Error Responses
+## Respuestas de Error
 
-All errors follow a consistent format:
+Todos los errores siguen un formato consistente:
 
 ```json
 {
@@ -267,32 +267,32 @@ All errors follow a consistent format:
 }
 ```
 
-### Create Room Errors
+### Errores de Crear Sala
 
-| Status | Error Message | Description |
-|--------|---------------|-------------|
-| 400 | `"Invalid request body"` | Malformed JSON |
-| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | Name contains special characters (`#`, `@`, `_`, etc.) |
-| 400 | `"room name must be at least 3 characters"` | Name too short |
-| 400 | `"room name must be at most 63 characters"` | Name too long |
-| 409 | `"a room with this name already exists"` | Duplicate name |
-| 500 | `"Failed to create media room"` | LiveKit server error |
-| 500 | `"Failed to create room"` | Database error |
+| Estado | Mensaje de Error | Descripción |
+|--------|-------------------|-------------|
+| 400 | `"Invalid request body"` | JSON malformado |
+| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | El nombre contiene caracteres especiales (`#`, `@`, `_`, etc.) |
+| 400 | `"room name must be at least 3 characters"` | Nombre demasiado corto |
+| 400 | `"room name must be at most 63 characters"` | Nombre demasiado largo |
+| 409 | `"a room with this name already exists"` | Nombre duplicado |
+| 500 | `"Failed to create media room"` | Error del servidor de LiveKit |
+| 500 | `"Failed to create room"` | Error de base de datos |
 
-### General Errors
+### Errores Generales
 
-| Status | Meaning |
-|--------|---------|
-| 400 | Bad request (missing/invalid data) |
-| 401 | Not authenticated |
-| 403 | Not authorized (non-admin trying admin action) |
-| 404 | Room not found |
-| 409 | Conflict (duplicate resource) |
-| 500 | Internal server error |
+| Estado | Significado |
+|--------|-------------|
+| 400 | Solicitud incorrecta (datos faltantes/inválidos) |
+| 401 | No autenticado |
+| 403 | No autorizado (no-admin intentando acción de admin) |
+| 404 | Sala no encontrada |
+| 409 | Conflicto (recurso duplicado) |
+| 500 | Error interno del servidor |
 
 ---
 
-## See also
+## Véase también
 
-- [Architecture Overview](/docs/architecture/overview) - data model and meeting connection flow
-- [API Handlers](/docs/backend/api-handlers) - how room endpoints are implemented
+- [Resumen de Arquitectura](/es/docs/architecture/overview) - modelo de datos y flujo de conexión de reunión
+- [Handlers de API](/es/docs/backend/api-handlers) - cómo se implementan los endpoints de salas

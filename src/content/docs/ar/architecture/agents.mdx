@@ -1,22 +1,22 @@
 ---
-title: Bot Agents
-description: Python bots for streaming content
+title: وكلاء البوت
+description: بوتات Python لبث المحتوى
 order: 12
 ---
 
-Bedrud includes Python-based bot agents that can join meeting rooms and stream media content. These are useful for background music, radio streams, or sharing video content.
+يتضمن بدرود وكلاء بوت قائمين على Python يمكنهم الانضمام إلى غرف الاجتماعات وبث محتوى الوسائط. مفيدة للموسيقى الخلفية أو بث الراديو أو مشاركة محتوى الفيديو.
 
-## Available Agents
+## الوكلاء المتاحون
 
-| Agent | Description | Media Type |
+| الوكيل | الوصف | نوع الوسائط |
 |-------|-------------|-----------|
-| `music_agent` | Plays audio files into a room | Audio (PCM) |
-| `radio_agent` | Streams internet radio stations | Audio (PCM via FFmpeg) |
-| `video_stream_agent` | Shares video content (HLS, MP4) | Video + Audio |
+| `music_agent` | يشغل ملفات الصوت في غرفة | صوت (PCM) |
+| `radio_agent` | يبث محطات الراديو عبر الإنترنت | صوت (PCM عبر FFmpeg) |
+| `video_stream_agent` | يشارك محتوى الفيديو (HLS، MP4) | فيديو + صوت |
 
-## How Agents Work
+## كيف يعمل الوكلاء
 
-All agents follow the same connection pattern:
+يتبع جميع الوكلاء نمط الاتصال نفسه:
 
 ```
 1. Parse meeting URL ──► Extract room name
@@ -39,111 +39,111 @@ All agents follow the same connection pattern:
                      └──────────────┘
 ```
 
-## Music Agent
+## وكيل الموسيقى
 
-Plays audio files (MP3, WAV, etc.) into a meeting room.
+يشغل ملفات الصوت (MP3، WAV، إلخ) في غرفة اجتماع.
 
-### Setup
+### الإعداد
 
 ```bash
 cd agents/music_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`, `pydub`
+**التبعيات:** `httpx`، `livekit`، `pydub`
 
-### Usage
+### الاستخدام
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### طريقة العمل
 
-1. Decodes audio files using `pydub`
-2. Converts to PCM frames
-3. Publishes audio frames to LiveKit as a microphone track
+١. فك تشفير ملفات الصوت باستخدام `pydub`
+٢. التحويل إلى إطارات PCM
+٣. نشر إطارات الصوت إلى LiveKit كمسار ميكروفون
 
-> See [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) for setup and usage instructions.
+> راجع [وثائق وكيل الموسيقى](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) للإعداد والاستخدام.
 
 ---
 
-## Radio Agent
+## وكيل الراديو
 
-Streams internet radio stations into a meeting room using FFmpeg for audio decoding.
+يبث محطات الراديو عبر الإنترنت إلى غرفة اجتماع باستخدام FFmpeg لفك تشفير الصوت.
 
-### Setup
+### الإعداد
 
 ```bash
 cd agents/radio_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`
+**التبعيات:** `httpx`، `livekit`
 
-**System requirement:** FFmpeg must be installed (`brew install ffmpeg` or `apt install ffmpeg`)
+**متطلب النظام:** يجب تثبيت FFmpeg (`brew install ffmpeg` أو `apt install ffmpeg`)
 
-### Usage
+### الاستخدام
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### طريقة العمل
 
-1. Connects to a radio stream URL
-2. Pipes the stream through FFmpeg to decode to raw PCM
-3. Publishes PCM audio frames to LiveKit
+١. الاتصال بعنوان URL لبث الراديو
+٢. تمرير البث عبر FFmpeg لفك التشفير إلى PCM خام
+٣. نشر إطارات صوت PCM إلى LiveKit
 
-> See [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) for setup and usage instructions.
+> راجع [وثائق وكيل الراديو](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) للإعداد والاستخدام.
 
 ---
 
-## Video Stream Agent
+## وكيل بث الفيديو
 
-Shares video and audio from a URL (HLS/m3u8, MP4) into a meeting room.
+يشارك الفيديو والصوت من رابط (HLS/m3u8، MP4) في غرفة اجتماع.
 
-### Setup
+### الإعداد
 
 ```bash
 cd agents/video_stream_agent
 pip install -r requirements.txt
 ```
 
-**Dependencies:** `httpx`, `livekit`
+**التبعيات:** `httpx`، `livekit`
 
-**System requirement:** FFmpeg must be installed
+**متطلب النظام:** يجب تثبيت FFmpeg
 
-### Usage
+### الاستخدام
 
 ```bash
 python agent.py "https://meet.example.com/m/room-name"
 ```
 
-### How It Works
+### طريقة العمل
 
-1. Runs two FFmpeg processes in parallel:
-    - **Video:** Decodes to YUV420p raw frames (1280x720 @ 30fps)
-    - **Audio:** Decodes to PCM samples
-2. Publishes video as a screen share track
-3. Publishes audio as a microphone track
+١. يشغّل عمليتي FFmpeg بالتوازي:
+    - **الفيديو:** فك تشفير إلى إطارات YUV420p خام (1280×720 @ 30 إطار/ثانية)
+    - **الصوت:** فك تشفير إلى عينات PCM
+٢. نشر الفيديو كمسار مشاركة شاشة
+٣. نشر الصوت كمسار ميكروفون
 
-> See [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) for setup and usage instructions.
+> راجع [وثائق وكيل بث الفيديو](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) للإعداد والاستخدام.
 
-### Video Specifications
+### مواصفات الفيديو
 
-| Setting | Value |
+| الإعداد | القيمة |
 |---------|-------|
-| Width | 1280 |
-| Height | 720 |
+| العرض | 1280 |
+| الارتفاع | 720 |
 | FPS | 30 |
-| Pixel Format | YUV420p |
+| تنسيق البكسل | YUV420p |
 
 ---
 
-## Writing a Custom Agent
+## كتابة وكيل مخصص
 
-To create a new agent, follow this pattern:
+لإنشاء وكيل جديد، اتبع هذا النمط:
 
 ```python
 import httpx
@@ -179,8 +179,8 @@ while has_data:
 
 ---
 
-## See also
+## انظر أيضًا
 
-- [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) - setup and usage
-- [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) - setup and usage
-- [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) - setup and usage
+- [وثائق وكيل الموسيقى](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) - الإعداد والاستخدام
+- [وثائق وكيل الراديو](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) - الإعداد والاستخدام
+- [وثائق وكيل بث الفيديو](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) - الإعداد والاستخدام

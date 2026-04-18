@@ -1,155 +1,155 @@
 ---
-title: Web Frontend
-description: React web application architecture
+title: فرانت‌اند وب
+description: معماری اپلیکیشن وب React
 order: 8
 ---
 
-The Bedrud web frontend is a React application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, server-side rendering pre-renders an HTML shell. The Go binary embeds this shell alongside the static client assets.
+فرانت‌اند وب بدرود یک اپلیکیشن React ساخته شده با TanStack Start، TailwindCSS v4، و shadcn/ui است. در تولید، رندر سمت سرور یک پوسته HTML از پیش رندر می‌کند. باینری Go این پوسته را همراه با دارایی‌های کلاینت استاتیک جاسازی می‌کند.
 
-## Technology Stack
+## پشته فناوری
 
-| Technology | Purpose |
-|-----------|---------|
-| React 19 | UI framework |
-| TanStack Start | SSR framework and file-based routing |
-| TanStack Router | Client-side routing |
-| TanStack Query | Server state and data fetching |
-| TailwindCSS 4 | Utility-first styling |
-| shadcn/ui + Radix UI | Accessible component primitives |
-| Zustand | Client-side auth state |
-| Vite 7 | Build tool and dev server |
-| LiveKit React SDK | WebRTC media handling |
-| Zod | Schema validation |
-| Lucide React | Icon library |
-| Bun | Package manager |
+| فناوری | هدف |
+|-----------|-----|
+| React 19 | فریم‌ورک UI |
+| TanStack Start | فریم‌ورک SSR و مسیریابی مبتنی بر فایل |
+| TanStack Router | مسیریابی سمت کلاینت |
+| TanStack Query | وضعیت سرور و واکشی داده |
+| TailwindCSS 4 | استایل اول ابزار |
+| shadcn/ui + Radix UI | primitives کامپوننت قابل دسترسی |
+| Zustand | وضعیت احراز هویت سمت کلاینت |
+| Vite 7 | ابزار ساخت و سرور توسعه |
+| LiveKit React SDK | مدیریت مدیا WebRTC |
+| Zod | تأیید اسکیم |
+| Lucide React | کتابخانه آیکون |
+| Bun | مدیر بسته |
 
-## Directory Structure
+## ساختار دایرکتوری
 
 ```
 apps/web/
 ├── src/
-│   ├── routes/                    # TanStack Router file-based routes
-│   │   ├── index.tsx              # Home / landing page
-│   │   ├── __root.tsx             # Root layout
+│   ├── routes/                    # مسیرهای مبتنی بر فایل TanStack Router
+│   │   ├── index.tsx              # خانه / صفحه فرود
+│   │   ├── __root.tsx             # layout ریشه
 │   │   ├── auth/
-│   │   │   ├── login.tsx          # Sign-in page
-│   │   │   └── register.tsx       # Sign-up page
-│   │   ├── dashboard/             # User dashboard
-│   │   ├── m.$meetId.tsx          # Meeting room page
-│   │   ├── admin/                 # Admin panel
-│   │   │   ├── index.tsx          # Overview
-│   │   │   ├── rooms.$id.tsx      # Room detail
-│   │   │   ├── users.$id.tsx      # User detail
-│   │   │   └── settings.tsx       # Server settings + invite tokens
-│   │   └── settings.tsx           # Account settings page
+│   │   │   ├── login.tsx          # صفحه ورود
+│   │   │   └── register.tsx       # صفحه ثبت‌نام
+│   │   ├── dashboard/             # داشبورد کاربر
+│   │   ├── m.$meetId.tsx          # صفحه اتاق جلسه
+│   │   ├── admin/                 # پنل ادمین
+│   │   │   ├── index.tsx          # نمای کلی
+│   │   │   ├── rooms.$id.tsx      # جزئیات اتاق
+│   │   │   ├── users.$id.tsx      # جزئیات کاربر
+│   │   │   └── settings.tsx       # تنظیمات سرور + توکن‌های دعوت
+│   │   └── settings.tsx           # صفحه تنظیمات حساب
 │   ├── components/
-│   │   ├── admin/                 # Admin table components
+│   │   ├── admin/                 # کامپوننت‌های جدول ادمین
 │   │   │   ├── RoomTable.tsx
 │   │   │   └── UserTable.tsx
-│   │   ├── auth/                  # Auth UI (OAuth, Passkey buttons)
-│   │   ├── dashboard/             # Room cards, create room dialog
-│   │   ├── meeting/               # Video tiles, controls, device picker
+│   │   ├── auth/                  # UI احراز هویت (دکمه‌های OAuth، کلید عبور)
+│   │   ├── dashboard/             # کارت‌های اتاق، دیالوگ ایجاد اتاق
+│   │   ├── meeting/               # کاشی‌های ویدیو، کنترل‌ها، انتخابگر دستگاه
 │   │   │   ├── ControlsBar.tsx
 │   │   │   ├── DeviceSelector.tsx
 │   │   │   ├── ParticipantGrid.tsx
 │   │   │   ├── ChatPanel.tsx
 │   │   │   └── SpotlightView.tsx
-│   │   ├── ui/                    # shadcn/ui component library
-│   │   └── ThemeToggle.tsx        # Light/dark mode switcher
+│   │   ├── ui/                    # کتابخانه کامپوننت shadcn/ui
+│   │   └── ThemeToggle.tsx        # تغییرده حالت روشن/تاریک
 │   └── lib/
-│       ├── api.ts                 # authFetch wrapper
-│       └── auth.store.ts          # Zustand auth store (tokens, user)
+│       ├── api.ts                 # wrapper authFetch
+│       └── auth.store.ts          # فروشگاه احراز هویت Zustand (توکن‌ها، کاربر)
 ├── scripts/
-│   └── embed.mjs                  # SSR pre-render + copy to server/frontend/
-├── public/                        # Static assets
+│   └── embed.mjs                  # رندر SSR + کپی در server/frontend/
+├── public/                        # دارایی‌های استاتیک
 ├── package.json
 ├── tsconfig.json
 └── vite.config.ts
 ```
 
-## Authentication Flow
+## جریان احراز هویت
 
-Auth state is managed by a Zustand store in `src/lib/auth.store.ts`:
+وضعیت احراز هویت توسط یک فروشگاه Zustand در `src/lib/auth.store.ts` مدیریت می‌شود:
 
-1. **Login** - User submits credentials to `POST /api/auth/login`
-2. **Token Storage** - Access and refresh tokens saved to `localStorage`
-3. **Automatic Injection** - `authFetch` wraps every API call, adding the `Authorization: Bearer` header
-4. **Auto-Refresh** - When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
-5. **Logout** - Clears tokens and redirects to the login page
+۱. **ورود** - کاربر اعتبارنامه‌ها را به `POST /api/auth/login` ارسال می‌کند
+۲. **ذخیره توکن** - توکن‌های دسترسی و تازه‌سازی در `localStorage` ذخیره می‌شوند
+۳. **تزریق خودکار** - `authFetch` هر تماس API را می‌پیچد و هدر `Authorization: Bearer` را اضافه می‌کند
+۴. **تازه‌سازی خودکار** - وقتی درخواست ۴۰۱ برمی‌گرداند، `authFetch` تلاش می‌کند توکن را با استفاده از توکن تازه‌سازی تازه کند
+۵. **خروج** - توکن‌ها را پاک می‌کند و به صفحه ورود هدایت می‌شود
 
 ### authFetch
 
-The `authFetch` function in `src/lib/api.ts` is a drop-in replacement for `fetch` that:
+تابع `authFetch` در `src/lib/api.ts` یک جایگزین drop-in برای `fetch` است که:
 
-- Attaches the JWT access token to every request
-- Catches 401 responses and attempts a token refresh
-- Logs out the user if the refresh fails
+- توکن دسترسی JWT را به هر درخواست متصل می‌کند
+- پاسخ‌های ۴۰۱ را می‌گیرد و تلاش می‌کند توکن را تازه کند
+- اگر تازه‌سازی شکست خورد، کاربر را خارج می‌کند
 
-## Meeting Page
+## صفحه جلسه
 
-The meeting room at `/m/$meetId` handles:
+اتاق جلسه در `/m/$meetId` موارد زیر را مدیریت می‌کند:
 
-- **LiveKit connection** - Connects to the media server with the token from the join API
-- **Track rendering** - Subscribes to audio/video tracks from other participants
-- **Device selection** - Switch camera, microphone, or speaker mid-call without leaving the room
-- **Admin controls** - Room creator sees kick, mute, and video-off buttons
-- **Chat** - In-room text chat via `ChatPanel`
-- **Spotlight view** - Focus a single participant
+- **اتصال LiveKit** - با توکن از API join به سرور مدیا متصل می‌شود
+- **رندرینگ ترک** - اشتراک در ترک‌های صوتی/ویدیویی از سایر شرکت‌کنندگان
+- **انتخاب دستگاه** - تغییر دوربین، میکروفون، یا اسپیکر در حین تماس بدون ترک اتاق
+- **کنترل‌های ادمین** - سازنده اتاق دکمه‌های حذف، میوت، و خاموش ویدیو را می‌بیند
+- **چت** - چت متنی در اتاق از طریق `ChatPanel`
+- **نمای اسپات‌لایت** - تمرکز روی یک شرکت‌کننده واحد
 
-## Admin Panel
+## پنل ادمین
 
-The admin panel at `/admin` provides:
+پنل ادمین در `/admin` موارد زیر را فراهم می‌کند:
 
-- **Room management** - table view with drill-down to room detail pages
-- **User management** - table view with drill-down to individual user accounts and role editing
-- **Server settings** - configure instance-wide options, access controls, and invite links
-- **Invite tokens** - generate and revoke invite links to control who can join
+- **مدیریت اتاق** - نمای جدولی با حفاری به صفحات جزئیات اتاق
+- **مدیریت کاربر** - نمای جدولی با حفاری به حساب‌های کاربر فردی و ویرایش نقش
+- **تنظیمات سرور** - پیکربندی گزینه‌های سراسری، کنترل‌های دسترسی، و لینک‌های دعوت
+- **توکن‌های دعوت** - تولید و لغو لینک‌های دعوت برای کنترل اینکه چه کسی می‌تواند بپیوندد
 
-## Dark Mode
+## حالت تاریک
 
-A `ThemeToggle` component lets users switch between light and dark themes from anywhere in the app. The preference is persisted to `localStorage` and applied on load.
+یک کامپوننت `ThemeToggle` به کاربران اجازه می‌دهد از هر کجای اپلیکیشن بین تم‌های روشن و تاریک سوئیچ کنند. ترجیح در `localStorage` ذخیره می‌شود و در بارگذاری اعمال می‌شود.
 
-## Build
+## ساخت
 
-### Development
-
-```bash
-cd apps/web
-bun run dev      # Starts Vite dev server with HMR at localhost:3000
-```
-
-The dev server proxies `/api` and `/livekit` requests to the Go server at `localhost:8090`.
-
-### Production (standalone web bundle)
+### توسعه
 
 ```bash
 cd apps/web
-bun run build    # Outputs static client assets to dist/client/ and SSR server to dist/server/
+bun run dev      # سرور توسعه Vite را با HMR در localhost:3000 شروع می‌کند
 ```
 
-### Production (embedded in Go binary)
+سرور توسعه درخواست‌های `/api` و `/livekit` را به سرور Go در `localhost:8090` پراکسی می‌کند.
+
+### تولید (بسته وب مستقل)
+
+```bash
+cd apps/web
+bun run build    # دارایی‌های کلاینت استاتیک را در dist/client/ و سرور SSR را در dist/server/ خروجی می‌دهد
+```
+
+### تولید (جاسازی شده در باینری Go)
 
 ```bash
 cd apps/web
 bun run build:embed
 ```
 
-This runs `scripts/embed.mjs` which:
+این `scripts/embed.mjs` را اجرا می‌کند که:
 
-1. Runs `bun run build` to produce `dist/client/` and `dist/server/`
-2. Starts the SSR server locally
-3. Fetches `/` to capture the pre-rendered HTML shell
-4. Copies `dist/client/` into `server/frontend/`
-5. Writes the rendered HTML as `server/frontend/index.html`
+۱. `bun run build` را اجرا می‌کند تا `dist/client/` و `dist/server/` تولید شود
+۲. سرور SSR را به صورت محلی شروع می‌کند
+۳. `/` را می‌گیرد تا پوسته HTML رندر شده را ثبت کند
+۴. `dist/client/` را در `server/frontend/` کپی می‌کند
+۵. HTML رندر شده را به عنوان `server/frontend/index.html` می‌نویسد
 
-### Type Checking
+### بررسی نوع
 
 ```bash
-bun run check    # Runs tsc --noEmit
+bun run check    # tsc --noEmit را اجرا می‌کند
 ```
 
 ---
 
-## See also
+## همچنین ببینید
 
-- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI component patterns, color tokens, and styling rules
+- [سیستم طراحی وب](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - الگوهای کامپوننت UI، توکن‌های رنگی، و قوانین استایل
