@@ -1,8 +1,11 @@
 name: Deploy to GitHub Pages
 
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [master]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,14 +17,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  check-ci:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+    steps:
+      - id: check
+        run: echo "should-deploy=true" >> $GITHUB_OUTPUT
+
   build:
+    needs: check-ci
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
+        with:
+          cache: true
       - run: bun install --frozen-lockfile
       - run: bun run build
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
 
@@ -33,4 +48,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
