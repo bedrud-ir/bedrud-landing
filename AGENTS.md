@@ -115,7 +115,7 @@ src/
 
   i18n/
     utils.ts                       # t(locale, "key.subkey"), getDir(), isValidLocale()
-    locales/{lang}.ts              # 9 locale files, nested objects, dot-notation keys
+    locales/{lang}.ts              # 10 locale files, nested objects, dot-notation keys
 
   styles/
     global.css                     # Tailwind v4 + CSS vars theme + keyframe animations + .scroll-area
@@ -156,7 +156,7 @@ Search: `scripts/generate-search-index.ts` builds per-locale MiniSearch indexes 
 
 Build-time only. No runtime lib. Use `t(locale, "key.subkey")` from `src/i18n/utils.ts`.
 
-9 locales: en, de, fr, es, zh, ja, tr, fa, ar. Routes under `/:lang/`. `/` → `/en`.
+10 locales: en, de, fr, es, zh, ja, tr, fa, ar, ru. Routes under `/:lang/`. `/` → `/en`.
 
 RTL: fa, ar auto-set `dir="rtl"` via `getDir(locale)`.
 
