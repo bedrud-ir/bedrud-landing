@@ -7,7 +7,7 @@ export default {
   nav: {
     home: "ホーム",
     features: "機能",
-    compare: "Feature",
+    compare: "比較",
     platforms: "プラットフォーム",
     openSource: "オープンソース",
     docs: "ドキュメント",
@@ -77,6 +77,26 @@ export default {
       title: "シートごとの課金なし",
       description:
         "5ユーザーでも5,000ユーザーでも。価格は同じ：ゼロ。ライセンスキーなし、シートカウンターなし、「営業に連絡」ボタンなし。",
+    },
+  },
+  problem: {
+    title: "ミーティングにこんなに払う必要はない",
+    subtitle:
+      "エンタープライズビデオプラットフォームは長年チームに過剰請求してきた。何が問題なのか、そして開発者が乗り換える理由をご紹介します。",
+    perSeatPricing: {
+      title: "シートごとの課金は罠",
+      description:
+        "Zoom、Teams、Meet — すべてユーザーごとの課金。10人から100人に増えれば請求額は10倍に。部門、契約者、ゲストに掛け算すれば、1日30分しか使わないツールに予算を垂れ流すことになる。",
+    },
+    vendorLockIn: {
+      title: "ベンダーロックインが選択肢を奪う",
+      description:
+        "ミーティング録画、文字起こし、参加者データ — すべてあなたがコントロールできないサーバーに保存されている。プロバイダーが価格を変え、機能を削り、セキュリティ侵害が起きても、出口戦略はない。",
+    },
+    selfHostedNightmare: {
+      title: "セルフホストの選択肢は悪夢",
+      description:
+        "Jitsiは8個以上のDockerコンテナが必要。BigBlueButtonは8GB RAMを要求。どちらも1時間以内にインストールできず、シンプルにスケールもしない。金曜午後にどちらかをデバッグするのは、週末の過ごし方としては最悪だ。",
     },
   },
   comparison: {
@@ -151,35 +171,25 @@ export default {
     title: "すべて同梱",
     subtitle:
       "ビデオ、音声、認証、ボット - すべて含まれています。マイクロサービスアーキテクチャ不要。",
-    e2eEncryption: {
-      title: "デフォルトで暗号化",
+    oneCommandDeploy: {
+      title: "ワンコマンドデプロイ",
       description:
-        "すべてのメディアはDTLSとSRTPで暗号化されて転送されます。セルフホストモードではデータはあなたのサーバーに留まります。サードパーティのテレメトリなし、データ収集なし。",
+        "単一バイナリ、依存関係ゼロ。ターミナルに1行貼り付けるだけで60秒でBedrudが稼働。Docker不要、Kubernetes不要、運用チーム不要。",
     },
-    webrtcVideo: {
-      title: "WebRTC ビデオ",
+    fiveDollarVps: {
+      title: "$5 VPSで稼働",
       description:
-        "内蔵WebRTCメディアサーバーによるサブ秒レイテンシのビデオ通話。不安定な接続でも適応ビットレートで対応。",
+        "アイドル時約200MB RAM（最小512MB）。Hetzner、DigitalOcean、AWS Lightsail、自前ハードウェアなど、安価なVPSにデプロイ可能。同じ機能でコストは数分の一。",
     },
-    multiPlatform: {
-      title: "マルチプラットフォーム",
+    webrtcLatency: {
+      title: "WebRTCサブ秒レイテンシ",
       description:
-        "Web、Android、iOSのネイティブアプリ。ラッパーではなく、本当のネイティブアプリ。自動化用のサーバーサイドSDKも付属。",
+        "アダプティブビットレート搭載のWebRTCメディアサーバー内蔵。不安定な接続でもクリスタルクリアなビデオとオーディオ。サードパーティサーバー経由のプロキシなし。",
     },
-    flexibleAuth: {
-      title: "柔軟な認証",
+    enterpriseSso: {
+      title: "エンタープライズSSO & OIDC",
       description:
-        "すぐに使える内蔵認証に、SSO・OAuth統合をプラス。既存のIDプロバイダーに数分で接続。",
-    },
-    botAgents: {
-      title: "ボットエージェント",
-      description:
-        "ボットが参加者としてミーティングに参加。会話の文字起こし、リアルタイム翻訳、CRM連携、Go SDKでカスタムワークフローを構築。",
-    },
-    selfHosted: {
-      title: "あなたのインフラ、または私たちのインフラ",
-      description:
-        "自社サーバーでフルコントロールで運用。またはBedrud Cloudで運用を気にせず。同じ製品、同じ機能。",
+        "数分でIDプロバイダーに接続。パスキー、OAuth 2.0、OIDC — すべて標準対応。侵害されるパスワードデータベースなし。",
     },
   },
   install: {
@@ -237,59 +247,25 @@ export default {
     getStarted: "クイックスタートを読む",
     readDocs: "クイックスタートを見る",
     starGithub: "GitHubでスター",
+    copied: "コピーしました！",
   },
   faq: {
     title: "よくある質問",
     subtitle: "技術的な質問に直接お答えします。",
-    updates: {
-      question: "アップデートはどうやって行いますか？",
+    serverPower: {
+      question: "サーバーの性能はどのくらい必要ですか？",
       answer:
-        "インストールコマンドを再実行してください。Bedrudはバイナリをその場で置き換えます - パッケージマネージャーなし、依存関係チェーンなし。単一の設定フラグで自動アップデートを有効にすることもできます。",
+        "月額$5、1GB RAMのVPSで始められます。Bedrudは512MB RAMを使用し、ハードウェアに応じてスケール。50人以上の同時ユーザーには2GBへ増設。GPU不要。",
     },
-    encryption: {
-      question: "エンドツーエンド暗号化されていますか？",
+    installCommand: {
+      question: "インストールコマンドは具体的に何をしますか？",
       answer:
-        "すべてのメディアはDTLSとSRTP（WebRTC標準）により転送中に暗号化されます。セルフホストデプロイメントでは、サーバーとすべてのデータをあなたが管理します。ピアツーピア通話のエンドツーエンド暗号化はロードマップにあります。",
+        "プラットフォーム用のBedrudバイナリをダウンロードし、/usr/local/binに配置。Docker、パッケージマネージャー、隠れた依存関係なし。実行前にスクリプトを検査可能。",
     },
-    network: {
-      question: "ネットワークとポートの要件は？",
+    recordingScreenSharing: {
+      question: "録画と画面共有に対応していますか？",
       answer:
-        "HTTP/WebSocket用にポート80/443、WebRTCメディア用に設定可能なUDP範囲（デフォルト50000–60000）。NATの背後ではSTUN/TURNサーバーを設定してください - Bedrudにはcoturnのセットアップドキュメントが含まれています。",
-    },
-    proxy: {
-      question: "リバースプロキシの背後で実行できますか？",
-      answer:
-        "はい。Nginx、Caddy、Traefik - すべて対応。ドキュメントにはそれぞれのコピペ設定が含まれています。WebSocket接続を転送し、適切なヘッダーを設定してください。",
-    },
-    cloudVsSelfHosted: {
-      question: "セルフホストとBedrud Cloudの違いは？",
-      answer:
-        "同じ製品、同じ機能。セルフホストはお客様のインフラでフルデータコントロール。Bedrud Cloudは運用、アップデート、スケーリングを代行。ベンダーロックインなし - いつでも移行可能。",
-    },
-  },
-  testimonials: {
-    title: "開発者に選ばれています",
-    subtitle: "Bedrudについての声。",
-    one: {
-      quote:
-        "Jitsiのセットアップを午後だけでBedrudに置き換えました。バイナリ1つ、512MB RAMで、ミーティングの音質まで良くなりました。",
-      name: "Lena K.",
-      role: "ヨーロッパのSaaS企業 DevOpsリード",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "シート課金なし - これが決め手でした。20人から200人に増えてもライセンスメールは1通も来ませんでした。",
-      name: "Marcus T.",
-      role: "リモートファーストスタートアップ CTO",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "$5のVPSにBedrudをデプロイしたら、すぐ動きました。Bot SDKで1日でミーティングの文字起こしをCRMに連携できました。",
-      name: "Priya S.",
-      role: "フィンテック企業 シニアエンジニア",
-      initials: "PS",
+        "はい。画面共有とミーティング録画を内蔵。録画はあなたのサーバーに保存 — 誰かのクラウドではない。Botエージェントによるリアルタイム文字起こしも可能。",
     },
   },
   footer: {
@@ -312,6 +288,11 @@ export default {
     contact: "お問い合わせ",
     privacy: "プライバシーポリシー",
     terms: "利用規約",
+    install: "インストール",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -435,6 +416,9 @@ export default {
     searchButton: "検索",
     noResults: "結果なし",
     loading: "読み込み中…",
+    searchError: "検索に失敗しました。もう一度お試しください。",
+    titleSuffix: " - Bedrud",
+    diagramError: "Diagram render failed",
     pressShortcut: "押す",
     clearSearch: "検索をクリア",
     searchDocs: "ドキュメントを検索",
@@ -445,6 +429,42 @@ export default {
       backend: "バックエンド",
       api: "API",
       guides: "ガイド",
+      contributing: "貢献する",
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "クイックスタート",
+      "getting-started/installation": "サーバーインストール",
+      "getting-started/clients": "クライアントインストール",
+      "getting-started/configuration": "設定",
+      "getting-started/cli-reference": "CLIリファレンス",
+      "architecture/overview": "アーキテクチャ概要",
+      "architecture/server": "サーバーアーキテクチャ",
+      "architecture/web": "Webフロントエンド",
+      "architecture/android": "Androidアプリ",
+      "architecture/ios": "iOSアプリ",
+      "architecture/desktop": "デスクトップアプリ",
+      "architecture/agents": "Botエージェント",
+      "architecture/webrtc-connectivity": "WebRTC接続性",
+      "architecture/turn-server": "TURNサーバー",
+      "backend/index": "バックエンドドキュメント",
+      "backend/structure": "コード構造",
+      "backend/database": "データベースとモデル",
+      "backend/authentication": "認証",
+      "backend/api-handlers": "APIハンドラ",
+      "backend/livekit": "LiveKit統合",
+      "backend/deployment": "デプロイ",
+      "backend/advanced": "高度なトピック",
+      "api/authentication": "認証API",
+      "api/rooms": "ルームAPI",
+      "api/admin": "管理API",
+      "api/passkeys": "パスキーAPI",
+      "guides/development": "開発ワークフロー",
+      "guides/deployment": "デプロイガイド",
+      "guides/docker": "Dockerガイド",
+      "guides/internal-tls": "内部TLS",
+      "guides/makefile": "Makefileリファレンス",
+      "guides/packages": "パッケージインストール",
+      "guides/appliance": "アプライアンスモード",
       contributing: "貢献する",
     },
   },
@@ -458,6 +478,68 @@ export default {
     subtitle:
       "サーバーにビデオ会議を1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
   },
+  downloadPage: {
+    meta: {
+      title: "Bedrudをダウンロード - デスクトップ & モバイルアプリ",
+      description:
+        "Linux、macOS、Windows、Android、iOS用Bedrudをダウンロード。ネイティブアプリまたはゼロインストールブラウザアクセス。",
+    },
+    title: "Bedrudをダウンロード",
+    subtitle:
+      "全プラットフォーム向けネイティブアプリ。またはブラウザでミーティングリンクを開くだけ。",
+    noInstall: "インストール不要。ダウンロード、実行可能ファイルにして、起動。",
+    flathub: "Flathubからインストール",
+    brew: "Homebrewでインストール",
+    winget: "Windows Package Managerでインストール",
+    installer: "インストーラー",
+    portable: "ポータブル版",
+    repoSetup: "リポジトリのセットアップが必要",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "GitHubリリース",
+    playStore: "Google Playで入手",
+    appStore: "App Storeからダウンロード",
+    sideload: "GitHubリリースからAPK/IPAをダウンロード",
+    browserZero: "ゼロインストール",
+    browserDesc:
+      "Chrome、Firefox、Edge、Safariでミーティングリンクを開く。ダウンロード不要。",
+    tryDemo: "ライブデモを試す",
+    otherPlatforms: "全プラットフォームとパッケージマネージャーを見る",
+    server: "サーバーインストール",
+    serverDesc: "自前ハードウェアにBedrudサーバーをデプロイ。",
+    serverGuide: "サーバーインストールガイド",
+    heroClientTitle: "クライアント版",
+    heroClientDesc:
+      "全プラットフォーム向けネイティブデスクトップ & モバイルアプリ。",
+    heroServerTitle: "サーバー版",
+    heroServerDesc: "自前ハードウェアにBedrudサーバーをデプロイ。",
+    heroAllPlatforms: "全プラットフォームを見る",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "Dockerでコンテナとして実行。",
+    serverBinary: "Linuxバイナリ",
+    serverBinaryDesc: "Linux用ビルド済みバイナリをダウンロード。",
+    serverQuickInstall: "クイックインストール",
+    serverQuickInstallDesc: "1つのコマンド。1分以内。",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "HelmでKubernetesにデプロイ。",
+    resourcesTitle: "リソース",
+    resourcesDocs: "ドキュメント",
+    resourcesDocsDesc: "セットアップガイド、APIリファレンス、ハウツー。",
+    resourcesCommunity: "コミュニティ",
+    resourcesCommunityDesc: "ヘルプやフィードバックの共有。",
+    resourcesChangelog: "変更履歴",
+    resourcesChangelogDesc: "最新リリースと変更点。",
+    platform: {
+      linux: "Linux",
+      mac: "macOS",
+      windows: "Windows",
+      android: "Android",
+      ios: "iOS",
+      browser: "ブラウザ",
+    },
+  },
   blog: {
     meta: {
       title: "ブログ - Bedrud",
@@ -469,12 +551,15 @@ export default {
       "Bedrud チームによるアップデート、エンジニアリングの深掘り、ガイド。",
     noPosts: "まだ投稿がありません。また後でチェックしてください！",
     backToBlog: "ブログに戻る",
+    titleSuffix: " - Bedrudブログ",
+    defaultAuthor: "Bedrudチーム",
   },
   skipToContent: "コンテンツへスキップ",
   mobileNav: {
-    navigation: "Navigation",
-    language: "Language",
+    navigation: "ナビゲーション",
+    language: "言語",
     getStarted: "はじめる",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -645,6 +730,8 @@ export default {
     subtitle: "Bedrudの新機能。アクティビティ = 信頼。",
     viewOnGithub: "GitHub で見る",
     noReleases: "リリースはまだありません。すぐにお戻りください！",
+    error: "リリースの読み込みに失敗しました。",
+    viewRelease: "GitHubで見る →",
   },
   contributorsPage: {
     meta: {
@@ -656,6 +743,7 @@ export default {
     joinThem: "彼らに参加",
     joinCta: "GitHubで貢献",
     contributions: "貢献",
+    error: "コントリビューターの読み込みに失敗しました。",
   },
   contactPage: {
     meta: {
@@ -682,9 +770,80 @@ export default {
       cta: "メール送信",
     },
   },
+  aboutPage: {
+    meta: {
+      title: "Bedrudについて",
+      description:
+        "Bedrudのチームとミッションについて — すべての人のためのオープンソースビデオ会議。",
+    },
+    title: "Bedrudについて",
+    subtitle:
+      "プライバシーがデフォルトであるべきだと信じる人々によるオープンソースビデオ会議。",
+    mission: {
+      title: "私たちのミッション",
+      text: "Bedrudが生まれた理由は、ビデオ会議のためにビッグテックにデータを渡す必要はないからです。単一バイナリ、安価なVPS、オープンソースコードが数百万ドルのSaaS契約に取って代わると信じています — 品質や機能を犠牲にすることなく。プライバシーは機能ではない。それは基盤です。",
+    },
+    team: {
+      title: "コアチーム",
+      subtitle: "Bedrudの背後にいる人々。",
+    },
+    error: "チームメンバーの読み込みに失敗しました。",
+  },
   notFound: {
     title: "ページが見つかりません",
     description: "お探しのページは存在しないか、移動されました。",
     backToHome: "ホームに戻る",
+  },
+  a11y: {
+    toggleTheme: "テーマ切替",
+    breadcrumb: "パンくずリスト",
+    articleNav: "記事ナビゲーション",
+  },
+  mockups: {
+    terminal: {
+      title: "ターミナル",
+      downloading: "✓ bedrud v0.12.3 をダウンロード中...",
+      installing: "✓ /usr/local/bin にインストール中...",
+      ready: "✓ Bedrud準備完了！ (512MB RAM)",
+    },
+    invite: {
+      shareLink: "ミーティングリンクを共有",
+      sendEmail: "メールで送信",
+      copyLink: "リンクをコピー",
+      or: "または",
+      meetingTitle: "チーム定例",
+      today: "今日、午後2:00",
+      duration: "30分",
+      participants: "参加者5人",
+      noAccount: "アカウント不要",
+      anyBrowser: "すべてのブラウザで動作",
+    },
+    meeting: {
+      title: "チーム定例",
+      micOn: "マイクオン",
+      cameraOn: "カメラオン",
+      shareScreen: "画面共有",
+      raiseHand: "手を挙げる",
+      chat: "チャット",
+      leaveCall: "通話を終了",
+    },
+    preview: {
+      title: "チーム定例",
+      you: "あなた",
+      chat: "チャット",
+      messagePlaceholder: "メッセージ...",
+    },
+    scale: {
+      overview: "概要",
+      last30Days: "過去30日間",
+      meetings: "ミーティング",
+      uptime: "稼働時間",
+      availability: "可用性",
+      activeUsers: "アクティブユーザー",
+      unlimitedUsers: "ユーザー数無制限",
+      noPerSeat: "シート課金なし",
+      costPerSeat: "シートあたりのコスト：",
+      costFree: "$0.00",
+    },
   },
 };

@@ -57,13 +57,13 @@ const mdxComponents = {
   TabsTrigger,
   TabsContent,
 };
-const title = `${doc.data.title} - Bedrud`;
+const title = `${doc.data.title}${t(lang, "docs.titleSuffix")}`;
 const description = doc.data.description || t(lang, "meta.description");
 
 let sectionTitle: string | undefined;
 for (const section of sections) {
   if (section.items.some((item) => item.slug === slug)) {
-    sectionTitle = section.title;
+    sectionTitle = t(lang, `docs.sections.${section.titleKey}`);
     break;
   }
 }
@@ -85,8 +85,8 @@ const articleProps = {
 };
 
 const breadcrumbItems = [
-  { "@type": "ListItem", position: 1, name: "Home", item: `https://bedrud.org/${lang}` },
-  { "@type": "ListItem", position: 2, name: "Docs", item: `https://bedrud.org/${lang}/docs` },
+  { "@type": "ListItem", position: 1, name: t(lang, "nav.home"), item: `https://bedrud.org/${lang}` },
+  { "@type": "ListItem", position: 2, name: t(lang, "nav.docs"), item: `https://bedrud.org/${lang}/docs` },
   { "@type": "ListItem", position: 3, name: doc.data.title },
 ];
 ---
@@ -117,7 +117,7 @@ const breadcrumbItems = [
 >
   <nav
     class="mb-8 flex items-center gap-1.5 text-sm text-muted-foreground"
-    aria-label="Breadcrumb"
+    aria-label={t(lang, "a11y.breadcrumb")}
   >
     <ol class="flex items-center gap-1.5">
       <li>
@@ -150,7 +150,7 @@ const breadcrumbItems = [
     </ol>
   </nav>
 
-  <article class="prose prose-neutral dark:prose-invert max-w-none">
+  <article class="prose prose-neutral dark:prose-invert max-w-none" data-diagram-error={t(lang, "docs.diagramError")}>
     <Content components={mdxComponents} />
   </article>
 
@@ -195,8 +195,10 @@ const breadcrumbItems = [
           const orphan = document.getElementById(`d${id}`);
           orphan?.remove();
           container.className = "mermaid-error";
+          const errMsgEl = document.querySelector('[data-diagram-error]');
+          const errMsg = errMsgEl ? (errMsgEl as HTMLElement).dataset.diagramError || "" : "";
           container.innerHTML =
-            `<strong>Diagram render failed</strong><pre style="margin-top:0.5rem;font-size:0.75rem;white-space:pre-wrap">${String(err)}</pre>`;
+            `<strong>${errMsg}</strong><pre style="margin-top:0.5rem;font-size:0.75rem;white-space:pre-wrap">${String(err)}</pre>`;
         }
       }
     }
@@ -206,7 +208,7 @@ const breadcrumbItems = [
 
   <nav
     class="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2"
-    aria-label="Article navigation"
+    aria-label={t(lang, "a11y.articleNav")}
   >
     {previous && (
       <a

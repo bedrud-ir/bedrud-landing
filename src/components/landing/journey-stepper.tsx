@@ -2,7 +2,6 @@
 
 import type { LucideIcon } from "lucide-react";
 import { Link, Server, Video } from "lucide-react";
-import type { ReactNode } from "react";
 import { useInViewRef, useReducedMotion } from "~/hooks/use-animation";
 import { cn } from "~/lib/utils";
 import { type Locale, t } from "../../i18n/utils";
@@ -42,11 +41,14 @@ const steps: Step[] = [
   },
 ];
 
-const stepVisuals: ReactNode[] = [
-  <TerminalMockup key="terminal" />,
-  <InviteMockup key="invite" />,
-  <MeetingMockup key="meeting" />,
-];
+function StepVisuals({ lang, index }: { lang: Locale; index: number }) {
+  const visuals = [
+    <TerminalMockup key="terminal" lang={lang} />,
+    <InviteMockup key="invite" lang={lang} />,
+    <MeetingMockup key="meeting" lang={lang} />,
+  ];
+  return visuals[index];
+}
 
 function StepCard({
   step,
@@ -135,7 +137,7 @@ function JourneySteps({ lang }: { lang: Locale }) {
                       : undefined
                   }
                 >
-                  {stepVisuals[i]}
+                  <StepVisuals lang={lang} index={i} />
                 </div>
               </div>
             );

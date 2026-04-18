@@ -76,7 +76,7 @@ export default function AboutSection({ lang }: AboutSectionProps) {
             {error && (
               <div className="rounded-lg border bg-destructive/10 p-6 text-center">
                 <p className="text-sm text-destructive">
-                  Failed to load team members.
+                  {t(lang, "aboutPage.error")}
                 </p>
               </div>
             )}

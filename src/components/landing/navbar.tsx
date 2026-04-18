@@ -124,12 +124,12 @@ export function Navbar({
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noreferrer"
-                aria-label="GitHub"
+                aria-label={t(lang, "footer.social.github")}
                 className="inline-flex size-7 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
               >
                 <GitHubIcon className="size-3.5" />
               </a>
-              <ThemeToggle />
+              <ThemeToggle lang={lang} />
               <LanguageSwitcher lang={lang} />
               {scrolled && stars && (
                 <a
@@ -156,14 +156,14 @@ export function Navbar({
             </div>
 
             <div className="flex items-center gap-0.5 md:hidden">
-              <ThemeToggle />
+              <ThemeToggle lang={lang} />
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setMobileOpen(true)}
               >
                 <Menu className="size-5" />
-                <span className="sr-only">Open menu</span>
+                <span className="sr-only">{t(lang, "a11y.openMenu")}</span>
               </Button>
             </div>
           </nav>

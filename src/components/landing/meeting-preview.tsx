@@ -11,6 +11,7 @@ import {
   Volume2,
 } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { type Locale, t } from "../../i18n/utils";
 
 /* ------------------------------------------------------------------ */
 /*  Data                                                               */
@@ -178,7 +179,7 @@ function ControlBtn({
 /*  Main                                                               */
 /* ------------------------------------------------------------------ */
 
-export function MeetingPreview() {
+export function MeetingPreview({ lang }: { lang: Locale }) {
   return (
     <div
       aria-hidden="true"
@@ -201,7 +202,7 @@ export function MeetingPreview() {
             <div className="flex items-center gap-1">
               <Lock className="size-2.5 text-emerald-400/70 sm:size-3" />
               <span className="text-[10px] font-medium text-white/40 sm:text-[11px]">
-                Team Standup
+                {t(lang, "mockups.preview.title")}
               </span>
             </div>
             {/* Timer pill */}
@@ -258,7 +259,7 @@ export function MeetingPreview() {
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-1 pb-0.5 pt-3 sm:px-1.5 sm:pb-1">
                     <span className="text-[7px] font-medium text-white/80 sm:text-[8px]">
-                      You
+                      {t(lang, "mockups.preview.you")}
                     </span>
                   </div>
                 </div>
@@ -284,7 +285,7 @@ export function MeetingPreview() {
             {/* Chat header */}
             <div className="flex items-center justify-between border-b border-white/[0.04] px-3 py-2">
               <span className="text-[10px] font-medium text-white/40">
-                Chat
+                {t(lang, "mockups.preview.chat")}
               </span>
               <MessageSquare className="size-3 text-white/20" />
             </div>
@@ -316,7 +317,7 @@ export function MeetingPreview() {
               {/* Input field */}
               <div className="mt-0.5 flex items-center rounded-md bg-white/[0.04] px-2 py-1.5">
                 <span className="flex-1 text-[9px] text-white/20">
-                  Message...
+                  {t(lang, "mockups.preview.messagePlaceholder")}
                 </span>
                 <Smile className="size-3 text-white/15" />
               </div>
@@ -326,22 +327,22 @@ export function MeetingPreview() {
 
         {/* ---- Controls bar ---- */}
         <div className="flex shrink-0 items-center justify-center gap-1.5 border-t border-white/[0.05] bg-[#0c0c20] py-2 sm:gap-2 sm:py-2.5">
-          <ControlBtn active label="Microphone on">
+          <ControlBtn active label={t(lang, "mockups.meeting.micOn")}>
             <Mic className="size-3.5 sm:size-4" />
           </ControlBtn>
-          <ControlBtn active label="Camera on">
+          <ControlBtn active label={t(lang, "mockups.meeting.cameraOn")}>
             <Video className="size-3.5 sm:size-4" />
           </ControlBtn>
-          <ControlBtn label="Share screen">
+          <ControlBtn label={t(lang, "mockups.meeting.shareScreen")}>
             <MonitorUp className="size-3.5 sm:size-4" />
           </ControlBtn>
-          <ControlBtn label="Raise hand">
+          <ControlBtn label={t(lang, "mockups.meeting.raiseHand")}>
             <Hand className="size-3.5 sm:size-4" />
           </ControlBtn>
-          <ControlBtn label="Chat" badge={3}>
+          <ControlBtn label={t(lang, "mockups.meeting.chat")} badge={3}>
             <MessageSquare className="size-3.5 sm:size-4" />
           </ControlBtn>
-          <ControlBtn danger label="Leave call">
+          <ControlBtn danger label={t(lang, "mockups.meeting.leaveCall")}>
             <Phone className="size-3.5 rotate-[135deg] sm:size-4" />
           </ControlBtn>
         </div>

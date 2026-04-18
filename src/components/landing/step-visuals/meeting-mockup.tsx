@@ -10,6 +10,7 @@ import {
   Volume2,
 } from "lucide-react";
 import { cn } from "~/lib/utils";
+import { type Locale, t } from "../../../i18n/utils";
 
 interface Participant {
   name: string;
@@ -124,7 +125,7 @@ function ControlBtn({
   );
 }
 
-export function MeetingMockup() {
+export function MeetingMockup({ lang }: { lang: Locale }) {
   return (
     <div
       aria-hidden="true"
@@ -141,7 +142,7 @@ export function MeetingMockup() {
           <div className="flex items-center gap-1">
             <Lock className="size-3 text-emerald-400/70" />
             <span className="text-[11px] font-medium text-white/40">
-              Team Standup
+              {t(lang, "mockups.meeting.title")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 rounded-full bg-red-500/15 px-2 py-0.5">
@@ -177,22 +178,22 @@ export function MeetingMockup() {
       </div>
 
       <div className="flex items-center justify-center gap-2 border-t border-white/[0.05] bg-[#0c0c20] py-2.5">
-        <ControlBtn active label="Microphone on">
+        <ControlBtn active label={t(lang, "mockups.meeting.micOn")}>
           <Mic className="size-4" />
         </ControlBtn>
-        <ControlBtn active label="Camera on">
+        <ControlBtn active label={t(lang, "mockups.meeting.cameraOn")}>
           <Video className="size-4" />
         </ControlBtn>
-        <ControlBtn label="Share screen">
+        <ControlBtn label={t(lang, "mockups.meeting.shareScreen")}>
           <MonitorUp className="size-4" />
         </ControlBtn>
-        <ControlBtn label="Raise hand">
+        <ControlBtn label={t(lang, "mockups.meeting.raiseHand")}>
           <Hand className="size-4" />
         </ControlBtn>
-        <ControlBtn label="Chat" badge={3}>
+        <ControlBtn label={t(lang, "mockups.meeting.chat")} badge={3}>
           <MessageSquare className="size-4" />
         </ControlBtn>
-        <ControlBtn danger label="Leave call">
+        <ControlBtn danger label={t(lang, "mockups.meeting.leaveCall")}>
           <Phone className="size-4 rotate-[135deg]" />
         </ControlBtn>
       </div>

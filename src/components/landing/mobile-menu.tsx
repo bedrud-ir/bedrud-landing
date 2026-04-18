@@ -97,7 +97,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
       {/* Backdrop */}
       <button
         type="button"
-        aria-label="Close menu"
+        aria-label={t(lang, "a11y.closeMenu")}
         className="mobile-menu-backdrop absolute inset-0 bg-background/80 motion-safe:backdrop-blur-sm"
         onClick={backdropClickHandler}
       />
@@ -107,7 +107,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
         ref={panelRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Navigation menu"
+        aria-label={t(lang, "a11y.navigationMenu")}
         className="mobile-menu-panel absolute inset-y-0 start-0 flex w-full max-w-sm flex-col bg-background shadow-xl"
       >
         <div className="flex h-full flex-col px-6 py-4">
@@ -123,7 +123,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
             </div>
             <Button variant="ghost" size="icon" onClick={onClose}>
               <X className="size-5" />
-              <span className="sr-only">Close menu</span>
+              <span className="sr-only">{t(lang, "a11y.closeMenu")}</span>
             </Button>
           </div>
 
@@ -177,7 +177,7 @@ export function MobileMenu({ onClose, lang }: MobileMenuProps) {
             <Button variant="outline" asChild>
               <a href={GITHUB_URL} target="_blank" rel="noreferrer">
                 <GitHubIcon className="size-4" />
-                GitHub{" "}
+                {t(lang, "mobileNav.github")}{" "}
                 <span className="ml-2 text-xs opacity-70">⭐ {starCount}</span>
               </a>
             </Button>

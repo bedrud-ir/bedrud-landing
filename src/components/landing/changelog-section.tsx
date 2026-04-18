@@ -57,7 +57,7 @@ export default function ChangelogSection({ lang }: ChangelogSectionProps) {
           {error && (
             <div className="rounded-lg border bg-destructive/10 p-6 text-center">
               <p className="text-sm text-destructive">
-                Failed to load releases.
+                {t(lang, "changelogPage.error")}
               </p>
             </div>
           )}
@@ -95,7 +95,7 @@ export default function ChangelogSection({ lang }: ChangelogSectionProps) {
                       rel="noopener noreferrer"
                       className="text-sm text-primary hover:underline"
                     >
-                      View on GitHub →
+                      {t(lang, "changelogPage.viewRelease")}
                     </a>
                   </div>
                 </article>

@@ -1,23 +1,28 @@
 ---
+import { isValidLocale, type Locale, t } from "~/i18n/utils";
+
 interface Props {
 	createOption?: boolean;
 }
 
 const { createOption = false } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const langMatch = pathname.match(/^\/([a-z]{2})\//);
+const lang: Locale = langMatch && isValidLocale(langMatch[1]) ? (langMatch[1] as Locale) : "en";
 ---
 
 <div class="my-6">
 	<h2 class="text-2xl font-semibold tracking-tight scroll-m-20">
-		Promote User to Admin
+		{t(lang, "docs.mdx.createAdmin.title")}
 	</h2>
 	<p class="mt-4 leading-7 text-muted-foreground">
-		Register via the web UI at your server URL, then promote the user to
-		admin:
+		{t(lang, "docs.mdx.createAdmin.registerViaWeb")}
 	</p>
 	{createOption ? (
 		<>
 			<p class="mt-4 leading-7 text-muted-foreground">
-				Alternatively, create a new admin user directly:
+				{t(lang, "docs.mdx.createAdmin.createDirectly")}
 			</p>
 			<pre class="my-6 overflow-x-auto rounded-md bg-muted p-4">
 				<code class="text-sm text-foreground dark:text-muted-foreground">

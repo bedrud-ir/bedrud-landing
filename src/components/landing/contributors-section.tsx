@@ -61,7 +61,7 @@ export default function ContributorsSection({
           {error && (
             <div className="rounded-lg border bg-destructive/10 p-6 text-center">
               <p className="text-sm text-destructive">
-                Failed to load contributors.
+                {t(lang, "contributorsPage.error")}
               </p>
             </div>
           )}

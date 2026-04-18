@@ -1,6 +1,14 @@
 ---
 import { Icon } from "astro-icon/components";
 import { cn } from "~/lib/utils";
+import { isValidLocale, type Locale, t } from "../../i18n/utils";
+
+interface Props {
+  lang?: string;
+}
+
+const rawLang: string = Astro.props.lang ?? "";
+const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
 
 interface Participant {
   name: string;
@@ -95,7 +103,7 @@ const reactions = [
         <div class="flex items-center gap-1">
           <Icon name="lucide:lock" class="size-2.5 text-emerald-400/70 sm:size-3" />
           <span class="text-[10px] font-medium text-white/40 sm:text-[11px]">
-            Team Standup
+            {t(lang, "mockups.preview.title")}
           </span>
         </div>
         <div class="hidden items-center gap-1.5 rounded-full bg-red-500/15 px-2 py-0.5 sm:flex">
@@ -166,7 +174,7 @@ const reactions = [
                 loading="lazy"
               />
               <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-1 pb-0.5 pt-3 sm:px-1.5 sm:pb-1">
-                <span class="text-[7px] font-medium text-white/80 sm:text-[8px]">You</span>
+                <span class="text-[7px] font-medium text-white/80 sm:text-[8px]">{t(lang, "mockups.preview.you")}</span>
               </div>
             </div>
           </div>
@@ -184,7 +192,7 @@ const reactions = [
 
       <div class="hidden w-44 flex-col border-s border-white/[0.05] bg-[#0d0d22] lg:flex xl:w-48">
         <div class="flex items-center justify-between border-b border-white/[0.04] px-3 py-2">
-          <span class="text-[10px] font-medium text-white/40">Chat</span>
+          <span class="text-[10px] font-medium text-white/40">{t(lang, "mockups.preview.chat")}</span>
           <Icon name="lucide:message-square" class="size-3 text-white/20" />
         </div>
         <div class="flex flex-1 flex-col justify-end gap-2.5 px-2.5 pb-2.5">
@@ -206,7 +214,7 @@ const reactions = [
             </div>
           ))}
           <div class="mt-0.5 flex items-center rounded-md bg-white/[0.04] px-2 py-1.5">
-            <span class="flex-1 text-[9px] text-white/20">Message...</span>
+            <span class="flex-1 text-[9px] text-white/20">{t(lang, "mockups.preview.messagePlaceholder")}</span>
             <Icon name="lucide:smile" class="size-3 text-white/15" />
           </div>
         </div>

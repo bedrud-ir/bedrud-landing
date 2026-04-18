@@ -79,6 +79,26 @@ export default {
         "5 Nutzer oder 5.000. Der Preis bleibt gleich: null. Keine Lizenzschlüssel, keine Nutzerzähler, keine 'Vertrieb kontaktieren'-Buttons.",
     },
   },
+  problem: {
+    title: "Ihre Meetings sollten nicht so viel kosten",
+    subtitle:
+      "Enterprise-Videoplattformen überziehen Teams seit Jahren. Das ist falsch – und warum Entwickler wechseln.",
+    perSeatPricing: {
+      title: "Preise pro Sitzplatz sind eine Falle",
+      description:
+        "Zoom, Teams, Meet – alle berechnen pro Nutzer. Von 10 auf 100 Personen wachsen und Ihre Kosten verzehnfachen sich. Multipliziert über Abteilungen, Freelancer und Gäste zahlen Sie ein Vermögen für ein Tool, das nur 30 Minuten am Tag genutzt wird.",
+    },
+    vendorLockIn: {
+      title: "Vendor-Lock-In zerstört Ihre Verhandlungsposition",
+      description:
+        "Ihre Meeting-Aufzeichnungen, Transkripte, Teilnehmerdaten – alles auf Servern gespeichert, die Sie nicht kontrollieren. Wenn ein Anbieter Preise ändert, Funktionen streicht oder gehackt wird, haben Sie keine Exit-Strategie.",
+    },
+    selfHostedNightmare: {
+      title: "Selbstgehostete Alternativen sind ein Albtraum",
+      description:
+        "Jitsi benötigt 8+ Docker-Container. BigBlueButton verlangt 8 GB RAM. Keiner installiert sich in unter einer Stunde, keiner skaliert einfach, und das Debuggen eines von beiden am Freitagnachmittag ist nicht, wie Sie Ihre Woche verbringen möchten.",
+    },
+  },
   comparison: {
     title: "So schneidet Bedrud im Vergleich ab",
     subtitle: "Selbstgehostete Videokonferenzen ohne Komplexität.",
@@ -88,6 +108,7 @@ export default {
     bbb: "BigBlueButton",
     sections: {
       deployment: "Bereitstellung",
+      install: "Installieren",
       features: "Funktionen",
       integrations: "Integrationen & Skalierung",
       licensing: "Lizenzierung & Community",
@@ -151,35 +172,25 @@ export default {
     title: "Alles ist dabei",
     subtitle:
       "Video, Audio, Auth, Bots - alles enthalten. Keine Microservices-Architektur nötig.",
-    e2eEncryption: {
-      title: "Standardmäßig verschlüsselt",
+    oneCommandDeploy: {
+      title: "Deployment mit einem Befehl",
       description:
-        "Alle Medien werden über DTLS und SRTP verschlüsselt übertragen. Ihre Daten bleiben im Self-Hosted-Modus auf Ihren Servern. Keine Drittanbieter-Telemetrie, keine Datenerhebung.",
+        "Eine einzelne Binärdatei, null Abhängigkeiten. Eine Zeile im Terminal einfügen und Bedrud läuft in 60 Sekunden. Kein Docker, kein Kubernetes, kein Ops-Team erforderlich.",
     },
-    webrtcVideo: {
-      title: "WebRTC-Video",
+    fiveDollarVps: {
+      title: "Läuft auf einem 5€-VPS",
       description:
-        "Videoanrufe mit unter einer Sekunde Latenz durch einen integrierten WebRTC-Mediaserver. Adaptive Bitrate für instabile Verbindungen.",
+        "~200 MB RAM im Leerlauf (512 MB Minimum). Bereitstellen auf jedem günstigen VPS – Hetzner, DigitalOcean, AWS Lightsail, Ihrer eigenen Hardware. Gleiche Funktionen, ein Bruchteil der Kosten.",
     },
-    multiPlatform: {
-      title: "Multiplattform",
+    webrtcLatency: {
+      title: "WebRTC-Subsekundenlatenz",
       description:
-        "Native Apps für Web, Android und iOS. Keine Hüllen - echte native Apps. Plus ein serverseitiges SDK für Automatisierung.",
+        "Integrierter WebRTC-Mediaserver mit adaptiver Bitrate. Kristallklares Video und Audio sogar bei schlechten Verbindungen. Kein Umleiten über Drittanbieter-Server.",
     },
-    flexibleAuth: {
-      title: "Flexible Authentifizierung",
+    enterpriseSso: {
+      title: "Enterprise-SSO & OIDC",
       description:
-        "Integrierte Authentifizierung, die sofort funktioniert, plus SSO- und OAuth-Integration. Verbinden Sie sich in Minuten mit Ihrem Identitätsanbieter.",
-    },
-    botAgents: {
-      title: "Bot-Agenten",
-      description:
-        "Bots treten als Teilnehmer an Meetings bei. Transkribieren, übersetzen in Echtzeit, ins CRM übertragen oder eigene Workflows mit dem Go-SDK erstellen.",
-    },
-    selfHosted: {
-      title: "Ihre Infrastruktur oder unsere",
-      description:
-        "Auf eigenen Servern mit voller Kontrolle betreiben. Oder Bedrud Cloud nutzen und sich nicht um Ops kümmern. Gleiches Produkt, gleiche Funktionen.",
+        "In Minuten mit Ihrem Identitätsanbieter verbinden. Passkeys, OAuth 2.0, OIDC – alles ab Werk unterstützt. Keine Passwortdatenbanken zum Knacken.",
     },
   },
   install: {
@@ -237,60 +248,25 @@ export default {
     getStarted: "Quickstart lesen",
     readDocs: "Quickstart ansehen",
     starGithub: "Stern auf GitHub",
+    copied: "Kopiert!",
   },
   faq: {
     title: "Häufig gestellte Fragen",
     subtitle: "Technische Fragen, direkt beantwortet.",
-    updates: {
-      question: "Wie funktionieren Updates?",
+    serverPower: {
+      question: "Wie leistungsfähig muss mein Server sein?",
       answer:
-        "Führen Sie den Installationsbefehl erneut aus. Bedrud ersetzt die Binärdatei direkt - keine Paketmanager, keine Abhängigkeitsketten. Sie können auch automatische Updates über ein einzelnes Konfigurations-Flag aktivieren.",
+        "Ein 5€/Monat VPS mit 1 GB RAM reicht für den Start. Bedrud nutzt 512 MB RAM und skaliert mit Ihrer Hardware. Für 50+ gleichzeitige Nutzer auf 2 GB aufrüsten. Keine GPU erforderlich.",
     },
-    encryption: {
-      question: "Ist es Ende-zu-Ende verschlüsselt?",
+    installCommand: {
+      question: "Was macht der Installationsbefehl eigentlich?",
       answer:
-        "Alle Medien werden über DTLS und SRTP (den WebRTC-Standard) verschlüsselt übertragen. Bei Self-Hosted-Bereitstellungen kontrollieren Sie den Server und alle Daten. Ende-zu-Ende-Verschlüsselung für Peer-to-Peer-Anrufe ist in Planung.",
+        "Er lädt die Bedrud-Binärdatei für Ihre Plattform herunter und platziert sie in /usr/local/bin. Kein Docker, keine Paketmanager, keine versteckten Abhängigkeiten. Sie können das Skript vor der Ausführung inspizieren.",
     },
-    network: {
-      question: "Welche Netzwerk- und Portanforderungen gibt es?",
+    recordingScreenSharing: {
+      question: "Werden Aufzeichnung und Bildschirmfreigabe unterstützt?",
       answer:
-        "Port 80/443 für HTTP/WebSocket und ein konfigurierbarer UDP-Bereich (Standard 50000–60000) für WebRTC-Medien. Hinter NAT richten Sie einen STUN/TURN-Server ein - Bedrud enthält Dokumentation für coturn.",
-    },
-    proxy: {
-      question: "Kann ich es hinter einem Reverse-Proxy betreiben?",
-      answer:
-        "Ja. Nginx, Caddy, Traefik - alle funktionieren. Die Dokumentation enthält Copy-Paste-Konfigurationen für jedes. Leiten Sie einfach WebSocket-Verbindungen weiter und setzen Sie die entsprechenden Header.",
-    },
-    cloudVsSelfHosted: {
-      question:
-        "Was ist der Unterschied zwischen Self-Hosted und Bedrud Cloud?",
-      answer:
-        "Gleiches Produkt, gleiche Funktionen. Self-Hosted läuft auf Ihrer Infrastruktur mit voller Datenkontrolle. Bedrud Cloud übernimmt Betrieb, Updates und Skalierung für Sie. Kein Vendor-Lock-In - jederzeit migrierbar.",
-    },
-  },
-  testimonials: {
-    title: "Entwicklern vertraut",
-    subtitle: "Was Leute über Bedrud sagen.",
-    one: {
-      quote:
-        "Wir haben unser Jitsi-Setup an einem Nachmittag durch Bedrud ersetzt. Eine Binärdatei, 512MB RAM, und unsere Meetings klingen jetzt sogar besser.",
-      name: "Lena K.",
-      role: "DevOps-Lead bei einem europäischen SaaS-Unternehmen",
-      initials: "LK",
-    },
-    two: {
-      quote:
-        "Keine Preiserhöhung pro Nutzer war für uns der Ausschlag. Wir sind von 20 auf 200 Nutzer gewachsen ohne eine einzige Lizenz-E-Mail.",
-      name: "Marcus T.",
-      role: "CTO bei einem Remote-Startup",
-      initials: "MT",
-    },
-    three: {
-      quote:
-        "Bedrud auf einem $5 VPS deployed - es hat einfach funktioniert. Mit dem Bot-SDK hatten wir Meeting-Transkripte in unserem CRM innerhalb eines Tages.",
-      name: "Priya S.",
-      role: "Senior Engineer bei einem Fintech-Unternehmen",
-      initials: "PS",
+        "Ja. Integrierte Bildschirmfreigabe und Meeting-Aufzeichnung sind enthalten. Aufzeichnungen werden auf Ihrem Server gespeichert – nicht in der Cloud eines Dritten. Bot-Agenten können Meetings außerdem in Echtzeit transkribieren.",
     },
   },
   footer: {
@@ -313,6 +289,10 @@ export default {
     contact: "Kontakt",
     privacy: "Datenschutzrichtlinie",
     terms: "Nutzungsbedingungen",
+    social: {
+      github: "GitHub",
+      twitter: "X (Twitter)",
+    },
   },
   privacy: {
     meta: {
@@ -440,12 +420,83 @@ export default {
     clearSearch: "Suche löschen",
     searchDocs: "Dokumentation durchsuchen",
     notFound: "Dokument nicht gefunden",
+    searchError: "Suche fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    titleSuffix: " - Bedrud",
+    diagramError: "Diagramm-Darstellung fehlgeschlagen",
+    toggleMenu: "Menü umschalten",
+    mdx: {
+      systemdServices: {
+        title: "Systemd-Dienste",
+        description: "Das Installationsprogramm erstellt zwei systemd-Dienste:",
+        headerService: "Dienst",
+        headerCommand: "Befehl",
+        headerPurpose: "Zweck",
+        purposeApi: "API + Web",
+        purposeMedia: "Mediaserver",
+      },
+      createAdmin: {
+        title: "Benutzer zum Admin befördern",
+        registerViaWeb:
+          "Registrieren Sie sich über die Web-UI unter Ihrer Server-URL und befördern Sie den Benutzer anschließend zum Admin:",
+        createDirectly:
+          "Alternativ können Sie direkt einen neuen Admin-Benutzer erstellen:",
+      },
+      installerSteps: {
+        title: "Was das Installationsprogramm tut",
+        description: "Wenn Sie bedrud install ausführen, passiert Folgendes:",
+        headerStep: "Schritt",
+        headerAction: "Aktion",
+        step1Action: "Erstellt Verzeichnisse:",
+        step2Action: "Kopiert Binärdatei nach",
+        step3Action: "Generiert config.yaml mit Ihren Einstellungen",
+        step4Action: "Generiert livekit.yaml für den Mediaserver",
+        step5Action: "Erstellt zwei systemd-Dienste:",
+        step6Action: "Aktiviert und startet beide Dienste",
+        step7Action: "Initialisiert SQLite-Datenbank und Zertifikatscache",
+      },
+    },
     sections: {
       gettingStarted: "Erste Schritte",
       architecture: "Architektur",
       backend: "Backend",
       api: "API",
       guides: "Anleitungen",
+      contributing: "Mitwirken",
+    },
+    sidebarItems: {
+      "getting-started/quickstart": "Schnellstart",
+      "getting-started/installation": "Server-Installation",
+      "getting-started/clients": "Client-Installation",
+      "getting-started/configuration": "Konfiguration",
+      "getting-started/cli-reference": "CLI-Referenz",
+      "architecture/overview": "Architekturübersicht",
+      "architecture/server": "Server-Architektur",
+      "architecture/web": "Web-Frontend",
+      "architecture/android": "Android-App",
+      "architecture/ios": "iOS-App",
+      "architecture/desktop": "Desktop-App",
+      "architecture/agents": "Bot-Agenten",
+      "architecture/webrtc-connectivity": "WebRTC-Konnektivität",
+      "architecture/turn-server": "TURN-Server",
+      "backend/index": "Backend-Dokumentation",
+      "backend/structure": "Code-Struktur",
+      "backend/database": "Datenbank & Modelle",
+      "backend/authentication": "Authentifizierung",
+      "backend/api-handlers": "API-Handler",
+      "backend/livekit": "LiveKit-Integration",
+      "backend/deployment": "Deployment",
+      "backend/advanced": "Erweiterte Themen",
+      "api/authentication": "Authentifizierungs-API",
+      "api/rooms": "Räume-API",
+      "api/admin": "Admin-API",
+      "api/passkeys": "Passkeys-API",
+      "guides/development": "Entwicklungs-Workflow",
+      "guides/deployment": "Deployment-Leitfaden",
+      "guides/docker": "Docker-Leitfaden",
+      "guides/internal-tls": "Internes TLS",
+      "guides/makefile": "Makefile-Referenz",
+      "guides/packages": "Paket-Installation",
+      "guides/appliance": "Appliance-Modus",
       contributing: "Mitwirken",
     },
   },
@@ -486,6 +537,32 @@ export default {
     server: "Server-Installation",
     serverDesc: "Bedrud-Server auf eigener Hardware bereitstellen.",
     serverGuide: "Server-Installationsanleitung",
+    heroClientTitle: "Client Version",
+    heroClientDesc: "Native Desktop- und Mobile-Apps für jede Plattform.",
+    heroServerTitle: "Server-Version",
+    heroServerDesc: "Bedrud-Server auf Ihrer eigenen Hardware bereitstellen.",
+    heroAllPlatforms: "Alle Plattformen anzeigen",
+    dmgAppleSilicon: "Apple Silicon (.dmg)",
+    dmgIntel: "Intel (.dmg)",
+    serverDocker: "Docker",
+    serverDockerDesc: "In einem Container mit Docker ausführen.",
+    serverBinary: "Linux-Binärdatei",
+    serverBinaryDesc: "Vorkompilierte Binärdateien für Linux herunterladen.",
+    serverQuickInstall: "Schnellinstallation",
+    serverQuickInstallDesc: "Ein Befehl. Unter einer Minute.",
+    serverHelm: "Kubernetes (Helm)",
+    serverHelmDesc: "Mit Helm auf Kubernetes bereitstellen.",
+    resourcesTitle: "Ressourcen",
+    resourcesDocs: "Dokumentation",
+    resourcesDocsDesc: "Einrichtungsanleitungen, API-Referenz und How-tos.",
+    resourcesCommunity: "Community",
+    resourcesCommunityDesc: "Hilfe erhalten und Feedback teilen.",
+    resourcesChangelog: "Änderungsprotokoll",
+    resourcesChangelogDesc: "Neueste Releases und Änderungen.",
+    repoSetup: "Repo-Einrichtung erforderlich",
+    appleSilicon: "Apple Silicon",
+    intel: "Intel",
+    githubReleases: "GitHub Releases",
     platform: {
       linux: "Linux",
       mac: "macOS",
@@ -512,6 +589,7 @@ export default {
       title: "Kernteam",
       subtitle: "Die Menschen hinter Bedrud.",
     },
+    error: "Teammitglieder konnten nicht geladen werden.",
   },
   blog: {
     meta: {
@@ -523,12 +601,15 @@ export default {
     subtitle: "Updates, technische Analysen und Anleitungen vom Bedrud-Team.",
     noPosts: "Noch keine Beiträge. Schauen Sie bald wieder vorbei!",
     backToBlog: "Zurück zum Blog",
+    titleSuffix: " - Bedrud Blog",
+    defaultAuthor: "Bedrud Team",
   },
   skipToContent: "Zum Inhalt springen",
   mobileNav: {
     navigation: "Navigation",
-    language: "Language",
+    language: "Sprache",
     getStarted: "Loslegen",
+    github: "GitHub",
   },
   featuresPage: {
     meta: {
@@ -699,6 +780,8 @@ export default {
     subtitle: "Was gibt es Neues bei Bedrud. Aktivität = Vertrauen.",
     viewOnGithub: "Auf GitHub ansehen",
     noReleases: "Noch keine Releases. Schauen Sie bald wieder vorbei!",
+    error: "Releases konnten nicht geladen werden.",
+    viewRelease: "Auf GitHub ansehen →",
   },
   contributorsPage: {
     meta: {
@@ -710,6 +793,7 @@ export default {
     joinThem: "Machen Sie mit",
     joinCta: "Auf GitHub beitragen",
     contributions: "Beiträge",
+    error: "Mitwirkende konnten nicht geladen werden.",
   },
   contactPage: {
     meta: {
@@ -741,5 +825,62 @@ export default {
     description:
       "Die Seite, die Sie suchen, existiert nicht oder wurde verschoben.",
     backToHome: "Zurück zur Startseite",
+  },
+  a11y: {
+    toggleTheme: "Theme umschalten",
+    breadcrumb: "Breadcrumb",
+    articleNav: "Artikelnavigation",
+    openMenu: "Menü öffnen",
+    closeMenu: "Menü schließen",
+    navigationMenu: "Navigationsmenü",
+    changeLanguage: "Sprache ändern",
+    discordCommunity: "Discord-Community",
+  },
+  mockups: {
+    terminal: {
+      title: "Terminal",
+      downloading: "✓ Bedrud v0.12.3 wird heruntergeladen...",
+      installing: "✓ Wird in /usr/local/bin installiert...",
+      ready: "✓ Bedrud bereit! (512 MB RAM)",
+    },
+    invite: {
+      shareLink: "Meeting-Link teilen",
+      sendEmail: "Per E-Mail senden",
+      copyLink: "Link kopieren",
+      or: "ODER",
+      meetingTitle: "Team Standup",
+      today: "Heute, 14:00 Uhr",
+      duration: "30 Min.",
+      participants: "5 Teilnehmer",
+      noAccount: "Kein Account erforderlich",
+      anyBrowser: "Funktioniert in jedem Browser",
+    },
+    meeting: {
+      title: "Team Standup",
+      micOn: "Mikrofon an",
+      cameraOn: "Kamera an",
+      shareScreen: "Bildschirm teilen",
+      raiseHand: "Hand heben",
+      chat: "Chat",
+      leaveCall: "Anruf verlassen",
+    },
+    preview: {
+      title: "Team Standup",
+      you: "Sie",
+      chat: "Chat",
+      messagePlaceholder: "Nachricht...",
+    },
+    scale: {
+      overview: "Übersicht",
+      last30Days: "Letzte 30 Tage",
+      meetings: "Meetings",
+      uptime: "Verfügbarkeit",
+      availability: "Verfügbarkeit",
+      activeUsers: "Aktive Nutzer",
+      unlimitedUsers: "Unbegrenzte Nutzer",
+      noPerSeat: "Keine Preise pro Sitzplatz",
+      costPerSeat: "Kosten pro Sitzplatz:",
+      costFree: "0,00 €",
+    },
   },
 };

@@ -62,7 +62,7 @@ function Sidebar({ lang, currentSlug = "" }: SidebarProps) {
                               : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground",
                           )}
                         >
-                          {item.title}
+                          {t(lang, `docs.sidebarItems.${item.slug}`)}
                         </a>
                       );
                     })}

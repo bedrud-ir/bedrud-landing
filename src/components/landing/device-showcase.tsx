@@ -1,13 +1,14 @@
 import { MacbookScroll } from "~/components/ui/macbook-scroll";
 import { MobilePhoneScroll } from "~/components/ui/mobile-phone-scroll";
 import { AndroidMockup, IPhoneMockup } from "~/components/ui/phone-mockup";
+import type { Locale } from "../../i18n/utils";
 import { MeetingPreview } from "./meeting-preview";
 import {
   AndroidMeetingPreview,
   IPhoneMeetingPreview,
 } from "./phone-meeting-preview";
 
-export function DeviceShowcase() {
+export function DeviceShowcase({ lang }: { lang: Locale }) {
   return (
     <div className="relative pb-[6rem] md:pb-[32rem]">
       {/* Desktop: MacBook + flanking phones (md+) */}
@@ -15,7 +16,7 @@ export function DeviceShowcase() {
         <div className="pointer-events-none absolute inset-0 z-10 hidden items-end justify-center gap-0 lg:flex">
           <div className="w-32 shrink-0 xl:w-40">
             <IPhoneMockup>
-              <IPhoneMeetingPreview />
+              <IPhoneMeetingPreview lang={lang} />
             </IPhoneMockup>
           </div>
 
@@ -23,21 +24,21 @@ export function DeviceShowcase() {
 
           <div className="w-32 shrink-0 xl:w-40">
             <AndroidMockup>
-              <AndroidMeetingPreview />
+              <AndroidMeetingPreview lang={lang} />
             </AndroidMockup>
           </div>
         </div>
 
         <MacbookScroll showGradient={false}>
           <div className="size-full overflow-hidden">
-            <MeetingPreview />
+            <MeetingPreview lang={lang} />
           </div>
         </MacbookScroll>
       </div>
 
       {/* Mobile: Phone with scroll animation (<md) */}
       <MobilePhoneScroll>
-        <IPhoneMeetingPreview />
+        <IPhoneMeetingPreview lang={lang} />
       </MobilePhoneScroll>
     </div>
   );

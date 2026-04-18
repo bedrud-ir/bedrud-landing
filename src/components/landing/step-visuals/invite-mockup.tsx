@@ -1,7 +1,8 @@
 import { Copy, Link, Send } from "lucide-react";
 import { Button } from "~/components/ui/button";
+import { type Locale, t } from "../../../i18n/utils";
 
-export function InviteMockup() {
+export function InviteMockup({ lang }: { lang: Locale }) {
   return (
     <div
       aria-hidden="true"
@@ -15,7 +16,7 @@ export function InviteMockup() {
           />
         </div>
         <span className="text-[15px] font-semibold tracking-tight">
-          Share Meeting Link
+          {t(lang, "mockups.invite.shareLink")}
         </span>
       </div>
 
@@ -34,37 +35,41 @@ export function InviteMockup() {
       <div className="mt-3 flex gap-2">
         <Button variant="default" size="sm" className="gap-1.5">
           <Send className="size-3.5" />
-          Send via Email
+          {t(lang, "mockups.invite.sendEmail")}
         </Button>
         <Button variant="outline" size="sm" className="gap-1.5">
           <Copy className="size-3.5 text-muted-foreground" />
-          Copy Link
+          {t(lang, "mockups.invite.copyLink")}
         </Button>
       </div>
 
       <div className="my-4 flex items-center gap-3">
         <div className="h-px flex-1 bg-border" />
-        <span className="text-xs text-muted-foreground">OR</span>
+        <span className="text-xs text-muted-foreground">
+          {t(lang, "mockups.invite.or")}
+        </span>
         <div className="h-px flex-1 bg-border" />
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="text-[15px] font-medium">Team Standup</span>
+        <span className="text-[15px] font-medium">
+          {t(lang, "mockups.invite.meetingTitle")}
+        </span>
         <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
-          <span>Today, 2:00 PM</span>
-          <span>30 min</span>
-          <span>5 participants</span>
+          <span>{t(lang, "mockups.invite.today")}</span>
+          <span>{t(lang, "mockups.invite.duration")}</span>
+          <span>{t(lang, "mockups.invite.participants")}</span>
         </div>
       </div>
 
       <div className="mt-4 flex flex-col gap-1.5">
         <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          No account required
+          {t(lang, "mockups.invite.noAccount")}
         </div>
         <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
           <span className="size-1.5 rounded-full bg-emerald-500" />
-          Works in any browser
+          {t(lang, "mockups.invite.anyBrowser")}
         </div>
       </div>
     </div>
