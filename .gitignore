@@ -11,3 +11,8 @@ build/
 *.swp
 *.swo
 .idea/
+dist/
+
+# Generated
+.astro/
+public/search-index-*.json

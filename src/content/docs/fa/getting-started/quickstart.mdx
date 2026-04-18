@@ -1,0 +1,195 @@
+---
+title: شروع سریع
+description: راه‌اندازی بدرود و پیوستن به جلسه ویدیویی در کمتر از ۵ دقیقه
+order: 1
+---
+
+راه‌اندازی بدرود و پیوستن به جلسه ویدیویی در کمتر از ۵ دقیقه.
+
+**این راهنما:** دانلود ← نصب ← تأیید ← پیوستن. برای گزینه‌های دیگر به [راهنمای نصب](/docs/getting-started/installation) مراجعه کنید. برای تنظیمات به [پیکربندی](/docs/getting-started/configuration) مراجعه کنید.
+
+> **یک فایل باینری، بدون نیاز به اینترنت پس از دانلود.** شامل سرور مدیا جاسازی‌شده و SQLite است - در شبکه‌های ایزوله کار می‌کند. فایل را منتقل کنید، یک دستور اجرا کنید، تمام شد.
+
+---
+
+## آنچه نیاز دارید
+
+| نیاز | جزئیات |
+|------|--------|
+| یک سرور لینوکسی | amd64، با دسترسی `sudo` و `systemd`. ویندوز: Docker یا WSL2. macOS: ساخت از منبع |
+| پورت‌های باز | `8090`، `7880`، `50000–60000/udp`. برای TLS خودکار: همچنین `80` و `443` |
+| ابزارها | `curl`، `tar` |
+| یک دامنه (اختیاری) | با رکورد DNS A که به سرور شما اشاره می‌کند. دامنه ندارید؟ با IP کار می‌کند - گزینه‌های جایگزین را ببینید |
+
+> **نحوه کارکرد:** شما یک سرور **بدرود** اجرا می‌کنید. افراد در **مرورگر** خود به جلسات می‌پیوندند (بدون نصب) یا از طریق **اپلیکیشن‌های بومی** (Android، Windows، macOS، Linux).
+
+---
+
+## ۱. دانلود
+
+```bash
+curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
+tar -xJf bedrud.tar.xz
+chmod +x bedrud
+```
+
+> **اینترنت در سرور ندارید؟** در هر ماشینی دانلود کنید، از طریق USB یا `scp bedrud.tar.xz user@server:/tmp/` منتقل کنید، سپس آنجا از حالت فشرده خارج کنید. فایل باینری کاملاً خودکفاست - پس از انتقال هیچ درخواست خروجی وجود ندارد.
+
+> **دانلود شکست خورد؟** دسترسی به اینترنت را بررسی کنید، یا URL را در [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) تأیید کنید.
+
+---
+
+## ۲. نصب
+
+`meet.example.com` و `admin@example.com` را با مقادیر خود جایگزین کنید:
+
+```bash
+sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
+```
+
+فایل باینری را نصب می‌کند، تنظیمات را تولید می‌کند، سرویس‌های systemd را ایجاد می‌کند، TLS را تأمین می‌کند، همه چیز را شروع می‌کند.
+
+> **پورت ۸۰ یا ۴۴۳ اشغال شده؟** سرویس‌های متضاد را متوقف کنید: `sudo systemctl stop nginx apache2 caddy`، سپس دوباره اجرا کنید.
+
+> **دامنه ندارید؟** به جای آن از IP سرور خود استفاده کنید:
+> ```bash
+> sudo ./bedrud install --tls --ip 1.2.3.4
+> ```
+> این از گواهی خودامضا استفاده می‌کند. مرورگرها هشدار می‌دهند اما ویدیو کار می‌کند. برای گواهی‌های قابل اعتماد در شبکه‌های داخلی، به [راهنمای TLS داخلی](/docs/guides/internal-tls) مراجعه کنید.
+
+---
+
+## ۳. تأیید
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
+```
+
+انتظار: `200`
+
+> **۲۰۰ نیست؟** وضعیت سرویس را بررسی کنید: `sudo systemctl status bedrud livekit`. لاگ‌ها را بررسی کنید: `journalctl -u bedrud -u livekit --no-pager -n 50`.
+
+---
+
+## ۴. ثبت‌نام و ایجاد ادمین
+
+`https://meet.example.com` (یا `https://<your-ip>:8090`) را در مرورگر خود باز کنید:
+
+<CreateAdmin createOption />
+
+۳. وارد شوید (یا رفرش کنید) - بخش **Admin** در نوار کناری ظاهر می‌شود (نمای کلی، کاربران، اتاق‌ها، تنظیمات). موفقیت: شما ادمین هستید.
+۴. **ایجاد اتاق** ← **پیوستن** ← **اشتراک‌گذاری ویدیو/صدا** - هنگام درخواست، اجازه دوربین/میکروفون را بدهید
+
+> **داشبورد ادمین** - پس از ارتقاء، برای دسترسی به پنل ادمین وارد شوید در `/dashboard/admin`. مدیریت کاربران، اتاق‌ها، تنظیمات سیستم، و توکن‌های دعوت.
+
+> **مرجع CLI** - مدیریت کامل کاربران: `bedrud user promote`، `demote`، `create`، `delete`.
+
+**کلاینت‌های بومی** برای Android، Windows، macOS، و Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). یا لینک جلسه را به اشتراک بگذارید - شرکت‌کنندگان در هر مرورگری می‌پیوندند.
+
+---
+
+## مسیرهای نصب جایگزین
+
+### Docker
+
+```bash
+docker run -d --name bedrud \
+  -p 8090:8090 \
+  -p 7880:7880 \
+  -p 50000-60000:50000-60000/udp \
+  -v bedrud-data:/var/lib/bedrud \
+  ghcr.io/bedrud-ir/bedrud:latest
+```
+
+تنظیمات سفارشی، Docker Compose، و متغیرهای محیطی: به [راهنمای Docker](/docs/guides/docker) مراجعه کنید.
+
+### ساخت از منبع
+
+نیاز به [Go 1.24+](https://go.dev/dl/) و [Bun](https://bun.sh/) دارد:
+
+```bash
+git clone https://github.com/bedrud-ir/bedrud.git
+cd bedrud
+make init
+make local-run
+```
+
+`make init` LiveKit را نصب می‌کند، تنظیمات را ایجاد می‌کند، وابستگی‌ها را دریافت می‌کند. `make local-run` می‌سازد و روی `http://localhost:8090` شروع می‌کند.
+
+### HTTP ساده (فقط توسعه / localhost)
+
+```bash
+sudo ./bedrud install --ip 127.0.0.1
+```
+
+> **هشدار:** مرورگرها دوربین/میکروفون را روی غیر HTTPS بجز `localhost` مسدود می‌کنند. HTTP فقط برای توسعه است.
+
+### سیستم‌های غیر لینوکسی
+
+دستور `install` فقط برای لینوکس است. فایل باینری را به صورت دستی در PATH قرار دهید:
+
+| سیستم‌عامل | نحوه انجام |
+|-------------|-------------|
+| macOS   | `sudo cp bedrud /usr/local/bin/`          |
+| Windows | `bedrud.exe` را به پوشه‌ای در `%PATH%` منتقل کنید |
+
+---
+
+## شبکه‌های داخلی
+
+بدون دامنه عمومی یا اینترنت خروجی؟ به [راهنمای TLS داخلی](/docs/guides/internal-tls) برای تنظیم CA خصوصی و پیکربندی ذخیره‌سازی اعتماد کلاینت مراجعه کنید.
+
+---
+
+## پیکربندی
+
+نصب‌کننده `/etc/bedrud/config.yaml` را تولید می‌کند. پیش‌فرض‌ها برای اکثر تنظیمات کار می‌کنند.
+`jwtSecret` و `sessionSecret` را برای تولید تغییر دهید، سپس راه‌اندازی مجدد کنید:
+
+```bash
+sudo systemctl restart bedrud livekit
+```
+
+برای تنظیم ظرفیت اتاق، زمان‌های انقضا، یا پورت‌های مدیا، به [بخش LiveKit در پیکربندی](/docs/getting-started/configuration#livekit-configuration) مراجعه کنید.
+
+مرجع کامل: [پیکربندی](/docs/getting-started/configuration)
+
+---
+
+## عیب‌یابی
+
+| مشکل | رفع |
+|------|-----|
+| پورت ۸۰/۴۴۳ در استفاده است | `sudo systemctl stop nginx apache2 caddy` |
+| سرویس‌ها شروع نمی‌شوند | `journalctl -u bedrud -u livekit --no-pager -n 50` |
+| خطاهای گواهی TLS | DNS را تأیید کنید: `dig meet.example.com`. باید به IP سرور اشاره کند |
+| بدون ویدیو / WebRTC شکست خورد | برای دوربین HTTPS لازم است. از `--tls` استفاده کنید. UDP ۵۰۰۰۰–۶۰۰۰۰ را روی فایروال باز کنید |
+| تضاد پورت LiveKit | از پرچم‌های `--lk-port`، `--lk-tcp-port`، `--lk-udp-port` استفاده کنید |
+| فایروال مدیا را مسدود می‌کند | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| هشدارهای گواهی خودامضا | به [راهنمای TLS داخلی](/docs/guides/internal-tls) برای تنظیم CA خصوصی مراجعه کنید |
+
+---
+
+## حذف
+
+```bash
+# نصب باینری
+sudo ./bedrud uninstall
+
+# Docker
+docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
+
+# ساخت از منبع
+# برای توقف Ctrl+C، سپس: make clean
+```
+
+---
+
+## مراحل بعدی
+
+- [مرجع پیکربندی](/docs/getting-started/configuration) - پورت‌ها، پایگاه داده، فراهم‌کنندگان احراز هویت، TURN
+- [راهنمای نصب](/docs/getting-started/installation) - مدیران بسته، پرچم‌های پیشرفته، تمام روش‌ها
+- [راهنمای TLS داخلی](/docs/guides/internal-tls) - استقرار بدون اتصال به اینترنت، CA خصوصی
+- [راهنمای استقرار](/docs/guides/deployment) - تنظیمات تولید، پروکسی معکوس، مقیاس‌پذیری
+- [نمای کلی معماری](/docs/architecture/overview) - نحوه اتصال اجزا به هم
+- [اسناد API](http://localhost:8090/api/swagger) - Swagger UI (نمونه در حال اجرا)

@@ -1,0 +1,186 @@
+---
+title: Agentes de Bot
+description: Bots de Python para transmitir contenido
+order: 12
+---
+
+Bedrud incluye agentes de bot basados en Python que pueden unirse a salas de reunión y transmitir contenido multimedia. Son útiles para música de fondo, transmisiones de radio o compartir contenido de video.
+
+## Agentes Disponibles
+
+| Agente | Descripción | Tipo de Medio |
+|-------|-------------|-----------|
+| `music_agent` | Reproduce archivos de audio en una sala | Audio (PCM) |
+| `radio_agent` | Transmite estaciones de radio de internet | Audio (PCM vía FFmpeg) |
+| `video_stream_agent` | Comparte contenido de video (HLS, MP4) | Video + Audio |
+
+## Cómo Funcionan los Agentes
+
+Todos los agentes siguen el mismo patrón de conexión:
+
+```
+1. Analizar URL de reunión ──► Extraer nombre de sala
+2. Inicio de sesión de invitado ──► POST /api/auth/guest-login
+3. Unirse a sala ──► POST /api/room/join (obtener token de LiveKit)
+4. Conectar a LiveKit ──► Conexión WebSocket
+5. Publicar tracks ──► Transmitir cuadros de audio/video
+```
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│  Media Source │────►│  Python Agent│────►│   LiveKit     │
+│  (file/URL)  │     │  (FFmpeg)    │     │   (WebRTC)    │
+└──────────────┘     └──────────────┘     └──────────────┘
+                            │
+                     Guest login + join
+                            │
+                     ┌──────────────┐
+                     │ Bedrud Server│
+                     └──────────────┘
+```
+
+## Agente de Música
+
+Reproduce archivos de audio (MP3, WAV, etc.) en una sala de reunión.
+
+### Configuración
+
+```bash
+cd agents/music_agent
+pip install -r requirements.txt
+```
+
+**Dependencias:** `httpx`, `livekit`, `pydub`
+
+### Uso
+
+```bash
+python agent.py "https://meet.example.com/m/room-name"
+```
+
+### Cómo Funciona
+
+1. Decodifica archivos de audio usando `pydub`
+2. Convierte a cuadros PCM
+3. Publica cuadros de audio en LiveKit como un track de micrófono
+
+> Consulte [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) para obtener instrucciones de configuración y uso.
+
+---
+
+## Agente de Radio
+
+Transmite estaciones de radio de internet en una sala de reunión usando FFmpeg para decodificación de audio.
+
+### Configuración
+
+```bash
+cd agents/radio_agent
+pip install -r requirements.txt
+```
+
+**Dependencias:** `httpx`, `livekit`
+
+**Requisito del sistema:** FFmpeg debe estar instalado (`brew install ffmpeg` o `apt install ffmpeg`)
+
+### Uso
+
+```bash
+python agent.py "https://meet.example.com/m/room-name"
+```
+
+### Cómo Funciona
+
+1. Se conecta a una URL de transmisión de radio
+2. Canaliza la transmisión a través de FFmpeg para decodificar a PCM crudo
+3. Publica cuadros de audio PCM en LiveKit
+
+> Consulte [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) para obtener instrucciones de configuración y uso.
+
+---
+
+## Agente de Transmisión de Video
+
+Comparte video y audio desde una URL (HLS/m3u8, MP4) en una sala de reunión.
+
+### Configuración
+
+```bash
+cd agents/video_stream_agent
+pip install -r requirements.txt
+```
+
+**Dependencias:** `httpx`, `livekit`
+
+**Requisito del sistema:** FFmpeg debe estar instalado
+
+### Uso
+
+```bash
+python agent.py "https://meet.example.com/m/room-name"
+```
+
+### Cómo Funciona
+
+1. Ejecuta dos procesos de FFmpeg en paralelo:
+    - **Video:** Decodifica a cuadros crudos YUV420p (1280x720 @ 30fps)
+    - **Audio:** Decodifica a muestras PCM
+2. Publica el video como un track de pantalla compartida
+3. Publica el audio como un track de micrófono
+
+> Consulte [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) para obtener instrucciones de configuración y uso.
+
+### Especificaciones de Video
+
+| Configuración | Valor |
+|---------|-------|
+| Ancho | 1280 |
+| Alto | 720 |
+| FPS | 30 |
+| Formato de Píxel | YUV420p |
+
+---
+
+## Escribir un Agente Personalizado
+
+Para crear un nuevo agente, siga este patrón:
+
+```python
+import httpx
+from livekit import rtc
+
+# 1. Analizar la URL de la reunión para extraer el nombre de la sala
+room_name = parse_url(meeting_url)
+
+# 2. Inicio de sesión de invitado
+client = httpx.Client(base_url=server_url)
+resp = client.post("/api/auth/guest-login", json={"name": "Bot Name"})
+token = resp.json()["token"]
+
+# 3. Unirse a la sala
+client.headers["Authorization"] = f"Bearer {token}"
+resp = client.post("/api/room/join", json={"roomName": room_name})
+lk_token = resp.json()["token"]
+
+# 4. Conectar a LiveKit
+room = rtc.Room()
+await room.connect(livekit_url, lk_token)
+
+# 5. Publicar tracks
+source = rtc.AudioSource(sample_rate=48000, num_channels=1)
+track = rtc.LocalAudioTrack.create_audio_track("audio", source)
+await room.local_participant.publish_track(track)
+
+# 6. Transmitir cuadros
+while has_data:
+    frame = get_next_frame()
+    await source.capture_frame(frame)
+```
+
+---
+
+## Véase también
+
+- [Music Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/music_agent) - configuración y uso
+- [Radio Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/radio_agent) - configuración y uso
+- [Video Stream Agent README](https://github.com/bedrud-ir/bedrud/tree/main/agents/video_stream_agent) - configuración y uso

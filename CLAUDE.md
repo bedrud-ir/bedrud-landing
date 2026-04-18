@@ -2,19 +2,19 @@
 
 ## Tech Stack
 
-- **Framework:** React Router 7 (SSR)
+- **Framework:** Astro (SSG, React islands)
 - **Language:** TypeScript (strict mode)
 - **Styling:** Tailwind CSS 4 + shadcn/ui
 - **Runtime:** Bun
-- **Build:** Vite
 - **Linter/Formatter:** Biome
-- **i18n:** i18next + react-i18next
+- **i18n:** Build-time `t()` function (no runtime i18n library)
+- **Icons:** lucide-react only
 
 ## Commands
 
-- `bun dev` - Start dev server
-- `bun run build` - Production build
-- `bun run start` - Start production server
+- `bun dev` - Start dev server (port 4321)
+- `bun run build` - Static build to `dist/`
+- `bun run preview` - Preview production build
 - `bun test` - Run tests
 - `bun run typecheck` - Type check
 - `bun run check` - Biome lint + format check
@@ -23,24 +23,32 @@
 
 ## Project Structure
 
-- `app/` - Application source
-  - `routes/` - Route components
-  - `components/` - Shared components
-  - `components/ui/` - shadcn/ui components
+- `src/` - Application source
+  - `pages/` - Astro pages (file-based routing)
+  - `layouts/` - Astro layouts (Base, Landing, DocsLayout)
+  - `components/` - React island components
+    - `landing/` - Landing page sections
+    - `docs/` - Docs chrome (sidebar, toc, pager)
+    - `ui/` - shadcn/ui components
+  - `content/` - MDX docs (content collections)
+  - `i18n/` - Build-time i18n utils + 9 locale files
+  - `styles/` - Global CSS (Tailwind v4 + theme vars)
   - `lib/` - Utilities
-  - `i18n/` - i18n configuration and instance factory
-  - `locales/` - Translation files (en.ts, fa.ts)
 - `test/` - Unit tests
 - `public/` - Static assets
 
 ## Conventions
 
-- Path alias: `~/` maps to `app/`
-- Tests use `bun:test` with files in `test/` mirroring `app/` structure
+- Path alias: `~/` maps to `src/`
+- Tests use `bun:test` with files in `test/` mirroring `src/` structure
 - Components use shadcn/ui patterns (CVA + Tailwind)
-- CSS uses Tailwind v4 with CSS variables for theming
+- CSS uses Tailwind v4 with CSS variables for theming (`@tailwindcss/vite` plugin)
 - Biome handles formatting (double quotes, semicolons, 2-space indent) and linting
-- All routes are under `/:lang/` prefix (e.g., `/en/`, `/fa/`)
+- All routes under `/:lang/` prefix (en, de, fr, es, zh, ja, tr, fa, ar)
 - `/` redirects to `/en`
-- Translations live in `app/locales/{lang}.ts`
-- RTL is supported via `dir` attribute on `<html>` (auto-detected from locale)
+- RTL locales (fa, ar): `dir="rtl"` auto-set on `<html>`
+- Translations: `src/i18n/locales/{lang}.ts` (nested objects, dot-notation keys)
+- Build-time `t("key.subkey")` via `src/i18n/utils.ts`
+- Scroll-linked animations (macbook-scroll, mobile-phone-scroll): React islands
+- All other animations: CSS keyframes + `data-animate` / `.in-view` (IntersectionObserver in Base.astro)
+- ScrollArea: CSS-only (`.scroll-area` class in global.css, no Radix)
