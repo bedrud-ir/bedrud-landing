@@ -1,35 +1,35 @@
 ---
-title: Passkeys API
-description: FIDO2/WebAuthn integration
+title: API des passkeys
+description: Intégration FIDO2/WebAuthn
 order: 26
 ---
 
-FIDO2/WebAuthn passkey endpoints allow users to register and authenticate using biometrics or security keys.
+Les points de terminaison de passkeys FIDO2/WebAuthn permettent aux utilisateurs de s'inscrire et de s'authentifier via la biométrie ou des clés de sécurité.
 
-## Overview
+## Vue d'ensemble
 
-Passkey flows use a challenge-response protocol with two phases each:
+Les flux de passkeys utilisent un protocole défi-réponse avec deux phases chacune :
 
-| Flow | Phase 1 (Begin) | Phase 2 (Finish) |
-|------|-----------------|-------------------|
-| Registration | `POST /api/auth/passkey/register/begin` | `POST /api/auth/passkey/register/finish` |
-| Login | `POST /api/auth/passkey/login/begin` | `POST /api/auth/passkey/login/finish` |
+| Flux | Phase 1 (Début) | Phase 2 (Fin) |
+|------|-----------------|---------------|
+| Inscription | `POST /api/auth/passkey/register/begin` | `POST /api/auth/passkey/register/finish` |
+| Connexion | `POST /api/auth/passkey/login/begin` | `POST /api/auth/passkey/login/finish` |
 
 ---
 
-## Registration Flow
+## Flux d'inscription
 
-Users must be logged in to register a passkey (it's linked to their existing account).
+Les utilisateurs doivent être connectés pour inscrire un passkey (il est lié à leur compte existant).
 
-### Step 1: Begin Registration
+### Étape 1 : Démarrer l'inscription
 
 ```
 POST /api/auth/passkey/register/begin
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**En-têtes :** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -55,7 +55,7 @@ POST /api/auth/passkey/register/begin
 }
 ```
 
-Pass this to the browser's WebAuthn API:
+Passez ceci à l'API WebAuthn du navigateur :
 
 ```javascript
 const credential = await navigator.credentials.create({
@@ -63,15 +63,15 @@ const credential = await navigator.credentials.create({
 });
 ```
 
-### Step 2: Finish Registration
+### Étape 2 : Terminer l'inscription
 
 ```
 POST /api/auth/passkey/register/finish
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**En-têtes :** `Authorization: Bearer <accessToken>`
 
-**Request Body:** The credential response from the browser, base64url-encoded:
+**Corps de la requête :** La réponse des identifiants du navigateur, encodée en base64url :
 
 ```json
 {
@@ -85,7 +85,7 @@ POST /api/auth/passkey/register/finish
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -95,17 +95,17 @@ POST /api/auth/passkey/register/finish
 
 ---
 
-## Login Flow
+## Flux de connexion
 
-### Step 1: Begin Login
+### Étape 1 : Démarrer la connexion
 
 ```
 POST /api/auth/passkey/login/begin
 ```
 
-No authentication required.
+Aucune authentification requise.
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -117,7 +117,7 @@ No authentication required.
 }
 ```
 
-Pass this to the browser's WebAuthn API:
+Passez ceci à l'API WebAuthn du navigateur :
 
 ```javascript
 const assertion = await navigator.credentials.get({
@@ -125,13 +125,13 @@ const assertion = await navigator.credentials.get({
 });
 ```
 
-### Step 2: Finish Login
+### Étape 2 : Terminer la connexion
 
 ```
 POST /api/auth/passkey/login/finish
 ```
 
-**Request Body:** The assertion response from the browser:
+**Corps de la requête :** La réponse d'assertion du navigateur :
 
 ```json
 {
@@ -146,7 +146,7 @@ POST /api/auth/passkey/login/finish
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -162,36 +162,36 @@ POST /api/auth/passkey/login/finish
 
 ---
 
-## Security
+## Sécurité
 
-| Measure | Description |
-|---------|-------------|
-| Challenge/Response | Server-generated random challenges stored in session |
-| Origin Verification | Strict origin and Relying Party ID validation |
-| Counter Validation | Protects against cloned authenticators |
-| Secure Transport | Designed for HTTPS with URL-safe base64 encoding |
+| Mesure | Description |
+|--------|-------------|
+| Défi/Réponse | Défis aléatoires générés par le serveur et stockés en session |
+| Vérification de l'origine | Validation stricte de l'origine et de l'ID de partie de confiance |
+| Validation du compteur | Protège contre les authentificateurs clonés |
+| Transport sécurisé | Conçu pour HTTPS avec encodage base64 URL-safe |
 
-## Implementation Details
+## Détails d'implémentation
 
-- **Backend:** Uses `go-passkeys/go-passkeys` for pure Go WebAuthn verification
-- **Session Storage:** Challenges are stored in Gorilla sessions (via `gothic.Store`)
-- **Database:** Passkey credentials stored in the `Passkey` model (credential ID, public key, counter)
-- **Frontend (Web):** `navigator.credentials` API with base64url helpers in `src/lib/auth.ts`
-- **Android:** Credentials API for native passkey support
-- **iOS:** ASAuthorizationController for passkey support
+- **Backend :** Utilise `go-passkeys/go-passkeys` pour la vérification WebAuthn pure en Go
+- **Stockage de session :** Les défis sont stockés dans les sessions Gorilla (via `gothic.Store`)
+- **Base de données :** Les identifiants de passkey sont stockés dans le modèle `Passkey` (ID d'identifiant, clé publique, compteur)
+- **Frontend (Web) :** API `navigator.credentials` avec helpers base64url dans `src/lib/auth.ts`
+- **Android :** API Credentials pour le support natif des passkeys
+- **iOS :** ASAuthorizationController pour le support des passkeys
 
-## How to Test
+## Comment tester
 
-1. Log in with an existing account
-2. Click the passkey registration button (fingerprint icon in the header/dashboard)
-3. Complete the biometric prompt
-4. Log out
-5. Click "Sign in with Passkey" on the login page
-6. Complete the biometric prompt to authenticate
+1. Connectez-vous avec un compte existant
+2. Cliquez sur le bouton d'inscription de passkey (icône d'empreinte digitale dans l'en-tête/dashboard)
+3. Complétez l'invite biométrique
+4. Déconnectez-vous
+5. Cliquez sur "Sign in with Passkey" sur la page de connexion
+6. Complétez l'invite biométrique pour vous authentifier
 
 ---
 
-## See also
+## Voir aussi
 
-- [Authentication Flow](/docs/backend/authentication) - passkey registration/login ceremonies explained
-- [Authentication API](/docs/api/authentication) - all auth endpoints
+- [Flux d'authentification](/fr/docs/backend/authentication) - explication des cérémonies d'inscription/connexion de passkey
+- [API d'authentification](/fr/docs/api/authentication) - tous les points de terminaison d'authentification

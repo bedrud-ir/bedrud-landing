@@ -1,74 +1,74 @@
 ---
-title: iOS App
-description: Native iOS application
+title: Application iOS
+description: Application iOS native
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+L'application iOS Bedrud est construite avec SwiftUI, offrant une expérience de réunion vidéo native avec la prise en charge multi-instance et le stockage sécurisé des identifiants.
 
-## Technology Stack
+## Stack Technologique
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| Technologie | Version | Utilisation |
+|-------------|---------|-------------|
+| Swift | 5.9+ | Langage |
+| SwiftUI | Dernière | Framework UI |
+| LiveKit Swift SDK | 2.0+ | Média WebRTC |
+| KeychainAccess | 4.2.2+ | Stockage sécurisé des identifiants |
 
-**Deployment target:** iOS 18.0
+**Cible de déploiement :** iOS 18.0
 
-## Project Configuration
+## Configuration du Projet
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+Le projet utilise **XCodeGen** pour la génération du projet à partir de `project.yml` :
 
-- Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- Bundle ID : `com.bedrud.ios`
+- Généré avec : `xcodegen generate`
 
-## Directory Structure
+## Structure des Répertoires
 
 ```text
 apps/ios/Bedrud/
-├── BedrudApp.swift                # App entry point
+├── BedrudApp.swift                # Point d'entrée de l'application
 ├── Core/
 │   ├── API/
-│   │   └── APIClient.swift        # URLSession-based REST client
+│   │   └── APIClient.swift        # Client REST basé sur URLSession
 │   ├── Auth/
-│   │   └── AuthManager.swift      # Token management, login/logout
+│   │   └── AuthManager.swift      # Gestion des tokens, connexion/déconnexion
 │   ├── Instance/
-│   │   ├── InstanceManager.swift  # Central multi-instance orchestrator
-│   │   └── InstanceStore.swift    # Persistent instance storage (UserDefaults)
+│   │   ├── InstanceManager.swift  # Orchestrateur multi-instance central
+│   │   └── InstanceStore.swift    # Stockage persistant des instances (UserDefaults)
 │   └── LiveKit/
-│       └── RoomManager.swift      # LiveKit room connection manager
+│       └── RoomManager.swift      # Gestionnaire de connexion de salle LiveKit
 ├── Features/
 │   ├── Auth/
-│   │   ├── LoginView.swift        # Login screen
-│   │   └── RegisterView.swift     # Registration screen
+│   │   ├── LoginView.swift        # Écran de connexion
+│   │   └── RegisterView.swift     # Écran d'inscription
 │   ├── Dashboard/
-│   │   └── DashboardView.swift    # Room list and management
+│   │   └── DashboardView.swift    # Liste et gestion des salles
 │   ├── Meeting/
-│   │   └── MeetingView.swift      # Video call interface
+│   │   └── MeetingView.swift      # Interface d'appel vidéo
 │   ├── Profile/
-│   │   └── ProfileView.swift      # User profile
+│   │   └── ProfileView.swift      # Profil utilisateur
 │   ├── Instance/
-│   │   ├── AddInstanceView.swift  # Add server instance
-│   │   └── InstanceSwitcherView.swift  # Switch between instances
+│   │   ├── AddInstanceView.swift  # Ajouter une instance serveur
+│   │   └── InstanceSwitcherView.swift  # Basculer entre les instances
 │   ├── Settings/
-│   │   └── SettingsView.swift     # App settings
+│   │   └── SettingsView.swift     # Paramètres de l'application
 │   ├── JoinByURL/
-│   │   └── JoinByURLView.swift    # Deep link handling
+│   │   └── JoinByURLView.swift    # Gestion des liens profonds
 │   └── Main/
-│       └── MainTabView.swift      # Tab navigation
+│       └── MainTabView.swift      # Navigation par onglets
 ├── Models/
 │   ├── User.swift
 │   ├── Room.swift
 │   └── Instance.swift
 └── Design/
-    └── Components/                # Reusable SwiftUI components
+    └── Components/                # Composants SwiftUI réutilisables
 ```
 
-## Multi-Instance Architecture
+## Architecture Multi-Instance
 
-The iOS app mirrors the Android architecture for multi-instance support.
+L'application iOS reflète l'architecture Android pour la prise en charge multi-instance.
 
 ```text
 ┌──────────────────────────┐
@@ -77,16 +77,16 @@ The iOS app mirrors the Android architecture for multi-instance support.
 │  @Published properties:  │
 │  ├── instances: [Instance]│
 │  ├── activeInstance       │
-│  ├── authManager          │──► Per-instance
-│  ├── apiClient            │    dependency
-│  ├── roomManager          │    container
+│  ├── authManager          │──► Dépendances
+│  ├── apiClient            │    par instance
+│  ├── roomManager          │    (container)
 │  └── ...                  │
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### Modèle Clé
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+Les dépendances sont des propriétés `@Published` sur `InstanceManager`, qui est un `ObservableObject`. Les vues le reçoivent via `@EnvironmentObject` :
 
 ```swift
 struct DashboardView: View {
@@ -94,25 +94,25 @@ struct DashboardView: View {
 
     var body: some View {
         if let authManager = instanceManager.authManager {
-            // Render authenticated UI
+            // Afficher l'UI authentifiée
         }
     }
 }
 ```
 
-### Navigation Flow
+### Flux de Navigation
 
 ```text
-No instances ──► AddInstanceView
-Has instances, not logged in ──► LoginView
-Has instances, logged in ──► DashboardView
+Pas d'instances ──► AddInstanceView
+Instances existantes, non connecté ──► LoginView
+Instances existantes, connecté ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+Le sélecteur d'instance apparaît comme un `.sheet` déclenché depuis la barre d'outils du Dashboard.
 
-## App Entry Point
+## Point d'Entrée de l'Application
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` initialise les services de base et les injecte dans l'environnement SwiftUI :
 
 ```swift
 @main
@@ -132,38 +132,38 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## Fonctionnalités
 
-### Secure Storage
+### Stockage Sécurisé
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+Utilise **KeychainAccess** pour stocker les tokens JWT et les identifiants sensibles, plutôt que UserDefaults.
 
-### Deep Linking
+### Liens Profonds
 
-Handles URLs for direct room joining and room codes.
+Gère les URLs pour rejoindre directement des salles et les codes de salle.
 
-### Settings
+### Paramètres
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+Les préférences utilisateur sont persistantes via `SettingsStore` en utilisant UserDefaults.
 
-## Building
+## Construction
 
 ```bash
-# Open in Xcode
+# Ouvrir dans Xcode
 make dev-ios
 
-# Build archive (Release)
+# Build d'archive (Version)
 make build-ios
 
-# Export IPA (requires ExportOptions.plist)
+# Exporter IPA (requiert ExportOptions.plist)
 make export-ios
 
-# Build for simulator (Debug)
+# Build pour le simulateur (Débogage)
 make build-ios-sim
 ```
 
-### Requirements
+### Exigences
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode (dernière version stable)
+- Cible de déploiement iOS 18.0
+- Pour les builds appareil : compte développeur Apple et profil de provisioning

@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: API d'authentification
+description: Points de terminaison et méthodes d'authentification
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+Tous les points de terminaison d'authentification sont sous `/api/auth/`.
 
-## Overview
+## Vue d'ensemble
 
-Bedrud supports multiple authentication methods:
+Bedrud prend en charge plusieurs méthodes d'authentification :
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
+| Méthode | Point de terminaison | Description |
+|---------|---------------------|-------------|
+| Email/Mot de passe | `POST /api/auth/login` | Connexion traditionnelle |
+| Inscription | `POST /api/auth/register` | Créer un compte |
+| Invité | `POST /api/auth/guest-login` | Accès temporaire |
+| OAuth | `GET /api/auth/:provider/login` | Connexion sociale |
 | Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| Renouvellement de token | `POST /api/auth/refresh` | Renouveler le token d'accès |
 
-## Token Format
+## Format des tokens
 
-Successful authentication returns a pair of JWT tokens:
+Une authentification réussie renvoie une paire de tokens JWT :
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **Token d'accès** - Durée de vie courte, utilisé dans l'en-tête `Authorization`
+- **Token de rafraîchissement** - Durée de vie longue, utilisé pour obtenir de nouveaux tokens d'accès
 
-### Using Tokens
+### Utiliser les tokens
 
-Include the access token in all authenticated requests:
+Incluez le token d'accès dans toutes les requêtes authentifiées :
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## Points de terminaison
 
-### Register
+### S'inscrire
 
-Create a new user account.
+Créer un nouveau compte utilisateur.
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**Corps de la requête :**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### Se connecter
 
-Authenticate with email and password.
+S'authentifier avec email et mot de passe.
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**Corps de la requête :**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### Connexion invité
 
-Join as a guest without creating an account. Guests have limited permissions.
+Rejoindre en tant qu'invité sans créer de compte. Les invités ont des autorisations limitées.
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**Corps de la requête :**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### Obtenir l'utilisateur actuel
 
-Retrieve the authenticated user's profile.
+Récupérer le profil de l'utilisateur authentifié.
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**En-têtes :** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### Rafraîchir le token
 
-Exchange a refresh token for a new access token.
+Échanger un token de rafraîchissement contre un nouveau token d'accès.
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**Corps de la requête :**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### Se déconnecter
 
-Invalidate the current refresh token.
+Invalider le token de rafraîchissement actuel.
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**En-têtes :** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**Corps de la requête :**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**Réponse (200) :**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### Connexion OAuth
 
-Start an OAuth flow with a social provider.
+Démarrer un flux OAuth avec un fournisseur social.
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**Fournisseurs pris en charge :**
 
-| Provider | Path |
-|----------|------|
+| Fournisseur | Chemin |
+|-------------|--------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+Le serveur redirige l'utilisateur vers la page d'autorisation du fournisseur. Après consentement, le fournisseur redirige vers l'URL de rappel, et le serveur renvoie les tokens JWT.
 
 ---
 
-## Error Responses
+## Réponses d'erreur
 
-All auth endpoints return errors in this format:
+Tous les points de terminaison d'auth renvoient des erreurs dans ce format :
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
-|--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| Statut | Signification |
+|--------|--------------|
+| 400 | Mauvaise requête (champs manquants, erreur de validation) |
+| 401 | Identifiants invalides ou token expiré |
+| 409 | Email déjà enregistré |
+| 500 | Erreur interne du serveur |
 
 ---
 
-## See also
+## Voir aussi
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [Flux d'authentification](/fr/docs/backend/authentication) - fonctionnement interne de JWT, OAuth et des passkeys
+- [API des passkeys](/fr/docs/api/passkeys) - référence des points de terminaison FIDO2/WebAuthn

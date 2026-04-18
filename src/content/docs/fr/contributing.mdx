@@ -1,58 +1,58 @@
 ---
-title: Contributing
-description: How to contribute to Bedrud
+title: Contribuer
+description: Comment contribuer à Bedrud
 order: 34
 ---
 
-Contributions to Bedrud are welcome. This guide covers the process for submitting changes.
+Les contributions à Bedrud sont les bienvenues. Ce guide couvre le processus de soumission des modifications.
 
-> **Note:** The canonical contributing guide is at the repository root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). This page is archived for reference only.
+> **Note :** Le guide de contribution canonique se trouve à la racine du dépôt : [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). Cette page est archivée pour référence uniquement.
 
-## Getting Started
+## Commencer
 
-1. Fork the repository
-2. Clone your fork
-3. Create a feature branch from `main`
-4. Make your changes
-5. Submit a pull request
+1. Fork le dépôt
+2. Clonez votre fork
+3. Créez une branche de fonctionnalité à partir de `main`
+4. Effectuez vos modifications
+5. Soumettez une pull request
 
-## Prerequisites
+## Prérequis
 
 - Go 1.22+
-- Bun (for web frontend)
-- Rust (for desktop app)
+- Bun (pour le frontend web)
+- Rust (pour l'application de bureau)
 - Make
 - Git
 
-## Development Setup
+## Configuration du développement
 
 ```bash
-# After forking on GitHub, clone your fork
-git clone https://github.com/<your-username>/bedrud.git
+# Après avoir forké sur GitHub, clonez votre fork
+git clone https://github.com/<votre-nom-d-utilisateur>/bedrud.git
 cd bedrud
 make init
 make dev
 ```
 
-See the [Development Workflow](/en/docs/guides/development) for detailed setup instructions.
+Voir le [Workflow de développement](/fr/docs/guides/development) pour des instructions de configuration détaillées.
 
-## Project Structure
+## Structure du projet
 
-| Directory       | Language         | Description                      |
+| Répertoire      | Langage         | Description                      |
 |-----------------|------------------|----------------------------------|
-| `server/`       | Go               | Backend API and embedded LiveKit |
-| `apps/web/`     | TypeScript/React | Web frontend                     |
-| `apps/desktop/` | Rust + Slint     | Desktop app                      |
-| `apps/android/` | Kotlin           | Android app                      |
-| `apps/ios/`     | Swift            | iOS app                          |
-| `agents/`       | Python           | Bot agents                       |
-| `packages/`     | TypeScript       | Shared type definitions          |
-| `tools/cli/`    | Python           | Deployment CLI                   |
+| `server/`       | Go               | API backend et LiveKit intégré   |
+| `apps/web/`     | TypeScript/React | Frontend web                     |
+| `apps/desktop/` | Rust + Slint     | Application de bureau            |
+| `apps/android/` | Kotlin           | Application Android              |
+| `apps/ios/`     | Swift            | Application iOS                  |
+| `agents/`       | Python           | Agents de bot                    |
+| `packages/`     | TypeScript       | Définitions de types partagés    |
+| `tools/cli/`    | Python           | CLI de déploiement               |
 | `docs/`         | Markdown         | Documentation                    |
 
-## Code Style
+## Style de code
 
-| Language         | Standard                |
+| Langage         | Standard                |
 |------------------|-------------------------|
 | Go               | `gofmt`                 |
 | TypeScript/React | Biome                   |
@@ -60,49 +60,49 @@ See the [Development Workflow](/en/docs/guides/development) for detailed setup i
 | Swift            | Xcode defaults          |
 | Python           | ruff                    |
 
-## Pull Request Process
+## Processus de pull request
 
-1. **Branch naming:** `feature/description`, `fix/description`, or `docs/description`
-2. **Commit messages:** `<action> <what> for <why>` (e.g., `add user model for auth feature`, `fix login redirect for expired sessions`)
-3. **CI checks:** All GitHub Actions checks must pass
-4. **Description:** Include what changed and why
+1. **Nom de branche :** `feature/description`, `fix/description` ou `docs/description`
+2. **Messages de commit :** `<action> <quoi> pour <pourquoi>` (par exemple, `add user model for auth feature`, `fix login redirect for expired sessions`)
+3. **Vérifications CI :** Toutes les vérifications GitHub Actions doivent réussir
+4. **Description :** Incluez ce qui a changé et pourquoi
 
-### CI Checks
+### Vérifications CI
 
-Every PR runs these checks automatically:
+Chaque PR exécute automatiquement ces vérifications :
 
-| Check   | What it validates            |
-|---------|------------------------------|
-| Server  | `go vet`, build, tests       |
-| Web     | TypeScript type check, build |
-| Android | Lint, unit tests             |
-| iOS     | Build, test (simulator)      |
+| Vérification | Ce qu'elle valide               |
+|--------------|---------------------------------|
+| Server       | `go vet`, build, tests          |
+| Web          | TypeScript type check, build    |
+| Android      | Lint, unit tests                |
+| iOS          | Build, test (simulator)         |
 
-## Reporting Issues
+## Signaler des problèmes
 
-File issues on [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) with:
+Signalez les problèmes sur [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) avec :
 
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, browser, app version)
+- Les étapes pour reproduire
+- Le comportement attendu vs réel
+- Les détails de l'environnement (OS, navigateur, version de l'application)
 
 ## Documentation
 
-Documentation lives in `docs/` and is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+La documentation se trouve dans `docs/` et est construite avec [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-### Local Preview
+### Aperçu local
 
 ```bash
 pip install mkdocs-material
 mkdocs serve
 ```
 
-Then open `http://localhost:8000` in your browser.
+Ensuite, ouvrez `http://localhost:8000` dans votre navigateur.
 
 ### Structure
 
-Documentation pages are organized by topic. The navigation is defined in `mkdocs.yml` at the project root.
+Les pages de documentation sont organisées par sujet. La navigation est définie dans `mkdocs.yml` à la racine du projet.
 
-## License
+## Licence
 
-By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).
+En contribuant, vous acceptez que vos contributions seront licenciées sous la [Licence Apache 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).

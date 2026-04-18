@@ -1,12 +1,12 @@
 ---
-title: Architecture Overview
-description: High-level system architecture of the Bedrud platform
+title: Vue d'Ensemble de l'Architecture
+description: Architecture système de haut niveau de la plateforme Bedrud
 order: 6
 ---
 
-Bedrud is a monorepo containing a Go server, three client applications, Python bot agents, and shared packages. This page describes how the components relate to each other.
+Bedrud est un monorepo contenant un serveur Go, trois applications clientes, des agents bot Python et des packages partagés. Cette page décrit comment les composants sont liés les uns aux autres.
 
-## High-Level Diagram
+## Diagramme de Haut Niveau
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -19,243 +19,243 @@ Bedrud is a monorepo containing a Go server, three client applications, Python b
 │       │            │            │              │             │
 │       └────────────┼────────────┼──────────────┘             │
 │                    │                                         │
-│               REST API + WebSocket                          │
+│               API REST + WebSocket                          │
 └────────────────────┼────────────────────────────────────────┘
-                          │
+                           │
 ┌────────────────────────┼────────────────────────────────┐
-│                   Bedrud Server                         │
+│                   Serveur Bedrud                         │
 │                        │                                │
 │  ┌─────────────────────┴──────────────────────────┐     │
-│  │              Fiber HTTP Router                  │     │
+│  │              Routeur HTTP Fiber                │     │
 │  │  /api/auth/*  /api/room/*  /api/admin/*        │     │
 │  └──────────┬─────────────────────┬───────────────┘     │
 │             │                     │                     │
 │  ┌──────────┴──────────┐  ┌──────┴────────────────┐     │
 │  │   GORM / SQLite     │  │  LiveKit Protocol SDK │     │
-│  │   (or PostgreSQL)   │  │  (token generation,   │     │
-│  │                     │  │   room management)    │     │
+│  │   (ou PostgreSQL)   │  │  (génération de token,│     │
+│  │                     │  │   gestion des salles) │     │
 │  └─────────────────────┘  └──────────┬────────────┘     │
 │                                      │                  │
 │                           ┌──────────┴────────────┐     │
-│                           │  Embedded LiveKit      │     │
-│                           │  Media Server (WebRTC) │     │
+│                           │  Serveur LiveKit      │     │
+│                           │  Intégré (Média WebRTC) │     │
 │                           └───────────────────────┘     │
 └─────────────────────────────────────────────────────────┘
 ```
 
-## Components
+## Composants
 
-### Server (`server/`)
+### Serveur (`server/`)
 
-The Go backend is the core of Bedrud. It handles:
+Le backend Go est le cœur de Bedrud. Il gère :
 
-- **REST API** - authentication, room management, admin operations
-- **Static file serving** - the compiled web frontend is embedded via `//go:embed`
-- **LiveKit integration** - generates tokens and manages rooms via the LiveKit Protocol SDK
-- **Embedded LiveKit server** - the media server binary runs as a child process
+- **API REST** - authentification, gestion des salles, opérations admin
+- **Service de fichiers statiques** - le frontend web compilé est intégré via `//go:embed`
+- **Intégration LiveKit** - génère des tokens et gère les salles via le LiveKit Protocol SDK
+- **Serveur LiveKit intégré** - le binaire du serveur média s'exécute comme processus enfant
 
-The server uses the **Fiber** web framework (similar to Express.js in Node.js) and **GORM** as the ORM layer. It supports SQLite for development and PostgreSQL for production.
+Le serveur utilise le framework web **Fiber** (similaire à Express.js dans Node.js) et **GORM** comme couche ORM. Il prend en charge SQLite pour le développement et PostgreSQL pour la production.
 
-See [Server Architecture](/docs/architecture/server) for details.
+Consultez [Architecture du Serveur](/fr/docs/architecture/server) pour les détails.
 
-### Web Frontend (`apps/web/`)
+### Frontend Web (`apps/web/`)
 
-A **React** application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, it is pre-rendered on the server and the client assets are embedded into the Go binary.
+Une application **React** construite avec TanStack Start, TailwindCSS v4 et shadcn/ui. En production, elle est pré-rendue sur le serveur et les assets client sont intégrés dans le binaire Go.
 
-Key capabilities:
+Capacités principales :
 
-- Video meeting UI with LiveKit Client SDK
-- JWT-based authentication with automatic token refresh
-- Admin dashboard for user and room management
-- Design system with consistent component library
+- Interface de réunion vidéo avec LiveKit Client SDK
+- Authentification JWT avec rafraîchissement automatique des tokens
+- Dashboard admin pour la gestion des utilisateurs et des salles
+- Système de design avec une bibliothèque de composants cohérente
 
-See [Web Frontend](/docs/architecture/web) for details.
+Consultez [Frontend Web](/fr/docs/architecture/web) pour les détails.
 
-### Android App (`apps/android/`)
+### Application Android (`apps/android/`)
 
-A native Android app built with **Jetpack Compose** and **Kotlin**. Uses Koin for dependency injection and Retrofit for HTTP.
+Une application Android native construite avec **Jetpack Compose** et **Kotlin**. Utilise Koin pour l'injection de dépendances et Retrofit pour HTTP.
 
-Key capabilities:
+Capacités principales :
 
-- Full video meeting experience with LiveKit Android SDK
-- Picture-in-picture mode
-- Deep link handling (`bedrud.com/m/*` and `bedrud.com/c/*`)
-- Call management with Android's ConnectionService
-- Multi-instance support (connect to multiple servers)
+- Expérience complète de réunion vidéo avec LiveKit Android SDK
+- Mode picture-in-picture
+- Gestion des liens profonds (`bedrud.com/m/*` et `bedrud.com/c/*`)
+- Gestion des appels avec ConnectionService d'Android
+- Prise en charge multi-instance (connexion à plusieurs serveurs)
 
-See [Android App](/docs/architecture/android) for details.
+Consultez [Application Android](/fr/docs/architecture/android) pour les détails.
 
-### iOS App (`apps/ios/`)
+### Application iOS (`apps/ios/`)
 
-A native iOS app built with **SwiftUI**. Uses KeychainAccess for secure credential storage and LiveKit Swift SDK for media.
+Une application iOS native construite avec **SwiftUI**. Utilise KeychainAccess pour le stockage sécurisé des identifiants et LiveKit Swift SDK pour le média.
 
-Key capabilities:
+Capacités principales :
 
-- Full video meeting experience
-- Multi-instance support
-- Deep link handling
-- Keychain-based secure storage
+- Expérience complète de réunion vidéo
+- Prise en charge multi-instance
+- Gestion des liens profonds
+- Stockage sécurisé basé sur le trousseau
 
-See [iOS App](/docs/architecture/ios) for details.
+Consultez [Application iOS](/fr/docs/architecture/ios) pour les détails.
 
-### Desktop App (`apps/desktop/`)
+### Application Desktop (`apps/desktop/`)
 
-A native Windows and Linux desktop application built with **Rust** and the **Slint** UI toolkit. Compiles to a single binary with no runtime dependencies.
+Une application de bureau native Windows et Linux construite avec **Rust** et le toolkit UI **Slint**. Compile en un seul binaire sans dépendances d'exécution.
 
-Key capabilities:
+Capacités principales :
 
-- Full video meeting experience via LiveKit Rust SDK
-- Native Windows (Direct3D 11) and Linux (OpenGL/Vulkan) rendering
-- Multi-instance support (connect to multiple Bedrud servers)
-- OS keyring integration for secure credential storage
+- Expérience complète de réunion vidéo via LiveKit Rust SDK
+- Rendu natif Windows (Direct3D 11) et Linux (OpenGL/Vulkan)
+- Prise en charge multi-instance (connexion à plusieurs serveurs Bedrud)
+- Intégration keyring OS pour le stockage sécurisé des identifiants
 
-See [Desktop App](/docs/architecture/desktop) for details.
+Consultez [Application Desktop](/fr/docs/architecture/desktop) pour les détails.
 
-### Bot Agents (`agents/`)
+### Agents Bot (`agents/`)
 
-Python scripts that join meeting rooms as bots and stream media content:
+Scripts Python qui rejoignent les salles de réunion comme bots et diffusent du contenu multimédia :
 
-- **Music Agent** - plays audio files
-- **Radio Agent** - streams internet radio stations
-- **Video Stream Agent** - shares video content (HLS, MP4)
+- **Agent Musique** - lit des fichiers audio
+- **Agent Radio** - diffuse des stations de radio internet
+- **Agent Flux Vidéo** - partage du contenu vidéo (HLS, MP4)
 
-See [Bot Agents](/docs/architecture/agents) for details.
+Consultez [Agents Bot](/fr/docs/architecture/agents) pour les détails.
 
-## Authentication Flow
+## Flux d'Authentification
 
 ```
-Client                    Server                    Database
+Client                    Serveur                    Base de données
   │                         │                          │
   ├─POST /api/auth/login───►│                          │
-  │                         ├──verify credentials─────►│
+  │                         ├──vérifier les identifiants───►│
   │                         │◄─────────────────────────┤
   │◄──access + refresh JWT──┤                          │
   │                         │                          │
-  ├─GET /api/room/list──────►│  (Authorization header)  │
+  ├─GET /api/room/list──────►│  (en-tête Authorization)  │
   │  (Bearer <access_token>)│                          │
-  │◄──room list─────────────┤                          │
+  │◄──liste des salles───────┤                          │
 ```
 
-All authenticated requests use JWT tokens in the `Authorization` header. The web frontend's `authFetch` wrapper handles token attachment and automatic refresh.
+Toutes les requêtes authentifiées utilisent des tokens JWT dans l'en-tête `Authorization`. Le wrapper `authFetch` du frontend web gère l'attachement des tokens et le rafraîchissement automatique.
 
-Supported auth methods:
+Méthodes d'authentification prises en charge :
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional credentials |
-| Registration | `POST /api/auth/register` | New account creation |
-| Guest | `POST /api/auth/guest-login` | Temporary access with just a name |
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| Email/Mot de passe | `POST /api/auth/login` | Identifiants traditionnels |
+| Inscription | `POST /api/auth/register` | Création de nouveau compte |
+| Invité | `POST /api/auth/guest-login` | Accès temporaire avec juste un nom |
 | OAuth | `GET /api/auth/:provider/login` | Google, GitHub, Twitter |
-| Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn biometrics |
+| Clés de passe | `POST /api/auth/passkey/*` | Biométrie FIDO2/WebAuthn |
 
-## Meeting Connection Flow
+## Flux de Connexion de Réunion
 
 ```mermaid
 sequenceDiagram
     participant C as Client
-    participant S as Bedrud Server
+    participant S as Serveur Bedrud
     participant LK as LiveKit SFU
 
     C->>S: POST /api/room/join
-    S->>S: Validate permissions
-    S->>C: LiveKit JWT token
-    C->>LK: WebSocket connect (with token)
-    LK->>C: SDP offer + join response
+    S->>S: Valider les permissions
+    S->>C: Token JWT LiveKit
+    C->>LK: Connexion WebSocket (avec token)
+    LK->>C: Offre SDP + réponse de join
 
-    Note over C,LK: ICE connectivity check
-    C->>LK: Host + STUN + TURN candidates
+    Note over C,LK: Vérification de connectivité ICE
+    C->>LK: Candidats Host + STUN + TURN
 
-    alt Direct path (UDP)
-        C-->>LK: Media via UDP 50000-60000
-    else TURN relay
-        C-->>LK: Media via TURN relay
+    alt Chemin direct (UDP)
+        C-->>LK: Média via UDP 50000-60000
+    else Relais TURN
+        C-->>LK: Média via relais TURN
     end
 
-    Note over C,LK: Audio/video tracks flow through SFU
+    Note over C,LK: Les pistes audio/vidéo traversent le SFU
 ```
 
-1. The client requests to join a room via the REST API
-2. The server validates permissions and generates a signed LiveKit token
-3. The client connects directly to LiveKit via WebSocket using the token
-4. ICE gathers candidates (host, STUN, TURN) and selects the best path
-5. Audio/video tracks flow through LiveKit's SFU
+1. Le client demande à rejoindre une salle via l'API REST
+2. Le serveur valide les permissions et génère un token LiveKit signé
+3. Le client se connecte directement à LiveKit via WebSocket en utilisant le token
+4. ICE rassemble les candidats (host, STUN, TURN) et sélectionne le meilleur chemin
+5. Les pistes audio/vidéo traversent le SFU de LiveKit
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+Consultez [Connectivité WebRTC](/fr/docs/architecture/webrtc-connectivity) pour la pile complète de connectivité.
 
-## Data Model
+## Modèle de Données
 
-### User
+### Utilisateur
 
-| Field | Type | Description |
+| Champ | Type | Description |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| Email | string | Unique email address |
-| Name | string | Display name |
-| Password | string | Hashed password (empty for OAuth/guest) |
-| Avatar | string | Avatar URL |
-| Provider | string | Auth provider (`local`, `google`, `github`, `twitter`, `guest`) |
-| Role | string | `user` or `admin` |
+| ID | uint | Clé primaire |
+| Email | string | Adresse email unique |
+| Name | string | Nom d'affichage |
+| Password | string | Mot de passe haché (vide pour OAuth/invité) |
+| Avatar | string | URL de l'avatar |
+| Provider | string | Fournisseur d'auth (`local`, `google`, `github`, `twitter`, `guest`) |
+| Role | string | `user` ou `admin` |
 
-### Room
+### Salle
 
-| Field | Type | Description |
+| Champ | Type | Description |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| AdminID | uint | Foreign key → User.ID (room creator) |
-| Name | string | Room name / URL slug |
-| IsPublic | bool | Whether guests can join without invite |
-| ChatEnabled | bool | Whether in-room chat is active |
-| VideoEnabled | bool | Whether video is allowed |
-| Participants | []User | Users currently in the room |
+| ID | uint | Clé primaire |
+| AdminID | uint | Clé étrangère → User.ID (créateur de la salle) |
+| Name | string | Nom de la salle / slug d'URL |
+| IsPublic | bool | Si les invités peuvent rejoindre sans invitation |
+| ChatEnabled | bool | Si le chat dans la salle est actif |
+| VideoEnabled | bool | Si la vidéo est autorisée |
+| Participants | []User | Utilisateurs actuellement dans la salle |
 
-### Passkey
+### Clé de Passe
 
-| Field | Type | Description |
+| Champ | Type | Description |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| UserID | uint | Foreign key → User.ID |
-| CredentialID | []byte | WebAuthn credential ID |
-| PublicKey | []byte | WebAuthn public key |
-| Counter | uint32 | WebAuthn sign count |
+| ID | uint | Clé primaire |
+| UserID | uint | Clé étrangère → User.ID |
+| CredentialID | []byte | ID d'identifiant WebAuthn |
+| PublicKey | []byte | Clé publique WebAuthn |
+| Counter | uint32 | Compteur de signature WebAuthn |
 
 ### RefreshToken
 
-| Field | Type | Description |
+| Champ | Type | Description |
 |-------|------|-------------|
-| Token | string | The refresh token string |
-| UserID | uint | Foreign key → User.ID |
-| ExpiresAt | time | Token expiration timestamp |
+| Token | string | La chaîne du token de rafraîchissement |
+| UserID | uint | Clé étrangère → User.ID |
+| ExpiresAt | time | Horodatage d'expiration du token |
 
-## Deployment Architecture
+## Architecture de Déploiement
 
-In production, Bedrud runs as two systemd services:
+En production, Bedrud s'exécute comme deux services systemd :
 
-| Service | Binary | Purpose |
-|---------|--------|---------|
-| `bedrud.service` | `bedrud --run` | API server + embedded web frontend |
-| `livekit.service` | `bedrud --livekit` | WebRTC media server |
+| Service | Binaire | Utilisation |
+|---------|---------|-------------|
+| `bedrud.service` | `bedrud --run` | Serveur API + frontend web intégré |
+| `livekit.service` | `bedrud --livekit` | Serveur média WebRTC |
 
-Both are managed by a single binary. Traefik or another reverse proxy handles TLS termination and routes traffic.
+Les deux sont gérés par un seul binaire. Traefik ou un autre reverse proxy gère la terminaison TLS et route le trafic.
 
-See [Deployment Guide](/docs/guides/deployment) for setup instructions.
+Consultez [Guide de Déploiement](/fr/docs/guides/deployment) pour les instructions de configuration.
 
-## Key Terms
+## Termes Clés
 
-These terms appear throughout the architecture documentation:
+Ces termes apparaissent dans toute la documentation de l'architecture :
 
-| Term | Full Name | Meaning |
-|------|-----------|---------|
-| **SFU** | Selective Forwarding Unit | A media server that receives streams from each participant and forwards them to others. Clients connect to the server, not to each other. |
-| **SDP** | Session Description Protocol | The format used to describe WebRTC connection parameters (codecs, resolutions, media types). |
-| **ICE** | Interactive Connectivity Establishment | A framework that gathers all possible network paths between client and server, then selects the best one. |
-| **STUN** | Session Traversal Utilities for NAT | A lightweight protocol that helps a client discover its public IP address. Works for most connections. |
-| **TURN** | Traversal Using Relays around NAT | A protocol that relays all media through the server when a direct connection is not possible. Last resort, highest bandwidth cost. |
-| **NAT** | Network Address Translation | A router feature that maps private internal addresses to a public address. Can block direct WebRTC connections depending on type. |
-| **srflx** | Server Reflexive | A type of ICE candidate representing the client's public IP, discovered via STUN. |
-| **WebRTC** | Web Real-Time Communication | The browser and mobile API standard for real-time audio, video, and data transfer. |
+| Terme | Nom Complet | Signification |
+|-------|-------------|---------------|
+| **SFU** | Selective Forwarding Unit | Un serveur média qui reçoit les flux de chaque participant et les renvoie aux autres. Les clients se connectent au serveur, pas les uns aux autres. |
+| **SDP** | Session Description Protocol | Le format utilisé pour décrire les paramètres de connexion WebRTC (codecs, résolutions, types de média). |
+| **ICE** | Interactive Connectivity Establishment | Un framework qui rassemble tous les chemins réseau possibles entre client et serveur, puis sélectionne le meilleur. |
+| **STUN** | Session Traversal Utilities for NAT | Un protocole léger qui aide un client à découvrir son adresse IP publique. Fonctionne pour la plupart des connexions. |
+| **TURN** | Traversal Using Relays around NAT | Un protocole qui relaie tout le média via le serveur lorsqu'une connexion directe n'est pas possible. Dernier recours, coût le plus élevé en bande passante. |
+| **NAT** | Network Address Translation | Une fonctionnalité de routeur qui mappe les adresses internes privées à une adresse publique. Peut bloquer les connexions WebRTC directes selon le type. |
+| **srflx** | Server Reflexive | Un type de candidat ICE représentant l'IP publique du client, découvert via STUN. |
+| **WebRTC** | Web Real-Time Communication | La standard API navigateur et mobile pour le transfert audio, vidéo et de données en temps réel. |
 
-## See Also
+## Voir Aussi
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN relay architecture and configuration
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
+- [Connectivité WebRTC](/fr/docs/architecture/webrtc-connectivity) - pile complète de connectivité STUN/ICE/TURN/SFU
+- [Guide du Serveur TURN](/fr/docs/architecture/turn-server) - architecture et configuration du relais TURN
+- [Intégration LiveKit](/fr/docs/backend/livekit) - comment Bedrud intègre LiveKit

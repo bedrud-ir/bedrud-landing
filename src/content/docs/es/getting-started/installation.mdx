@@ -1,33 +1,33 @@
 ---
-title: Instalación del Servidor
-description: Instala el servidor Bedrud en Linux
+title: Server Installation
+description: Install Bedrud server on Linux
 order: 2
 ---
 
-Esta guía cubre la instalación del **servidor Bedrud** (API, interfaz web, servidor de medios WebRTC) en un servidor Linux. Para aplicaciones cliente de escritorio y móvil, consulta [Instalación del Cliente](/es/docs/getting-started/clients).
+This guide covers installing the **Bedrud server** (API, web UI, WebRTC media server) on a Linux server. For desktop and mobile client apps, see [Client Installation](/docs/getting-started/clients).
 
 ---
 
-## Requisitos Previos
+## Prerequisites
 
-| Requisito | Detalles |
-|-----------|---------|
-| **Sistema operativo** | Debian 12+, Ubuntu 22.04+, Arch Linux (rolling), Fedora 39+ |
-| **Arquitectura** | amd64 (x86_64) o arm64 (aarch64) |
-| **Acceso** | Root o sudo |
-| **Sistema de inicio** | systemd |
-| **Hardware** | 1 vCPU, 512 MB de RAM mínimo. 2 vCPU, 2 GB de RAM recomendados para 10+ salas concurrentes |
-| **Puertos** | `8090` (API + interfaz web), `7880` (LiveKit WebSocket), `50000–60000/udp` (medios WebRTC) |
-| **TLS automático** | Adicionalmente abre `80` y `443`. Requiere un dominio con registro DNS A que apunte a este servidor |
-| **Herramientas** | `curl`, `tar` (preinstalado en la mayoría de distribuciones) |
+| Requirement | Details |
+|-------------|---------|
+| **Operating system** | Debian 12+, Ubuntu 22.04+, Arch Linux (rolling), Fedora 39+ |
+| **Architecture** | amd64 (x86_64) or arm64 (aarch64) |
+| **Access** | Root or sudo |
+| **Init system** | systemd |
+| **Hardware** | 1 vCPU, 512 MB RAM minimum. 2 vCPU, 2 GB RAM recommended for 10+ concurrent rooms |
+| **Ports** | `8090` (API + web UI), `7880` (LiveKit WebSocket), `50000–60000/udp` (WebRTC media) |
+| **Auto-TLS** | Additionally open `80` and `443`. Requires a domain with DNS A record pointing to this server |
+| **Tools** | `curl`, `tar` (pre-installed on most distros) |
 
-> **¿Sin dominio?** Bedrud funciona con una dirección IP usando TLS autofirmado. Los navegadores mostrarán una advertencia de certificado pero el video y el audio funcionan. Para certificados de confianza en redes internas, consulta la [Guía de TLS Interno](/es/docs/guides/internal-tls).
+> **No domain?** Bedrud works with an IP address using self-signed TLS. Browsers will show a certificate warning but video and audio work. For trusted certificates on internal networks, see the [Internal TLS Guide](/docs/guides/internal-tls).
 
 ---
 
-## 1. Instalación vía Gestor de Paquetes
+## 1. Package Manager Install
 
-Instala a través del gestor de paquetes de tu distribución.
+Install via your distribution's package manager.
 
 <Tabs>
   <TabsList>
@@ -47,7 +47,7 @@ Instala a través del gestor de paquetes de tu distribución.
     sudo apt update && sudo apt install bedrud
     ```
 
-    Luego ejecuta el instalador interactivo:
+    Then run the interactive installer:
 
     ```bash
     sudo bedrud install
@@ -76,16 +76,16 @@ Instala a través del gestor de paquetes de tu distribución.
 </Tabs>
 
 <Callout type="tip">
-    Para la instalación del cliente de escritorio (Linux, macOS, Windows), consulta [Instalación del Cliente](/es/docs/getting-started/clients).
+    For desktop client installation (Linux, macOS, Windows) see [Client Installation](/docs/getting-started/clients).
 </Callout>
 
 ---
 
 ## 2. Docker
 
-Ejecuta Bedrud en un contenedor: sin configuración de servidor Linux, sin systemd, sin descarga de binario.
+Run Bedrud in a container - no Linux server setup, no systemd, no binary download.
 
-### Imagen Precompilada (la más rápida)
+### Pre-built Image (fastest)
 
 ```bash
 docker pull ghcr.io/bedrud-ir/bedrud:latest
@@ -116,17 +116,17 @@ volumes:
   bedrud-data:
 ```
 
-### Puertos
+### Ports
 
-| Puerto | Servicio | Protocolo |
-|--------|----------|-----------|
-| 8090 | API + Interfaz Web | HTTP |
+| Port | Service | Protocol |
+|------|---------|----------|
+| 8090 | API + Web UI | HTTP |
 | 7880 | LiveKit | WebSocket + HTTP |
-| 50000–60000 | Medios WebRTC | UDP |
+| 50000–60000 | WebRTC media | UDP |
 
-### Configuración
+### Configuration
 
-Pasa un archivo de configuración o usa variables de entorno:
+Pass a config file or use environment variables:
 
 ```bash
 docker run -d --name bedrud \
@@ -140,219 +140,219 @@ docker run -d --name bedrud \
 ```
 
 <Callout type="warning">
-    Los secretos JWT y LiveKit predeterminados son solo para pruebas rápidas. Cámbialos antes de exponer el contenedor a internet.
+    The default JWT and LiveKit secrets are for quick testing only. Change them before exposing the container to the internet.
 </Callout>
 
-Documentación completa de Docker incluyendo volúmenes, proxy inverso y configuración TLS: [Guía de Docker](/es/docs/guides/docker).
+Full Docker documentation including volumes, reverse proxy, and TLS setup: [Docker Guide](/docs/guides/docker).
 
 ---
 
-## 3. Instalación Interactiva
+## 3. Interactive Install
 
-Si ya tienes el binario `bedrud` en el servidor:
+If you already have the `bedrud` binary on the server:
 
 ```bash
 sudo ./bedrud install
 ```
 
-El instalador detecta automáticamente la IP de tu servidor y solicita:
+The installer auto-detects your server's IP and prompts for:
 
-| Prompt | Predeterminado | Notas |
-|--------|----------------|-------|
-| **Dirección IP** | Detectada automáticamente (primera IPv4 no loopback) | Presiona Enter para aceptar, o escribe una IP diferente |
-| **Dominio** | Vacío (solo IP) | Si se proporciona con un correo, habilita TLS de Let's Encrypt |
-| **Correo** | Vacío | Usado para registro de Let's Encrypt (solo si se configura dominio) |
-| **TLS autofirmado** | Sí | Se ofrece cuando no se proporciona dominio. El predeterminado es `Y` |
+| Prompt | Default | Notes |
+|--------|---------|-------|
+| **IP address** | Auto-detected (first non-loopback IPv4) | Press Enter to accept, or type a different IP |
+| **Domain** | Empty (IP-only) | If provided with an email, enables Let's Encrypt TLS |
+| **Email** | Empty | Used for Let's Encrypt registration (only if domain is set) |
+| **Self-signed TLS** | Yes | Offered when no domain is provided. Default is `Y` |
 
-Todas las solicitudes se omiten cuando stdin se canaliza (modo no interactivo): se usan indicadores y valores predeterminados.
+All prompts are skipped when stdin is piped (non-interactive mode) - flags and defaults are used instead.
 
 ---
 
-## 4. No Interactivo (Basado en Indicadores)
+## 4. Non-Interactive (Flag-Based)
 
-Omite todas las solicitudes pasando indicadores.
+Skip all prompts by passing flags.
 
-### Let's Encrypt (se requiere dominio)
+### Let's Encrypt (domain required)
 
-**Requiere:** Registro DNS A para tu dominio ya apuntando a la IP de este servidor.
+**Requires:** DNS A record for your domain already pointing to this server's IP.
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com --email webmaster@example.com
 ```
 
-### TLS Autofirmado (basado en IP)
+### Self-Signed TLS (IP-based)
 
-**Requiere:** Nada adicional. Funciona inmediatamente.
+**Requires:** Nothing extra. Works immediately.
 
 ```bash
 sudo ./bedrud install --tls --ip 1.2.3.4
 ```
 
-### HTTP Simple (solo desarrollo / interno)
+### Plain HTTP (dev / internal only)
 
-**Requiere:** localhost o `127.0.0.1`. Los navegadores bloquean cámara/micrófono en sitios no HTTPS excepto localhost.
+**Requires:** localhost or `127.0.0.1`. Browsers block camera/mic on non-HTTPS except localhost.
 
 ```bash
 sudo ./bedrud install --ip 1.2.3.4
 ```
 
-### Autofirmado para un Dominio (pruebas previas a DNS)
+### Self-Signed for a Domain (pre-DNS testing)
 
-**Requiere:** Nombre de dominio (DNS no necesita resolverse todavía).
+**Requires:** Domain name (DNS does not need to resolve yet).
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com
 ```
 
-### Puerto Personalizado
+### Custom Port
 
-**Requiere:** Puerto que no esté en uso.
+**Requires:** Port not already in use.
 
 ```bash
 sudo ./bedrud install --tls --port 8443 --domain meet.example.com
 ```
 
-### Certificados Externos
+### External Certificates
 
-**Requiere:** Archivos de cadena completa y clave privada en formato PEM.
+**Requires:** PEM-formatted fullchain and private key files.
 
 ```bash
-sudo ./bedrud install --tls --cert /ruta/a/fullchain.pem --key /ruta/a/privkey.pem
+sudo ./bedrud install --tls --cert /path/to/fullchain.pem --key /path/to/privkey.pem
 ```
 
-### Puertos Personalizados de LiveKit
+### Custom LiveKit Ports
 
-**Requiere:** Los tres puertos abiertos en tu firewall.
+**Requires:** All three ports open on your firewall.
 
 ```bash
 sudo ./bedrud install --lk-port 9000 --lk-tcp-port 9001 --lk-udp-port 9002
 ```
 
-### Detrás de un Proxy Inverso
+### Behind a Reverse Proxy
 
-**Requiere:** Un proxy inverso (Nginx, Caddy, Traefik, Cloudflare) que termina TLS frente a Bedrud.
+**Requires:** A reverse proxy (Nginx, Caddy, Traefik, Cloudflare) terminating TLS in front of Bedrud.
 
 ```bash
 sudo ./bedrud install --behind-proxy --domain meet.example.com
 ```
 
-Establece `behindProxy: true` en la configuración y configura encabezados de proxy de confianza.
+Sets `behindProxy: true` in the config and configures trusted proxy headers.
 
-### Servidor LiveKit Externo
+### External LiveKit Server
 
-**Requiere:** Un servidor LiveKit separado ya en ejecución, accesible desde esta máquina.
+**Requires:** A separate LiveKit server already running, accessible from this machine.
 
 ```bash
 sudo ./bedrud install --external-livekit https://livekit.example.com
 ```
 
-Omite la instalación de LiveKit integrado. La clave API y el secreto deben coincidir en ambas configuraciones.
+Skips embedded LiveKit installation. API key and secret must match in both configs.
 
-### Dominio LiveKit Separado
+### Separate LiveKit Domain
 
-**Requiere:** Un dominio que resuelva directamente a este servidor, omitiendo cualquier CDN.
+**Requires:** A domain that resolves directly to this server, bypassing any CDN.
 
 ```bash
 sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 ```
 
-Útil cuando el dominio principal está detrás de Cloudflare pero los medios WebRTC necesitan una conexión directa.
+Useful when the main domain is behind Cloudflare but WebRTC media needs a direct connection.
 
-### Referencia Completa de Indicadores
+### All Flags Reference
 
-| Indicador | Predeterminado | Descripción |
-|-----------|----------------|-------------|
-| `--tls` | `false` | Habilitar HTTPS (autofirmado o Let's Encrypt) |
-| `--self-signed` | `false` | Generar un certificado TLS autofirmado |
-| `--no-tls` | `false` | Deshabilitar TLS completamente (anula `--tls`) |
-| `--ip` | detectado automáticamente | Anular la dirección IP del servidor |
-| `--domain` | `""` | Nombre de dominio para Let's Encrypt o certificado autofirmado |
-| `--email` | `""` | Correo para registro de Let's Encrypt |
-| `--port` | `443` (TLS) / `8090` (HTTP) | Anular el puerto de escucha |
-| `--cert` | `""` | Ruta al archivo de certificado existente (PEM) |
-| `--key` | `""` | Ruta al archivo de clave privada existente (PEM) |
-| `--lk-port` | `7880` | Puerto API de LiveKit |
-| `--lk-tcp-port` | `7881` | Puerto TCP RTC de LiveKit |
-| `--lk-udp-port` | `7882` | Puerto UDP RTC de LiveKit |
-| `--fresh` | `false` | Eliminar instalación existente antes de instalar |
-| `--behind-proxy` | `false` | El servidor está detrás de un proxy inverso / CDN |
-| `--external-livekit` | `""` | URL de un servidor LiveKit externo |
-| `--livekit-domain` | `""` | Dominio separado para LiveKit (omita CDN) |
+| Flag | Default | Description |
+|------|---------|-------------|
+| `--tls` | `false` | Enable HTTPS (self-signed or Let's Encrypt) |
+| `--self-signed` | `false` | Generate a self-signed TLS certificate |
+| `--no-tls` | `false` | Disable TLS entirely (overrides `--tls`) |
+| `--ip` | auto-detected | Override the server IP address |
+| `--domain` | `""` | Domain name for Let's Encrypt or self-signed cert |
+| `--email` | `""` | Email for Let's Encrypt registration |
+| `--port` | `443` (TLS) / `8090` (HTTP) | Override the listening port |
+| `--cert` | `""` | Path to existing certificate file (PEM) |
+| `--key` | `""` | Path to existing private key file (PEM) |
+| `--lk-port` | `7880` | LiveKit API port |
+| `--lk-tcp-port` | `7881` | LiveKit RTC TCP port |
+| `--lk-udp-port` | `7882` | LiveKit RTC UDP port |
+| `--fresh` | `false` | Remove existing installation before installing |
+| `--behind-proxy` | `false` | Server is behind a reverse proxy / CDN |
+| `--external-livekit` | `""` | URL of an external LiveKit server |
+| `--livekit-domain` | `""` | Separate domain for LiveKit (bypass CDN) |
 
 ---
 
-## 5. Totalmente Automatizado (CLI de Python)
+## 5. Fully Automated (Python CLI)
 
-Compila, carga y configura tu servidor desde tu máquina local.
+Build, upload, and configure your server from your local machine.
 
-**Requiere:** Python 3.12+, [uv](https://docs.astral.sh/uv/) (ejecutor de paquetes Python), acceso con clave SSH al servidor de destino, Go 1.24+ y Bun instalados localmente.
+**Requires:** Python 3.12+, [uv](https://docs.astral.sh/uv/) (Python package runner), SSH key access to the target server, Go 1.24+ and Bun installed locally.
 
 ```bash
 cd tools/cli
 uv run python bedrud.py --auto-config \
-  --ip <tu-ip-del-servidor> \
+  --ip <your-server-ip> \
   --user root \
   --auth-key ~/.ssh/id_rsa \
   --domain meet.example.com \
   --acme-email admin@example.com
 ```
 
-**Lo que hace:**
+**What it does:**
 
-1. Compila el binario backend (`dist/bedrud`)
-2. Lo comprime en `bedrud.tar.xz`
-3. Lo carga en el servidor vía rsync
-4. Limpia servicios en conflicto (Nginx, Apache, Caddy)
-5. Configura el firewall (UFW)
-6. Ejecuta la lógica interna de `install` en el servidor
+1. Builds the backend binary (`dist/bedrud`)
+2. Compresses it into `bedrud.tar.xz`
+3. Uploads it to the server via rsync
+4. Clears conflicting services (Nginx, Apache, Caddy)
+5. Configures the firewall (UFW)
+6. Runs the internal `install` logic on the server
 
-| Indicador | Descripción |
-|-----------|-------------|
-| `--ip` | Dirección IP del servidor |
-| `--user` | Usuario SSH (predeterminado: root) |
-| `--auth-key` | Ruta a la clave privada SSH |
-| `--domain` | Nombre de dominio para Let's Encrypt |
-| `--acme-email` | Correo para Let's Encrypt |
-| `--uninstall` | Eliminar Bedrud del servidor |
+| Flag | Description |
+|------|-------------|
+| `--ip` | Server IP address |
+| `--user` | SSH user (default: root) |
+| `--auth-key` | Path to SSH private key |
+| `--domain` | Domain name for Let's Encrypt |
+| `--acme-email` | Email for Let's Encrypt |
+| `--uninstall` | Remove Bedrud from server |
 
 ---
 
 <InstallerSteps />
 
-### Puntos de Entrada de Servicio
+### Service Entrypoints
 
 ```
-bedrud --run --config /etc/bedrud/config.yaml       # API + servidor web
-bedrud --livekit --config /etc/bedrud/livekit.yaml   # Servidor de medios
+bedrud --run --config /etc/bedrud/config.yaml       # API + web server
+bedrud --livekit --config /etc/bedrud/livekit.yaml   # Media server
 ```
 
 ---
 
-## Post-Instalación
+## Post-Installation
 
 <CreateAdmin />
 
-### Verificar Servicios
+### Verify Services
 
 ```bash
 systemctl status bedrud livekit
 ```
 
-### Verificar la API
+### Verify the API
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 ```
 
-Esperado: `200`
+Expect: `200`
 
-### Verificar el Firewall
+### Check the Firewall
 
 ```bash
 sudo ufw status
 ```
 
-Asegúrate de que los puertos `8090/tcp`, `7880/tcp` y `50000:60000/udp` estén permitidos:
+Ensure ports `8090/tcp`, `7880/tcp`, and `50000:60000/udp` are allowed:
 
 ```bash
 sudo ufw allow 8090/tcp
@@ -360,13 +360,13 @@ sudo ufw allow 7880/tcp
 sudo ufw allow 50000:60000/udp
 ```
 
-### Ver Registros
+### View Logs
 
 ```bash
 tail -f /var/log/bedrud/bedrud.log
 ```
 
-O vía journalctl:
+Or via journalctl:
 
 ```bash
 journalctl -u bedrud -u livekit -f
@@ -374,9 +374,9 @@ journalctl -u bedrud -u livekit -f
 
 ---
 
-## Actualización
+## Upgrading
 
-### Gestor de Paquetes
+### Package Manager
 
 ```bash
 # Ubuntu / Debian
@@ -389,11 +389,11 @@ yay -Syu bedrud-bin
 sudo dnf upgrade bedrud
 ```
 
-Los servicios se reinician automáticamente después de la actualización del paquete.
+Services restart automatically after package upgrade.
 
-### Descarga de Binario
+### Binary Download
 
-Descarga la última versión y vuelve a ejecutar la instalación. El instalador es seguro de volver a ejecutar: sobrescribe el binario y la configuración mientras preserva la base de datos:
+Download the latest release and re-run install. The installer is safe to re-run - it overwrites the binary and config while preserving the database:
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -402,7 +402,7 @@ sudo ./bedrud install --fresh
 ```
 
 <Callout type="tip">
-    `--fresh` elimina primero la instalación anterior. Omítelo para mantener tu configuración y base de datos existentes.
+    `--fresh` removes the old installation first. Omit it to keep your existing config and database.
 </Callout>
 
 ### Docker
@@ -418,7 +418,7 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Con Docker Compose:
+With Docker Compose:
 
 ```bash
 docker compose pull
@@ -427,30 +427,30 @@ docker compose up -d
 
 ---
 
-## Desinstalación
+## Uninstallation
 
-Para eliminar completamente Bedrud:
+To completely remove Bedrud:
 
 ```bash
 sudo bedrud uninstall
 ```
 
-Esto detiene los servicios, elimina las unidades systemd, borra el binario de `/usr/local/bin` y limpia `/etc/bedrud`, `/var/lib/bedrud` y `/var/log/bedrud`.
+This stops services, removes systemd units, deletes the binary from `/usr/local/bin`, and cleans up `/etc/bedrud`, `/var/lib/bedrud`, and `/var/log/bedrud`.
 
 ---
 
-## Solución de Problemas
+## Troubleshooting
 
-| Problema | Solución |
-|----------|----------|
-| **Puerto 80/443 en uso** | Detén servidores web en conflicto: `systemctl stop nginx apache2 caddy` |
-| **Los servicios no inician** | Verifica registros: `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| **Problemas de certificado TLS** | Verifica DNS: `dig +short meet.example.com` - debe devolver la IP de este servidor |
-| **Conflictos de puerto LiveKit** | Usa los indicadores `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` para cambiar puertos |
-| **Instalación exitosa pero 404 en interfaz web** | Interfaz no integrada. Compila con `make build` antes de `bedrud install`. Las compilaciones solo de binario omiten la interfaz |
-| **Instalación exitosa pero servicios fallaron** | Busca fallos silenciosos: `journalctl -u bedrud --no-pager -n 100`. Verifica la configuración en `/etc/bedrud/config.yaml` |
-| **Puerto ya en uso (proceso desconocido)** | Encuéntralo: `ss -tlnp \| grep 8090` o `ss -ulnp \| grep 7880` |
-| **Firewall bloqueando medios** | Abre puertos: `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| **Advertencias de certificado autofirmado** | Esperado. Consulta [Guía de TLS Interno](/es/docs/guides/internal-tls) para configuración de CA privada |
-| **Sin video / WebRTC falló** | Se requiere HTTPS para acceso a cámara. Usa `--tls`. Asegúrate de que UDP 50000–60000 esté abierto |
-| **Proxy inverso: IP de cliente incorrecta** | Usa el indicador `--behind-proxy`. Configura encabezados de proxy de confianza |
+| Problem | Solution |
+|---------|----------|
+| **Port 80/443 in use** | Stop conflicting web servers: `systemctl stop nginx apache2 caddy` |
+| **Services won't start** | Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50` |
+| **TLS certificate issues** | Verify DNS: `dig +short meet.example.com` - must return this server's IP |
+| **LiveKit port conflicts** | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags to change ports |
+| **Install succeeded but 404 on web UI** | Frontend not embedded. Build with `make build` before `bedrud install`. Binary-only builds skip the frontend |
+| **Install succeeded but services crashed** | Check for silent failures: `journalctl -u bedrud --no-pager -n 100`. Verify config at `/etc/bedrud/config.yaml` |
+| **Port already in use (unknown process)** | Find it: `ss -tlnp \| grep 8090` or `ss -ulnp \| grep 7880` |
+| **Firewall blocking media** | Open ports: `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| **Self-signed cert warnings** | Expected. See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+| **No video / WebRTC failed** | HTTPS required for camera access. Use `--tls`. Ensure UDP 50000–60000 is open |
+| **Reverse proxy: wrong client IP** | Use `--behind-proxy` flag. Configures trusted proxy headers |

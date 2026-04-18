@@ -1,18 +1,18 @@
 ---
-title: Docker Guide
-description: Run Bedrud with Docker
+title: Guide Docker
+description: Exécuter Bedrud avec Docker
 order: 29
 ---
 
-Bedrud provides a multi-stage Dockerfile for building and running in containers.
+Bedrud fournit un Dockerfile multi-étapes pour la construction et l'exécution dans des conteneurs.
 
-## Quick Start
+## Démarrage rapide
 
 ```bash
 # Build
 docker build -t bedrud .
 
-# Run
+# Exécution
 docker run -d --name bedrud \
   -p 8090:8090 \
   -p 7880:7880 \
@@ -20,11 +20,11 @@ docker run -d --name bedrud \
   bedrud
 ```
 
-## Dockerfile Overview
+## Aperçu du Dockerfile
 
-The Dockerfile uses three stages to minimize the final image size:
+Le Dockerfile utilise trois étapes pour minimiser la taille finale de l'image :
 
-### Stage 1: Frontend Build
+### Étape 1 : Build du frontend
 
 ```dockerfile
 FROM node:22-alpine AS frontend
@@ -36,9 +36,9 @@ COPY apps/web/ ./
 RUN bun run build:embed
 ```
 
-Installs Bun, SSR pre-renders the React app, and copies assets to `server/frontend/`.
+Installe Bun, pré-rendu SSR l'application React et copie les assets dans `server/frontend/`.
 
-### Stage 2: Server Build
+### Étape 2 : Build du serveur
 
 ```dockerfile
 FROM golang:1.24-alpine AS backend
@@ -49,12 +49,12 @@ RUN go mod download
 COPY server/ ./
 COPY --from=frontend /build/server/frontend ./frontend/
 RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /bedrud ./cmd/bedrud/main.go
-# CGO is required for SQLite (uses C bindings)
+# CGO est requis pour SQLite (utilise des liaisons C)
 ```
 
-Compiles the Go binary with the frontend embedded. CGO is enabled for SQLite support.
+Compile le binaire Go avec le frontend intégré. CGO est activé pour la prise en charge SQLite.
 
-### Stage 3: Runtime
+### Étape 3 : Runtime
 
 ```dockerfile
 FROM alpine:3.21
@@ -65,21 +65,21 @@ ENTRYPOINT ["bedrud"]
 CMD ["run"]
 ```
 
-Minimal Alpine image with just the binary, CA certificates, and timezone data.
+Image Alpine minimale avec uniquement le binaire, les certificats CA et les données de fuseau horaire.
 
 ## Ports
 
-| Port | Service | Protocol |
-|------|---------|----------|
-| 8090 | API + Web UI | HTTP |
+| Port | Service | Protocole |
+|------|---------|-----------|
+| 8090 | API + Interface web | HTTP |
 | 7880 | LiveKit | WebSocket + HTTP |
-| 50000-60000 | RTC media | UDP |
+| 50000-60000 | Média RTC | UDP |
 
-For LiveKit media streams, you may also need to expose the RTC UDP port range (default: 50000-60000).
+Pour les flux média LiveKit, vous devrez peut-être également exposer la plage de ports UDP RTC (par défaut : 50000-60000).
 
 ## Volumes
 
-Mount a volume for persistent data:
+Montez un volume pour les données persistantes :
 
 ```bash
 docker run -d \
@@ -92,7 +92,7 @@ docker run -d \
 
 ## Configuration
 
-Pass a custom configuration file:
+Passez un fichier de configuration personnalisé :
 
 ```bash
 docker run -d \
@@ -104,7 +104,7 @@ docker run -d \
   bedrud run --config /etc/bedrud/config.yaml
 ```
 
-Or use environment variables:
+Ou utilisez des variables d'environnement :
 
 ```bash
 docker run -d \
@@ -117,19 +117,19 @@ docker run -d \
   bedrud
 ```
 
-## Pre-built Images
+## Images préconstruites
 
-Docker images are published to GitHub Container Registry on every release:
+Les images Docker sont publiées sur GitHub Container Registry à chaque release :
 
 ```bash
-# Latest release
+# Dernière release
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 
-# Specific version
+# Version spécifique
 docker pull ghcr.io/bedrud-ir/bedrud:v1.0.0
 ```
 
-## Docker Compose Example
+## Exemple Docker Compose
 
 ```yaml
 services:
@@ -151,7 +151,7 @@ volumes:
 
 ---
 
-## See also
+## Voir aussi
 
-- [Configuration Reference](/docs/getting-started/configuration) - full config options and environment variables
-- [Deployment Guide](/docs/guides/deployment) - production deployment with Docker
+- [Référence de configuration](/fr/docs/getting-started/configuration) - options complètes de configuration et variables d'environnement
+- [Guide de déploiement](/fr/docs/guides/deployment) - déploiement en production avec Docker

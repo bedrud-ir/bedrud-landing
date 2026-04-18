@@ -1,16 +1,16 @@
 ---
 title: Configuration
-description: Configure Bedrud for your needs
+description: Configurez Bedrud selon vos besoins
 order: 4
 ---
 
-Bedrud uses YAML configuration files for both the main server and the embedded LiveKit media server.
+Bedrud utilise des fichiers de configuration YAML pour le serveur principal et le serveur média LiveKit intégré.
 
-**See also:** [Quick Start](/docs/getting-started/quickstart) | [Installation](/docs/getting-started/installation) | [Deployment Guide](/docs/guides/deployment) | [Docker Guide](/docs/guides/docker)
+**Voir aussi :** [Démarrage rapide](/fr/docs/getting-started/quickstart) | [Installation](/fr/docs/getting-started/installation) | [Guide de déploiement](/fr/docs/guides/deployment) | [Guide Docker](/fr/docs/guides/docker)
 
-## Minimum Production Config
+## Configuration minimale de production
 
-Default config works for development. For production, change these values in `/etc/bedrud/config.yaml`:
+La configuration par défaut fonctionne pour le développement. Pour la production, modifiez ces valeurs dans `/etc/bedrud/config.yaml` :
 
 ```yaml
 auth:
@@ -18,48 +18,48 @@ auth:
   sessionSecret: "change-to-another-random-string"
 ```
 
-Restart after changes:
+Redémarrez après les modifications :
 
 ```bash
 sudo systemctl restart bedrud livekit
 ```
 
-Full reference below.
+Référence complète ci-dessous.
 
 ---
 
-## Server Configuration
+## Configuration du serveur
 
-**Location:** `server/config.yaml` (development) or `/etc/bedrud/config.yaml` (production)
+**Emplacement :** `server/config.yaml` (développement) ou `/etc/bedrud/config.yaml` (production)
 
-### Full Reference
+### Référence complète
 
 ```yaml
 server:
-  port: 8090                    # HTTP port
-  host: "localhost"             # Bind address
+  port: 8090                    # Port HTTP
+  host: "localhost"             # Adresse de liaison
 
 database:
-  type: "sqlite"                # Database type: sqlite or postgres
-  path: "data.db"               # SQLite database file path
+  type: "sqlite"                # Type de base de données : sqlite ou postgres
+  path: "data.db"               # Chemin vers le fichier de base de données SQLite
 
 logger:
-  level: "debug"                # Log level: debug, info, warn, error
-  outputPath: ""                # Log file path (empty = stdout)
+  level: "debug"                # Niveau de log : debug, info, warn, error
+  outputPath: ""                # Chemin vers le fichier de log (vide = stdout)
 
 livekit:
-  host: "http://localhost:8090/livekit"  # External LiveKit URL
-  internalHost: "http://127.0.0.1:7880"  # Internal LiveKit URL
-  apiKey: "devkey"              # LiveKit API key
-  apiSecret: "devsecret"        # LiveKit API secret
+  host: "http://localhost:8090/livekit"  # URL externe LiveKit
+  internalHost: "http://127.0.0.1:7880"  # URL interne LiveKit
+  apiKey: "devkey"              # Clé API LiveKit
+  apiSecret: "devsecret"        # Secret API LiveKit
 
 auth:
-  jwtSecret: "your-jwt-secret"           # Secret for signing JWT tokens
-  tokenDuration: 24                       # Token expiration in hours
-  sessionSecret: "your-session-secret"    # Secret for session cookies
-  frontendURL: "http://localhost:8090"    # Frontend URL (for OAuth redirects)
+  jwtSecret: "your-jwt-secret"           # Secret pour signer les jetons JWT
+  tokenDuration: 24                       # Expiration du jeton en heures
+  sessionSecret: "your-session-secret"    # Secret pour les cookies de session
+  frontendURL: "http://localhost:8090"    # URL du frontend (pour les redirections OAuth)
 
-  # OAuth providers (optional)
+  # Fournisseurs OAuth (optionnels)
   google:
     clientId: ""
     clientSecret: ""
@@ -71,17 +71,17 @@ auth:
     clientSecret: ""
 
 cors:
-  allowedOrigins: "http://localhost:8090,http://localhost:3000"  # Comma-separated
+  allowedOrigins: "http://localhost:8090,http://localhost:3000"  # Séparé par des virgules
   allowedHeaders: "Origin, Content-Type, Accept, Authorization"
   allowedMethods: "GET, POST, PUT, DELETE, OPTIONS"
   allowCredentials: true
 ```
 
-### Key Settings
+### Paramètres clés
 
-#### Database
+#### Base de données
 
-By default, Bedrud uses **SQLite** with a file at the configured `path`. For production with higher concurrency, switch to PostgreSQL by providing a connection string instead. When using PostgreSQL, the `path` field holds a connection string, not a file path:
+Par défaut, Bedrud utilise **SQLite** avec un fichier au chemin `path` configuré. Pour la production avec une concurrence plus élevée, passez à PostgreSQL en fournissant une chaîne de connexion à la place. Lors de l'utilisation de PostgreSQL, le champ `path` contient une chaîne de connexion, pas un chemin de fichier :
 
 ```yaml
 database:
@@ -89,29 +89,29 @@ database:
   path: "postgres://user:password@localhost:5432/bedrud?sslmode=disable"
 ```
 
-#### Authentication
+#### Authentification
 
-The `jwtSecret` is used to sign access and refresh tokens. Change this from the default in production.
+Le `jwtSecret` est utilisé pour signer les jetons d'accès et de rafraîchissement. Modifiez-le depuis la valeur par défaut en production.
 
-**OAuth providers** are optional. If you don't configure them, social login buttons won't appear in the UI. Each provider requires registering an OAuth app with the respective service and providing the client ID and secret.
+Les **fournisseurs OAuth** sont optionnels. Si vous ne les configurez pas, les boutons de connexion sociale n'apparaîtront pas dans l'interface. Chaque fournisseur nécessite l'enregistrement d'une application OAuth avec le service correspondant et la fourniture de l'ID client et du secret.
 
 #### CORS
 
-The `allowedOrigins` string (comma-separated) must include the URL where your frontend is served. In development, this is `http://localhost:3000`. In production, set it to your domain (e.g., `https://meet.example.com`).
+La chaîne `allowedOrigins` (séparée par des virgules) doit inclure l'URL où votre frontend est servi. En développement, c'est `http://localhost:3000`. En production, définissez-la sur votre domaine (ex. `https://meet.example.com`).
 
 ---
 
-## LiveKit Configuration
+## Configuration LiveKit
 
-**Location:** `server/config/livekit.yaml` (development) or `/etc/bedrud/livekit.yaml` (production)
+**Emplacement :** `server/config/livekit.yaml` (développement) ou `/etc/bedrud/livekit.yaml` (production)
 
 ```yaml
-port: 7880                      # LiveKit HTTP/WebSocket port
+port: 7880                      # Port HTTP/WebSocket LiveKit
 
 rtc:
-  port_range_start: 50000       # UDP port range start
-  port_range_end: 60000         # UDP port range end
-  use_external_ip: true         # Use external IP for RTC
+  port_range_start: 50000       # Début de la plage de ports UDP
+  port_range_end: 60000         # Fin de la plage de ports UDP
+  use_external_ip: true         # Utiliser l'IP externe pour RTC
 
 turn:
   enabled: true
@@ -120,61 +120,61 @@ turn:
   udp_port: 3478
 
 keys:
-  devkey: "devsecret"           # Must match server config
+  devkey: "devsecret"           # Doit correspondre à la configuration du serveur
 
 logging:
   level: info
 
 room:
-  auto_create: true              # Auto-create rooms when participants join
-  empty_timeout: 60              # Seconds before deleting empty room
-  departure_timeout: 60          # Seconds to keep room after all participants leave
-  max_participants: 20           # Max participants per room (0 = unlimited)
-  enable_remote_unmute: true     # Allow server-side unmute of participants
+  auto_create: true              # Créer automatiquement des salles lorsque les participants rejoignent
+  empty_timeout: 60              # Secondes avant suppression d'une salle vide
+  departure_timeout: 60          # Secondes pour garder la salle après le départ de tous les participants
+  max_participants: 20           # Maximum de participants par salle (0 = illimité)
+  enable_remote_unmute: true     # Permettre le démappareillage côté serveur des participants
 ```
 
 <Callout type="warning">
-    The `keys` in `livekit.yaml` must match the `livekit.apiKey` and `livekit.apiSecret` in the server's `config.yaml`.
+    Les `keys` dans `livekit.yaml` doivent correspondre à `livekit.apiKey` et `livekit.apiSecret` dans le `config.yaml` du serveur.
 </Callout>
 
-### RTC Port Range
+### Plage de ports RTC
 
-LiveKit uses UDP ports for media streams. The default range `50000-60000` works for most setups. If running behind a firewall, ensure these ports are open.
+LiveKit utilise des ports UDP pour les flux média. La plage par défaut `50000-60000` fonctionne pour la plupart des configurations. Si vous êtes derrière un pare-feu, assurez-vous que ces ports sont ouverts.
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for architecture and troubleshooting.
+Voir [Connectivité WebRTC](/fr/docs/architecture/webrtc-connectivity) pour l'architecture et le dépannage.
 
-### TURN Server
+### Serveur TURN
 
-The embedded TURN server relays media for clients behind restrictive NATs or corporate firewalls. It's enabled by default on ports 3478 (UDP) and 5349 (TLS).
+Le serveur TURN intégré relaie les médias pour les clients derrière des NAT restrictifs ou des pare-feux d'entreprise. Il est activé par défaut sur les ports 3478 (UDP) et 5349 (TLS).
 
-TURN is a last-resort relay - most clients (~80%) connect directly via UDP and never use it. When TURN activates, the server carries all relayed media bandwidth.
+TURN est un relais de dernier recours - la plupart des clients (~80%) se connectent directement via UDP et ne l'utilisent jamais. Lorsque TURN s'active, le serveur transporte toute la bande passante média relayée.
 
-**TLS requirement:** TURN/TLS (port 5349) needs a valid TLS certificate. For production, set `turn.tls_port: 443` and point `cert_file`/`key_file` to your certificate, or place a Layer 4 load balancer in front with `external_tls: true`.
+**Exigence TLS :** TURN/TLS (port 5349) nécessite un certificat TLS valide. Pour la production, définissez `turn.tls_port: 443` et pointez `cert_file`/`key_file` vers votre certificat, ou placez un équilibreur de charge de couche 4 devant avec `external_tls: true`.
 
-See the [TURN Server Guide](/docs/architecture/turn-server) for architecture, config details, bandwidth calculations, and troubleshooting.
+Voir le [Guide du serveur TURN](/fr/docs/architecture/turn-server) pour l'architecture, les détails de configuration, les calculs de bande passante et le dépannage.
 
-### Room Settings
+### Paramètres de salle
 
-The `room:` section controls meeting room behavior:
+La section `room:` contrôle le comportement des salles de réunion :
 
-- **`auto_create`** - Automatically create rooms when participants join (default: `true`)
-- **`empty_timeout`** - Seconds before deleting a room that was never joined (default: `60`)
-- **`departure_timeout`** - Seconds to keep room active after all participants leave (default: `60`)
-- **`max_participants`** - Maximum participants per room. Set to `0` for no limit (default: `20`)
-- **`enable_remote_unmute`** - Allow server-side muting/unmuting of participants (default: `true`)
+- **`auto_create`** - Crée automatiquement des salles lorsque les participants rejoignent (par défaut : `true`)
+- **`empty_timeout`** - Secondes avant suppression d'une salle qui n'a jamais été rejointe (par défaut : `60`)
+- **`departure_timeout`** - Secondes pour garder la salle active après le départ de tous les participants (par défaut : `60`)
+- **`max_participants`** - Maximum de participants par salle. Définissez à `0` pour aucune limite (par défaut : `20`)
+- **`enable_remote_unmute`** - Permettre le muet/démuet côté serveur des participants (par défaut : `true`)
 
-**Tuning for capacity:**
-- Small team meetings: `max_participants: 10-20`
-- Large webinars: `max_participants: 100` (or `0` for unlimited)
-- Resource-constrained servers: Lower `max_participants` to reduce CPU/memory usage
+**Réglage pour la capacité :**
+- Petites réunions d'équipe : `max_participants: 10-20`
+- Grands webinaires : `max_participants: 100` (ou `0` pour illimité)
+- Serveurs à ressources limitées : Réduisez `max_participants` pour diminuer l'utilisation CPU/mémoire
 
 ---
 
-## Environment Variables
+## Variables d'environnement
 
-Configuration values can be overridden with environment variables. The naming follows a per-section prefix convention:
+Les valeurs de configuration peuvent être remplacées par des variables d'environnement. La convention de nommage suit un préfixe par section :
 
-For Docker deployments, see the [Docker Guide](/docs/guides/docker).
+Pour les déploiements Docker, voir le [Guide Docker](/fr/docs/guides/docker).
 
 ```bash
 export SERVER_PORT=8090
@@ -185,49 +185,49 @@ export LIVEKIT_API_KEY=prodkey
 export LIVEKIT_API_SECRET=prodsecret
 ```
 
-### Full Environment Variable Reference
+### Référence complète des variables d'environnement
 
-| Env Var | YAML Path | Description |
-|---------|-----------|-------------|
-| `SERVER_PORT` | `server.port` | HTTP listening port |
-| `SERVER_ENABLE_TLS` | `server.enableTLS` | Enable HTTPS (`true`/`false`) |
-| `SERVER_CERT_FILE` | `server.certFile` | Path to TLS certificate |
-| `SERVER_KEY_FILE` | `server.keyFile` | Path to TLS private key |
-| `SERVER_DOMAIN` | `server.domain` | Domain name |
-| `SERVER_EMAIL` | `server.email` | Email for Let's Encrypt |
-| `SERVER_USE_ACME` | `server.useACME` | Enable automatic Let's Encrypt (`true`/`false`) |
-| `SERVER_TRUSTED_PROXIES` | `server.trustedProxies` | Comma-separated trusted proxy IPs |
-| `SERVER_PROXY_HEADER` | `server.proxyHeader` | Header to read client IP from (e.g., `X-Forwarded-For`) |
-| `DB_HOST` | `database.host` | Database host (PostgreSQL) |
-| `DB_PORT` | `database.port` | Database port |
-| `DB_USER` | `database.user` | Database user |
-| `DB_PASSWORD` | `database.password` | Database password |
-| `DB_NAME` | `database.dbname` | Database name |
-| `DB_TYPE` | `database.type` | `sqlite` or `postgres` |
-| `DB_PATH` | `database.path` | SQLite file path or PostgreSQL connection string |
-| `LIVEKIT_HOST` | `livekit.host` | External LiveKit URL |
-| `LIVEKIT_INTERNAL_HOST` | `livekit.internalHost` | Internal LiveKit URL |
-| `LIVEKIT_API_KEY` | `livekit.apiKey` | LiveKit API key |
-| `LIVEKIT_API_SECRET` | `livekit.apiSecret` | LiveKit API secret |
-| `JWT_SECRET` | `auth.jwtSecret` | Secret for signing JWT tokens |
-| `AUTH_FRONTEND_URL` | `auth.frontendURL` | Frontend URL for OAuth redirects |
-| `CORS_ALLOWED_ORIGINS` | `cors.allowedOrigins` | Comma-separated allowed origins |
-| `CORS_ALLOWED_HEADERS` | `cors.allowedHeaders` | Allowed request headers |
-| `CORS_ALLOWED_METHODS` | `cors.allowedMethods` | Allowed HTTP methods |
-| `CORS_ALLOW_CREDENTIALS` | `cors.allowCredentials` | Allow credentials (`true`/`false`) |
-| `CORS_EXPOSE_HEADERS` | `cors.exposeHeaders` | Headers exposed to the browser |
-| `CORS_MAX_AGE` | `cors.maxAge` | Preflight cache duration in seconds |
+| Var d'env | Chemin YAML | Description |
+|-----------|-------------|-------------|
+| `SERVER_PORT` | `server.port` | Port d'écoute HTTP |
+| `SERVER_ENABLE_TLS` | `server.enableTLS` | Activer HTTPS (`true`/`false`) |
+| `SERVER_CERT_FILE` | `server.certFile` | Chemin vers le certificat TLS |
+| `SERVER_KEY_FILE` | `server.keyFile` | Chemin vers la clé privée TLS |
+| `SERVER_DOMAIN` | `server.domain` | Nom de domaine |
+| `SERVER_EMAIL` | `server.email` | E-mail pour Let's Encrypt |
+| `SERVER_USE_ACME` | `server.useACME` | Activer Let's Encrypt automatique (`true`/`false`) |
+| `SERVER_TRUSTED_PROXIES` | `server.trustedProxies` | IPs de proxy de confiance séparées par des virgules |
+| `SERVER_PROXY_HEADER` | `server.proxyHeader` | En-tête pour lire l'IP client (ex. `X-Forwarded-For`) |
+| `DB_HOST` | `database.host` | Hôte de base de données (PostgreSQL) |
+| `DB_PORT` | `database.port` | Port de base de données |
+| `DB_USER` | `database.user` | Utilisateur de base de données |
+| `DB_PASSWORD` | `database.password` | Mot de passe de base de données |
+| `DB_NAME` | `database.dbname` | Nom de base de données |
+| `DB_TYPE` | `database.type` | `sqlite` ou `postgres` |
+| `DB_PATH` | `database.path` | Chemin de fichier SQLite ou chaîne de connexion PostgreSQL |
+| `LIVEKIT_HOST` | `livekit.host` | URL externe LiveKit |
+| `LIVEKIT_INTERNAL_HOST` | `livekit.internalHost` | URL interne LiveKit |
+| `LIVEKIT_API_KEY` | `livekit.apiKey` | Clé API LiveKit |
+| `LIVEKIT_API_SECRET` | `livekit.apiSecret` | Secret API LiveKit |
+| `JWT_SECRET` | `auth.jwtSecret` | Secret pour signer les jetons JWT |
+| `AUTH_FRONTEND_URL` | `auth.frontendURL` | URL du frontend pour les redirections OAuth |
+| `CORS_ALLOWED_ORIGINS` | `cors.allowedOrigins` | Origines autorisées séparées par des virgules |
+| `CORS_ALLOWED_HEADERS` | `cors.allowedHeaders` | En-têtes de requête autorisés |
+| `CORS_ALLOWED_METHODS` | `cors.allowedMethods` | Méthodes HTTP autorisées |
+| `CORS_ALLOW_CREDENTIALS` | `cors.allowCredentials` | Autoriser les identifiants (`true`/`false`) |
+| `CORS_EXPOSE_HEADERS` | `cors.exposeHeaders` | En-têtes exposés au navigateur |
+| `CORS_MAX_AGE` | `cors.maxAge` | Durée du cache préflight en secondes |
 
 ---
 
-## Production Checklist
+## Liste de contrôle pour la production
 
-- [ ] Change `jwtSecret` and `sessionSecret` to strong random values
-- [ ] Set `logger.level` to `info` or `warn`
-- [ ] Configure TLS (via installer or reverse proxy)
-- [ ] Set `cors.allowedOrigins` to your production domain
-- [ ] Configure OAuth providers if needed
-- [ ] Open LiveKit RTC port range in your firewall
-- [ ] Set up log rotation for `/var/log/bedrud/`
+- [ ] Changer `jwtSecret` et `sessionSecret` par des valeurs aléatoires fortes
+- [ ] Définir `logger.level` à `info` ou `warn`
+- [ ] Configurer TLS (via l'installateur ou un reverse proxy)
+- [ ] Définir `cors.allowedOrigins` à votre domaine de production
+- [ ] Configurer les fournisseurs OAuth si nécessaire
+- [ ] Ouvrir la plage de ports RTC LiveKit dans votre pare-feu
+- [ ] Configurer la rotation des logs pour `/var/log/bedrud/`
 
-For complete production setup, see the [Deployment Guide](/docs/guides/deployment).
+Pour une configuration complète de production, voir le [Guide de déploiement](/fr/docs/guides/deployment).

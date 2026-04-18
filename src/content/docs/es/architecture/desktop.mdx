@@ -1,81 +1,82 @@
 ---
-title: Desktop App
-description: Rust-based desktop application
+title: Aplicación de Escritorio
+description: Aplicación de escritorio basada en Rust
 order: 11
 ---
 
-The Bedrud desktop client is a native Windows and Linux application built with **Rust** and the **Slint** UI toolkit. It provides the same core meeting experience as the web and mobile clients, compiled to a single binary with no runtime dependencies.
+El cliente de escritorio de Bedrud es una aplicación nativa para Windows y Linux construida con **Rust** y el toolkit de UI **Slint**. Proporciona la misma experiencia central de reunión que los clientes web y móviles, compilada en un solo binario sin dependencias de tiempo de ejecución.
 
-## Technology Stack
+## Stack Tecnológico
 
-| Component | Technology |
+| Componente | Tecnología |
 |-----------|-----------|
-| Language | Rust (stable) |
-| UI toolkit | Slint 1.x |
-| HTTP client | reqwest (async, TLS) |
-| Media | LiveKit Rust SDK |
-| Storage | serde_json + OS keyring (libsecret / Windows Credential Store) |
-| Build system | Cargo workspace |
+| Lenguaje | Rust (estable) |
+| Toolkit de UI | Slint 1.x |
+| Cliente HTTP | reqwest (asíncrono, TLS) |
+| Medios | LiveKit Rust SDK |
+| Almacenamiento | serde_json + llavero del sistema operativo (libsecret / Windows Credential Store) |
+| Sistema de construcción | Espacio de trabajo Cargo |
 
-## Platform Support
+## Soporte de Plataformas
 
-| Platform | Renderer | Binary |
+| Plataforma | Renderizador | Binario |
 |----------|----------|--------|
 | Windows 10/11 | Direct3D 11 | `bedrud-desktop.exe` |
-| Linux x86_64 | OpenGL / Vulkan (via EGL/Wayland/X11) | `bedrud-desktop` |
-| macOS | _(not yet - use the web app)_ | - |
+| Linux x86_64 | OpenGL / Vulkan (vía EGL/Wayland/X11) | `bedrud-desktop` |
+| macOS | _(aún no - use la aplicación web)_ | - |
 
-## Source Layout
+## Estructura del Código Fuente
 
 ```
 apps/desktop/
-├── Cargo.toml              # Crate definition
-├── build.rs                # Slint compile step
+├── Cargo.toml              # Definición de crate
+├── build.rs                # Paso de compilación de Slint
 ├── src/
-│   ├── main.rs             # Entry point - initialises app + event loop
-│   ├── app.rs              # Top-level AppState and startup logic
+│   ├── main.rs             # Punto de entrada - inicializa app + bucle de eventos
+│   ├── app.rs              # AppState de nivel superior y lógica de inicio
 │   ├── api/
-│   │   ├── client.rs       # Shared HTTP client (base URL, JWT injection)
-│   │   ├── auth.rs         # Login, register, refresh
-│   │   ├── rooms.rs        # Room list, join, create
-│   │   └── admin.rs        # Admin endpoints
+│   │   ├── client.rs       # Cliente HTTP compartido (URL base, inyección JWT)
+│   │   ├── auth.rs         # Login, registro, actualización
+│   │   ├── rooms.rs        # Lista de salas, unirse, crear
+│   │   └── admin.rs        # Endpoints de administración
 │   ├── auth/
-│   │   ├── session.rs      # JWT storage and refresh loop
-│   │   └── passkey.rs      # FIDO2 passkey stub
+│   │   ├── session.rs      # Almacenamiento JWT y bucle de actualización
+│   │   └── passkey.rs      # Stub de passkey FIDO2
 │   ├── livekit/
-│   │   ├── room.rs         # Room connection lifecycle
-│   │   ├── tracks.rs       # Audio/video track management
-│   │   └── devices.rs      # Microphone / camera enumeration
+│   │   ├── room.rs         # Ciclo de vida de conexión de sala
+│   │   ├── tracks.rs       # Gestión de tracks de audio/video
+│   │   └── devices.rs      # Enumeración de micrófono / cámara
 │   ├── store/
-│   │   ├── instance.rs     # Multi-instance persistence
-│   │   └── settings.rs     # User preferences
+│   │   ├── instance.rs     # Persistencia multiinstancia
+│   │   └── settings.rs     # Preferencias del usuario
 │   └── ui/
 │       ├── mod.rs
-│       └── bridge.rs       # Slint ↔ Rust callback wiring
+│       └── bridge.rs       # Cableado de callbacks Slint ↔ Rust
 └── ui/
-    ├── app.slint            # Root component, page router
-    ├── theme.slint          # Colours, typography, spacing tokens
+    ├── app.slint            # Componente raíz, enrutador de páginas
+    ├── theme.slint          # Colores, tipografía, tokens de espaciado
     ├── components/          # Button, Input, Card, Avatar
-    ├── auth/                # Login and Register screens
-    ├── dashboard/           # Room list, Create-room dialog
-    ├── meeting/             # Controls bar, participant tiles, chat
-    ├── admin/               # Admin panel, user table
-    └── settings.slint       # Settings screen
+    ├── auth/                # Pantallas de Login y Register
+    ├── dashboard/           # Lista de salas, diálogo Create-room
+    ├── meeting/             # Barra de controles, mosaicos de participantes, chat
+    ├── admin/               # Panel de administración, tabla de usuarios
+    └── settings.slint       # Pantalla de configuración
 ```
 
-## Architecture
+## Arquitectura
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                   Slint UI Layer                    │
+│                   Capa UI Slint                     │
 │  (app.slint, login.slint, dashboard.slint, …)       │
-│                 Compiled to native code             │
+│                 Compilado a código nativo           │
 └────────────────────────┬────────────────────────────┘
-                         │  callbacks / property bindings
+                          │  callbacks / enlaces de propiedades
 ┌────────────────────────┴────────────────────────────┐
 │                  ui/bridge.rs                       │
-│  Maps Slint callbacks → async Rust tasks            │
-│  Updates Slint properties from background threads   │
+│  Mapea callbacks Slint → tareas asíncronas de Rust  │
+│  Actualiza propiedades Slint desde hilos en segundo │
+│  plano                                             │
 └───────┬──────────────────┬──────────────────┘
         │                          │
 ┌───────┴──────────┐   ┌───────────┴──────────────────┐
@@ -85,23 +86,23 @@ apps/desktop/
         │                          │
 ┌───────┴──────────┐   ┌───────────┴──────────────────┐
 │  store/ module   │   │  auth/session.rs              │
-│  (instances,     │   │  (JWT refresh loop,           │
-│   settings)      │   │   keyring storage)            │
+│  (instancias,    │   │  (bucle de actualización JWT,  │
+│   configuración) │   │   almacenamiento en llavero)   │
 └──────────────────┘   └───────────────────────────────┘
 ```
 
-### Key design decisions
+### Decisiones de diseño clave
 
-- **Slint's compile-time UI** - `.slint` files are compiled into Rust at build time via `build.rs`. There is no layout engine at runtime; the UI is fully native.
-- **`bridge.rs` as the only UI↔logic boundary** - all Slint callbacks are wired in one place, keeping business logic out of the UI layer and making the bridge easy to audit.
-- **`Weak<AppWindow>` in callbacks** - Slint UI handles are `!Send`, so background tasks upgrade a stored `Weak` reference on the UI thread to set properties, rather than sharing the handle across threads.
-- **Multi-instance via `store/instance.rs`** - identical to the mobile apps: instances are serialised to a JSON file in the OS config directory; each instance has its own `APIClient` and `AuthSession`.
+- **UI en tiempo de compilación de Slint** - Los archivos `.slint` se compilan en Rust en tiempo de compilación vía `build.rs`. No hay motor de diseño en tiempo de ejecución; la UI es completamente nativa.
+- **`bridge.rs` como el único límite UI↔lógica** - todos los callbacks de Slint se cablean en un solo lugar, manteniendo la lógica de negocio fuera de la capa UI y facilitando la auditoría del puente.
+- **`Weak<AppWindow>` en callbacks** - Los manejadores de UI de Slint son `!Send`, por lo que las tareas en segundo plano actualizan una referencia `Weak` almacenada en el hilo de UI para establecer propiedades, en lugar de compartir el manejador entre hilos.
+- **Multiinstancia vía `store/instance.rs`** - idéntico a las aplicaciones móviles: las instancias se serializan a un archivo JSON en el directorio de configuración del sistema operativo; cada instancia tiene su propio `APIClient` y `AuthSession`.
 
-## Building Locally
+## Construcción Local
 
-### Prerequisites
+### Prerrequisitos
 
-- Rust stable toolchain (`rustup toolchain install stable`)
+- Cadena de herramientas de Rust estable (`rustup toolchain install stable`)
 - **Linux:** `libfontconfig`, `libxkbcommon`, `libwayland`, `libgles2`, `libdbus`, `libsecret`
 
   ```bash
@@ -112,38 +113,38 @@ apps/desktop/
     libasound2-dev
   ```
 
-- **Windows:** Visual Studio Build Tools (MSVC) with the C++ workload
+- **Windows:** Visual Studio Build Tools (MSVC) con la carga de trabajo C++
 
-### Build
+### Construcción
 
 ```bash
-# Debug build (fast compile, no optimisations)
-make dev-desktop          # runs the app immediately after build
+# Construcción de depuración (compilación rápida, sin optimizaciones)
+make dev-desktop          # ejecuta la aplicación inmediatamente después de la construcción
 
-# Release build
+# Construcción de release
 make build-desktop        # → target/release/bedrud-desktop (Linux)
                            # → target/release/bedrud-desktop.exe (Windows)
 ```
 
-Or with Cargo directly:
+O con Cargo directamente:
 
 ```bash
-cargo build -p bedrud-desktop                          # debug
-cargo build -p bedrud-desktop --release                # optimised
-cargo run   -p bedrud-desktop                          # run immediately
+cargo build -p bedrud-desktop                          # depuración
+cargo build -p bedrud-desktop --release                # optimizado
+cargo run   -p bedrud-desktop                          # ejecutar inmediatamente
 ```
 
 ## CI
 
-The desktop app is built in CI on every push to `main` and on pull requests:
+La aplicación de escritorio se construye en CI en cada envío a `main` y en pull requests:
 
-| Job | Runner | What it checks |
+| Trabajo | Runner | Qué verifica |
 |-----|--------|----------------|
 | `Desktop – Build & Test` | `ubuntu-latest` | `cargo build`, `cargo test` |
 
-Release builds produce two artifacts:
+Las construcciones de release producen dos artefactos:
 
-| Artifact | Runner | Format |
+| Artefacto | Runner | Formato |
 |----------|--------|--------|
 | `bedrud-desktop-linux-x86_64.tar.xz` | `ubuntu-latest` | tar.xz |
 | `bedrud-desktop-windows-x86_64.zip` | `windows-latest` | zip |
