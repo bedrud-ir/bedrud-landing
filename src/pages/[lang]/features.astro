@@ -3,7 +3,6 @@ import ComparisonSection from "~/components/landing/comparison-section.astro";
 import { CtaSection } from "~/components/landing/cta-section";
 import FeaturesPageGrid from "~/components/landing/features-page-grid.astro";
 import PlatformsSection from "~/components/landing/platforms-section.astro";
-import TestimonialsSection from "~/components/landing/testimonials-section.astro";
 import Landing from "~/layouts/Landing.astro";
 import { isValidLocale, type Locale, supportedLocales, t } from "../../i18n/utils";
 
@@ -39,7 +38,6 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
   </section>
   <FeaturesPageGrid lang={lang} />
   <PlatformsSection lang={lang} />
-  <TestimonialsSection lang={lang} />
   <ComparisonSection lang={lang} />
   <CtaSection client:visible lang={lang} linkToQuickstart />
 </Landing>
