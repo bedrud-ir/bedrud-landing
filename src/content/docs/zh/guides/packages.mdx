@@ -4,17 +4,17 @@ description: Install from package managers
 order: 32
 ---
 
-This guide covers all available package manager and binary installation methods for Bedrud - both the **server** and the **desktop client**.
+本指南介绍 Bedrud 所有可用的包管理器和二进制文件安装方式——包括**服务器**和**桌面客户端**。
 
 ---
 
-## Server Installation
+## 服务器安装
 
-### apt Repository (Ubuntu / Debian)
+### apt 仓库（Ubuntu / Debian）
 
-The easiest way to install the Bedrud server on Debian-based systems is via the self-hosted apt repository hosted on GitHub Pages.
+在基于 Debian 的系统上安装 Bedrud 服务器的最简单方式是通过托管在 GitHub Pages 上的自托管 apt 仓库。
 
-**1. Add the repository and GPG key:**
+**1. 添加仓库和 GPG 密钥：**
 
 ```bash
 curl -fsSL https://bedrud-ir.github.io/bedrud/bedrud.gpg.key \
@@ -30,23 +30,23 @@ echo "deb https://bedrud-ir.github.io/bedrud stable main" \
 sudo apt update && sudo apt install bedrud
 ```
 
-The package installs the binary to `/usr/local/bin/bedrud` and registers a systemd service. After installing, run the interactive installer:
+软件包将二进制文件安装到 `/usr/local/bin/bedrud` 并注册一个 systemd 服务。安装后，运行交互式安装程序：
 
 ```bash
 sudo bedrud install
 ```
 
-See the [Installation Guide](/docs/getting-started/installation) for all configuration options.
+所有配置选项请参阅[安装指南](/zh/docs/getting-started/installation)。
 
 ---
 
-### AUR (Arch Linux)
+### AUR（Arch Linux）
 
 ```bash
 yay -S bedrud-bin
 ```
 
-After installing, run:
+安装后运行：
 
 ```bash
 sudo bedrud install
@@ -54,9 +54,9 @@ sudo bedrud install
 
 ---
 
-### DNF / RPM Repository (Fedora / RHEL / openSUSE)
+### DNF / RPM 仓库（Fedora / RHEL / openSUSE）
 
-**1. Add the repository:**
+**1. 添加仓库：**
 
 ```bash
 sudo curl -fsSL https://bedrud-ir.github.io/bedrud/dnf/bedrud.gpg.key \
@@ -66,7 +66,7 @@ sudo curl -fsSL https://bedrud-ir.github.io/bedrud/dnf/bedrud.repo \
   -o /etc/yum.repos.d/bedrud.repo
 ```
 
-**2. Install:**
+**2. 安装：**
 
 ```bash
 sudo dnf install bedrud
@@ -74,9 +74,9 @@ sudo dnf install bedrud
 
 ---
 
-### Direct .deb Download
+### 直接下载 .deb 包
 
-Download the `.deb` package directly from the [latest GitHub release](https://github.com/bedrud-ir/bedrud/releases/latest):
+从 [最新 GitHub release](https://github.com/bedrud-ir/bedrud/releases/latest) 直接下载 `.deb` 软件包：
 
 <Tabs>
   <TabsList>
@@ -103,9 +103,9 @@ Download the `.deb` package directly from the [latest GitHub release](https://gi
 
 ---
 
-### Direct .rpm Download
+### 直接下载 .rpm 包
 
-Download the `.rpm` package from the [latest GitHub release](https://github.com/bedrud-ir/bedrud/releases/latest):
+从 [最新 GitHub release](https://github.com/bedrud-ir/bedrud/releases/latest) 下载 `.rpm` 软件包：
 
 <Tabs>
   <TabsList>
@@ -128,9 +128,9 @@ Download the `.rpm` package from the [latest GitHub release](https://github.com/
 
 ---
 
-### Manual Binary Download
+### 手动下载二进制文件
 
-Download the compressed tarball and extract it anywhere on your `$PATH`:
+下载压缩的 tar 包并解压到 `$PATH` 中的任意位置：
 
 <Tabs>
   <TabsList>
@@ -159,7 +159,7 @@ Download the compressed tarball and extract it anywhere on your `$PATH`:
 
 ### Docker
 
-Pull the pre-built image from GitHub Container Registry:
+从 GitHub Container Registry 拉取预构建镜像：
 
 ```bash
 docker pull ghcr.io/bedrud-ir/bedrud:latest
@@ -171,11 +171,11 @@ docker run -d \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-See the [Docker Guide](/docs/guides/docker) for full details including volume mounts and reverse proxy setup.
+完整详情（包括卷挂载和反向代理设置）请参阅 [Docker 指南](/zh/docs/guides/docker)。
 
 ---
 
-## Desktop Client Installation
+## 桌面客户端安装
 
 ### Linux
 
@@ -191,13 +191,13 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
   </TabsList>
 
   <TabsContent value="apt">
-    Add the apt repository first (see [Server - apt Repository](#apt-repository-ubuntu-debian) above), then:
+    首先添加 apt 仓库（见上方[服务器 - apt 仓库](#apt-仓库ubuntu-debian)），然后：
 
     ```bash
     sudo apt install bedrud-desktop
     ```
 
-    The package installs a `.desktop` launcher and registers the app in your application menu.
+    软件包会安装一个 `.desktop` 启动器并在应用菜单中注册。
   </TabsContent>
 
   <TabsContent value="aur">
@@ -207,7 +207,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
   </TabsContent>
 
   <TabsContent value="dnf">
-    Add the DNF repository first (see [Server - DNF Repository](#dnf-rpm-repository-fedora-rhel-opensuse) above), then:
+    首先添加 DNF 仓库（见上方[服务器 - DNF 仓库](#dnf-rpm-仓库fedora-rhel-opensuse)），然后：
 
     ```bash
     sudo dnf install bedrud-desktop
@@ -219,11 +219,11 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
     sudo snap install bedrud-desktop
     ```
 
-    Snap is available on any Linux distribution that supports the Snap daemon (snapd).
+    Snap 可用于任何支持 Snap 守护进程（snapd）的 Linux 发行版。
   </TabsContent>
 
   <TabsContent value="flatpak">
-    Install from the Flatpak bundle:
+    从 Flatpak 包安装：
 
     ```bash
     flatpak install https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.flatpak
@@ -232,7 +232,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
   </TabsContent>
 
   <TabsContent value="appimage">
-    The AppImage is self-contained and works on any Linux distribution without installation.
+    AppImage 是自包含的，可在任何 Linux 发行版上运行而无需安装。
 
     ```bash
     wget https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.AppImage
@@ -241,12 +241,12 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
     ```
 
     <Callout type="tip">
-      To integrate AppImage into your application launcher, use a tool like [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
+      要将 AppImage 集成到应用启动器中，可以使用 [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher) 等工具。
     </Callout>
   </TabsContent>
 
   <TabsContent value="tarball">
-    Extract and run from any directory:
+    解压后可在任意目录运行：
 
     ```bash
     tar xf bedrud-desktop-linux-x86_64.tar.xz
@@ -259,7 +259,7 @@ See the [Docker Guide](/docs/guides/docker) for full details including volume mo
 
 ### macOS
 
-Pre-built portable tarballs are available for both Intel and Apple Silicon. The app is **unsigned** - after extracting you may need to allow it in **System Settings → Privacy & Security**.
+为 Intel 和 Apple Silicon 提供预构建的便携 tar 包。应用**未签名** — 解压后可能需要在**系统设置 → 隐私与安全性**中允许运行。
 
 <Tabs>
   <TabsList>
@@ -296,11 +296,11 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
 </Tabs>
 
 <Callout type="info">
-  macOS releases are **code-signed and notarized** when `MACOS_CERTIFICATE` is configured in CI (see [Secrets Reference](#secrets-reference)). Without those secrets the binary is unsigned - use the `xattr` workaround above or right-click → Open in Finder.
+  当在 CI 中配置了 `MACOS_CERTIFICATE` 时，macOS 发布版本会**经过代码签名和公证**（见[密钥参考](#密钥参考)）。没有这些密钥时二进制文件未签名 — 请使用上方的 `xattr` 解决方法，或在 Finder 中右键点击 → 打开。
 </Callout>
 
 <Callout type="warning">
-  Unsigned macOS Gatekeeper warning: either run the `xattr` command above, or open **System Settings → Privacy & Security** and click **Open Anyway** after the first blocked launch attempt.
+  未签名的 macOS Gatekeeper 警告：运行上方的 `xattr` 命令，或打开**系统设置 → 隐私与安全性**并在首次启动尝试被阻止后点击**仍要打开**。
 </Callout>
 
 ---
@@ -316,20 +316,20 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
   </TabsList>
 
   <TabsContent value="nsis">
-    Download and run the installer from the [latest release](https://github.com/bedrud-ir/bedrud/releases/latest):
+    从[最新版本](https://github.com/bedrud-ir/bedrud/releases/latest)下载并运行安装程序：
 
-    | Architecture | File |
+    | 架构 | 文件 |
     |---|---|
     | x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
     | ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
 
-    The installer registers the app in the Start Menu and Add/Remove Programs.
+    安装程序会在开始菜单和"添加或删除程序"中注册应用。
   </TabsContent>
 
   <TabsContent value="zip">
-    No installation required - extract and run:
+    无需安装 — 解压后即可运行：
 
-    | Architecture | File |
+    | 架构 | 文件 |
     |---|---|
     | x86_64 | `bedrud-desktop-windows-x86_64.zip` |
     | ARM64 | `bedrud-desktop-windows-arm64.zip` |
@@ -350,41 +350,41 @@ Pre-built portable tarballs are available for both Intel and Apple Silicon. The 
 
 ---
 
-## Summary Table
+## 汇总表
 
-| Platform | Server | Desktop Client |
+| 平台 | 服务器 | 桌面客户端 |
 |---|---|---|
 | Ubuntu / Debian (apt) | `apt install bedrud` | `apt install bedrud-desktop` |
 | Fedora / RHEL (dnf) | `dnf install bedrud` | `dnf install bedrud-desktop` |
 | Arch Linux (AUR) | `yay -S bedrud-bin` | `yay -S bedrud-desktop-bin` |
-| Any Linux | AppImage / `tar.xz` binary | AppImage / Flatpak / Snap / `tar.xz` |
-| macOS | `tar.xz` binary | Homebrew tap / portable `tar.gz` |
-| Windows | - | WinGet / Chocolatey / NSIS installer / portable `.zip` |
+| 任意 Linux | AppImage / `tar.xz` 二进制文件 | AppImage / Flatpak / Snap / `tar.xz` |
+| macOS | `tar.xz` 二进制文件 | Homebrew tap / 便携 `tar.gz` |
+| Windows | - | WinGet / Chocolatey / NSIS 安装程序 / 便携 `.zip` |
 | Docker | `ghcr.io/bedrud-ir/bedrud` | - |
 
 ---
 
-## Secrets Reference
+## 密钥参考
 
-These GitHub Actions secrets unlock the optional distribution channels:
+以下 GitHub Actions 密钥用于启用可选的分发渠道：
 
-| Secret | Channel | Description |
+| 密钥 | 渠道 | 说明 |
 |---|---|---|
-| `AUR_SSH_PRIVATE_KEY` | AUR | SSH key for `aur.archlinux.org` push |
-| `APT_GPG_PRIVATE_KEY` | apt repo | GPG key for signing `Release` file |
-| `APT_GPG_KEY_ID` | apt repo | Key ID of the above |
-| `RPM_GPG_PRIVATE_KEY` | DNF repo | GPG key for signing RPM packages |
-| `SNAPCRAFT_STORE_CREDENTIALS` | Snap Store | Login from `snapcraft export-login` |
-| `CHOCOLATEY_API_KEY` | Chocolatey | API key from chocolatey.org |
-| `HOMEBREW_TAP_TOKEN` | Homebrew tap | GitHub PAT with write access to `bedrud-ir/homebrew-bedrud` |
-| `WINGET_GITHUB_TOKEN` | WinGet | GitHub PAT for submitting PR to `microsoft/winget-pkgs` |
-| `MACOS_CERTIFICATE` | macOS signing | Base64-encoded Developer ID `.p12` certificate |
-| `MACOS_CERTIFICATE_PWD` | macOS signing | Password for the `.p12` file |
-| `MACOS_TEAM_ID` | macOS signing / notarize | Apple Developer Team ID |
-| `MACOS_APPLE_ID` | macOS notarize | Apple ID email address |
-| `MACOS_APP_PWD` | macOS notarize | App-specific password for notarytool |
-| `IOS_P12_BASE64` | iOS IPA | iOS distribution certificate |
-| `TELEGRAM_BOT_TOKEN` | Telegram | Bot token for release notifications |
-| `TELEGRAM_CHAT_ID` | Telegram | Target channel/group ID |
+| `AUR_SSH_PRIVATE_KEY` | AUR | 用于 `aur.archlinux.org` 推送的 SSH 密钥 |
+| `APT_GPG_PRIVATE_KEY` | apt 仓库 | 用于签名 `Release` 文件的 GPG 密钥 |
+| `APT_GPG_KEY_ID` | apt 仓库 | 上述密钥的 ID |
+| `RPM_GPG_PRIVATE_KEY` | DNF 仓库 | 用于签名 RPM 软件包的 GPG 密钥 |
+| `SNAPCRAFT_STORE_CREDENTIALS` | Snap Store | 从 `snapcraft export-login` 获取的登录凭据 |
+| `CHOCOLATEY_API_KEY` | Chocolatey | 来自 chocolatey.org 的 API 密钥 |
+| `HOMEBREW_TAP_TOKEN` | Homebrew tap | 具有对 `bedrud-ir/homebrew-bedrud` 写入权限的 GitHub PAT |
+| `WINGET_GITHUB_TOKEN` | WinGet | 用于向 `microsoft/winget-pkgs` 提交 PR 的 GitHub PAT |
+| `MACOS_CERTIFICATE` | macOS 签名 | Base64 编码的 Developer ID `.p12` 证书 |
+| `MACOS_CERTIFICATE_PWD` | macOS 签名 | `.p12` 文件的密码 |
+| `MACOS_TEAM_ID` | macOS 签名 / 公证 | Apple Developer Team ID |
+| `MACOS_APPLE_ID` | macOS 公证 | Apple ID 邮箱地址 |
+| `MACOS_APP_PWD` | macOS 公证 | 用于 notarytool 的应用专用密码 |
+| `IOS_P12_BASE64` | iOS IPA | iOS 分发证书 |
+| `TELEGRAM_BOT_TOKEN` | Telegram | 用于发布通知的机器人令牌 |
+| `TELEGRAM_CHAT_ID` | Telegram | 目标频道/群组 ID |
 
-All secrets are optional - if absent, that channel's job is silently skipped.
+所有密钥都是可选的 — 如果缺少某个密钥，该渠道的任务会被静默跳过。

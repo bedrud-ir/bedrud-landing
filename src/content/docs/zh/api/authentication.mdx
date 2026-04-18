@@ -4,24 +4,24 @@ description: Auth endpoints and methods
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+所有认证 endpoint 均位于 `/api/auth/` 下。
 
-## Overview
+## 概述
 
-Bedrud supports multiple authentication methods:
+Bedrud 支持多种认证方式：
 
-| Method | Endpoint | Description |
+| 方式 | Endpoint | 描述 |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
+| 邮箱/密码 | `POST /api/auth/login` | 传统登录 |
+| 注册 | `POST /api/auth/register` | 创建账户 |
+| 访客 | `POST /api/auth/guest-login` | 临时访问 |
+| OAuth | `GET /api/auth/:provider/login` | 社交登录 |
 | Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| Token 刷新 | `POST /api/auth/refresh` | 续期访问令牌 |
 
-## Token Format
+## Token 格式
 
-Successful authentication returns a pair of JWT tokens:
+认证成功后返回一对 JWT token：
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **Access Token** — 短期有效，用于 `Authorization` header
+- **Refresh Token** — 长期有效，用于获取新的 access token
 
-### Using Tokens
+### 使用 Token
 
-Include the access token in all authenticated requests:
+在所有需要认证的请求中携带 access token：
 
 ```
 Authorization: Bearer <accessToken>
@@ -45,15 +45,15 @@ Authorization: Bearer <accessToken>
 
 ## Endpoints
 
-### Register
+### 注册
 
-Create a new user account.
+创建新用户账户。
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### 登录
 
-Authenticate with email and password.
+使用邮箱和密码进行认证。
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### 访客登录
 
-Join as a guest without creating an account. Guests have limited permissions.
+以访客身份加入，无需创建账户。访客拥有有限的权限。
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### 获取当前用户
 
-Retrieve the authenticated user's profile.
+获取已认证用户的个人信息。
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### 刷新 Token
 
-Exchange a refresh token for a new access token.
+使用 refresh token 换取新的 access token。
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### 登出
 
-Invalidate the current refresh token.
+使当前 refresh token 失效。
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### OAuth 登录
 
-Start an OAuth flow with a social provider.
+通过社交提供商启动 OAuth 流程。
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**支持的提供商：**
 
-| Provider | Path |
+| 提供商 | 路径 |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+服务器会将用户重定向到提供商的授权页面。用户授权后，提供商会回调到指定 URL，服务器随后返回 JWT token。
 
 ---
 
-## Error Responses
+## 错误响应
 
-All auth endpoints return errors in this format:
+所有认证 endpoint 以以下格式返回错误：
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
+| 状态码 | 含义 |
 |--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| 400 | 请求错误（缺少字段、验证失败） |
+| 401 | 凭据无效或 token 已过期 |
+| 409 | 邮箱已被注册 |
+| 500 | 服务器内部错误 |
 
 ---
 
-## See also
+## 另请参阅
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [认证流程](/zh/docs/backend/authentication) — JWT、OAuth 和 passkeys 的内部工作原理
+- [Passkeys API](/zh/docs/api/passkeys) — FIDO2/WebAuthn endpoint 参考

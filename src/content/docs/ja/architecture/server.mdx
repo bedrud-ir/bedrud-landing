@@ -1,27 +1,27 @@
 ---
-title: Server Architecture
-description: Backend server design and components
+title: サーバーアーキテクチャ
+description: バックエンドサーバーの設計とコンポーネント
 order: 7
 ---
 
-The Bedrud server is a Go application that provides the REST API, serves the embedded web frontend, and manages the LiveKit media server.
+Bedrud サーバーは、REST API を提供し、組み込みの Web フロントエンドを配信し、LiveKit メディアサーバーを管理する Go アプリケーションです。
 
-## Technology Stack
+## テクノロジースタック
 
-| Technology | Purpose |
+| テクノロジー | 目的 |
 |-----------|---------|
-| Go 1.24 | Core language |
-| Fiber v2 | Web framework (Express-like) |
-| GORM | ORM for SQLite and PostgreSQL |
-| LiveKit Protocol SDK | WebRTC room and token management |
-| Zerolog | Structured JSON logging |
-| Goth | Multi-provider OAuth2 |
-| go-passkeys | FIDO2/WebAuthn support |
-| golang-jwt | JWT token creation and validation |
-| gocron | Background job scheduling |
-| Swagger (swaggo) | API documentation generation |
+| Go 1.24 | コア言語 |
+| Fiber v2 | Web フレームワーク（Express 風） |
+| GORM | SQLite および PostgreSQL 用 ORM |
+| LiveKit Protocol SDK | WebRTC ルームとトークン管理 |
+| Zerolog | 構造化 JSON ロギング |
+| Goth | マルチプロバイダー OAuth2 |
+| go-passkeys | FIDO2/WebAuthn サポート |
+| golang-jwt | JWT トークンの作成と検証 |
+| gocron | バックグラウンドジョブスケジューリング |
+| Swagger (swaggo) | API ドキュメント自動生成 |
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
 server/
@@ -58,9 +58,9 @@ server/
 └── go.sum
 ```
 
-## Layered Architecture
+## レイヤードアーキテクチャ
 
-The server follows a three-layer architecture:
+サーバーは3層アーキテクチャに従っています。
 
 ```
 HTTP Request
@@ -91,61 +91,62 @@ HTTP Request
 └─────────────┘
 ```
 
-## Key Patterns
+## 主要なパターン
 
-### Embedded Frontend
+### 組み込みフロントエンド
 
-The web frontend is compiled to static files and embedded into the Go binary using `//go:embed`:
+Web フロントエンドは静的ファイルにコンパイルされ、`//go:embed` を使用して Go バイナリに組み込まれます。
 
 ```go
 //go:embed frontend/*
 var frontendFS embed.FS
 ```
 
-At build time, `bun run build:embed` SSR pre-renders the React app and copies `dist/client/` into `server/frontend/`. The Go compiler then bundles it into the binary. The Fiber server serves these files for any non-API route.
+ビルド時に、`bun run build:embed` で React アプリを SSR プリレンダリングし、`dist/client/` を `server/frontend/` にコピーします。Go コンパイラがこれをバイナリにバンドルします。Fiber サーバーは API 以外のルートに対してこれらのファイルを配信します。
 
-### JWT Authentication
+### JWT 認証
 
-The middleware extracts the JWT from the `Authorization: Bearer <token>` header, validates it, and attaches the user context to the request. Protected routes use `RequireAccess` middleware to check user roles.
+ミドルウェアは `Authorization: Bearer <token>` ヘッダーから JWT を抽出し、検証して、ユーザーコンテキストをリクエストにアタッチします。保護されたルートは `RequireAccess` ミドルウェアを使用してユーザーロールを確認します。
 
-### LiveKit Token Generation
+### LiveKit トークン生成
 
-When a user joins a room, the server:
+ユーザーがルームに参加する際、サーバーは以下の処理を行います。
 
-1. Validates room permissions
-2. Creates a LiveKit access token signed with the API secret
-3. Returns the token to the client
-4. The client connects directly to LiveKit using the token
+1. ルームの権限を検証
+2. API シークレットで署名された LiveKit アクセストークンを作成
+3. トークンをクライアントに返す
+4. クライアントはトークンを使用して LiveKit に直接接続
 
-### Swagger Documentation
+### Swagger ドキュメント
 
-API documentation is auto-generated from code annotations using swaggo. In development, it's available at `/api/swagger/`.
+API ドキュメントは swaggo を使用してコードアノテーションから自動生成されます。開発環境では `/api/swagger/` でアクセスできます。
 
-## Database
+## データベース
 
-### SQLite (Default)
+### SQLite（デフォルト）
 
-For development and small deployments, Bedrud uses SQLite. The database file is stored at the configured `database.path` (default: `data.db`).
+開発環境や小規模なデプロイメントでは、Bedrud は SQLite を使用します。データベースファイルは設定された `database.path`（デフォルト: `data.db`）に保存されます。
 
 ### PostgreSQL
 
-For production with higher concurrency requirements, configure a PostgreSQL connection string. GORM handles both dialects transparently.
+高い同時実行性が求められる本番環境では、PostgreSQL の接続文字列を設定します。GORM は両方のダイアレクトを透過的に処理します。
 
-### Migrations
+### マイグレーション
 
-GORM auto-migrates the schema on startup based on the model structs. The models are defined in `internal/models/`.
+GORM は起動時にモデル構造体に基づいてスキーマを自動マイグレーションします。モデルは `internal/models/` で定義されています。
 
-## Background Jobs
+## バックグラウンドジョブ
 
-The `gocron` scheduler runs periodic tasks such as:
-- Cleaning up expired refresh tokens
-- Removing stale room participants
+`gocron` スケジューラは以下の定期タスクを実行します。
+
+- 期限切れのリフレッシュトークンのクリーンアップ
+- 古いルーム参加者の削除
 
 ---
 
-## See also
+## 関連項目
 
-- [Backend Code Structure](/docs/backend/structure) - directory map and coding standards
-- [API Handlers](/docs/backend/api-handlers) - routing and request lifecycle
-- [Database and Models](/docs/backend/database) - GORM models and repository pattern
-- [Authentication Flow](/docs/backend/authentication) - JWT, OAuth, and passkey internals
+- [バックエンドコード構造](/ja/docs/backend/structure) - ディレクトリマップとコーディング規約
+- [API ハンドラー](/ja/docs/backend/api-handlers) - ルーティングとリクエストライフサイクル
+- [データベースとモデル](/ja/docs/backend/database) - GORM モデルとリポジトリパターン
+- [認証フロー](/ja/docs/backend/authentication) - JWT、OAuth、パスキーの内部構造

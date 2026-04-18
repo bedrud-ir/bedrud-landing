@@ -8,7 +8,7 @@ Les contributions à Bedrud sont les bienvenues. Ce guide couvre le processus de
 
 > **Note :** Le guide de contribution canonique se trouve à la racine du dépôt : [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). Cette page est archivée pour référence uniquement.
 
-## Commencer
+## Pour Commencer
 
 1. Fork le dépôt
 2. Clonez votre fork
@@ -24,7 +24,7 @@ Les contributions à Bedrud sont les bienvenues. Ce guide couvre le processus de
 - Make
 - Git
 
-## Configuration du développement
+## Configuration du Développement
 
 ```bash
 # Après avoir forké sur GitHub, clonez votre fork
@@ -34,9 +34,9 @@ make init
 make dev
 ```
 
-Voir le [Workflow de développement](/fr/docs/guides/development) pour des instructions de configuration détaillées.
+Consultez le [Workflow de développement](/fr/docs/guides/development) pour des instructions de configuration détaillées.
 
-## Structure du projet
+## Structure du Projet
 
 | Répertoire      | Langage         | Description                      |
 |-----------------|------------------|----------------------------------|
@@ -50,7 +50,7 @@ Voir le [Workflow de développement](/fr/docs/guides/development) pour des instr
 | `tools/cli/`    | Python           | CLI de déploiement               |
 | `docs/`         | Markdown         | Documentation                    |
 
-## Style de code
+## Style de Code
 
 | Langage         | Standard                |
 |------------------|-------------------------|
@@ -60,7 +60,7 @@ Voir le [Workflow de développement](/fr/docs/guides/development) pour des instr
 | Swift            | Xcode defaults          |
 | Python           | ruff                    |
 
-## Processus de pull request
+## Processus de Pull Request
 
 1. **Nom de branche :** `feature/description`, `fix/description` ou `docs/description`
 2. **Messages de commit :** `<action> <quoi> pour <pourquoi>` (par exemple, `add user model for auth feature`, `fix login redirect for expired sessions`)
@@ -78,7 +78,7 @@ Chaque PR exécute automatiquement ces vérifications :
 | Android      | Lint, unit tests                |
 | iOS          | Build, test (simulator)         |
 
-## Signaler des problèmes
+## Signaler des Problèmes
 
 Signalez les problèmes sur [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) avec :
 
@@ -90,7 +90,7 @@ Signalez les problèmes sur [GitHub Issues](https://github.com/bedrud-ir/bedrud/
 
 La documentation se trouve dans `docs/` et est construite avec [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
 
-### Aperçu local
+### Aperçu Local
 
 ```bash
 pip install mkdocs-material

@@ -1,37 +1,37 @@
 ---
-title: Rooms API
-description: Room management endpoints
+title: ルームAPI
+description: ルーム管理エンドポイント
 order: 24
 ---
 
-Room management endpoints are under `/api/room/`. All endpoints require authentication.
+ルーム管理エンドポイントは `/api/room/` 以下にあります。すべてのエンドポイントで認証が必要です。
 
-## Overview
+## 概要
 
-| Endpoint | Method | Description |
+| エンドポイント | メソッド | 説明 |
 |----------|--------|-------------|
-| `/api/room/create` | POST | Create a new room |
-| `/api/room/join` | POST | Join a room and get a LiveKit token |
-| `/api/room/list` | GET | List available rooms |
-| `/api/room/:roomId/kick/:identity` | POST | Kick a participant (admin) |
-| `/api/room/:roomId/mute/:identity` | POST | Mute a participant (admin) |
-| `/api/room/:roomId/video/:identity/off` | POST | Disable participant video (admin) |
+| `/api/room/create` | POST | 新しいルームを作成 |
+| `/api/room/join` | POST | ルームに参加し、LiveKitトークンを取得 |
+| `/api/room/list` | GET | 利用可能なルームを一覧表示 |
+| `/api/room/:roomId/kick/:identity` | POST | 参加者をキック（管理者） |
+| `/api/room/:roomId/mute/:identity` | POST | 参加者をミュート（管理者） |
+| `/api/room/:roomId/video/:identity/off` | POST | 参加者のビデオを無効化（管理者） |
 
 ---
 
-## Endpoints
+## エンドポイント
 
-### Create Room
+### ルームの作成
 
-Create a new meeting room. The authenticated user becomes the room admin.
+新しいミーティングルームを作成します。認証済みユーザーがルーム管理者になります。
 
 ```
 POST /api/room/create
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -48,25 +48,24 @@ POST /api/room/create
 }
 ```
 
-> **Note:** The `name` field is **optional**. If omitted or empty, the server will
-> auto-generate a random URL-safe name in the format `xxx-xxxx-xxx` (e.g. `bkf-qmzl-rja`).
+> **注意：** `name` フィールドは**省略可能**です。省略または空の場合、サーバーが `xxx-xxxx-xxx` 形式（例：`bkf-qmzl-rja`）のランダムなURLセーフな名前を自動生成します。
 
-**Room Name Rules:**
+**ルーム名のルール：**
 
-Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL-safe:
+ルーム名はURLの一部として `https://bedrud.xyz/m/NAME` に表示されるため、URLセーフである必要があります：
 
-| Rule | Description |
+| ルール | 説明 |
 |------|-------------|
-| **Allowed characters** | Lowercase letters (`a-z`), digits (`0-9`), and hyphens (`-`) |
-| **Minimum length** | 3 characters |
-| **Maximum length** | 63 characters |
-| **No special characters** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, spaces, etc. are **not allowed** |
-| **No leading/trailing hyphens** | `-room` and `room-` are invalid |
-| **No consecutive hyphens** | `room--name` is invalid |
-| **Lowercase only** | Uppercase letters are rejected; input is auto-lowercased |
-| **Unique** | Each room name must be unique |
+| **使用可能な文字** | 小文字（`a-z`）、数字（`0-9`）、ハイフン（`-`） |
+| **最小文字数** | 3文字 |
+| **最大文字数** | 63文字 |
+| **特殊文字不可** | `#`、`@`、`_`、`.`、`/`、`\`、`<`、`>`、`&`、`%`、`+`、`=`、`;`、`:`、`'`、`"`、`?`、`!`、スペースなどは**使用できません** |
+| **先頭・末尾のハイフン不可** | `-room` と `room-` は無効です |
+| **連続するハイフン不可** | `room--name` は無効です |
+| **小文字のみ** | 大文字は拒否されます。入力は自動的に小文字に変換されます |
+| **一意性** | 各ルーム名は一意である必要があります |
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -88,33 +87,33 @@ Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL
 }
 ```
 
-### Fields
+### フィールド
 
-| Field | Type | Required | Description |
+| フィールド | 型 | 必須 | 説明 |
 |-------|------|----------|-------------|
-| `name` | string | No | URL-safe room name (auto-generated if omitted) |
-| `isPublic` | boolean | No | Whether the room appears in public listings |
-| `mode` | string | No | Room mode (e.g. `"standard"`) |
-| `maxParticipants` | number | No | Maximum number of participants |
-| `settings.allowChat` | boolean | No | Whether text chat is enabled |
-| `settings.allowVideo` | boolean | No | Whether video is enabled |
-| `settings.allowAudio` | boolean | No | Whether audio is enabled |
-| `settings.requireApproval` | boolean | No | Whether participants need admin approval |
-| `settings.e2ee` | boolean | No | Whether end-to-end encryption is enabled |
+| `name` | string | いいえ | URLセーフなルーム名（省略時は自動生成） |
+| `isPublic` | boolean | いいえ | パブリックリストに表示するかどうか |
+| `mode` | string | いいえ | ルームモード（例：`"standard"`） |
+| `maxParticipants` | number | いいえ | 最大参加者数 |
+| `settings.allowChat` | boolean | いいえ | テキストチャットを有効にするかどうか |
+| `settings.allowVideo` | boolean | いいえ | ビデオを有効にするかどうか |
+| `settings.allowAudio` | boolean | いいえ | オーディオを有効にするかどうか |
+| `settings.requireApproval` | boolean | いいえ | 参加時に管理者の承認が必要かどうか |
+| `settings.e2ee` | boolean | いいえ | 端末間暗号化を有効にするかどうか |
 
 ---
 
-### Join Room
+### ルームへの参加
 
-Join an existing room and receive a LiveKit token for media connection.
+既存のルームに参加し、メディア接続用のLiveKitトークンを取得します。
 
 ```
 POST /api/room/join
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -122,7 +121,7 @@ POST /api/room/join
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -141,7 +140,7 @@ POST /api/room/join
 }
 ```
 
-The `token` is a signed LiveKit access token. Use it to connect to the LiveKit server via WebSocket:
+`token` は署名済みのLiveKitアクセストークンです。WebSocket経由でLiveKitサーバーに接続するために使用します：
 
 ```javascript
 import { Room } from 'livekit-client';
@@ -152,17 +151,17 @@ await room.connect(livekitUrl, token);
 
 ---
 
-### List Rooms
+### ルーム一覧の取得
 
-Get a list of rooms the user has created.
+ユーザーが作成したルームの一覧を取得します。
 
 ```
 GET /api/room/list
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 [
@@ -182,17 +181,17 @@ GET /api/room/list
 
 ---
 
-### Kick Participant
+### 参加者のキック
 
-Remove a participant from the room. Only the room admin can do this.
+参加者をルームから退出させます。ルーム管理者のみが実行できます。
 
 ```
 POST /api/room/:roomId/kick/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -202,17 +201,17 @@ POST /api/room/:roomId/kick/:identity
 
 ---
 
-### Mute Participant
+### 参加者のミュート
 
-Mute a participant's microphone. Only the room admin can do this.
+参加者のマイクをミュートします。ルーム管理者のみが実行できます。
 
 ```
 POST /api/room/:roomId/mute/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -222,17 +221,17 @@ POST /api/room/:roomId/mute/:identity
 
 ---
 
-### Disable Participant Video
+### 参加者のビデオの無効化
 
-Turn off a participant's camera. Only the room admin can do this.
+参加者のカメラをオフにします。ルーム管理者のみが実行できます。
 
 ```
 POST /api/room/:roomId/video/:identity/off
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -242,24 +241,24 @@ POST /api/room/:roomId/video/:identity/off
 
 ---
 
-## Admin Controls
+## 管理者コントロール
 
-Room admin actions (kick, mute, video off) are only available to the user who created the room (`adminId`). Attempting these actions as a non-admin returns a 403 error.
+ルーム管理者の操作（キック、ミュート、ビデオオフ）は、ルームを作成したユーザー（`adminId`）のみが実行できます。管理者以外のユーザーがこれらの操作を試みると、403エラーが返されます。
 
-### Permissions Matrix
+### 権限マトリックス
 
-| Action | Room Admin | Super Admin | Regular User | Guest |
+| 操作 | ルーム管理者 | Super Admin | 一般ユーザー | ゲスト |
 |--------|-----------|-------------|-------------|-------|
-| Create room | Yes | Yes | Yes | No |
-| Join room | Yes | Yes | Yes | Yes |
-| List rooms | Yes | Yes | Yes | Yes |
-| Kick | Yes | Yes | No | No |
-| Mute | Yes | Yes | No | No |
-| Video off | Yes | Yes | No | No |
+| ルーム作成 | はい | はい | はい | いいえ |
+| ルーム参加 | はい | はい | はい | はい |
+| ルーム一覧 | はい | はい | はい | はい |
+| キック | はい | はい | いいえ | いいえ |
+| ミュート | はい | はい | いいえ | いいえ |
+| ビデオオフ | はい | はい | いいえ | いいえ |
 
-## Error Responses
+## エラーレスポンス
 
-All errors follow a consistent format:
+すべてのエラーは統一された形式に従います：
 
 ```json
 {
@@ -267,32 +266,32 @@ All errors follow a consistent format:
 }
 ```
 
-### Create Room Errors
+### ルーム作成エラー
 
-| Status | Error Message | Description |
+| ステータスコード | エラーメッセージ | 説明 |
 |--------|---------------|-------------|
-| 400 | `"Invalid request body"` | Malformed JSON |
-| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | Name contains special characters (`#`, `@`, `_`, etc.) |
-| 400 | `"room name must be at least 3 characters"` | Name too short |
-| 400 | `"room name must be at most 63 characters"` | Name too long |
-| 409 | `"a room with this name already exists"` | Duplicate name |
-| 500 | `"Failed to create media room"` | LiveKit server error |
-| 500 | `"Failed to create room"` | Database error |
+| 400 | `"Invalid request body"` | 不正なJSON形式 |
+| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | 名前に特殊文字が含まれている（`#`、`@`、`_` など） |
+| 400 | `"room name must be at least 3 characters"` | 名前が短すぎます |
+| 400 | `"room name must be at most 63 characters"` | 名前が長すぎます |
+| 409 | `"a room with this name already exists"` | 名前が重複しています |
+| 500 | `"Failed to create media room"` | LiveKitサーバーエラー |
+| 500 | `"Failed to create room"` | データベースエラー |
 
-### General Errors
+### 一般エラー
 
-| Status | Meaning |
+| ステータスコード | 意味 |
 |--------|---------|
-| 400 | Bad request (missing/invalid data) |
-| 401 | Not authenticated |
-| 403 | Not authorized (non-admin trying admin action) |
-| 404 | Room not found |
-| 409 | Conflict (duplicate resource) |
-| 500 | Internal server error |
+| 400 | 不正なリクエスト（データの不足または無効） |
+| 401 | 未認証 |
+| 403 | 権限なし（非管理者が管理者操作を試行） |
+| 404 | ルームが見つかりません |
+| 409 | 競合（リソースの重複） |
+| 500 | サーバー内部エラー |
 
 ---
 
-## See also
+## 関連ドキュメント
 
-- [Architecture Overview](/docs/architecture/overview) - data model and meeting connection flow
-- [API Handlers](/docs/backend/api-handlers) - how room endpoints are implemented
+- [アーキテクチャ概要](/ja/docs/architecture/overview) - データモデルとミーティング接続フロー
+- [APIハンドラー](/ja/docs/backend/api-handlers) - ルームエンドポイントの実装方法

@@ -4,12 +4,12 @@ description: Ejecutar Bedrud con Docker
 order: 29
 ---
 
-Bedrud proporciona un Dockerfile multi-etapa para construir y ejecutar en contenedores.
+Bedrud proporciona un Dockerfile multi-etapa para compilar y ejecutar en contenedores.
 
-## Inicio Rápido
+## Inicio rápido
 
 ```bash
-# Construir
+# Compilar
 docker build -t bedrud .
 
 # Ejecutar
@@ -22,9 +22,9 @@ docker run -d --name bedrud \
 
 ## Resumen del Dockerfile
 
-El Dockerfile usa tres etapas para minimizar el tamaño final de la imagen:
+El Dockerfile usa tres etapas para minimizar el tamaño de la imagen final:
 
-### Etapa 1: Construcción del Frontend
+### Etapa 1: Compilación del frontend
 
 ```dockerfile
 FROM node:22-alpine AS frontend
@@ -36,9 +36,9 @@ COPY apps/web/ ./
 RUN bun run build:embed
 ```
 
-Instala Bun, pre-renderiza la aplicación React con SSR y copia los activos a `server/frontend/`.
+Instala Bun, pre-renderiza con SSR la aplicación React y copia los assets a `server/frontend/`.
 
-### Etapa 2: Construcción del Servidor
+### Etapa 2: Compilación del servidor
 
 ```dockerfile
 FROM golang:1.24-alpine AS backend
@@ -49,12 +49,12 @@ RUN go mod download
 COPY server/ ./
 COPY --from=frontend /build/server/frontend ./frontend/
 RUN CGO_ENABLED=1 GOOS=linux go build -ldflags="-s -w" -o /bedrud ./cmd/bedrud/main.go
-# CGO es necesario para SQLite (usa enlaces C)
+# CGO es necesario para SQLite (usa bindings en C)
 ```
 
-Compila el binario de Go con el frontend incrustado. CGO está habilitado para el soporte de SQLite.
+Compila el binario de Go con el frontend embebido. CGO está habilitado para compatibilidad con SQLite.
 
-### Etapa 3: Tiempo de Ejecución
+### Etapa 3: Entorno de ejecución
 
 ```dockerfile
 FROM alpine:3.21
@@ -71,15 +71,15 @@ Imagen Alpine mínima con solo el binario, certificados CA y datos de zona horar
 
 | Puerto | Servicio | Protocolo |
 |--------|----------|-----------|
-| 8090 | API + Web UI | HTTP |
+| 8090 | API + Interfaz web | HTTP |
 | 7880 | LiveKit | WebSocket + HTTP |
 | 50000-60000 | Medios RTC | UDP |
 
-Para los flujos de medios de LiveKit, también puede necesitar exponer el rango de puertos UDP RTC (predeterminado: 50000-60000).
+Para los flujos de medios de LiveKit, es posible que también necesites exponer el rango de puertos UDP de RTC (predeterminado: 50000-60000).
 
 ## Volúmenes
 
-Monte un volumen para datos persistentes:
+Monta un volumen para datos persistentes:
 
 ```bash
 docker run -d \
@@ -92,7 +92,7 @@ docker run -d \
 
 ## Configuración
 
-Pase un archivo de configuración personalizado:
+Pasa un archivo de configuración personalizado:
 
 ```bash
 docker run -d \
@@ -104,7 +104,7 @@ docker run -d \
   bedrud run --config /etc/bedrud/config.yaml
 ```
 
-O use variables de entorno:
+O usa variables de entorno:
 
 ```bash
 docker run -d \
@@ -117,19 +117,19 @@ docker run -d \
   bedrud
 ```
 
-## Imágenes Pre-construidas
+## Imágenes precompiladas
 
-Las imágenes de Docker se publican en GitHub Container Registry en cada lanzamiento:
+Las imágenes Docker se publican en GitHub Container Registry con cada lanzamiento:
 
 ```bash
-# Último lanzamiento
+# Última versión
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 
 # Versión específica
 docker pull ghcr.io/bedrud-ir/bedrud:v1.0.0
 ```
 
-## Ejemplo de Docker Compose
+## Ejemplo con Docker Compose
 
 ```yaml
 services:
@@ -151,7 +151,7 @@ volumes:
 
 ---
 
-## Véase también
+## Consulta también
 
-- [Referencia de Configuración](/es/docs/getting-started/configuration) - opciones completas de configuración y variables de entorno
-- [Guía de Despliegue](/es/docs/guides/deployment) - despliegue en producción con Docker
+- [Referencia de configuración](/es/docs/getting-started/configuration) - opciones completas de configuración y variables de entorno
+- [Guía de despliegue](/es/docs/guides/deployment) - despliegue en producción con Docker

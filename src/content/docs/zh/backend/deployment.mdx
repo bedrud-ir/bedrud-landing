@@ -4,31 +4,31 @@ description: Backend deployment strategies
 order: 21
 ---
 
-The built-in installer configures a fresh Linux server for production use with a single command.
+内置安装器通过一条命令即可将全新的 Linux 服务器配置为生产环境。
 
 <InstallerSteps />
 
 <SystemdServices />
 
-## Security and TLS
+## 安全性与 TLS
 
-The installer handles security automatically:
+安装器会自动处理安全问题：
 
-- **ACME (Let's Encrypt):** If you provide a domain and email, it sets up automatic certificate renewal.
-- **Self-Signed Certs:** If no domain is provided, it generates a self-signed certificate so that the site still works over HTTPS.
-- **Reverse Proxy:** The backend acts as a reverse proxy. It receives traffic on port 443 and sends `/livekit` requests to the internal media server.
+- **ACME（Let's Encrypt）：** 如果提供了域名和邮箱，它会设置自动证书续期。
+- **自签名证书：** 如果未提供域名，它会生成自签名证书，使站点仍然可以通过 HTTPS 访问。
+- **反向代理：** 后端充当反向代理。它在 443 端口接收流量，并将 `/livekit` 请求发送到内部媒体服务器。
 
-## Uninstallation
+## 卸载
 
-If you need to remove Bedrud, you can run:
+如果需要移除 Bedrud，可以运行：
 ```bash
 sudo bedrud uninstall
 ```
-This stops the services, deletes the systemd files, and removes the configuration and data folders.
+这会停止服务、删除 systemd 文件，并移除配置和数据文件夹。
 
 ---
 
-## See also
+## 另请参阅
 
-- [Deployment Guide](/docs/guides/deployment) - full production deployment instructions
-- [Appliance Mode](/docs/guides/appliance) - single-binary setup reference
+- [部署指南](/zh/docs/guides/deployment) - 完整的生产环境部署说明
+- [一体机模式](/zh/docs/guides/appliance) - 单二进制安装参考

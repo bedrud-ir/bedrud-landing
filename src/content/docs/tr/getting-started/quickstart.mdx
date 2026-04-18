@@ -1,31 +1,31 @@
 ---
-title: Quick Start
-description: Deploy Bedrud and join a video meeting in under 5 minutes
+title: Hızlı Başlangıç
+description: Bedrud'u 5 dakikadan kısa sürede dağıtın ve video toplantısına katılın
 order: 1
 ---
 
-Deploy Bedrud and join a video meeting in under 5 minutes.
+Bedrud'u dağıtın ve 5 dakikadan kısa sürede video toplantısına katılın.
 
-**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/docs/getting-started/installation). For config see [Configuration](/docs/getting-started/configuration).
+**Bu kılavuz:** İndir → Kur → Doğrula → Katıl. Alternatifler için bkz. [Kurulum](/tr/docs/getting-started/installation). Yapılandırma için bkz. [Yapılandırma](/tr/docs/getting-started/configuration).
 
-> **Single binary, no internet needed after download.** It includes an embedded media server and SQLite - it works on isolated networks. Transfer file, run one command, done.
+> **Tek ikili dosya, indirdikten sonra internet gerekmez.** Gömülü medya sunucusu ve SQLite içerir - izole ağlarda çalışır. Dosyayı aktarın, bir komut çalıştırın, bitti.
 
 ---
 
-## What You Need
+## Gereksinimler
 
-| Requirement | Details |
+| Gereksinim | Detaylar |
 |-------------|---------|
-| A Linux server | amd64, with `sudo` access and `systemd`. Windows: Docker or WSL2. macOS: build from source |
-| Open ports | `8090`, `7880`, `50000–60000/udp`. For auto-TLS: also `80` and `443` |
-| Tools | `curl`, `tar` |
-| A domain (optional) | With DNS A record pointing to your server. No domain? Works with IP - see alternatives below |
+| Bir Linux sunucusu | amd64, `sudo` erişimi ve `systemd` ile. Windows: Docker veya WSL2. macOS: kaynaktan derleyin |
+| Açık bağlantı noktaları | `8090`, `7880`, `50000–60000/udp`. Otomatik TLS için: ayrıca `80` ve `443` |
+| Araçlar | `curl`, `tar` |
+| Bir alan adı (isteğe bağlı) | Sunucunuza işaret eden DNS A kaydı ile. Alan adınız yok mu? IP ile çalışır - aşağıdaki alternatiflere bakın |
 
-> **How it works:** You run one Bedrud **server**. People join meetings in their **browser** (no install) or via **native apps** (Android, Windows, macOS, Linux).
+> **Nasıl çalışır:** Bir Bedrud **sunucusu** çalıştırırsınız. Kişiler **tarayıcıda** (kurulum gerekmez) veya **yerel uygulamalarla** (Android, Windows, macOS, Linux) toplantılara katılır.
 
 ---
 
-## 1. Download
+## 1. İndirin
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -33,62 +33,62 @@ tar -xJf bedrud.tar.xz
 chmod +x bedrud
 ```
 
-> **No internet on server?** Download on any machine, transfer via USB or `scp bedrud.tar.xz user@server:/tmp/`, then extract there. Binary is fully self-contained - zero outbound requests after transfer.
+> **Sunucuda internet yok mu?** Herhangi bir makinede indirin, USB ile veya `scp bedrud.tar.xz user@server:/tmp/` ile aktarın, ardından orada çıkarın. İkili dosya tamamen kendi kendine yetlidir - aktarımdan sonra sıfır dışarıya istek.
 
-> **Download failed?** Check internet access, or verify URL at [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+> **İndirme başarısız oldu mu?** İnternet erişimini kontrol edin veya URL'yi [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) adresinden doğrulayın.
 
 ---
 
-## 2. Install
+## 2. Kurun
 
-Replace `meet.example.com` and `admin@example.com` with your values:
+`meet.example.com` ve `admin@example.com` değerlerini kendinize göre değiştirin:
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-Installs binary, generates config, creates systemd services, provisions TLS, starts everything.
+İkili dosyayı kurar, yapılandırma oluşturur, systemd servislerini oluşturur, TLS sağlar ve her şeyi başlatır.
 
-> **Port 80 or 443 busy?** Stop conflicting services: `sudo systemctl stop nginx apache2 caddy`, then re-run.
+> **80 veya 443 bağlantı noktası meşgul mü?** Çakışan servisleri durdurun: `sudo systemctl stop nginx apache2 caddy`, ardından tekrar çalıştırın.
 
-> **No domain?** Use your server IP instead:
+> **Alan adınız yok mu?** Bunun yerine sunucu IP'nizi kullanın:
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/docs/guides/internal-tls).
+> Bu, kendi imzalı bir sertifika kullanır. Tarayıcılar uyarı verir ama video çalışır. Dahili ağlarda güvenilir sertifikalar için bkz. [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls).
 
 ---
 
-## 3. Verify
+## 3. Doğrulayın
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 ```
 
-Expect: `200`
+Beklenen: `200`
 
-> **Not 200?** Check service status: `sudo systemctl status bedrud livekit`. Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50`.
+> **200 değil mi?** Servis durumunu kontrol edin: `sudo systemctl status bedrud livekit`. Günlükleri kontrol edin: `journalctl -u bedrud -u livekit --no-pager -n 50`.
 
 ---
 
-## 4. Register & Create Admin
+## 4. Kaydolun ve Yönetici Oluşturun
 
-Open `https://meet.example.com` (or `https://<your-ip>:8090`) in your browser:
+Tarayıcınızda `https://meet.example.com` (veya `https://<sizin-ip>:8090`) adresini açın:
 
 <CreateAdmin createOption />
 
-3. Log in (or refresh) - **Admin** section appears in sidebar (Overview, Users, Rooms, Settings). Success: you're admin.
-4. **Create a room** → **Join** → **Share video/audio** - grant camera/mic permissions when prompted
+3. Giriş yapın (veya sayfayı yenileyin) - kenar çubuğunda **Yönetici** bölümü görünür (Genel Bakış, Kullanıcılar, Odalar, Ayarlar). Başarılı: yöneticisiniz.
+4. **Bir oda oluşturun** → **Katılın** → **Video/ ses paylaşın** - istendiğinde kamera/mikrofon izinlerini verin
 
-> **Admin dashboard** - After promoting, log in to access admin panel at `/dashboard/admin`. Manage users, rooms, system settings, and invite tokens.
+> **Yönetici paneli** - Terfi ettikten sonra, `/dashboard/admin` adresinden yönetici paneline erişmek için giriş yapın. Kullanıcıları, odaları, sistem ayarlarını ve davet jetonlarını yönetin.
 
-> **CLI reference** - Full user management: `bedrud user promote`, `demote`, `create`, `delete`.
+> **CLI referansı** - Tam kullanıcı yönetimi: `bedrud user promote`, `demote`, `create`, `delete`.
 
-**Native clients** for Android, Windows, macOS, and Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Or share the meeting link - participants join in any browser.
+Android, Windows, macOS ve Linux için **yerel istemciler**: [GitHub Sürümleri](https://github.com/bedrud-ir/bedrud/releases/latest). Veya toplantı bağlantısını paylaşın - katılımcılar herhangi bir tarayıcıda katılır.
 
 ---
 
-## Alternative Install Paths
+## Alternatif Kurulum Yolları
 
 ### Docker
 
@@ -101,11 +101,11 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Custom config, Docker Compose, and env vars: see [Docker guide](/docs/guides/docker).
+Özel yapılandırma, Docker Compose ve ortam değişkenleri için bkz. [Docker kılavuzu](/tr/docs/guides/docker).
 
-### Build from Source
+### Kaynaktan Derleme
 
-Requires [Go 1.24+](https://go.dev/dl/) and [Bun](https://bun.sh/):
+[Go 1.24+](https://go.dev/dl/) ve [Bun](https://bun.sh/) gerektirir:
 
 ```bash
 git clone https://github.com/bedrud-ir/bedrud.git
@@ -114,82 +114,82 @@ make init
 make local-run
 ```
 
-`make init` installs LiveKit, creates config, fetches deps. `make local-run` builds and starts on `http://localhost:8090`.
+`make init` LiveKit'i kurar, yapılandırma oluşturur, bağımlılıkları indirir. `make local-run` derler ve `http://localhost:8090` adresinde başlatır.
 
-### Plain HTTP (dev / localhost only)
+### Düz HTTP (yalnızca geliştirme / localhost)
 
 ```bash
 sudo ./bedrud install --ip 127.0.0.1
 ```
 
-> **Warning:** Browsers block camera/mic on non-HTTPS except `localhost`. HTTP is dev-only.
+> **Uyarı:** Tarayıcılar `localhost` dışında HTTPS olmayan sitelerde kamera/mikrofonu engeller. HTTP yalnızca geliştirme içindir.
 
-### Non-Linux Systems
+### Linux Dışı Sistemler
 
-The `install` command is Linux-only. Place binary in PATH manually:
+`install` komutu yalnızca Linux içindir. İkili dosyayı PATH'e el ile ekleyin:
 
-| OS      | How                                       |
+| İşletim Sistemi | Nasıl                                       |
 |---------|-------------------------------------------|
 | macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | Move `bedrud.exe` to a folder in `%PATH%` |
+| Windows | `bedrud.exe` dosyasını `%PATH%` içindeki bir klasöre taşıyın |
 
 ---
 
-## Internal Networks
+## Dahili Ağlar
 
-No public domain or outbound internet? See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup and client trust store configuration.
+Genel alan adınız veya dışarıya internet bağlantınız yok mu? Özel CA kurulumu ve istemci güven deposu yapılandırması için bkz. [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls).
 
 ---
 
-## Configuration
+## Yapılandırma
 
-Installer generates `/etc/bedrud/config.yaml`. Defaults work for most setups.
-Change `jwtSecret` and `sessionSecret` for production, then restart:
+Kurucu `/etc/bedrud/config.yaml` dosyasını oluşturur. Varsayılanlar çoğu kurulum için uygundur.
+Üretim için `jwtSecret` ve `sessionSecret` değerlerini değiştirin, ardından yeniden başlatın:
 
 ```bash
 sudo systemctl restart bedrud livekit
 ```
 
-To adjust room capacity, timeouts, or media ports, see [LiveKit section in Configuration](/docs/getting-started/configuration#livekit-configuration).
+Oda kapasitesini, zaman aşımlarını veya medya bağlantı noktalarını ayarlamak için bkz. [Yapılandırma'da LiveKit bölümü](/tr/docs/getting-started/configuration#livekit-configuration).
 
-Full reference: [Configuration](/docs/getting-started/configuration)
+Tam referans: [Yapılandırma](/tr/docs/getting-started/configuration)
 
 ---
 
-## Troubleshooting
+## Sorun Giderme
 
-| Problem | Fix |
+| Sorun | Çözüm |
 |---------|-----|
-| Port 80/443 in use | `sudo systemctl stop nginx apache2 caddy` |
-| Services won't start | `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| TLS cert errors | Verify DNS: `dig meet.example.com`. Must point to server IP |
-| No video / WebRTC failed | HTTPS required for camera. Use `--tls`. Open UDP 50000–60000 on firewall |
-| LiveKit port conflicts | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags |
-| Firewall blocking media | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| Self-signed cert warnings | See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+| 80/443 bağlantı noktası kullanımda | `sudo systemctl stop nginx apache2 caddy` |
+| Servisler başlamıyor | `journalctl -u bedrud -u livekit --no-pager -n 50` |
+| TLS sertifika hataları | DNS'i doğrulayın: `dig meet.example.com`. Sunucu IP'sine işaret etmeli |
+| Video yok / WebRTC başarısız | Kamera için HTTPS gerekli. `--tls` kullanın. Güvenlik duvarında UDP 50000–60000'i açın |
+| LiveKit bağlantı noktası çakışmaları | `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` bayraklarını kullanın |
+| Güvenlik duvarı medyayı engelliyor | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| Kendi imzalı sertifika uyarıları | Özel CA kurulumu için bkz. [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls) |
 
 ---
 
-## Teardown
+## Kaldırma
 
 ```bash
-# Binary install
+# İkili dosya kurulumu
 sudo ./bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
-# Source build
-# Ctrl+C to stop, then: make clean
+# Kaynak derlemesi
+# Durdurmak için Ctrl+C, ardından: make clean
 ```
 
 ---
 
-## Next Steps
+## Sonraki Adımlar
 
-- [Configuration Reference](/docs/getting-started/configuration) - ports, database, auth providers, TURN
-- [Installation Guide](/docs/getting-started/installation) - package managers, advanced flags, all methods
-- [Internal TLS Guide](/docs/guides/internal-tls) - air-gapped deployment, private CA
-- [Deployment Guide](/docs/guides/deployment) - production setup, reverse proxy, scaling
-- [Architecture Overview](/docs/architecture/overview) - how pieces fit together
-- [API Docs](http://localhost:8090/api/swagger) - Swagger UI (running instance)
+- [Yapılandırma Referansı](/tr/docs/getting-started/configuration) - bağlantı noktaları, veritabanı, kimlik doğrulama sağlayıcıları, TURN
+- [Kurulum Kılavuzu](/tr/docs/getting-started/installation) - paket yöneticileri, gelişmiş bayraklar, tüm yöntemler
+- [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls) - izole dağıtım, özel CA
+- [Dağıtım Kılavuzu](/tr/docs/guides/deployment) - üretim kurulumu, ters vekil sunucu, ölçeklendirme
+- [Mimari Genel Bakış](/tr/docs/architecture/overview) - parçalar nasıl bir araya gelir
+- [API Belgeleri](http://localhost:8090/api/swagger) - Swagger UI (çalışan örnek)

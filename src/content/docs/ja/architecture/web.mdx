@@ -1,29 +1,29 @@
 ---
-title: Web Frontend
-description: React web application architecture
+title: Web フロントエンド
+description: React Web アプリケーションアーキテクチャ
 order: 8
 ---
 
-The Bedrud web frontend is a React application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, server-side rendering pre-renders an HTML shell. The Go binary embeds this shell alongside the static client assets.
+Bedrud Web フロントエンドは TanStack Start、TailwindCSS v4、shadcn/ui で構築された React アプリケーションです。本番環境では、サーバーサイドレンダリングによって HTML シェルがプリレンダリングされます。Go バイナリはこのシェルと静的クライアントアセットを組み込みます。
 
-## Technology Stack
+## テクノロジースタック
 
-| Technology | Purpose |
+| テクノロジー | 目的 |
 |-----------|---------|
-| React 19 | UI framework |
-| TanStack Start | SSR framework and file-based routing |
-| TanStack Router | Client-side routing |
-| TanStack Query | Server state and data fetching |
-| TailwindCSS 4 | Utility-first styling |
-| shadcn/ui + Radix UI | Accessible component primitives |
-| Zustand | Client-side auth state |
-| Vite 7 | Build tool and dev server |
-| LiveKit React SDK | WebRTC media handling |
-| Zod | Schema validation |
-| Lucide React | Icon library |
-| Bun | Package manager |
+| React 19 | UI フレームワーク |
+| TanStack Start | SSR フレームワークとファイルベースルーティング |
+| TanStack Router | クライアントサイドルーティング |
+| TanStack Query | サーバー状態とデータフェッチ |
+| TailwindCSS 4 | Utility-first スタイリング |
+| shadcn/ui + Radix UI | アクセシブルなコンポーネントプリミティブ |
+| Zustand | クライアントサイド認証状態 |
+| Vite 7 | ビルドツールと開発サーバー |
+| LiveKit React SDK | WebRTC メディア処理 |
+| Zod | スキーマバリデーション |
+| Lucide React | アイコンライブラリ |
+| Bun | パッケージマネージャー |
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
 apps/web/
@@ -67,82 +67,82 @@ apps/web/
 └── vite.config.ts
 ```
 
-## Authentication Flow
+## 認証フロー
 
-Auth state is managed by a Zustand store in `src/lib/auth.store.ts`:
+認証状態は `src/lib/auth.store.ts` の Zustand ストアで管理されます。
 
-1. **Login** - User submits credentials to `POST /api/auth/login`
-2. **Token Storage** - Access and refresh tokens saved to `localStorage`
-3. **Automatic Injection** - `authFetch` wraps every API call, adding the `Authorization: Bearer` header
-4. **Auto-Refresh** - When a request returns 401, `authFetch` attempts to refresh the token using the refresh token
-5. **Logout** - Clears tokens and redirects to the login page
+1. **ログイン** - ユーザーが認証情報を `POST /api/auth/login` に送信
+2. **トークン保存** - アクセストークンとリフレッシュトークンを `localStorage` に保存
+3. **自動注入** - `authFetch` がすべての API 呼び出しをラップし、`Authorization: Bearer` ヘッダーを追加
+4. **自動リフレッシュ** - リクエストが 401 を返した場合、`authFetch` はリフレッシュトークンを使用してトークンのリフレッシュを試行
+5. **ログアウト** - トークンをクリアし、ログインページにリダイレクト
 
 ### authFetch
 
-The `authFetch` function in `src/lib/api.ts` is a drop-in replacement for `fetch` that:
+`src/lib/api.ts` の `authFetch` 関数は `fetch` のドロップイン代替で、以下の機能を持ちます。
 
-- Attaches the JWT access token to every request
-- Catches 401 responses and attempts a token refresh
-- Logs out the user if the refresh fails
+- すべてのリクエストに JWT アクセストークンをアタッチ
+- 401 レスポンスを検知し、トークンのリフレッシュを試行
+- リフレッシュに失敗した場合、ユーザーをログアウト
 
-## Meeting Page
+## 会議ページ
 
-The meeting room at `/m/$meetId` handles:
+`/m/$meetId` の会議ルームでは以下を処理します。
 
-- **LiveKit connection** - Connects to the media server with the token from the join API
-- **Track rendering** - Subscribes to audio/video tracks from other participants
-- **Device selection** - Switch camera, microphone, or speaker mid-call without leaving the room
-- **Admin controls** - Room creator sees kick, mute, and video-off buttons
-- **Chat** - In-room text chat via `ChatPanel`
-- **Spotlight view** - Focus a single participant
+- **LiveKit 接続** - 参加API から取得したトークンでメディアサーバーに接続
+- **トラック描画** - 他の参加者からの音声/ビデオトラックを購読
+- **デバイス選択** - ルームを離れることなく、通話中にカメラ、マイク、スピーカーを切り替え
+- **管理者コントロール** - ルーム作成者はキック、ミュート、ビデオオフボタンを表示
+- **チャット** - `ChatPanel` によるルーム内テキストチャット
+- **スポットライトビュー** - 特定の参加者にフォーカス
 
-## Admin Panel
+## 管理者パネル
 
-The admin panel at `/admin` provides:
+`/admin` の管理者パネルでは以下を提供します。
 
-- **Room management** - table view with drill-down to room detail pages
-- **User management** - table view with drill-down to individual user accounts and role editing
-- **Server settings** - configure instance-wide options, access controls, and invite links
-- **Invite tokens** - generate and revoke invite links to control who can join
+- **ルーム管理** - テーブル表示からルーム詳細ページへドリルダウン
+- **ユーザー管理** - テーブル表示から個別のユーザーアカウントとロール編集へドリルダウン
+- **サーバー設定** - インスタンス全体のオプション、アクセス制御、招待リンクを設定
+- **招待トークン** - 招待リンクの生成と取り消しで参加者を管理
 
-## Dark Mode
+## ダークモード
 
-A `ThemeToggle` component lets users switch between light and dark themes from anywhere in the app. The preference is persisted to `localStorage` and applied on load.
+`ThemeToggle` コンポーネントでアプリのどこからでもライト/ダークテーマを切り替えられます。設定は `localStorage` に永続化され、読み込み時に適用されます。
 
-## Build
+## ビルド
 
-### Development
+### 開発
 
 ```bash
 cd apps/web
 bun run dev      # Starts Vite dev server with HMR at localhost:3000
 ```
 
-The dev server proxies `/api` and `/livekit` requests to the Go server at `localhost:8090`.
+開発サーバーは `/api` と `/livekit` リクエストを `localhost:8090` の Go サーバーにプロキシします。
 
-### Production (standalone web bundle)
+### 本番（スタンドアロン Web バンドル）
 
 ```bash
 cd apps/web
 bun run build    # Outputs static client assets to dist/client/ and SSR server to dist/server/
 ```
 
-### Production (embedded in Go binary)
+### 本番（Go バイナリに組み込み）
 
 ```bash
 cd apps/web
 bun run build:embed
 ```
 
-This runs `scripts/embed.mjs` which:
+このコマンドは `scripts/embed.mjs` を実行し、以下の処理を行います。
 
-1. Runs `bun run build` to produce `dist/client/` and `dist/server/`
-2. Starts the SSR server locally
-3. Fetches `/` to capture the pre-rendered HTML shell
-4. Copies `dist/client/` into `server/frontend/`
-5. Writes the rendered HTML as `server/frontend/index.html`
+1. `bun run build` を実行して `dist/client/` と `dist/server/` を生成
+2. SSR サーバーをローカルで起動
+3. `/` をフェッチしてプリレンダリングされた HTML シェルをキャプチャ
+4. `dist/client/` を `server/frontend/` にコピー
+5. レンダリングされた HTML を `server/frontend/index.html` として書き出し
 
-### Type Checking
+### 型チェック
 
 ```bash
 bun run check    # Runs tsc --noEmit
@@ -150,6 +150,6 @@ bun run check    # Runs tsc --noEmit
 
 ---
 
-## See also
+## 関連項目
 
-- [Web Design System](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI component patterns, color tokens, and styling rules
+- [Web デザインシステム](https://github.com/bedrud-ir/bedrud/tree/main/apps/web/AGENTS.md) - UI コンポーネントパターン、カラートークン、スタイリングルール

@@ -4,68 +4,68 @@ description: REST API endpoint implementations
 order: 19
 ---
 
-Bedrud uses the **Fiber** web framework (Express-like API for Go).
+Bedrud 使用 **Fiber** Web 框架（Go 的类 Express API）。
 
-## Routing Logic
+## 路由逻辑
 
-The routes are defined in `internal/server/server.go`. We group routes to apply middleware or prefixes easily.
+路由定义在 `internal/server/server.go` 中。我们对路由进行分组，以便轻松应用 middleware 或前缀。
 
-### Main Groups:
+### 主要路由组：
 
-- **`/api/auth`**: Public and protected routes for authentication.
-- **`/api/room`**: Protected routes for room management.
-- **`/api/admin`**: Routes restricted to users with the `superadmin` role.
-- **`/livekit`**: A special proxy group that sends requests to the embedded LiveKit audio/video server.
+- **`/api/auth`**：认证的公共和受保护路由。
+- **`/api/room`**：房间管理的受保护路由。
+- **`/api/admin`**：仅限 `superadmin` 角色用户访问的路由。
+- **`/livekit`**：特殊的代理路由组，将请求发送到内嵌的 LiveKit 音视频服务器。
 
-## Specialized Handler Logic
+## 专用 Handler 逻辑
 
-### Room Management (`internal/handlers/room.go`)
-The `RoomHandler` translates between Bedrud's room metadata and LiveKit's media engine.
+### 房间管理（`internal/handlers/room.go`）
+`RoomHandler` 在 Bedrud 的房间元数据和 LiveKit 的媒体引擎之间进行转换。
 
-#### 1. Room Creation
-When a room is created via `POST /api/room/create`:
+#### 1. 房间创建
+通过 `POST /api/room/create` 创建房间时：
 
-- **Normalization:** Room names are trimmed and lowercased.
-- **Auto-Generation:** If no name is provided, Bedrud generates a random URL-safe name (e.g., `fancy-blue-whale`).
-- **Synchronized Creation:** The backend first calls the internal LiveKit API to create the media session, then saves the metadata in the local database.
+- **规范化：** 房间名称会被修剪并转为小写。
+- **自动生成：** 如果未提供名称，Bedrud 会生成一个随机的 URL 安全名称（如 `fancy-blue-whale`）。
+- **同步创建：** 后端首先调用内部 LiveKit API 创建媒体会话，然后将元数据保存到本地数据库中。
 
-#### 2. Joining and Tokens
-When a user joins via `POST /api/room/join`:
+#### 2. 加入与令牌
+当用户通过 `POST /api/room/join` 加入时：
 
-- **Access Control:** The backend checks if the room exists and if the user is authorized.
-- **Token Generation:** A signed JWT (Join Token) is generated with:
-  - `Identity`: The User ID from Bedrud.
-  - `Name`: The User's Display Name.
-  - `Grants`: Specific permissions like `CanJoin`, `CanPublish`, `CanSubscribe`.
-- **Client Handshake:** The frontend receives both the local room metadata and the LiveKit token to start the WebRTC connection.
+- **访问控制：** 后端检查房间是否存在以及用户是否已授权。
+- **令牌生成：** 生成一个签名的 JWT（加入令牌），包含：
+  - `Identity`：Bedrud 中的用户 ID。
+  - `Name`：用户的显示名称。
+  - `Grants`：特定权限，如 `CanJoin`、`CanPublish`、`CanSubscribe`。
+- **客户端握手：** 前端同时获取本地房间元数据和 LiveKit 令牌，以启动 WebRTC 连接。
 
-## Admin & User Management (`internal/handlers/users.go`)
-Routes under `/api/admin` are strictly guarded by the `RequireAccess("superadmin")` middleware.
+## 管理员与用户管理（`internal/handlers/users.go`）
+`/api/admin` 下的路由由 `RequireAccess("superadmin")` middleware 严格保护。
 
-### 1. User Control
-The `UsersHandler` allows administrators to:
+### 1. 用户控制
+`UsersHandler` 允许管理员：
 
-- **List All Users:** Fetch a complete directory of registered users including their auth provider and last login metadata.
-- **Update Status:** Instantly activate or deactivate account access. Deactivating a user immediately blocks them from logging in or refreshing their tokens.
+- **列出所有用户：** 获取已注册用户的完整目录，包括其认证提供商和最后登录的元数据。
+- **更新状态：** 即时激活或停用账户访问权限。停用用户会立即阻止其登录或刷新令牌。
 
-### 2. Room Overview
-Admin routes allow for listing all active and historical rooms across the entire platform, regardless of who created them. This is intended for platform moderation.
+### 2. 房间概览
+管理员路由允许列出整个平台上所有活跃和历史房间，无论创建者是谁。这用于平台管理。
 
-## Request Lifecycle
+## 请求生命周期
 
-1.  **Request arrives**: Fiber receives the HTTP request.
-2.  **Middleware**:
+1.  **请求到达**：Fiber 接收 HTTP 请求。
+2.  **Middleware**：
 
-    - `recover`: Prevents the server from crashing if there is an error.
-    - `cors`: Handles Cross-Origin Resource Sharing.
-    - `Protected`: (Optional) Checks for a valid JWT in the `Authorization` header.
-3.  **Handler**: The function in `internal/handlers` is called.
+    - `recover`：防止服务器在出错时崩溃。
+    - `cors`：处理跨源资源共享。
+    - `Protected`：（可选）检查 `Authorization` 头中是否存在有效的 JWT。
+3.  **Handler**：调用 `internal/handlers` 中的函数。
 
-    - It parses the JSON body (if any) using `c.BodyParser`.
-    - It calls the necessary Service or Repository.
-    - It returns a JSON response using `c.JSON`.
+    - 使用 `c.BodyParser` 解析 JSON 请求体（如果有）。
+    - 调用必要的 Service 或 Repository。
+    - 使用 `c.JSON` 返回 JSON 响应。
 
-## Example: Create Room Handler
+## 示例：创建房间 Handler
 
 ```go
 func (h *RoomHandler) CreateRoom(c *fiber.Ctx) error {
@@ -88,8 +88,8 @@ func (h *RoomHandler) CreateRoom(c *fiber.Ctx) error {
 }
 ```
 
-## Static Files (Frontend)
+## 静态文件（前端）
 
-The web frontend is **embedded** in the Go binary at build time. Fiber serves the React files from the `frontend/` directory using `filesystem.New`.
+Web 前端在构建时**嵌入**到 Go 二进制文件中。Fiber 使用 `filesystem.New` 从 `frontend/` 目录提供 React 文件。
 
-Any route that doesn't start with `/api` is redirected to the React app's `index.html`. This enables client-side routing without 404s on page refresh.
+任何不以 `/api` 开头的路由都会重定向到 React 应用的 `index.html`。这使得客户端路由在页面刷新时不会出现 404 错误。

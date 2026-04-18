@@ -4,30 +4,30 @@ description: Build automation commands
 order: 31
 ---
 
-The root `Makefile` is the central build orchestration tool for the Bedrud monorepo. It provides commands for development, building, and deployment across all platforms.
+根目录的 `Makefile` 是 Bedrud monorepo 的中央构建编排工具。它提供了跨所有平台的开发、构建和部署命令。
 
-## Usage
+## 用法
 
 ```bash
 make <target>
 make help       # Show all available targets
 ```
 
-## Development Targets
+## 开发目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make init` | Install all dependencies (web + server) |
-| `make dev` | Run LiveKit + server + web concurrently |
-| `make dev-web` | Run frontend dev server only |
-| `make dev-server` | Run backend server only |
-| `make dev-livekit` | Run local LiveKit server |
-| `make dev-ios` | Open iOS project in Xcode |
-| `make dev-android` | Open Android project in Android Studio |
+| `make init` | 安装所有依赖（Web + 服务器） |
+| `make dev` | 同时运行 LiveKit + 服务器 + Web |
+| `make dev-web` | 仅运行前端开发服务器 |
+| `make dev-server` | 仅运行后端服务器 |
+| `make dev-livekit` | 运行本地 LiveKit 服务器 |
+| `make dev-ios` | 在 Xcode 中打开 iOS 项目 |
+| `make dev-android` | 在 Android Studio 中打开 Android 项目 |
 
 ### `make init`
 
-Installs dependencies for both the web frontend and Go server:
+安装 Web 前端和 Go 服务器的依赖：
 
 ```bash
 cd apps/web && bun install
@@ -36,103 +36,103 @@ cd server && go mod tidy && go mod download
 
 ### `make dev`
 
-Starts all three development services concurrently. Press `Ctrl+C` to stop all:
+同时启动三个开发服务。按 `Ctrl+C` 停止所有：
 
-- **LiveKit** at `localhost:7880`
-- **Server** at `localhost:8090`
-- **Web** at `localhost:3000`
+- **LiveKit** 在 `localhost:7880`
+- **服务器** 在 `localhost:8090`
+- **Web** 在 `localhost:3000`
 
-## Build Targets
+## 构建目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make build` | Build frontend + backend (embedded) |
-| `make build-front` | Build frontend only |
-| `make build-back` | Build backend only |
-| `make build-dist` | Build production linux/amd64 tarball |
+| `make build` | 构建前端 + 后端（嵌入） |
+| `make build-front` | 仅构建前端 |
+| `make build-back` | 仅构建后端 |
+| `make build-dist` | 构建生产版 linux/amd64 tar 包 |
 
 ### `make build`
 
-Full production build:
+完整的生产构建：
 
-1. Runs `bun run build:embed` - SSR pre-renders the React app and copies assets to `server/frontend/`
-2. Builds the Go binary with the embedded frontend
+1. 运行 `bun run build:embed` — SSR 预渲染 React 应用并将资源复制到 `server/frontend/`
+2. 构建嵌入前端的 Go 二进制文件
 
-Output: `server/dist/bedrud`
+输出：`server/dist/bedrud`
 
 ### `make build-dist`
 
-Creates a compressed, production-ready distribution:
+创建压缩的、生产就绪的分发包：
 
-1. Runs `make build`
-2. Cross-compiles for `linux/amd64` with stripped debug symbols
-3. Creates `dist/bedrud_linux_amd64.tar.xz`
+1. 运行 `make build`
+2. 交叉编译 `linux/amd64`，去除调试符号
+3. 创建 `dist/bedrud_linux_amd64.tar.xz`
 
-## Android Targets
+## Android 目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make build-android-debug` | Build debug APK |
-| `make build-android` | Build release APK (requires keystore) |
-| `make install-android` | Install release APK on connected device |
-| `make release-android` | Build + install release APK |
+| `make build-android-debug` | 构建 debug APK |
+| `make build-android` | 构建 release APK（需要 keystore） |
+| `make install-android` | 在已连接的设备上安装 release APK |
+| `make release-android` | 构建 + 安装 release APK |
 
-### APK Output Paths
+### APK 输出路径
 
-- Debug: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
-- Release: `apps/android/app/build/outputs/apk/release/app-release.apk`
+- Debug：`apps/android/app/build/outputs/apk/debug/app-debug.apk`
+- Release：`apps/android/app/build/outputs/apk/release/app-release.apk`
 
-## iOS Targets
+## iOS 目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make build-ios` | Build iOS archive (Release) |
-| `make export-ios` | Export IPA from archive |
-| `make build-ios-sim` | Build for iOS Simulator (Debug) |
+| `make build-ios` | 构建 iOS 归档（Release） |
+| `make export-ios` | 从归档导出 IPA |
+| `make build-ios-sim` | 为 iOS 模拟器构建（Debug） |
 
-### Output Paths
+### 输出路径
 
-- Archive: `apps/ios/build/Bedrud.xcarchive`
-- IPA: `apps/ios/build/export/Bedrud.ipa`
+- 归档：`apps/ios/build/Bedrud.xcarchive`
+- IPA：`apps/ios/build/export/Bedrud.ipa`
 
-## Deploy Target
+## 部署目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make deploy ARGS=...` | Run the deployment CLI tool |
+| `make deploy ARGS=...` | 运行部署 CLI 工具 |
 
-### Example
+### 示例
 
 ```bash
 make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.com"
 ```
 
-This runs the Python CLI at `tools/cli/bedrud.py` with the provided arguments.
+这将使用提供的参数运行 `tools/cli/bedrud.py` Python CLI。
 
-## Clean Targets
+## 清理目标
 
-| Target | Description |
+| 目标 | 说明 |
 |--------|-------------|
-| `make clean` | Remove build artifacts and compiled binaries |
-| `make full-clean` | Remove artifacts + all installed dependencies |
+| `make clean` | 删除构建产物和编译后的二进制文件 |
+| `make full-clean` | 删除产物 + 所有已安装的依赖 |
 
 ### `make clean`
 
-Removes:
+删除：
 
-- `dist/` - distribution tarballs
-- `server/dist/` - compiled server binary
-- `apps/web/dist/` - React build output
-- `server/frontend/` contents - embedded frontend assets
-- `apps/android/app/build/` - Android build outputs
-- `apps/ios/build/` - iOS build outputs
+- `dist/` - 分发包
+- `server/dist/` - 编译后的服务器二进制文件
+- `apps/web/dist/` - React 构建输出
+- `server/frontend/` 内容 - 嵌入的前端资源
+- `apps/android/app/build/` - Android 构建输出
+- `apps/ios/build/` - iOS 构建输出
 
 ### `make full-clean`
 
-Everything `clean` does, plus:
+执行 `clean` 的所有操作，另外还包括：
 
 - `apps/web/node_modules/`
 - `apps/android/.gradle/`
-- Go module cache (`go clean -modcache`)
+- Go 模块缓存（`go clean -modcache`）
 
-Run `make init` afterwards to reinstall dependencies.
+之后运行 `make init` 以重新安装依赖。

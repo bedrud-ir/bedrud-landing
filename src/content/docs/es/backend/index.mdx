@@ -5,45 +5,45 @@ order: 15
 ---
 
 ## Introducción
-El backend de Bedrud es una plataforma de reuniones de un solo binario escrita en **Go 1.24+**. Todas las dependencias - servidor de medios, frontend web, servidor TURN - están incrustadas en un solo ejecutable.
+El backend de Bedrud es una plataforma de reuniones en un solo binario escrita en **Go 1.24+**. Todas las dependencias — servidor de medios, frontend web, servidor TURN — están integradas en un solo ejecutable.
 
-### Tecnologías Clave
-- **Framework Principal:** [Fiber v2](https://gofiber.io/) (Enrutador sin asignación, API estilo Express).
+### Tecnologías Principales
+- **Framework Principal:** [Fiber v2](https://gofiber.io/) (enrutador sin asignación de memoria, API estilo Express).
 - **Capa de Base de Datos:** [GORM](https://gorm.io/) con soporte para **SQLite** (estándar) y **PostgreSQL** (producción).
-- **Motor de Medios:** [LiveKit](https://livekit.io/) (Incrustado como binario hermano).
-- **Sistema de Autenticación:** Autenticación multicapa que admite JWT, OAuth2 (Google/GitHub/Twitter) y Passkeys FIDO2 sin contraseña.
-- **Activos Estáticos Incrustados:** Utiliza el paquete `embed` de Go 1.16+ para agrupar el frontend de React (activos de cliente pre-renderizados con SSR).
-- **Despliegue:** Auto-instalador integrado para Debian/Ubuntu con orquestación de systemd y soporte para ACME (Let's Encrypt).
+- **Motor de Medios:** [LiveKit](https://livekit.io/) (integrado como binario hermano).
+- **Sistema de Autenticación:** Autenticación multicapa compatible con JWT, OAuth2 (Google/GitHub/Twitter) y Passkeys FIDO2 sin contraseña.
+- **Recursos Estáticos Integrados:** Utiliza el paquete `embed` de Go 1.16+ para empaquetar el frontend de React (recursos del cliente pre-renderizados con SSR).
+- **Despliegue:** Instalador automático integrado para Debian/Ubuntu con orquestación mediante systemd y soporte para ACME (Let's Encrypt).
 
-## ¿Por qué esta Arquitectura?
-Las plataformas WebRTC generalmente ejecutan servicios separados para señalización, TURN, servicio web y gestión de base de datos. Bedrud consolida estos en un solo binario mediante:
+## ¿Por qué esta arquitectura?
+Las plataformas WebRTC normalmente ejecutan servicios separados para señalización, TURN, servicio web y gestión de base de datos. Bedrud consolida todos estos en un solo binario al:
 
-1.  **Extracción** del binario del servidor de medios en tiempo de ejecución.
-2.  **Proxy** del tráfico de medios a través del puerto HTTP(S) principal.
-3.  **Automatización** de la configuración a nivel de sistema operativo (SSL, systemd) a través del propio binario.
+1.  **Extraer** el binario del servidor de medios en tiempo de ejecución.
+2.  **Proxyar** el tráfico de medios a través del puerto HTTP(S) principal.
+3.  **Automatizar** la configuración a nivel de sistema operativo (SSL, systemd) desde el propio binario.
 
-## Arquitectura de Alto Nivel
-El backend sigue una arquitectura en capas estándar:
+## Arquitectura General
+El backend sigue una arquitectura por capas estándar:
 
-1.  **Capa de Servidor (`internal/server`):** Configura la aplicación Fiber, rutas y middleware.
-2.  **Capa de Manejadores (`internal/handlers`):** Gestiona las solicitudes y respuestas HTTP.
-3.  **Capa de Repositorio (`internal/repository`):** Maneja las consultas de la base de datos utilizando GORM.
+1.  **Capa de Servidor (`internal/server`):** Configura la app de Fiber, rutas y middleware.
+2.  **Capa de Handlers (`internal/handlers`):** Gestiona las solicitudes y respuestas HTTP.
+3.  **Capa de Repositorio (`internal/repository`):** Maneja las consultas a la base de datos mediante GORM.
 4.  **Capa de Modelos (`internal/models`):** Define las tablas de la base de datos y las estructuras de Go.
-5.  **Capa de Servicio/Lógica:** Integrada en manejadores y repositorios por simplicidad, con paquetes especializados como `internal/auth` y `internal/livekit`.
+5.  **Capa de Servicio/Lógica:** Integrada en los handlers y repositorios por simplicidad, con paquetes especializados como `internal/auth` e `internal/livekit`.
 
 ## Punto de Entrada Principal
-La aplicación comienza en `server/cmd/bedrud/main.go`. Tiene tres modos principales:
+La aplicación se inicia en `server/cmd/bedrud/main.go`. Tiene tres modos principales:
 
-- `run`: Inicia el servidor completo de reuniones.
-- `livekit`: Inicia solo el servidor de medios incrustado.
+- `run`: Inicia el servidor de reuniones completo.
+- `livekit`: Inicia únicamente el servidor de medios integrado.
 - `install`: Configura automáticamente el servidor en sistemas Debian/Ubuntu.
 
-## Secciones de Documentación
-- [**Estructura del Código**](/es/docs/backend/structure): ¿Dónde está todo ubicado?
+## Secciones de la Documentación
+- [**Estructura del Código**](/es/docs/backend/structure): ¿Dónde se encuentra todo?
 - [**Base de Datos y Modelos**](/es/docs/backend/database): ¿Cómo se almacenan los datos?
 - [**Autenticación**](/es/docs/backend/authentication): ¿Cómo inician sesión los usuarios?
-- [**Manejadores de API**](/es/docs/backend/api-handlers): ¿Cómo se procesan las solicitudes?
+- [**API Handlers**](/es/docs/backend/api-handlers): ¿Cómo se procesan las solicitudes?
 - [**Integración con LiveKit**](/es/docs/backend/livekit): ¿Cómo funciona el servidor de video?
 - [**Conectividad WebRTC**](/es/docs/architecture/webrtc-connectivity): ¿Cómo establecen los clientes las conexiones de medios? (STUN/ICE/TURN/SFU)
-- [**Servidor TURN**](/es/docs/architecture/turn-server): Arquitectura de retransmisión TURN, configuración y solución de problemas
-- [**Instalación y Despliegue**](/es/docs/backend/deployment): ¿Cómo funciona el auto-instalador?
+- [**Servidor TURN**](/es/docs/architecture/turn-server): Arquitectura del relay TURN, configuración y solución de problemas
+- [**Instalación y Despliegue**](/es/docs/backend/deployment): ¿Cómo funciona el instalador automático?

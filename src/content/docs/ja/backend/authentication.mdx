@@ -1,38 +1,38 @@
 ---
-title: Authentication
-description: Auth implementation details
+title: 認証
+description: 認証の実装詳細
 order: 18
 ---
 
-Bedrud supports multiple authentication methods.
+Bedrudは複数の認証方式をサポートしています。
 
 ## JWT (JSON Web Tokens)
-Bedrud uses JWT for session management. On login, the server returns two tokens:
+Bedrudはセッション管理にJWTを使用しています。ログイン時に、サーバーは2つのトークンを返します:
 
-1.  **Access Token:** Short-lived (e.g., 1 hour). Used to access protected API endpoints.
-2.  **Refresh Token:** Long-lived (e.g., 30 days). Used to get a new Access Token without logging in again.
+1.  **Access Token:** 短命（例: 1時間）。保護されたAPIエンドポイントへのアクセスに使用されます。
+2.  **Refresh Token:** 長命（例: 30日間）。再度ログインすることなく新しいAccess Tokenを取得するために使用されます。
 
-The backend validates these tokens in the `internal/middleware/auth.go` file.
+これらのトークンの検証は、`internal/middleware/auth.go`ファイルで行われます。
 
-## Token Management & Security
+## トークン管理とセキュリティ
 
-### 1. Token Pair Strategy (Rotation)
-Bedrud uses a secure token rotation strategy. When a user authenticates, they receive:
+### 1. トークンペア戦略（ローテーション）
+Bedrudは安全なトークンローテーション戦略を採用しています。ユーザーが認証されると、以下のトークンが発行されます:
 
-- **Access Token:** Signed with HS256, contains user ID, name, and permissions. Valid for a short duration (configured via `tokenDuration`).
-- **Refresh Token:** A separate long-lived token.
+- **Access Token:** HS256で署名され、ユーザーID、名前、権限を含みます。短い期間有効です（`tokenDuration`で設定可能）。
+- **Refresh Token:** 別の長命トークン。
 
-**Rotation:** When the Access Token expires, the client sends the Refresh Token to `/api/auth/refresh`. The server then issues a **brand new pair** of tokens and updates the stored refresh token in the database. This limits the window of opportunity even if a token is stolen.
+**ローテーション:** Access Tokenの有効期限が切れると、クライアントはRefresh Tokenを`/api/auth/refresh`に送信します。サーバーは**新しいペア**のトークンを発行し、データベースに保存されているリフレッシュトークンを更新します。これにより、トークンが盗まれた場合でも脆弱な期間を限定できます。
 
-### 2. Token Revocation (Blacklisting)
-To support secure logout, Bedrud implements a **Token Blacklist**.
+### 2. トークンの失効（ブラックリスト化）
+安全なログアウトをサポートするため、Bedrudは**トークンブラックリスト**を実装しています。
 
-- When a user logs out, their current Refresh Token is added to the `blocked_refresh_tokens` table.
-- Before refreshing any session, the server checks this table. If a token is blocked, the request is rejected immediately.
-- A background task (Scheduler) is designed to clean up these blocked tokens once they naturally expire.
+- ユーザーがログアウトすると、現在のRefresh Tokenが`blocked_refresh_tokens`テーブルに追加されます。
+- セッションを更新する前に、サーバーはこのテーブルを確認します。トークンがブロックされている場合、リクエストは直ちに拒否されます。
+- バックグラウンドタスク（Scheduler）が、これらのブロックされたトークンの自然な有効期限後に自動的にクリーンアップするように設計されています。
 
-### 3. JWT Claims Structure
-The tokens carry metadata that allows the backend and frontend to make quick decisions without database hits:
+### 3. JWT Claims構造
+トークンは、バックエンドとフロントエンドがデータベースへのアクセスなしで迅速な判断を下せるようにするメタデータを保持しています:
 ```json
 {
   "userId": "uuid-string",
@@ -44,47 +44,47 @@ The tokens carry metadata that allows the backend and frontend to make quick dec
 }
 ```
 
-## Authentication Methods
+## 認証方式
 
-### 1. Local Email & Password
+### 1. ローカルメール・パスワード認証
 
-- Passwords are hashed using **bcrypt** - never stored as plain text.
-- When you register, a new User record is created in the database.
+- パスワードは**bcrypt**でハッシュ化されます — プレーンテキストで保存されることはありません。
+- 登録時に、データベースに新しいUserレコードが作成されます。
 
-### 2. Social Login (OAuth2)
-Bedrud uses the `Goth` library to support:
+### 2. ソーシャルログイン (OAuth2)
+Bedrudは`Goth`ライブラリを使用して以下をサポートしています:
 
 - **Google**
 - **GitHub**
 - **Twitter**
 
-You can enable these by filling in the `auth:` section in your `config.yaml` with your Client ID and API Secret.
+これらを有効にするには、`config.yaml`の`auth:`セクションにClient IDとAPI Secretを入力します。
 
-### 3. Passkeys (WebAuthn/FIDO2)
-Bedrud supports passwordless authentication via the FIDO2 standard (WebAuthn).
+### 3. パスキー (WebAuthn/FIDO2)
+BedrudはFIDO2標準（WebAuthn）によるパスワードレス認証をサポートしています。
 
-- **Registration Ceremony:**
-  1.  **Begin:** The server generates a cryptographically secure **Challenge** and stores it in the user's session.
-  2.  **Finish:** The client's authenticator (e.g., TouchID, YubiKey) signs the challenge. The server verifies the attestation, extracts the **Public Key**, and saves it in the `passkeys` table.
-- **Authentication Ceremony:**
-  1.  **Begin:** The server issues a new challenge.
-  2.  **Finish:** The client signs the challenge with their private key. The server retrieves the Public Key from the database, verifies the signature, and checks the **Sign Counter**.
-- **Security:** The matching of the `Counter` field prevents **Replay Attacks**. If the authenticator's counter is not higher than the stored counter, the login is rejected.
+- **登録セレモニー:**
+  1.  **開始:** サーバーは暗号学的に安全な**チャレンジ**を生成し、ユーザーのセッションに保存します。
+  2.  **完了:** クライアントのオーセンティケーター（例: TouchID、YubiKey）がチャレンジに署名します。サーバーはアテステーションを検証し、**公開鍵**を抽出して`passkeys`テーブルに保存します。
+- **認証セレモニー:**
+  1.  **開始:** サーバーは新しいチャレンジを発行します。
+  2.  **完了:** クライアントは秘密鍵でチャレンジに署名します。サーバーはデータベースから公開鍵を取得し、署名を検証して**サインカウンター**を確認します。
+- **セキュリティ:** `Counter`フィールドの照合により**リプレイアタック**を防ぎます。オーセンティケーターのカウンターが保存されたカウンター以上でない場合、ログインは拒否されます。
 
-### 4. Guest Login
-Allows users to join a meeting instantly with just a name. The server creates a temporary user record with the role `guest`.
+### 4. ゲストログイン
+ユーザーが名前を入力するだけでミーティングに即座に参加できるようにします。サーバーは`guest`ロールの一時的なユーザーレコードを作成します。
 
-## Interoperability & CORS
-Bedrud is designed to be accessible from multiple origins, which is crucial for development (React dev server) and production (different subdomains).
+## 相互運用性とCORS
+Bedrudは複数のオリジンからのアクセスが可能に設計されています。これは開発時（React開発サーバー）と本番環境（異なるサブドメイン）の両方で重要です。
 
-- **CORS Policy:** Defined in `config.yaml`. It supports `AllowCredentials: true`, which is required for the session cookies used during OAuth and Passkey ceremonies.
-- **Allowed Origins:** By default, it allows the server's own domain and `localhost:3000` (the React dev server port).
+- **CORSポリシー:** `config.yaml`で定義されます。OAuthおよびパスキーセレモニーで使用されるセッションクッキーに必要な`AllowCredentials: true`をサポートしています。
+- **許可されたオリジン:** デフォルトでは、サーバー自身のドメインと`localhost:3000`（React開発サーバーのポート）を許可しています。
 
-## User Roles (Access Control)
-Each user has a list of "accesses" (roles).
+## ユーザーロール（アクセス制御）
+各ユーザーは「accesses」（ロール）のリストを持っています。
 
-- `user`: Standard user. Can join and create rooms.
-- `guest`: Temporary user. Can join rooms.
-- `superadmin`: Can manage all users and rooms through the `/admin` dashboard.
+- `user`: 標準ユーザー。ルームに参加し、ルームを作成できます。
+- `guest`: 一時ユーザー。ルームに参加できます。
+- `superadmin`: `/admin`ダッシュボードを通じて全ユーザーとルームを管理できます。
 
-The `middleware.RequireAccess("superadmin")` guard protects admin routes.
+`middleware.RequireAccess("superadmin")`ガードが管理者ルートを保護しています。

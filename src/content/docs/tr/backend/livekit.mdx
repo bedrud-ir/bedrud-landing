@@ -1,21 +1,21 @@
 ---
-title: LiveKit Integration
-description: WebRTC media server integration
+title: LiveKit Entegrasyonu
+description: WebRTC medya sunucusu entegrasyonu
 order: 20
 ---
 
-Bedrud uses **LiveKit** to handle real-time video and audio communication. LiveKit provides the SFU (Selective Forwarding Unit) media server, and Bedrud handles authentication, room management, and admin controls.
+Bedrud, gerçek zamanlı video ve ses iletişimini yönetmek için **LiveKit** kullanır. LiveKit SFU (Seçici İletim Birimi) medya sunucusunu sağlar; Bedrud ise kimlik doğrulama, oda yönetimi ve yönetici kontrollerini üstlenir.
 
-## Embedded vs. External
+## Gömülü ve Harici Modlar
 
-Bedrud supports two LiveKit deployment modes:
+Bedrud iki LiveKit dağıtım modunu destekler:
 
-1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required - the backend handles the LiveKit process lifecycle.
-2.  **External Mode:** Bedrud connects to a separate LiveKit server or cluster. This is useful for horizontal scaling or when using a managed LiveKit Cloud instance.
+1.  **Gömülü Mod (Varsayılan):** Arka uç, bir LiveKit sunucu sürecini dahili olarak başlatır ve yönetir. Ek bir altyapı gerekmez — arka uç LiveKit süreç yaşam döngüsünü halleder.
+2.  **Harici Mod:** Bedrud ayrı bir LiveKit sunucusuna veya kümesine bağlanır. Bu, yatay ölçeklendirme veya yönetilen bir LiveKit Cloud örneği kullanıldığında faydalıdır.
 
-### Configuring External Mode
+### Harici Modu Yapılandırma
 
-To use an external LiveKit server, set the following keys in `config.yaml`:
+Harici bir LiveKit sunucusu kullanmak için `config.yaml` dosyasında şu anahtarları ayarlayın:
 
 ```yaml
 livekit:
@@ -25,73 +25,73 @@ livekit:
   embedded: false
 ```
 
-When `embedded` is `false`, Bedrud skips starting the embedded LiveKit binary. The API key and secret must match the external server's credentials.
+`embedded` `false` olduğunda, Bedrud gömülü LiveKit ikili dosyasını başlatmayı atlar. API anahtarı ve gizli anahtar, harici sunucunun kimlik bilgileriyle eşleşmelidir.
 
-For LiveKit cluster setup and configuration, refer to the [LiveKit documentation](https://docs.livekit.io).
+LiveKit küme kurulumu ve yapılandırması için [LiveKit dokümantasyonuna](https://docs.livekit.io) bakın.
 
-## How It Works
+## Nasıl Çalışır
 
-### 1. Room Creation
+### 1. Oda Oluşturma
 
-When a user creates a room in Bedrud, the server does not create a LiveKit room immediately. LiveKit rooms are created on demand when the first participant joins.
+Bir kullanıcı Bedrud'da oda oluşturduğunda, sunucu hemen bir LiveKit odası oluşturmaz. LiveKit odaları ilk katılımcı katıldığında talep üzerine oluşturulur.
 
-### 2. Join Tokens
+### 2. Katılım Jetonları
 
-When a user joins a meeting:
+Bir kullanıcı bir toplantıya katıldığında:
 
-1.  The frontend sends a request to `/api/room/join`.
-2.  The backend verifies the user has permission to join that room.
-3.  The backend uses its API Key and Secret to generate a signed JWT (Join Token).
-4.  The token contains:
+1.  Ön uç `/api/room/join` uç noktasına bir istek gönderir.
+2.  Arka uç, kullanıcın o odaya katılma izni olduğunu doğrular.
+3.  Arka uç, API Anahtarını ve Gizli Anahtarını kullanarak imzalı bir JWT (Katılım Jetonu) üretir.
+4.  Jeton şunları içerir:
 
-    - The room name.
-    - The user's identity (display name).
-    - Permissions - for example, whether the user can publish audio or share their screen.
-5.  The frontend receives this token and connects directly to the LiveKit media port (default `7880`).
+    - Oda adı.
+    - Kullanıcının kimliği (görünen ad).
+    - İzinler — örneğin, kullanıcının ses yayımlayıp yayımlayamayacağı veya ekranını paylaşabileceği.
+5.  Ön uç bu jetonu alır ve doğrudan LiveKit medya portuna (varsayılan `7880`) bağlanır.
 
-### 3. Room Controls (Admin)
+### 3. Oda Kontrolleri (Yönetici)
 
-The backend uses the LiveKit Go SDK to perform administrative actions:
+Arka uç, yönetimsel eylemleri gerçekleştirmek için LiveKit Go SDK'sını kullanır:
 
-- **Kick:** Disconnects a participant.
-- **Mute:** Force-mutes a participant's microphone.
-- **Permissions:** Changes what a participant can do in real-time.
+- **Atma:** Bir katılımcının bağlantısını keser.
+- **Sessize Alma:** Bir katılımcının mikrofonunu zorla sessize alır.
+- **İzinler:** Bir katılımcının gerçek zamanlı olarak neler yapabileceğini değiştirir.
 
-## Network Architecture
+## Ağ Mimarisi
 
-- **API Port (8090/443):** Handles HTTP requests and WebSocket signaling for call setup.
-- **Media Port (7880):** Handles video and audio data using WebRTC protocols. ICE/TCP fallback uses port 7881 when UDP is blocked.
-- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/docs/architecture/turn-server).
+- **API Portu (8090/443):** HTTP isteklerini ve arama kurulumu için WebSocket sinyalleşmesini yönetir.
+- **Medya Portu (7880):** WebRTC protokollerini kullanarak video ve ses verilerini yönetir. UDP engellendiğinde ICE/TCP yedek portu olarak 7881 kullanılır.
+- **TURN Portu (3478 UDP / 5349 TLS):** Kısıtlayıcı NAT veya güvenlik duvarları arkasındaki istemciler için medyayı aktarır. Bkz. [TURN Sunucu Kılavuzu](/tr/docs/architecture/turn-server).
 
-For firewall and port requirements, see [WebRTC Connectivity](/docs/architecture/webrtc-connectivity).
+Güvenlik duvarı ve port gereksinimleri için bkz. [WebRTC Bağlantısı](/tr/docs/architecture/webrtc-connectivity).
 
-## Error Handling
+## Hata İşleme
 
-### LiveKit Unreachable
+### LiveKit Erişilemez
 
-If the LiveKit server is unreachable, token generation may still succeed (tokens are created locally using the API key and secret). However, the client will fail to connect to the media server. Symptoms:
+LiveKit sunucusu erişilemez durumdaysa, jeton üretimi yine başarılı olabilir (jetonlar API anahtarı ve gizli anahtar kullanılarak yerel olarak oluşturulur). Ancak istemci medya sunucusuna bağlanamaz. Belirtiler:
 
-- Client receives a valid join token but the WebRTC connection times out.
-- LiveKit SDK emits a `Reconnecting` event or connection error.
+- İstemci geçerli bir katılım jetonu alır ancak WebRTC bağlantısı zaman aşımına uğrar.
+- LiveKit SDK bir `Reconnecting` olayı veya bağlantı hatası yayınlar.
 
-**Check:** Verify the LiveKit server is running (`systemctl status livekit`) and the host/port in `config.yaml` is correct.
+**Kontrol:** LiveKit sunucusunun çalıştığını (`systemctl status livekit`) ve `config.yaml` dosyasındaki ana makine/port bilgisinin doğru olduğunu doğrulayın.
 
-### Embedded LiveKit Process Crashes
+### Gömülü LiveKit Süreci Çökmeleri
 
-In embedded mode, if the LiveKit child process crashes:
+Gömülü modda, LiveKit alt süreci çökerse:
 
-- The Bedrud API server continues to run (rooms can be listed, users can log in).
-- Active meetings lose media connectivity.
-- New join requests will generate tokens, but clients cannot connect.
+- Bedrud API sunucusu çalışmaya devam eder (odalar listelenebilir, kullanıcılar giriş yapabilir).
+- Aktif toplantılar medya bağlantısını kaybeder.
+- Yeni katılım istekleri jeton üretir, ancak istemciler bağlanamaz.
 
-**Check:** Inspect logs at `/var/log/bedrud/bedrud.log` or run `journalctl -u livekit -f` for crash details.
+**Kontrol:** `/var/log/bedrud/bedrud.log` konumundaki günlükleri inceleyin veya çökme detayları için `journalctl -u livekit -f` komutunu çalıştırın.
 
-### Token Expiration
+### Jeton Sona Ermesi
 
-LiveKit join tokens have a short validity window. If a client waits too long between receiving the token and connecting, the token will expire. The client must request a new token via `/api/room/join`.
+LiveKit katılım jetonlarının geçerlilik süresi kısadır. Bir istemci jetonu aldıktan sonra bağlanmak arasında çok uzun süre beklerse, jeton sona erer. İstemci `/api/room/join` uç noktası üzerinden yeni bir jeton talep etmelidir.
 
-## See also
+## Ayrıca bakınız
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [TURN Sunucu Kılavuzu](/tr/docs/architecture/turn-server) - TURN mimarisi, yapılandırma, TLS ve sorun giderme
+- [WebRTC Bağlantısı](/tr/docs/architecture/webrtc-connectivity) - tam STUN/ICE/TURN/SFU bağlantı yığını
+- [Mimari Genel Bakış](/tr/docs/architecture/overview) - tam sistem mimarisi

@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: Yönetici API'si
+description: Yönetimsel işlemler
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+Yönetici uç noktaları `/api/admin/` altındadır. Bu uç noktalar **Süper Yönetici** rolü gerektirir.
 
-## Overview
+## Genel Bakış
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| Uç Nokta | Yöntem | Açıklama |
+|----------|--------|----------|
+| `/api/admin/users` | GET | Tüm kullanıcıları listele |
+| `/api/admin/users/:id/status` | PUT | Bir kullanıcıyı aktifleştir veya devre dışı bırak |
 
 ---
 
-## Endpoints
+## Uç Noktalar
 
-### List All Users
+### Tüm Kullanıcıları Listele
 
-Retrieve a list of all registered users.
+Kayıtlı tüm kullanıcıların listesini alın.
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Gerekli Rol:** Süper Yönetici
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### Kullanıcı Durumunu Güncelle
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+Bir kullanıcı hesabını aktifleştirin veya devre dışı bırakın. Devre dışı bırakılan kullanıcılar giriş yapamaz.
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**Gerekli Rol:** Süper Yönetici
 
-**URL Parameters:**
+**URL Parametreleri:**
 
-| Parameter | Description |
-|-----------|-------------|
-| `id` | User UUID |
+| Parametre | Açıklama |
+|-----------|----------|
+| `id` | Kullanıcı UUID'si |
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -100,31 +100,31 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## Kullanıcı Rolleri
 
-| Role | Description | Permissions |
-|------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| Rol | Açıklama | İzinler |
+|-----|----------|---------|
+| `guest` | Geçici kullanıcı | Yalnızca odalara katılma |
+| `user` | Normal kullanıcı | Oda oluşturma/katılma, kendi profilini yönetme |
+| `admin` | Süper Yönetici | Tüm kullanıcı izinleri + kullanıcıları yönetme, tüm odaları görme |
 
-### Creating an Admin
+### Yönetici Oluşturma
 
-Admin users are created via the CLI:
+Yönetici kullanıcılar CLI üzerinden oluşturulur:
 
 ```bash
-# Create a user
+# Bir kullanıcı oluştur
 bedrud user create --email "admin@example.com" --password "securepassword" --name "Admin"
 
-# Promote to admin
+# Yöneticiye yükselt
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+Kullanıcıları yükseltmek için bir API uç noktası yoktur - bu, güvenlik amacıyla bilinçli olarak tasarlanmıştır.
 
 ---
 
-## Error Responses
+## Hata Yanıtları
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
-|--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| Durum | Anlamı |
+|-------|--------|
+| 401 | Kimlik doğrulaması yapılmamış |
+| 403 | Süper Yönetici değil |
+| 404 | Kullanıcı bulunamadı |
+| 500 | İç sunucu hatası |
 
 ---
 
-## See also
+## Ayrıca bakınız
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [API İşleyicileri ve Yönlendirme](/tr/docs/backend/api-handlers) - yönetici yollarının nasıl uygulandığı
+- [Rooms API](/tr/docs/api/rooms) - oda yönetimi uç noktaları

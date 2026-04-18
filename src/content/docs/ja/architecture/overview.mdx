@@ -1,12 +1,12 @@
 ---
-title: Architecture Overview
-description: High-level system architecture of the Bedrud platform
+title: アーキテクチャ概要
+description: Bedrud プラットフォームの全体アーキテクチャ
 order: 6
 ---
 
-Bedrud is a monorepo containing a Go server, three client applications, Python bot agents, and shared packages. This page describes how the components relate to each other.
+Bedrud は Go サーバー、3つのクライアントアプリケーション、Python Bot エージェント、共有パッケージを含むモノレポです。このページでは各コンポーネントの関係について説明します。
 
-## High-Level Diagram
+## 全体図
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -43,85 +43,85 @@ Bedrud is a monorepo containing a Go server, three client applications, Python b
 └─────────────────────────────────────────────────────────┘
 ```
 
-## Components
+## コンポーネント
 
-### Server (`server/`)
+### サーバー（`server/`）
 
-The Go backend is the core of Bedrud. It handles:
+Go バックエンドは Bedrud の中核です。以下を処理します。
 
-- **REST API** - authentication, room management, admin operations
-- **Static file serving** - the compiled web frontend is embedded via `//go:embed`
-- **LiveKit integration** - generates tokens and manages rooms via the LiveKit Protocol SDK
-- **Embedded LiveKit server** - the media server binary runs as a child process
+- **REST API** - 認証、ルーム管理、管理者操作
+- **静的ファイル配信** - コンパイル済み Web フロントエンドは `//go:embed` で組み込まれる
+- **LiveKit インテグレーション** - LiveKit Protocol SDK を使用してトークンを生成し、ルームを管理
+- **組み込み LiveKit サーバー** - メディアサーバーバイナリが子プロセスとして実行
 
-The server uses the **Fiber** web framework (similar to Express.js in Node.js) and **GORM** as the ORM layer. It supports SQLite for development and PostgreSQL for production.
+サーバーは **Fiber** Web フレームワーク（Node.js の Express.js に類似）と **GORM** ORM レイヤーを使用しています。開発には SQLite、本番には PostgreSQL をサポートします。
 
-See [Server Architecture](/docs/architecture/server) for details.
+詳細は [サーバーアーキテクチャ](/ja/docs/architecture/server) を参照してください。
 
-### Web Frontend (`apps/web/`)
+### Web フロントエンド（`apps/web/`）
 
-A **React** application built with TanStack Start, TailwindCSS v4, and shadcn/ui. In production, it is pre-rendered on the server and the client assets are embedded into the Go binary.
+TanStack Start、TailwindCSS v4、shadcn/ui で構築された **React** アプリケーションです。本番環境ではサーバー側でプリレンダリングされ、クライアントアセットが Go バイナリに組み込まれます。
 
-Key capabilities:
+主な機能：
 
-- Video meeting UI with LiveKit Client SDK
-- JWT-based authentication with automatic token refresh
-- Admin dashboard for user and room management
-- Design system with consistent component library
+- LiveKit Client SDK によるビデオ会議 UI
+- 自動トークンリフレッシュ付き JWT ベースの認証
+- ユーザーとルーム管理用の管理者ダッシュボード
+- 一貫したコンポーネントライブラリを備えたデザインシステム
 
-See [Web Frontend](/docs/architecture/web) for details.
+詳細は [Web フロントエンド](/ja/docs/architecture/web) を参照してください。
 
-### Android App (`apps/android/`)
+### Android アプリ（`apps/android/`）
 
-A native Android app built with **Jetpack Compose** and **Kotlin**. Uses Koin for dependency injection and Retrofit for HTTP.
+**Jetpack Compose** と **Kotlin** で構築されたネイティブ Android アプリです。依存性注入に Koin、HTTP 通信に Retrofit を使用しています。
 
-Key capabilities:
+主な機能：
 
-- Full video meeting experience with LiveKit Android SDK
-- Picture-in-picture mode
-- Deep link handling (`bedrud.com/m/*` and `bedrud.com/c/*`)
-- Call management with Android's ConnectionService
-- Multi-instance support (connect to multiple servers)
+- LiveKit Android SDK によるフルビデオ会議エクスペリエンス
+- ピクチャーインピクチャーモード
+- ディープリンク handling（`bedrud.com/m/*` と `bedrud.com/c/*`）
+- Android の ConnectionService による通話管理
+- マルチインスタンスサポート（複数サーバーへの接続）
 
-See [Android App](/docs/architecture/android) for details.
+詳細は [Android アプリ](/ja/docs/architecture/android) を参照してください。
 
-### iOS App (`apps/ios/`)
+### iOS アプリ（`apps/ios/`）
 
-A native iOS app built with **SwiftUI**. Uses KeychainAccess for secure credential storage and LiveKit Swift SDK for media.
+**SwiftUI** で構築されたネイティブ iOS アプリです。安全な認証情報保存に KeychainAccess、メディア処理に LiveKit Swift SDK を使用しています。
 
-Key capabilities:
+主な機能：
 
-- Full video meeting experience
-- Multi-instance support
-- Deep link handling
-- Keychain-based secure storage
+- フルビデオ会議エクスペリエンス
+- マルチインスタンスサポート
+- ディープリンク handling
+- Keychain ベースの安全な保存
 
-See [iOS App](/docs/architecture/ios) for details.
+詳細は [iOS アプリ](/ja/docs/architecture/ios) を参照してください。
 
-### Desktop App (`apps/desktop/`)
+### デスクトップアプリ（`apps/desktop/`）
 
-A native Windows and Linux desktop application built with **Rust** and the **Slint** UI toolkit. Compiles to a single binary with no runtime dependencies.
+**Rust** と **Slint** UI ツールキットで構築されたネイティブ Windows および Linux デスクトップアプリケーションです。ランタイム依存関係なしの単一バイナリにコンパイルされます。
 
-Key capabilities:
+主な機能：
 
-- Full video meeting experience via LiveKit Rust SDK
-- Native Windows (Direct3D 11) and Linux (OpenGL/Vulkan) rendering
-- Multi-instance support (connect to multiple Bedrud servers)
-- OS keyring integration for secure credential storage
+- LiveKit Rust SDK によるフルビデオ会議エクスペリエンス
+- ネイティブ Windows（Direct3D 11）および Linux（OpenGL/Vulkan）レンダリング
+- マルチインスタンスサポート（複数の Bedrud サーバーへの接続）
+- 安全な認証情報保存のための OS キーリング統合
 
-See [Desktop App](/docs/architecture/desktop) for details.
+詳細は [デスクトップアプリ](/ja/docs/architecture/desktop) を参照してください。
 
-### Bot Agents (`agents/`)
+### Bot エージェント（`agents/`）
 
-Python scripts that join meeting rooms as bots and stream media content:
+Bot として会議ルームに参加し、メディアコンテンツをストリーミングする Python スクリプト：
 
-- **Music Agent** - plays audio files
-- **Radio Agent** - streams internet radio stations
-- **Video Stream Agent** - shares video content (HLS, MP4)
+- **Music エージェント** - オーディオファイルの再生
+- **Radio エージェント** - インターネットラジオ局のストリーミング
+- **Video Stream エージェント** - ビデオコンテンツ（HLS、MP4）の共有
 
-See [Bot Agents](/docs/architecture/agents) for details.
+詳細は [Bot エージェント](/ja/docs/architecture/agents) を参照してください。
 
-## Authentication Flow
+## 認証フロー
 
 ```
 Client                    Server                    Database
@@ -136,19 +136,19 @@ Client                    Server                    Database
   │◄──room list─────────────┤                          │
 ```
 
-All authenticated requests use JWT tokens in the `Authorization` header. The web frontend's `authFetch` wrapper handles token attachment and automatic refresh.
+すべての認証済みリクエストは `Authorization` ヘッダーで JWT トークンを使用します。Web フロントエンドの `authFetch` ラッパーがトークンの付与と自動リフレッシュを処理します。
 
-Supported auth methods:
+サポートされる認証方式：
 
-| Method | Endpoint | Description |
+| 方式 | エンドポイント | 説明 |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional credentials |
-| Registration | `POST /api/auth/register` | New account creation |
-| Guest | `POST /api/auth/guest-login` | Temporary access with just a name |
-| OAuth | `GET /api/auth/:provider/login` | Google, GitHub, Twitter |
-| Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn biometrics |
+| Email/Password | `POST /api/auth/login` | 従来の認証情報 |
+| 登録 | `POST /api/auth/register` | 新規アカウント作成 |
+| ゲスト | `POST /api/auth/guest-login` | 名前のみで一時アクセス |
+| OAuth | `GET /api/auth/:provider/login` | Google、GitHub、Twitter |
+| パスキー | `POST /api/auth/passkey/*` | FIDO2/WebAuthn 生体認証 |
 
-## Meeting Connection Flow
+## 会議接続フロー
 
 ```mermaid
 sequenceDiagram
@@ -174,88 +174,88 @@ sequenceDiagram
     Note over C,LK: Audio/video tracks flow through SFU
 ```
 
-1. The client requests to join a room via the REST API
-2. The server validates permissions and generates a signed LiveKit token
-3. The client connects directly to LiveKit via WebSocket using the token
-4. ICE gathers candidates (host, STUN, TURN) and selects the best path
-5. Audio/video tracks flow through LiveKit's SFU
+1. クライアントが REST API を経由してルームへの参加をリクエスト
+2. サーバーが権限を検証し、署名付き LiveKit トークンを生成
+3. クライアントがトークンを使用して LiveKit に WebSocket で直接接続
+4. ICE が候補（host、STUN、TURN）を収集し、最適なパスを選択
+5. 音声/ビデオトラックが LiveKit の SFU を通じて流れる
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+完全な接続スタックについては [WebRTC 接続](/ja/docs/architecture/webrtc-connectivity) を参照してください。
 
-## Data Model
+## データモデル
 
 ### User
 
-| Field | Type | Description |
+| フィールド | 型 | 説明 |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| Email | string | Unique email address |
-| Name | string | Display name |
-| Password | string | Hashed password (empty for OAuth/guest) |
-| Avatar | string | Avatar URL |
-| Provider | string | Auth provider (`local`, `google`, `github`, `twitter`, `guest`) |
-| Role | string | `user` or `admin` |
+| ID | uint | プライマリキー |
+| Email | string | 一意のメールアドレス |
+| Name | string | 表示名 |
+| Password | string | ハッシュ化されたパスワード（OAuth/ゲストの場合は空） |
+| Avatar | string | アバター URL |
+| Provider | string | 認証プロバイダー（`local`、`google`、`github`、`twitter`、`guest`） |
+| Role | string | `user` または `admin` |
 
 ### Room
 
-| Field | Type | Description |
+| フィールド | 型 | 説明 |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| AdminID | uint | Foreign key → User.ID (room creator) |
-| Name | string | Room name / URL slug |
-| IsPublic | bool | Whether guests can join without invite |
-| ChatEnabled | bool | Whether in-room chat is active |
-| VideoEnabled | bool | Whether video is allowed |
-| Participants | []User | Users currently in the room |
+| ID | uint | プライマリキー |
+| AdminID | uint | 外部キー → User.ID（ルーム作成者） |
+| Name | string | ルーム名 / URL スラッグ |
+| IsPublic | bool | ゲストが招待なしで参加可能か |
+| ChatEnabled | bool | ルーム内チャットが有効か |
+| VideoEnabled | bool | ビデオが許可されているか |
+| Participants | []User | ルーム内の現在のユーザー |
 
 ### Passkey
 
-| Field | Type | Description |
+| フィールド | 型 | 説明 |
 |-------|------|-------------|
-| ID | uint | Primary key |
-| UserID | uint | Foreign key → User.ID |
-| CredentialID | []byte | WebAuthn credential ID |
-| PublicKey | []byte | WebAuthn public key |
-| Counter | uint32 | WebAuthn sign count |
+| ID | uint | プライマリキー |
+| UserID | uint | 外部キー → User.ID |
+| CredentialID | []byte | WebAuthn 認証情報 ID |
+| PublicKey | []byte | WebAuthn 公開鍵 |
+| Counter | uint32 | WebAuthn 署名カウンター |
 
 ### RefreshToken
 
-| Field | Type | Description |
+| フィールド | 型 | 説明 |
 |-------|------|-------------|
-| Token | string | The refresh token string |
-| UserID | uint | Foreign key → User.ID |
-| ExpiresAt | time | Token expiration timestamp |
+| Token | string | リフレッシュトークン文字列 |
+| UserID | uint | 外部キー → User.ID |
+| ExpiresAt | time | トークン有効期限タイムスタンプ |
 
-## Deployment Architecture
+## デプロイメントアーキテクチャ
 
-In production, Bedrud runs as two systemd services:
+本番環境では、Bedrud は2つの systemd サービスとして実行されます。
 
-| Service | Binary | Purpose |
+| サービス | バイナリ | 目的 |
 |---------|--------|---------|
-| `bedrud.service` | `bedrud --run` | API server + embedded web frontend |
-| `livekit.service` | `bedrud --livekit` | WebRTC media server |
+| `bedrud.service` | `bedrud --run` | API サーバー + 組み込み Web フロントエンド |
+| `livekit.service` | `bedrud --livekit` | WebRTC メディアサーバー |
 
-Both are managed by a single binary. Traefik or another reverse proxy handles TLS termination and routes traffic.
+両方とも単一のバイナリで管理されます。Traefik または別のリバースプロキシが TLS 終端とトラフィックルーティングを処理します。
 
-See [Deployment Guide](/docs/guides/deployment) for setup instructions.
+セットアップ手順については [デプロイメントガイド](/ja/docs/guides/deployment) を参照してください。
 
-## Key Terms
+## 主要な用語
 
-These terms appear throughout the architecture documentation:
+これらの用語はアーキテクチャドキュメント全体に登場します。
 
-| Term | Full Name | Meaning |
+| 用語 | 正式名称 | 意味 |
 |------|-----------|---------|
-| **SFU** | Selective Forwarding Unit | A media server that receives streams from each participant and forwards them to others. Clients connect to the server, not to each other. |
-| **SDP** | Session Description Protocol | The format used to describe WebRTC connection parameters (codecs, resolutions, media types). |
-| **ICE** | Interactive Connectivity Establishment | A framework that gathers all possible network paths between client and server, then selects the best one. |
-| **STUN** | Session Traversal Utilities for NAT | A lightweight protocol that helps a client discover its public IP address. Works for most connections. |
-| **TURN** | Traversal Using Relays around NAT | A protocol that relays all media through the server when a direct connection is not possible. Last resort, highest bandwidth cost. |
-| **NAT** | Network Address Translation | A router feature that maps private internal addresses to a public address. Can block direct WebRTC connections depending on type. |
-| **srflx** | Server Reflexive | A type of ICE candidate representing the client's public IP, discovered via STUN. |
-| **WebRTC** | Web Real-Time Communication | The browser and mobile API standard for real-time audio, video, and data transfer. |
+| **SFU** | Selective Forwarding Unit | 各参加者からのストリームを受信して他の参加者に転送するメディアサーバー。クライアントは互いではなくサーバーに接続します。 |
+| **SDP** | Session Description Protocol | WebRTC 接続パラメータ（コーデック、解像度、メディアタイプ）を記述するフォーマット。 |
+| **ICE** | Interactive Connectivity Establishment | クライアントとサーバー間のすべての可能なネットワークパスを収集し、最適なものを選択するフレームワーク。 |
+| **STUN** | Session Traversal Utilities for NAT | クライアントがパブリック IP アドレスを発見するのを支援する軽量プロトコル。ほとんどの接続で機能します。 |
+| **TURN** | Traversal Using Relays around NAT | 直接接続が不可能な場合にすべてのメディアをサーバー経由でリレーするプロトコル。最後の手段で、帯域幅コストが最も高い。 |
+| **NAT** | Network Address Translation | プライベートな内部アドレスをパブリックアドレスにマッピングするルーター機能。タイプによっては直接 WebRTC 接続を阻害します。 |
+| **srflx** | Server Reflexive | STUN 経由で発見されたクライアントのパブリック IP を表す ICE 候補のタイプ。 |
+| **WebRTC** | Web Real-Time Communication | リアルタイムの音声、ビデオ、データ転送のためのブラウザおよびモバイル API 標準。 |
 
-## See Also
+## 関連項目
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN relay architecture and configuration
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
+- [WebRTC 接続](/ja/docs/architecture/webrtc-connectivity) - 完全な STUN/ICE/TURN/SFU 接続スタック
+- [TURN サーバーガイド](/ja/docs/architecture/turn-server) - TURN リレーアーキテクチャと設定
+- [LiveKit インテグレーション](/ja/docs/backend/livekit) - Bedrud が LiveKit を組み込む方法

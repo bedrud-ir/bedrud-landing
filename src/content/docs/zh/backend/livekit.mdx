@@ -4,18 +4,18 @@ description: WebRTC media server integration
 order: 20
 ---
 
-Bedrud uses **LiveKit** to handle real-time video and audio communication. LiveKit provides the SFU (Selective Forwarding Unit) media server, and Bedrud handles authentication, room management, and admin controls.
+Bedrud 使用 **LiveKit** 处理实时视频和音频通信。LiveKit 提供 SFU（选择性转发单元）媒体服务器，Bedrud 负责认证、房间管理和管控功能。
 
-## Embedded vs. External
+## 内嵌模式 vs 外部模式
 
-Bedrud supports two LiveKit deployment modes:
+Bedrud 支持两种 LiveKit 部署模式：
 
-1.  **Embedded Mode (Default):** The backend starts and manages a LiveKit server process internally. No additional infrastructure is required - the backend handles the LiveKit process lifecycle.
-2.  **External Mode:** Bedrud connects to a separate LiveKit server or cluster. This is useful for horizontal scaling or when using a managed LiveKit Cloud instance.
+1.  **内嵌模式（默认）：** 后端在内部启动并管理 LiveKit 服务器进程。无需额外基础设施——后端处理 LiveKit 进程的完整生命周期。
+2.  **外部模式：** Bedrud 连接到独立的 LiveKit 服务器或集群。适用于水平扩缩容或使用托管的 LiveKit Cloud 实例。
 
-### Configuring External Mode
+### 配置外部模式
 
-To use an external LiveKit server, set the following keys in `config.yaml`:
+要使用外部 LiveKit 服务器，请在 `config.yaml` 中设置以下配置项：
 
 ```yaml
 livekit:
@@ -25,73 +25,73 @@ livekit:
   embedded: false
 ```
 
-When `embedded` is `false`, Bedrud skips starting the embedded LiveKit binary. The API key and secret must match the external server's credentials.
+当 `embedded` 为 `false` 时，Bedrud 将跳过启动内嵌的 LiveKit 二进制文件。API 密钥和密钥必须与外部服务器的凭据匹配。
 
-For LiveKit cluster setup and configuration, refer to the [LiveKit documentation](https://docs.livekit.io).
+有关 LiveKit 集群的设置和配置，请参阅 [LiveKit 文档](https://docs.livekit.io)。
 
-## How It Works
+## 工作原理
 
-### 1. Room Creation
+### 1. 房间创建
 
-When a user creates a room in Bedrud, the server does not create a LiveKit room immediately. LiveKit rooms are created on demand when the first participant joins.
+当用户在 Bedrud 中创建房间时，服务器不会立即创建 LiveKit 房间。LiveKit 房间在第一个参与者加入时按需创建。
 
-### 2. Join Tokens
+### 2. 加入令牌
 
-When a user joins a meeting:
+当用户加入会议时：
 
-1.  The frontend sends a request to `/api/room/join`.
-2.  The backend verifies the user has permission to join that room.
-3.  The backend uses its API Key and Secret to generate a signed JWT (Join Token).
-4.  The token contains:
+1.  前端向 `/api/room/join` 发送请求。
+2.  后端验证用户是否有权加入该房间。
+3.  后端使用其 API Key 和 Secret 生成签名的 JWT（加入令牌）。
+4.  令牌包含：
 
-    - The room name.
-    - The user's identity (display name).
-    - Permissions - for example, whether the user can publish audio or share their screen.
-5.  The frontend receives this token and connects directly to the LiveKit media port (default `7880`).
+    - 房间名称。
+    - 用户的身份标识（显示名称）。
+    - 权限——例如用户是否可以发布音频或共享屏幕。
+5.  前端接收此令牌并直接连接到 LiveKit 媒体端口（默认 `7880`）。
 
-### 3. Room Controls (Admin)
+### 3. 房间控制（管理员）
 
-The backend uses the LiveKit Go SDK to perform administrative actions:
+后端使用 LiveKit Go SDK 执行管理操作：
 
-- **Kick:** Disconnects a participant.
-- **Mute:** Force-mutes a participant's microphone.
-- **Permissions:** Changes what a participant can do in real-time.
+- **踢出：** 断开参与者的连接。
+- **静音：** 强制静音参与者的麦克风。
+- **权限：** 实时更改参与者的可操作权限。
 
-## Network Architecture
+## 网络架构
 
-- **API Port (8090/443):** Handles HTTP requests and WebSocket signaling for call setup.
-- **Media Port (7880):** Handles video and audio data using WebRTC protocols. ICE/TCP fallback uses port 7881 when UDP is blocked.
-- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/docs/architecture/turn-server).
+- **API 端口（8090/443）：** 处理 HTTP 请求和用于通话建立的 WebSocket 信令。
+- **媒体端口（7880）：** 使用 WebRTC 协议处理视频和音频数据。当 UDP 被阻止时，ICE/TCP 回退使用端口 7881。
+- **TURN 端口（3478 UDP / 5349 TLS）：** 为受限 NAT 或防火墙后的客户端中继媒体。参见 [TURN 服务器指南](/zh/docs/architecture/turn-server)。
 
-For firewall and port requirements, see [WebRTC Connectivity](/docs/architecture/webrtc-connectivity).
+有关防火墙和端口要求，请参阅 [WebRTC 连接](/zh/docs/architecture/webrtc-connectivity)。
 
-## Error Handling
+## 错误处理
 
-### LiveKit Unreachable
+### LiveKit 无法连接
 
-If the LiveKit server is unreachable, token generation may still succeed (tokens are created locally using the API key and secret). However, the client will fail to connect to the media server. Symptoms:
+如果 LiveKit 服务器不可达，令牌生成仍可能成功（令牌使用 API 密钥和密钥在本地创建）。但客户端将无法连接到媒体服务器。症状：
 
-- Client receives a valid join token but the WebRTC connection times out.
-- LiveKit SDK emits a `Reconnecting` event or connection error.
+- 客户端收到有效的加入令牌，但 WebRTC 连接超时。
+- LiveKit SDK 发出 `Reconnecting` 事件或连接错误。
 
-**Check:** Verify the LiveKit server is running (`systemctl status livekit`) and the host/port in `config.yaml` is correct.
+**排查：** 验证 LiveKit 服务器是否正在运行（`systemctl status livekit`），以及 `config.yaml` 中的主机/端口是否正确。
 
-### Embedded LiveKit Process Crashes
+### 内嵌 LiveKit 进程崩溃
 
-In embedded mode, if the LiveKit child process crashes:
+在内嵌模式下，如果 LiveKit 子进程崩溃：
 
-- The Bedrud API server continues to run (rooms can be listed, users can log in).
-- Active meetings lose media connectivity.
-- New join requests will generate tokens, but clients cannot connect.
+- Bedrud API 服务器继续运行（可以列出房间，用户可以登录）。
+- 活跃的会议将失去媒体连接。
+- 新的加入请求会生成令牌，但客户端无法连接。
 
-**Check:** Inspect logs at `/var/log/bedrud/bedrud.log` or run `journalctl -u livekit -f` for crash details.
+**排查：** 检查 `/var/log/bedrud/bedrud.log` 日志或运行 `journalctl -u livekit -f` 查看崩溃详情。
 
-### Token Expiration
+### 令牌过期
 
-LiveKit join tokens have a short validity window. If a client waits too long between receiving the token and connecting, the token will expire. The client must request a new token via `/api/room/join`.
+LiveKit 加入令牌的有效期较短。如果客户端在收到令牌和连接之间等待时间过长，令牌将过期。客户端必须通过 `/api/room/join` 请求新令牌。
 
-## See also
+## 另请参阅
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [TURN 服务器指南](/zh/docs/architecture/turn-server) - TURN 架构、配置、TLS 和故障排除
+- [WebRTC 连接](/zh/docs/architecture/webrtc-connectivity) - 完整的 STUN/ICE/TURN/SFU 连接栈
+- [架构概览](/zh/docs/architecture/overview) - 完整的系统架构

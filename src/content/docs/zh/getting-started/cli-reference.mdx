@@ -4,9 +4,9 @@ description: Command-line interface documentation
 order: 5
 ---
 
-Complete reference for the `bedrud` command-line interface.
+`bedrud` 命令行界面的完整参考。
 
-## Synopsis
+## 概要
 
 ```bash
 # Subcommand style
@@ -17,55 +17,55 @@ bedrud --livekit --config <path>
 bedrud --run --config <path>
 ```
 
-## Commands
+## 命令
 
 ### `run` / `server`
 
-Start the Bedrud meeting server with API, embedded web frontend, and embedded LiveKit (if configured).
+启动 Bedrud 会议服务器，包含 API、嵌入式 Web 前端和嵌入式 LiveKit（如已配置）。
 
 ```bash
 bedrud run    [--config <path>]
 bedrud server [--config <path>]
 ```
 
-| Flag       | Default                                  | Description                     |
-|------------|------------------------------------------|---------------------------------|
-| `--config` | `$CONFIG_PATH` env var → `"config.yaml"` | Path to Bedrud YAML config file |
+| 标志 | 默认值 | 说明 |
+|------|--------|------|
+| `--config` | `$CONFIG_PATH` 环境变量 → `"config.yaml"` | Bedrud YAML 配置文件路径 |
 
-**Behavior:**
-- Loads config from specified path or defaults
-- Starts embedded LiveKit if configured for internal mode
-- Initializes SQLite/PostgreSQL database and runs migrations
-- Creates Fiber HTTP server with all API routes
-- Serves embedded React frontend
-- Supports ACME (Let's Encrypt), self-signed TLS, manual TLS, or plain HTTP
-- Graceful shutdown on SIGTERM/SIGINT
+**行为：**
+- 从指定路径或默认路径加载配置
+- 如配置为内部模式则启动嵌入式 LiveKit
+- 初始化 SQLite/PostgreSQL 数据库并运行迁移
+- 创建包含所有 API 路由的 Fiber HTTP 服务器
+- 提供嵌入式 React 前端
+- 支持 ACME（Let's Encrypt）、self-signed TLS、手动 TLS 或纯 HTTP
+- 收到 SIGTERM/SIGINT 时优雅关闭
 
-**Implementation:** `server/internal/server/server.go`
+**实现：** `server/internal/server/server.go`
 
 ---
 
 ### `--livekit`
 
-Start the embedded LiveKit media server only. Extracts binary from Go embed to a temporary directory.
+仅启动嵌入式 LiveKit 媒体服务器。从 Go embed 中提取二进制文件到临时目录。
 
 ```bash
 bedrud --livekit --config <path>
 ```
 
-| Flag       | Default    | Description                      |
-|------------|------------|----------------------------------|
-| `--config` | (required) | Path to LiveKit YAML config file |
+| 标志 | 默认值 | 说明 |
+|------|--------|------|
+| `--config` | （必需） | LiveKit YAML 配置文件路径 |
 
-**Used by:** systemd `livekit.service` created by `bedrud install`
+**使用者：** `bedrud install` 创建的 systemd `livekit.service`
 
-**Implementation:** `server/internal/livekit/server.go`
+**实现：** `server/internal/livekit/server.go`
 
 ---
 
 ### `--run`
 
-Alias for `bedrud run` with same `--config` flag behavior. Used by systemd `bedrud.service`.
+`bedrud run` 的别名，`--config` 标志行为相同。由 systemd `bedrud.service` 使用。
 
 ```bash
 bedrud --run --config <path>
@@ -75,111 +75,111 @@ bedrud --run --config <path>
 
 ### `install`
 
-Install Bedrud on a Debian/Linux system. Creates systemd services, config files, directories, and TLS certificates.
+在 Debian/Linux 系统上安装 Bedrud。创建 systemd 服务、配置文件、目录和 TLS 证书。
 
 ```bash
 bedrud install [flags]
 ```
 
-| Flag                 | Default                         | Description                                                              |
-|----------------------|---------------------------------|--------------------------------------------------------------------------|
-| `--tls`              | `false`                         | Enable HTTPS (same as `--self-signed`)                                   |
-| `--self-signed`      | `false`                         | Generate self-signed TLS certificate                                     |
-| `--no-tls`           | `false`                         | Disable TLS entirely (plain HTTP). Overrides `--tls` and `--self-signed` |
-| `--ip`               | auto-detected                   | Override auto-detected server IP address                                 |
-| `--domain`           | `""`                            | Domain name for Let's Encrypt or self-signed cert                        |
-| `--email`            | `""`                            | Email for Let's Encrypt registration                                     |
-| `--port`             | `"443"` (TLS) / `"8090"` (HTTP) | Override listening port                                                  |
-| `--cert`             | `""`                            | Path to existing PEM certificate file                                    |
-| `--key`              | `""`                            | Path to existing PEM private key file                                    |
-| `--lk-port`          | `"7880"`                        | Override LiveKit API/WebSocket port                                      |
-| `--lk-tcp-port`      | `"7881"`                        | Override LiveKit RTC TCP port                                            |
-| `--lk-udp-port`      | `"7882"`                        | Override LiveKit RTC UDP port                                            |
-| `--fresh`            | `false`                         | Remove existing installation before installing                           |
-| `--behind-proxy`     | `false`                         | Server is behind CDN/reverse-proxy (Cloudflare, nginx)                   |
-| `--external-livekit` | `""`                            | URL of fully external LiveKit server (different machine)                 |
-| `--livekit-domain`   | `""`                            | Separate domain for local LiveKit server (bypasses CDN)                  |
+| 标志 | 默认值 | 说明 |
+|------|--------|------|
+| `--tls` | `false` | 启用 HTTPS（等同于 `--self-signed`） |
+| `--self-signed` | `false` | 生成 self-signed TLS 证书 |
+| `--no-tls` | `false` | 完全禁用 TLS（纯 HTTP）。覆盖 `--tls` 和 `--self-signed` |
+| `--ip` | 自动检测 | 覆盖自动检测的服务器 IP 地址 |
+| `--domain` | `""` | 用于 Let's Encrypt 或 self-signed 证书的域名 |
+| `--email` | `""` | 用于 Let's Encrypt 注册的邮箱 |
+| `--port` | `"443"`（TLS）/ `"8090"`（HTTP） | 覆盖监听端口 |
+| `--cert` | `""` | 现有 PEM 证书文件路径 |
+| `--key` | `""` | 现有 PEM 私钥文件路径 |
+| `--lk-port` | `"7880"` | 覆盖 LiveKit API/WebSocket 端口 |
+| `--lk-tcp-port` | `"7881"` | 覆盖 LiveKit RTC TCP 端口 |
+| `--lk-udp-port` | `"7882"` | 覆盖 LiveKit RTC UDP 端口 |
+| `--fresh` | `false` | 安装前删除已有安装 |
+| `--behind-proxy` | `false` | 服务器在 CDN/反向代理后面（Cloudflare、nginx） |
+| `--external-livekit` | `""` | 完全外部 LiveKit 服务器的 URL（不同机器） |
+| `--livekit-domain` | `""` | 本地 LiveKit 服务器的独立域名（绕过 CDN） |
 
-**What it does:**
-1. Stops and removes prior installation if `--fresh`
-2. Prompts for IP, domain, email, TLS mode (if non-interactive and flags not provided)
-3. Creates directories: `/etc/bedrud`, `/var/lib/bedrud`, `/var/lib/bedrud/certs`, `/var/log/bedrud`
-4. Copies binary to `/usr/local/bin/bedrud`
-5. Generates Bedrud server config at `/etc/bedrud/config.yaml`
-6. Generates LiveKit media server config at `/etc/bedrud/livekit.yaml`
-7. Generates self-signed certs at `/etc/bedrud/cert.pem` + `/etc/bedrud/key.pem` (if TLS enabled and no custom certs)
-8. Creates systemd `livekit.service` (unless using external LiveKit)
-9. Creates systemd `bedrud.service`
-10. Runs `systemctl daemon-reload`, enables, and starts both services
-11. Prints access URLs
+**执行步骤：**
+1. 如果使用 `--fresh`，停止并删除之前的安装
+2. 提示输入 IP、域名、邮箱、TLS 模式（非交互且未提供标志时）
+3. 创建目录：`/etc/bedrud`、`/var/lib/bedrud`、`/var/lib/bedrud/certs`、`/var/log/bedrud`
+4. 将二进制文件复制到 `/usr/local/bin/bedrud`
+5. 在 `/etc/bedrud/config.yaml` 生成 Bedrud 服务器配置
+6. 在 `/etc/bedrud/livekit.yaml` 生成 LiveKit 媒体服务器配置
+7. 在 `/etc/bedrud/cert.pem` + `/etc/bedrud/key.pem` 生成 self-signed 证书（如启用 TLS 且无自定义证书）
+8. 创建 systemd `livekit.service`（除非使用外部 LiveKit）
+9. 创建 systemd `bedrud.service`
+10. 执行 `systemctl daemon-reload`，启用并启动两个服务
+11. 打印访问 URL
 
-**TLS options:**
-- `--domain` + `--email` → ACME (Let's Encrypt)
-- `--self-signed` or `--tls` → self-signed certificate
-- `--cert` + `--key` → custom certificates
-- `--no-tls` → plain HTTP only
+**TLS 选项：**
+- `--domain` + `--email` → ACME（Let's Encrypt）
+- `--self-signed` 或 `--tls` → self-signed 证书
+- `--cert` + `--key` → 自定义证书
+- `--no-tls` → 仅纯 HTTP
 
-**LiveKit topology:**
-- Default (embedded): LiveKit runs locally, proxied through Bedrud at `/livekit`
-- `--livekit-domain`: LiveKit runs locally but clients connect directly via its own domain
-- `--external-livekit`: No local LiveKit; connects to remote server
+**LiveKit 拓扑：**
+- 默认（嵌入式）：LiveKit 本地运行，通过 Bedrud 在 `/livekit` 代理
+- `--livekit-domain`：LiveKit 本地运行但客户端通过其独立域名直连
+- `--external-livekit`：无本地 LiveKit；连接到远程服务器
 
-**Implementation:** `server/internal/install/debian.go`
+**实现：** `server/internal/install/debian.go`
 
-**Related docs:** [Installation Guide](/docs/getting-started/installation) • [Deployment Guide](/docs/guides/deployment) • [Backend Deployment Logic](/docs/backend/deployment)
+**相关文档：** [安装指南](/zh/docs/getting-started/installation) • [部署指南](/zh/docs/guides/deployment) • [后端部署逻辑](/zh/docs/backend/deployment)
 
 ---
 
 ### `uninstall`
 
-Remove Bedrud from the system.
+从系统中删除 Bedrud。
 
 ```bash
 bedrud uninstall
 ```
 
-**Removes:**
-- Stops and disables systemd services: `bedrud`, `livekit`
-- Removes systemd unit files from `/etc/systemd/system/`
-- Removes binary: `/usr/local/bin/bedrud`, `/tmp/bedrud`, `/tmp/bedrud-livekit-server`
-- Removes directories: `/etc/bedrud`, `/var/lib/bedrud`, `/var/log/bedrud`
+**删除内容：**
+- 停止并禁用 systemd 服务：`bedrud`、`livekit`
+- 从 `/etc/systemd/system/` 删除 systemd 单元文件
+- 删除二进制文件：`/usr/local/bin/bedrud`、`/tmp/bedrud`、`/tmp/bedrud-livekit-server`
+- 删除目录：`/etc/bedrud`、`/var/lib/bedrud`、`/var/log/bedrud`
 
-**Implementation:** `server/internal/install/debian.go`
+**实现：** `server/internal/install/debian.go`
 
-**Related docs:** [Installation Guide - Uninstalling](/docs/getting-started/installation#uninstallation)
+**相关文档：** [安装指南 - 卸载](/zh/docs/getting-started/installation#uninstallation)
 
 ---
 
 ### `user`
 
-Manage users in the Bedrud database.
+管理 Bedrud 数据库中的用户。
 
 ```bash
 bedrud user <subcommand> [--config <path>] <flags>
 ```
 
-| Global Flag | Default                   | Description                                     |
-|-------------|---------------------------|-------------------------------------------------|
-| `--config`  | `/etc/bedrud/config.yaml` | Path to Bedrud config file (to locate database) |
+| 全局标志 | 默认值 | 说明 |
+|----------|--------|------|
+| `--config` | `/etc/bedrud/config.yaml` | Bedrud 配置文件路径（用于定位数据库） |
 
 #### `create`
 
-Create a new user with local authentication (bcrypt hashed password).
+使用本地身份验证（bcrypt 哈希密码）创建新用户。
 
 ```bash
 bedrud user create --email <email> --password <password> --name <name>
 ```
 
-**Required flags:**
-- `--email`: User email address
-- `--password`: User password, hashed with bcrypt before storage
-- `--name`: User display name
+**必需标志：**
+- `--email`：用户邮箱地址
+- `--password`：用户密码，存储前使用 bcrypt 哈希
+- `--name`：用户显示名称
 
-**Access level:** `user` (not superadmin). Use `promote` to grant admin rights.
+**访问级别：** `user`（非超级管理员）。使用 `promote` 授予管理员权限。
 
 #### `delete`
 
-Delete a user by email address.
+通过邮箱地址删除用户。
 
 ```bash
 bedrud user delete --email <email>
@@ -187,7 +187,7 @@ bedrud user delete --email <email>
 
 #### `promote`
 
-Grant `superadmin` access to a user.
+授予用户 `superadmin` 访问权限。
 
 ```bash
 bedrud user promote --email <email>
@@ -195,98 +195,98 @@ bedrud user promote --email <email>
 
 #### `demote`
 
-Remove `superadmin` access from a user (reverts to `user` level).
+移除用户的 `superadmin` 访问权限（降级为 `user` 级别）。
 
 ```bash
 bedrud user demote --email <email>
 ```
 
-**Implementation:** `server/internal/usercli/usercli.go`
+**实现：** `server/internal/usercli/usercli.go`
 
 ---
 
 ### `help`
 
-Show usage message with all commands and flags.
+显示包含所有命令和标志的使用说明。
 
 ```bash
 bedrud help
 ```
 
-Also triggered when no arguments are provided. Displays the `printUsage()` output.
+不提供参数时也会触发。显示 `printUsage()` 输出。
 
 ---
 
-## Examples
+## 示例
 
-### Basic dev server start
+### 基本开发服务器启动
 
 ```bash
-# Run with default config.yaml in current directory
+# 使用当前目录的默认 config.yaml 运行
 bedrud run
 
-# Run with custom config
+# 使用自定义配置运行
 bedrud run --config /path/to/config.yaml
 
-# Via env var (fallback)
+# 通过环境变量（回退方式）
 export CONFIG_PATH=/etc/bedrud/config.yaml
 bedrud run
 ```
 
-### Interactive installation (prompts for inputs)
+### 交互式安装（提示输入）
 
 ```bash
 bedrud install
 ```
 
-### Non-interactive installation with Let's Encrypt
+### 使用 Let's Encrypt 的非交互式安装
 
 ```bash
 bedrud install --domain example.com --email admin@example.com
 ```
 
-### Self-signed TLS with custom ports
+### 自定义端口的 self-signed TLS
 
 ```bash
 bedrud install --self-signed --port 8443 --lk-port 7880 --lk-tcp-port 7881 --lk-udp-port 7882
 ```
 
-### Behind CDN with separate LiveKit domain
+### CDN 后部署 + 独立 LiveKit 域名
 
 ```bash
 bedrud install --domain bedrud.example.com --email admin@example.com --livekit-domain lk.example.com --behind-proxy
 ```
 
-### Fresh reinstall
+### 全新重新安装
 
 ```bash
 bedrud install --fresh --domain example.com --email admin@example.com
 ```
 
-### User management
+### 用户管理
 
 ```bash
-# Create first admin user
+# 创建第一个管理员用户
 bedrud user create --email admin@example.com --password secret123 --name "Admin User"
 
-# Grant superadmin access
+# 授予 superadmin 权限
 bedrud user promote --email admin@example.com
 
-# Create regular user
+# 创建普通用户
 bedrud user create --email user@example.com --password pass456 --name "Regular User"
 
-# Remove a user
+# 删除用户
 bedrud user delete --email user@example.com
 
-# Remove admin access
+# 移除管理员权限
 bedrud user demote --email admin@example.com
 ```
 
 ---
 
-## Related Documentation
+## 相关文档
 
-- [Installation Guide](/docs/getting-started/installation) - Detailed `bedrud install` walkthrough, TLS topologies, post-install steps
-- [Configuration Reference](/docs/getting-started/configuration) - Server and LiveKit config file structure
-- [Backend Deployment Logic](/docs/backend/deployment) - How `install` and `uninstall` work internally
-- [Deployment Guide](/docs/guides/deployment) - Full deployment options including systemd services
+- [安装指南](/zh/docs/getting-started/installation) - 详细的 `bedrud install` 步骤说明、TLS 拓扑、安装后步骤
+- [配置参考](/zh/docs/getting-started/configuration) - 服务器和 LiveKit 配置文件结构
+- [后端部署逻辑](/zh/docs/backend/deployment) - `install` 和 `uninstall` 的内部工作原理
+- [部署指南](/zh/docs/guides/deployment) - 完整的部署选项，包括 systemd 服务

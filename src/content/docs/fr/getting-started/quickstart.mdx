@@ -1,31 +1,31 @@
 ---
-title: Quick Start
-description: Deploy Bedrud and join a video meeting in under 5 minutes
+title: Démarrage rapide
+description: Déployez Bedrud et rejoignez une réunion vidéo en moins de 5 minutes
 order: 1
 ---
 
-Deploy Bedrud and join a video meeting in under 5 minutes.
+Déployez Bedrud et rejoignez une réunion vidéo en moins de 5 minutes.
 
-**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/docs/getting-started/installation). For config see [Configuration](/docs/getting-started/configuration).
+**Ce guide :** Téléchargement → Installation → Vérification → Participation. Pour les alternatives, voir [Installation](/fr/docs/getting-started/installation). Pour la configuration, voir [Configuration](/fr/docs/getting-started/configuration).
 
-> **Single binary, no internet needed after download.** It includes an embedded media server and SQLite - it works on isolated networks. Transfer file, run one command, done.
-
----
-
-## What You Need
-
-| Requirement | Details |
-|-------------|---------|
-| A Linux server | amd64, with `sudo` access and `systemd`. Windows: Docker or WSL2. macOS: build from source |
-| Open ports | `8090`, `7880`, `50000–60000/udp`. For auto-TLS: also `80` and `443` |
-| Tools | `curl`, `tar` |
-| A domain (optional) | With DNS A record pointing to your server. No domain? Works with IP - see alternatives below |
-
-> **How it works:** You run one Bedrud **server**. People join meetings in their **browser** (no install) or via **native apps** (Android, Windows, macOS, Linux).
+> **Binaire unique, pas besoin d'Internet après le téléchargement.** Il inclut un serveur média intégré et SQLite - il fonctionne sur les réseaux isolés. Transférez le fichier, exécutez une commande, terminé.
 
 ---
 
-## 1. Download
+## Ce dont vous avez besoin
+
+| Exigence | Détails |
+|----------|---------|
+| Un serveur Linux | amd64, avec accès `sudo` et `systemd`. Windows : Docker ou WSL2. macOS : compilation depuis les sources |
+| Ports ouverts | `8090`, `7880`, `50000–60000/udp`. Pour TLS automatique : également `80` et `443` |
+| Outils | `curl`, `tar` |
+| Un domaine (optionnel) | Avec un enregistrement DNS A pointant vers votre serveur. Pas de domaine ? Fonctionne avec IP - voir les alternatives ci-dessous |
+
+> **Comment ça fonctionne :** Vous exécutez un serveur Bedrud **unique**. Les gens rejoignent les réunions dans leur **navigateur** (pas d'installation) ou via des **applications natives** (Android, Windows, macOS, Linux).
+
+---
+
+## 1. Téléchargement
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -33,62 +33,62 @@ tar -xJf bedrud.tar.xz
 chmod +x bedrud
 ```
 
-> **No internet on server?** Download on any machine, transfer via USB or `scp bedrud.tar.xz user@server:/tmp/`, then extract there. Binary is fully self-contained - zero outbound requests after transfer.
+> **Pas d'Internet sur le serveur ?** Téléchargez sur n'importe quelle machine, transférez via USB ou `scp bedrud.tar.xz user@server:/tmp/`, puis extrayez là-bas. Le binaire est entièrement autonome - zéro requête sortante après le transfert.
 
-> **Download failed?** Check internet access, or verify URL at [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+> **Échec du téléchargement ?** Vérifiez l'accès Internet, ou vérifiez l'URL sur [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
 
 ---
 
-## 2. Install
+## 2. Installation
 
-Replace `meet.example.com` and `admin@example.com` with your values:
+Remplacez `meet.example.com` et `admin@example.com` par vos valeurs :
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-Installs binary, generates config, creates systemd services, provisions TLS, starts everything.
+Installe le binaire, génère la configuration, crée les services systemd, provisionne TLS, démarre tout.
 
-> **Port 80 or 443 busy?** Stop conflicting services: `sudo systemctl stop nginx apache2 caddy`, then re-run.
+> **Port 80 ou 443 occupé ?** Arrêtez les services en conflit : `sudo systemctl stop nginx apache2 caddy`, puis relancez.
 
-> **No domain?** Use your server IP instead:
+> **Pas de domaine ?** Utilisez l'IP de votre serveur à la place :
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/docs/guides/internal-tls).
+> Cela utilise un certificat auto-signé. Les navigateurs avertiront mais la vidéo fonctionne. Pour des certificats de confiance sur les réseaux internes, voir [Guide TLS interne](/fr/docs/guides/internal-tls).
 
 ---
 
-## 3. Verify
+## 3. Vérification
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 ```
 
-Expect: `200`
+Attendu : `200`
 
-> **Not 200?** Check service status: `sudo systemctl status bedrud livekit`. Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50`.
+> **Pas 200 ?** Vérifiez l'état des services : `sudo systemctl status bedrud livekit`. Vérifiez les logs : `journalctl -u bedrud -u livekit --no-pager -n 50`.
 
 ---
 
-## 4. Register & Create Admin
+## 4. Enregistrement et création d'admin
 
-Open `https://meet.example.com` (or `https://<your-ip>:8090`) in your browser:
+Ouvrez `https://meet.example.com` (ou `https://<votre-ip>:8090`) dans votre navigateur :
 
 <CreateAdmin createOption />
 
-3. Log in (or refresh) - **Admin** section appears in sidebar (Overview, Users, Rooms, Settings). Success: you're admin.
-4. **Create a room** → **Join** → **Share video/audio** - grant camera/mic permissions when prompted
+3. Connectez-vous (ou rafraîchissez) - la section **Admin** apparaît dans la barre latérale (Vue d'ensemble, Utilisateurs, Salles, Paramètres). Succès : vous êtes admin.
+4. **Créez une salle** → **Rejoignez** → **Partagez vidéo/audio** - accordez les autorisations caméra/mic lorsqu'on vous le demande
 
-> **Admin dashboard** - After promoting, log in to access admin panel at `/dashboard/admin`. Manage users, rooms, system settings, and invite tokens.
+> **Tableau de bord admin** - Après la promotion, connectez-vous pour accéder au panneau admin sur `/dashboard/admin`. Gérez les utilisateurs, les salles, les paramètres système et les jetons d'invitation.
 
-> **CLI reference** - Full user management: `bedrud user promote`, `demote`, `create`, `delete`.
+> **Référence CLI** - Gestion complète des utilisateurs : `bedrud user promote`, `demote`, `create`, `delete`.
 
-**Native clients** for Android, Windows, macOS, and Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Or share the meeting link - participants join in any browser.
+**Clients natifs** pour Android, Windows, macOS et Linux : [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Ou partagez le lien de réunion - les participants rejoignent dans n'importe quel navigateur.
 
 ---
 
-## Alternative Install Paths
+## Chemins d'installation alternatifs
 
 ### Docker
 
@@ -101,11 +101,11 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Custom config, Docker Compose, and env vars: see [Docker guide](/docs/guides/docker).
+Configuration personnalisée, Docker Compose et variables d'environnement : voir [Guide Docker](/fr/docs/guides/docker).
 
-### Build from Source
+### Compilation depuis les sources
 
-Requires [Go 1.24+](https://go.dev/dl/) and [Bun](https://bun.sh/):
+Nécessite [Go 1.24+](https://go.dev/dl/) et [Bun](https://bun.sh/) :
 
 ```bash
 git clone https://github.com/bedrud-ir/bedrud.git
@@ -114,82 +114,82 @@ make init
 make local-run
 ```
 
-`make init` installs LiveKit, creates config, fetches deps. `make local-run` builds and starts on `http://localhost:8090`.
+`make init` installe LiveKit, crée la configuration, récupère les dépendances. `make local-run` construit et démarre sur `http://localhost:8090`.
 
-### Plain HTTP (dev / localhost only)
+### HTTP simple (développement / localhost uniquement)
 
 ```bash
 sudo ./bedrud install --ip 127.0.0.1
 ```
 
-> **Warning:** Browsers block camera/mic on non-HTTPS except `localhost`. HTTP is dev-only.
+> **Attention :** Les navigateurs bloquent la caméra/mic sur non-HTTPS sauf `localhost`. HTTP est uniquement pour le développement.
 
-### Non-Linux Systems
+### Systèmes non-Linux
 
-The `install` command is Linux-only. Place binary in PATH manually:
+La commande `install` est uniquement pour Linux. Placez le binaire dans le PATH manuellement :
 
-| OS      | How                                       |
-|---------|-------------------------------------------|
-| macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | Move `bedrud.exe` to a folder in `%PATH%` |
+| OS      | Comment                                       |
+|---------|-----------------------------------------------|
+| macOS   | `sudo cp bedrud /usr/local/bin/`              |
+| Windows | Déplacez `bedrud.exe` vers un dossier dans `%PATH%` |
 
 ---
 
-## Internal Networks
+## Réseaux internes
 
-No public domain or outbound internet? See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup and client trust store configuration.
+Pas de domaine public ou d'Internet sortant ? Voir [Guide TLS interne](/fr/docs/guides/internal-tls) pour la configuration d'AC privée et la configuration du magasin de confiance client.
 
 ---
 
 ## Configuration
 
-Installer generates `/etc/bedrud/config.yaml`. Defaults work for most setups.
-Change `jwtSecret` and `sessionSecret` for production, then restart:
+L'installateur génère `/etc/bedrud/config.yaml`. Les valeurs par défaut fonctionnent pour la plupart des configurations.
+Changez `jwtSecret` et `sessionSecret` pour la production, puis redémarrez :
 
 ```bash
 sudo systemctl restart bedrud livekit
 ```
 
-To adjust room capacity, timeouts, or media ports, see [LiveKit section in Configuration](/docs/getting-started/configuration#livekit-configuration).
+Pour ajuster la capacité des salles, les délais d'expiration ou les ports média, voir [Section LiveKit dans Configuration](/fr/docs/getting-started/configuration#livekit-configuration).
 
-Full reference: [Configuration](/docs/getting-started/configuration)
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| Port 80/443 in use | `sudo systemctl stop nginx apache2 caddy` |
-| Services won't start | `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| TLS cert errors | Verify DNS: `dig meet.example.com`. Must point to server IP |
-| No video / WebRTC failed | HTTPS required for camera. Use `--tls`. Open UDP 50000–60000 on firewall |
-| LiveKit port conflicts | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags |
-| Firewall blocking media | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| Self-signed cert warnings | See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+Référence complète : [Configuration](/fr/docs/getting-started/configuration)
 
 ---
 
-## Teardown
+## Dépannage
+
+| Problème | Correction |
+|----------|------------|
+| Port 80/443 utilisé | `sudo systemctl stop nginx apache2 caddy` |
+| Les services ne démarrent pas | `journalctl -u bedrud -u livekit --no-pager -n 50` |
+| Erreurs de certificat TLS | Vérifiez le DNS : `dig meet.example.com`. Doit pointer vers l'IP du serveur |
+| Pas de vidéo / WebRTC échoué | HTTPS requis pour la caméra. Utilisez `--tls`. Ouvrez UDP 50000–60000 sur le pare-feu |
+| Conflits de ports LiveKit | Utilisez les drapeaux `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` |
+| Pare-feu bloquant les médias | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| Avertissements de certificat auto-signé | Voir [Guide TLS interne](/fr/docs/guides/internal-tls) pour la configuration d'AC privée |
+
+---
+
+## Démontage
 
 ```bash
-# Binary install
+# Installation binaire
 sudo ./bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
-# Source build
-# Ctrl+C to stop, then: make clean
+# Compilation depuis les sources
+# Ctrl+C pour arrêter, puis : make clean
 ```
 
 ---
 
-## Next Steps
+## Étapes suivantes
 
-- [Configuration Reference](/docs/getting-started/configuration) - ports, database, auth providers, TURN
-- [Installation Guide](/docs/getting-started/installation) - package managers, advanced flags, all methods
-- [Internal TLS Guide](/docs/guides/internal-tls) - air-gapped deployment, private CA
-- [Deployment Guide](/docs/guides/deployment) - production setup, reverse proxy, scaling
-- [Architecture Overview](/docs/architecture/overview) - how pieces fit together
-- [API Docs](http://localhost:8090/api/swagger) - Swagger UI (running instance)
+- [Référence de configuration](/fr/docs/getting-started/configuration) - ports, base de données, fournisseurs d'auth, TURN
+- [Guide d'installation](/fr/docs/getting-started/installation) - gestionnaires de packages, drapeaux avancés, toutes les méthodes
+- [Guide TLS interne](/fr/docs/guides/internal-tls) - déploiement air-gapped, AC privée
+- [Guide de déploiement](/fr/docs/guides/deployment) - configuration de production, reverse proxy, mise à l'échelle
+- [Vue d'ensemble de l'architecture](/fr/docs/architecture/overview) - comment les pièces s'assemblent
+- [Documentation API](http://localhost:8090/api/swagger) - Swagger UI (instance en cours d'exécution)

@@ -4,35 +4,35 @@ description: Auth implementation details
 order: 18
 ---
 
-Bedrud supports multiple authentication methods.
+Bedrud 支持多种认证方式。
 
-## JWT (JSON Web Tokens)
-Bedrud uses JWT for session management. On login, the server returns two tokens:
+## JWT（JSON Web Tokens）
+Bedrud 使用 JWT 进行会话管理。登录时，服务器返回两个令牌：
 
-1.  **Access Token:** Short-lived (e.g., 1 hour). Used to access protected API endpoints.
-2.  **Refresh Token:** Long-lived (e.g., 30 days). Used to get a new Access Token without logging in again.
+1.  **Access Token：** 短期有效（例如 1 小时）。用于访问受保护的 API 端点。
+2.  **Refresh Token：** 长期有效（例如 30 天）。用于在无需重新登录的情况下获取新的 Access Token。
 
-The backend validates these tokens in the `internal/middleware/auth.go` file.
+后端在 `internal/middleware/auth.go` 文件中验证这些令牌。
 
-## Token Management & Security
+## 令牌管理与安全性
 
-### 1. Token Pair Strategy (Rotation)
-Bedrud uses a secure token rotation strategy. When a user authenticates, they receive:
+### 1. 令牌对策略（Rotation）
+Bedrud 使用安全的令牌轮换策略。用户认证时，会收到：
 
-- **Access Token:** Signed with HS256, contains user ID, name, and permissions. Valid for a short duration (configured via `tokenDuration`).
-- **Refresh Token:** A separate long-lived token.
+- **Access Token：** 使用 HS256 签名，包含用户 ID、名称和权限。有效期较短（通过 `tokenDuration` 配置）。
+- **Refresh Token：** 一个独立的长期令牌。
 
-**Rotation:** When the Access Token expires, the client sends the Refresh Token to `/api/auth/refresh`. The server then issues a **brand new pair** of tokens and updates the stored refresh token in the database. This limits the window of opportunity even if a token is stolen.
+**轮换机制：** 当 Access Token 过期时，客户端将 Refresh Token 发送到 `/api/auth/refresh`。服务器随后签发一对**全新的令牌**，并更新数据库中存储的 refresh token。即使令牌被盗，这也限制了可利用的时间窗口。
 
-### 2. Token Revocation (Blacklisting)
-To support secure logout, Bedrud implements a **Token Blacklist**.
+### 2. 令牌撤销（Blacklisting）
+为了支持安全的登出，Bedrud 实现了**令牌黑名单**。
 
-- When a user logs out, their current Refresh Token is added to the `blocked_refresh_tokens` table.
-- Before refreshing any session, the server checks this table. If a token is blocked, the request is rejected immediately.
-- A background task (Scheduler) is designed to clean up these blocked tokens once they naturally expire.
+- 当用户登出时，其当前的 Refresh Token 会被添加到 `blocked_refresh_tokens` 表中。
+- 在刷新任何会话之前，服务器会检查此表。如果令牌已被阻止，请求将立即被拒绝。
+- 后台任务（Scheduler）负责在这些被阻止的令牌自然过期后进行清理。
 
-### 3. JWT Claims Structure
-The tokens carry metadata that allows the backend and frontend to make quick decisions without database hits:
+### 3. JWT Claims 结构
+令牌携带元数据，允许后端和前端无需查询数据库即可快速做出决策：
 ```json
 {
   "userId": "uuid-string",
@@ -44,47 +44,47 @@ The tokens carry metadata that allows the backend and frontend to make quick dec
 }
 ```
 
-## Authentication Methods
+## 认证方式
 
-### 1. Local Email & Password
+### 1. 邮箱密码登录
 
-- Passwords are hashed using **bcrypt** - never stored as plain text.
-- When you register, a new User record is created in the database.
+- 密码使用 **bcrypt** 进行哈希处理——从不以明文存储。
+- 注册时，会在数据库中创建新的用户记录。
 
-### 2. Social Login (OAuth2)
-Bedrud uses the `Goth` library to support:
+### 2. 社交登录（OAuth2）
+Bedrud 使用 `Goth` 库支持：
 
 - **Google**
 - **GitHub**
 - **Twitter**
 
-You can enable these by filling in the `auth:` section in your `config.yaml` with your Client ID and API Secret.
+你可以在 `config.yaml` 中填写 `auth:` 部分的 Client ID 和 API Secret 来启用它们。
 
-### 3. Passkeys (WebAuthn/FIDO2)
-Bedrud supports passwordless authentication via the FIDO2 standard (WebAuthn).
+### 3. Passkeys（WebAuthn/FIDO2）
+Bedrud 通过 FIDO2 标准（WebAuthn）支持无密码认证。
 
-- **Registration Ceremony:**
-  1.  **Begin:** The server generates a cryptographically secure **Challenge** and stores it in the user's session.
-  2.  **Finish:** The client's authenticator (e.g., TouchID, YubiKey) signs the challenge. The server verifies the attestation, extracts the **Public Key**, and saves it in the `passkeys` table.
-- **Authentication Ceremony:**
-  1.  **Begin:** The server issues a new challenge.
-  2.  **Finish:** The client signs the challenge with their private key. The server retrieves the Public Key from the database, verifies the signature, and checks the **Sign Counter**.
-- **Security:** The matching of the `Counter` field prevents **Replay Attacks**. If the authenticator's counter is not higher than the stored counter, the login is rejected.
+- **注册流程：**
+  1.  **开始：** 服务器生成一个加密安全的 **Challenge** 并将其存储在用户会话中。
+  2.  **完成：** 客户端的 authenticator（如 TouchID、YubiKey）对 challenge 进行签名。服务器验证 attestation，提取**公钥**，并将其保存在 `passkeys` 表中。
+- **认证流程：**
+  1.  **开始：** 服务器签发一个新的 challenge。
+  2.  **完成：** 客户端使用私钥对 challenge 进行签名。服务器从数据库中检索公钥，验证签名，并检查**签名计数器**。
+- **安全性：** `Counter` 字段的匹配可以防止**重放攻击**。如果 authenticator 的计数器不高于存储的计数器，则登录将被拒绝。
 
-### 4. Guest Login
-Allows users to join a meeting instantly with just a name. The server creates a temporary user record with the role `guest`.
+### 4. 访客登录
+允许用户仅通过输入名称即可立即加入会议。服务器创建一个具有 `guest` 角色的临时用户记录。
 
-## Interoperability & CORS
-Bedrud is designed to be accessible from multiple origins, which is crucial for development (React dev server) and production (different subdomains).
+## 互操作性与 CORS
+Bedrud 设计为可从多个来源访问，这对于开发环境（React 开发服务器）和生产环境（不同子域名）至关重要。
 
-- **CORS Policy:** Defined in `config.yaml`. It supports `AllowCredentials: true`, which is required for the session cookies used during OAuth and Passkey ceremonies.
-- **Allowed Origins:** By default, it allows the server's own domain and `localhost:3000` (the React dev server port).
+- **CORS 策略：** 在 `config.yaml` 中定义。它支持 `AllowCredentials: true`，这是 OAuth 和 Passkey 流程中使用的会话 cookie 所必需的。
+- **允许的来源：** 默认情况下，允许服务器自身的域名和 `localhost:3000`（React 开发服务器端口）。
 
-## User Roles (Access Control)
-Each user has a list of "accesses" (roles).
+## 用户角色（访问控制）
+每个用户都有一组"accesses"（角色）。
 
-- `user`: Standard user. Can join and create rooms.
-- `guest`: Temporary user. Can join rooms.
-- `superadmin`: Can manage all users and rooms through the `/admin` dashboard.
+- `user`：标准用户。可以加入和创建房间。
+- `guest`：临时用户。可以加入房间。
+- `superadmin`：可以通过 `/admin` 仪表板管理所有用户和房间。
 
-The `middleware.RequireAccess("superadmin")` guard protects admin routes.
+`middleware.RequireAccess("superadmin")` 守卫用于保护管理员路由。

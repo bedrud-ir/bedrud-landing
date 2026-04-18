@@ -4,11 +4,11 @@ description: Self-signed certificates for internal networks
 order: 30
 ---
 
-For isolated networks - no public domain, no outbound internet, restricted connectivity.
+适用于隔离网络——没有公网域名、没有出站互联网、连通性受限。
 
-Browsers require trusted HTTPS for camera/mic via WebRTC. Self-signed certs work but show warnings. For a clean setup, generate a private CA and distribute it to clients.
+浏览器需要受信任的 HTTPS 才能通过 WebRTC 访问摄像头/麦克风。自签名证书可以工作但会显示警告。要获得干净的设置，请生成一个私有 CA 并将其分发给客户端。
 
-## Generate Private CA and Server Certificate
+## 生成私有 CA 和服务器证书
 
 ```bash
 openssl genrsa -out ca.key 4096
@@ -24,9 +24,9 @@ openssl x509 -req -days 365 -in server.csr \
 sudo ./bedrud install --tls --cert server.crt --key server.key --ip YOUR_SERVER_IP
 ```
 
-## Add CA to Client Trust Stores
+## 将 CA 添加到客户端信任存储
 
-Distribute `ca.crt` to all client machines:
+将 `ca.crt` 分发到所有客户端机器：
 
 ### Windows
 
@@ -55,19 +55,19 @@ sudo cp ca.crt /etc/pki/ca-trust/source/anchors/bedrud-ca.crt
 sudo update-ca-trust
 ```
 
-Restart browsers, then open `https://YOUR_SERVER_IP` (replace with the server's actual IP address, e.g. `192.168.1.100`). After restarting, the certificate will be trusted and camera/microphone access will work without warnings.
+重启浏览器，然后打开 `https://YOUR_SERVER_IP`（替换为服务器的实际 IP 地址，例如 `192.168.1.100`）。重启后，证书将被信任，摄像头/麦克风访问将正常工作，不会出现警告。
 
-## Troubleshooting
+## 故障排除
 
-| Problem | Fix |
+| 问题 | 解决方案 |
 |---------|-----|
-| Browser still warns certificate untrusted | Clear browser cache, restart browser after CA install |
-| Camera/mic blocked | Verify CA is in Trusted Root CAs, not intermediate |
-| Certificate expired | Regenerate with longer `-days` value |
-| CN mismatch | Ensure server certificate CN matches IP or hostname in URL |
+| 浏览器仍然警告证书不受信任 | 清除浏览器缓存，安装 CA 后重启浏览器 |
+| 摄像头/麦克风被阻止 | 验证 CA 位于受信任的根证书颁发机构中，而不是中间证书颁发机构 |
+| 证书已过期 | 使用更长的 `-days` 值重新生成 |
+| CN 不匹配 | 确保服务器证书的 CN 与 URL 中的 IP 或主机名匹配 |
 
 ---
 
-## See also
-- [Installation Guide](/docs/getting-started/installation) - install methods
-- [Configuration Reference](/docs/getting-started/configuration) - full config options
+## 另请参阅
+- [安装指南](/zh/docs/getting-started/installation) - 安装方法
+- [配置参考](/zh/docs/getting-started/configuration) - 完整配置选项

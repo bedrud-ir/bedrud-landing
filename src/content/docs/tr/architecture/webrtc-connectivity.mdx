@@ -1,16 +1,16 @@
 ---
-title: WebRTC Connectivity
-description: STUN/ICE/TURN and media routing
+title: WebRTC Bağlantısı
+description: STUN/ICE/TURN ve medya yönlendirme
 order: 13
 ---
 
-How clients establish real-time media connections in Bedrud. Covers the full connectivity stack: signaling, ICE, STUN, TURN, and the SFU media path.
+İstemcilerin Bedrud'da gerçek zamanlı medya bağlantılarını nasıl kurduğu. Tam bağlantı yığınını kapsar: sinyalleşme, ICE, STUN, TURN ve SFU medya yolu.
 
 ---
 
-## Overview
+## Genel Bakış
 
-WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture - clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
+WebRTC, ses ve video istemci ile sunucu arasında akmadan önce bir dizi adım gerektirir. Bedrud, LiveKit'in SFU (Selective Forwarding Unit) mimarisini kullanır - istemciler birbirine değil sunucuya bağlanır. **Bu, yalnızca istemciden sunucuya olan ağ yolunun önemli olduğu anlamına gelir**, bireysel katılımcılar arasındaki bağlantı değil.
 
 ```mermaid
 sequenceDiagram
@@ -46,9 +46,9 @@ sequenceDiagram
 
 ---
 
-## Connectivity Stack
+## Bağlantı Yığını
 
-Five layers work together to establish the media path:
+Medya yolunu kurmak için beş katman birlikte çalışır:
 
 ```mermaid
 flowchart TB
@@ -68,21 +68,21 @@ flowchart TB
     TURN --> SFU
 ```
 
-### Layer Details
+### Katman Ayrıntıları
 
-**1. Signaling** - Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media - it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
+**1. Sinyalleşme** - İstemci ve sunucu WebSocket üzerinden SDP (Session Description Protocol) teklif ve yanıtlarıyla bağlantı üst verilerini takas eder. Bu medya değil, kurulum aşamasıdır. Bedrud sinyalleşmeyi API sunucusu üzerinden gömülü LiveKit örneğine vekil olarak iletir.
 
-**2. ICE (Interactive Connectivity Establishment)** - Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework - it coordinates the connection attempts but is not a protocol itself.
+**2. ICE (Interactive Connectivity Establishment)** - Aday adı verilen tüm olası bağlantı yollarını toplar ve öncelik sırasına göre sınar. ICE bir çerçevedir - bağlantı girişimlerini koordine eder ama kendisi bir protokol değildir.
 
-**3. STUN (Session Traversal Utilities for NAT)** - Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
+**3. STUN (Session Traversal Utilities for NAT)** - Hafif bir protokoldür. İstemci STUN sunucusuna bir bağlama isteği gönderir, sunucu istemcinin genel IP'si ve portu ile yanıt verir. Bu "sunucu yansımalı" aday daha sonra doğrudan bağlantı için sınanır. Bağlantıların ~%80'inde çalışır.
 
-**4. TURN (Traversal Using Relays around NAT)** - When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost - server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
+**4. TURN (Traversal Using Relays around NAT)** - Doğrudan bağlantı başarısız olduğunda TURN sunucuda bir aktarma adresi ayırır. Tüm medya paketleri bu aktarma üzerinden iletilir. En yüksek maliyet - sunucu bant genişliği aktarılan kullanıcılarla ölçeklenir. Ayrıntılı bilgi için bkz. [TURN Sunucusu Kılavuzu](turn-server.mdx).
 
-**5. SFU (Selective Forwarding Unit)** - Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer - the server is always in the path.
+**5. SFU (Selective Forwarding Unit)** - Aktarım yolu kurulduktan sonra LiveKit'in SFU'su katılımcılar arasında medyayı yönlendirir. Her katılımcı bir yayın gönderir; SFU kopyalarını diğer katılımcılara iletir. Bu eşler arası değildir - sunucu her zaman yoldadır.
 
 ---
 
-## ICE Candidate Gathering
+## ICE Aday Toplama
 
 ```mermaid
 flowchart TD
@@ -98,21 +98,21 @@ flowchart TD
     TEST -->|"None work"| FAIL[Connection failed]
 ```
 
-ICE gathers three candidate types simultaneously:
+ICE aynı anda üç aday türü toplar:
 
-| Type | Source | Priority | How it works |
-|------|--------|----------|-------------|
-| **host** | Local network interfaces | Highest | Direct IP from machine. Works on LAN. |
-| **srflx** (server reflexive) | STUN server response | Medium | Public IP discovered via STUN. Works for most NAT types. |
-| **relay** | TURN server allocation | Lowest | Address on TURN server. Always works. Highest cost. |
+| Tür | Kaynak | Öncelik | Nasıl çalışır |
+|-----|--------|----------|---------------|
+| **host** | Yerel ağ arayüzleri | En yüksek | Makineden doğrudan IP. LAN'da çalışır. |
+| **srflx** (sunucu yansımalı) | STUN sunucusu yanıtı | Orta | STUN ile keşfedilen genel IP. Çoğu NAT türünde çalışır. |
+| **relay** | TURN sunucusu ayırması | En düşük | TURN sunucusundaki adres. Her zaman çalışır. En yüksek maliyet. |
 
-ICE tests all candidates and selects the highest-priority pair that succeeds. If `srflx` works, it skips `relay`.
+ICE tüm adayları sınar ve başarılı olan en yüksek öncelikli çifti seçer. `srflx` çalışırsa `relay`'i atlar.
 
 ---
 
-## NAT Types & Connectivity
+## NAT Türleri ve Bağlantı
 
-Different NAT types affect whether direct connectivity works:
+Farklı NAT türleri doğrudan bağlantının çalışıp çalışmadığını etkiler:
 
 ```mermaid
 flowchart LR
@@ -142,70 +142,70 @@ flowchart LR
 
 ```
 
-| NAT Type | Description | Direct P2P | Needs TURN |
-|----------|-------------|------------|-----------|
-| **Full Cone** | All requests from same internal IP/port map to same public IP/port. Any external host can send to it. | Yes | No |
-| **Restricted Cone** | Same mapping as Full Cone, but only external hosts that received a packet can send back. | Usually | No |
-| **Port Restricted Cone** | Similar to Restricted Cone, but the NAT also restricts the external port number. Most common home router type. | Usually | Rarely |
-| **Symmetric** | Different public IP/port mapping per destination. The STUN-discovered address cannot be reused. | No (when both symmetric) | **Yes** |
+| NAT Türü | Açıklama | Doğrudan P2P | TURN Gerekli |
+|----------|----------|--------------|-------------|
+| **Full Cone** | Aynı iç IP/port'tan gelen tüm istekler aynı genel IP/port'a eşlenir. Herhangi bir dış ana bilgisayar buna gönderebilir. | Evet | Hayır |
+| **Restricted Cone** | Full Cone ile aynı eşleme, ancak yalnızca paket almış dış ana bilgisayarlar geri gönderebilir. | Genellikle | Hayır |
+| **Port Restricted Cone** | Restricted Cone'a benzer, ancak NAT dış port numarasını da kısıtlar. En yaygın ev yönlendirici türü. | Genellikle | Nadiren |
+| **Simetrik** | Hedef başına farklı genel IP/port eşlemesi. STUN ile keşfedilen adres yeniden kullanılamaz. | Hayır (her iki taraf simetrik olduğunda) | **Evet** |
 
-**Key insight:** Since the server has a public IP and predictable port range, most NAT types work directly. TURN is mainly needed when the client's firewall blocks outbound UDP entirely.
+**Temel çıkarım:** Sunucunun genel IP'si ve öngörülebilir port aralığı olduğu için çoğu NAT türü doğrudan çalışır. TURN genellikle istemcinin güvenlik duvarı giden UDP'yi tamamen engellediğinde gerekir.
 
 ---
 
-## Configuration Summary
+## Yapılandırma Özeti
 
-Which Bedrud/LiveKit config keys affect WebRTC connectivity:
+Hangi Bedrud/LiveKit yapılandırma anahtarları WebRTC bağlantısını etkiler:
 
-**`livekit.yaml` keys:**
+**`livekit.yaml` anahtarları:**
 
 ```yaml
 rtc:
-  port_range_start: 50000       # UDP media port range start
-  port_range_end: 60000         # UDP media port range end
-  tcp_port: 7881                # ICE/TCP fallback port
-  stun_servers:                 # External STUN servers (optional)
+  port_range_start: 50000       # UDP medya port aralığı başlangıcı
+  port_range_end: 60000         # UDP medya port aralığı sonu
+  tcp_port: 7881                # ICE/TCP yedek portu
+  stun_servers:                 # Harici STUN sunucuları (isteğe bağlı)
     - stun:stun.l.google.com:19302
-  use_external_ip: true         # Advertise public IP in ICE candidates
+  use_external_ip: true         # ICE adaylarında genel IP'yi duyur
 
 turn:
-  enabled: true                 # Enable embedded TURN
-  domain: "turn.example.com"    # TURN domain (DNS must resolve)
-  udp_port: 3478                # TURN/UDP + STUN port
-  tls_port: 5349                # TURN/TLS port (or 443)
-  cert_file: /path/to/turn.crt  # TLS cert for TURN/TLS
-  key_file: /path/to/turn.key   # TLS key for TURN/TLS
-  relay_range_start: 30000      # Relay port range start
-  relay_range_end: 40000        # Relay port range end
-  external_tls: false           # L4 LB terminates TLS
+  enabled: true                 # Gömülü TURN'ü etkinleştir
+  domain: "turn.example.com"    # TURN etki alanı (DNS çözümlenmeli)
+  udp_port: 3478                # TURN/UDP + STUN portu
+  tls_port: 5349                # TURN/TLS portu (veya 443)
+  cert_file: /path/to/turn.crt  # TURN/TLS için TLS sertifikası
+  key_file: /path/to/turn.key   # TURN/TLS için TLS anahtarı
+  relay_range_start: 30000      # Aktarma port aralığı başlangıcı
+  relay_range_end: 40000        # Aktarma port aralığı sonu
+  external_tls: false           # L4 LB TLS'yi sonlandırır
 ```
 
-**`config.yaml` keys (Bedrud server):**
+**`config.yaml` anahtarları (Bedrud sunucusu):**
 
 ```yaml
 server:
-  port: 8090                    # API port (signaling proxied through this)
-  enableTLS: true               # HTTPS for signaling
-  domain: "meet.example.com"    # Public domain
+  port: 8090                    # API portu (sinyalleşme buradan vekil olarak iletilir)
+  enableTLS: true               # Sinyalleşme için HTTPS
+  domain: "meet.example.com"    # Genel etki alanı
 ```
 
-### Debugging Connectivity Issues
+### Bağlantı Sorunlarını Hata Ayıklama
 
-| Symptom | Check |
-|---------|-------|
-| Can't connect at all | `rtc.use_external_ip: true`? Firewall open on 443 + UDP range? |
-| Connects but no audio/video | UDP 50000-60000 blocked? Check ICE candidates in browser. |
-| Slow connection | TURN relay active (check candidates). Expected if client behind strict NAT. |
-| Fails behind corporate network | TURN/TLS not configured. Set `turn.tls_port: 443` with valid cert. |
-| Works on LAN, fails remotely | Public IP not advertised. Set `rtc.use_external_ip: true`. |
+| Belirti | Denetle |
+|---------|---------|
+| Hiç bağlanamıyor | `rtc.use_external_ip: true` mı? Güvenlik duvarı 443 + UDP aralığında açık mı? |
+| Bağlanıyor ama ses/video yok | UDP 50000-60000 engelli mü? Tarayıcıda ICE adaylarını denetle. |
+| Yavaş bağlantı | TURN aktarma aktif (adayları denetle). İstemci katı NAT arkasındaysa beklenir. |
+| Kurumsal ağda başarısız | TURN/TLS yapılandırılmamış. Geçerli sertifika ile `turn.tls_port: 443` ayarla. |
+| LAN'da çalışıyor, uzaktan başarısız | Genel IP duyurulmuyor. `rtc.use_external_ip: true` ayarla. |
 
-For deep TURN troubleshooting, see the [TURN Server Guide](/docs/architecture/turn-server).
+TURN sorun giderme detayları için bkz. [TURN Sunucusu Kılavuzu](/tr/docs/architecture/turn-server).
 
 ---
 
-## See also
+## Ayrıca bakınız
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, debugging
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
+- [TURN Sunucusu Kılavuzu](/tr/docs/architecture/turn-server) - TURN mimarisi, yapılandırma, TLS, hata ayıklama
+- [LiveKit Entegrasyonu](/tr/docs/backend/livekit) - Bedrud'un LiveKit'i nasıl gömdüğü
+- [Mimari Genel Bakış](/tr/docs/architecture/overview) - tam sistem mimarisi
+- [İç TLS](/tr/docs/guides/internal-tls) - İzole ağlar için TLS

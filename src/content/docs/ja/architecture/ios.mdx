@@ -1,30 +1,30 @@
 ---
-title: iOS App
-description: Native iOS application
+title: iOS アプリ
+description: ネイティブ iOS アプリケーション
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+Bedrud iOS アプリは SwiftUI で構築され、マルチインスタンスサポートと安全な認証情報保存を備えたネイティブビデオ会議エクスペリエンスを提供します。
 
-## Technology Stack
+## テクノロジースタック
 
-| Technology | Version | Purpose |
+| テクノロジー | バージョン | 目的 |
 |-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| Swift | 5.9+ | 言語 |
+| SwiftUI | Latest | UI フレームワーク |
+| LiveKit Swift SDK | 2.0+ | WebRTC メディア |
+| KeychainAccess | 4.2.2+ | 安全な認証情報保存 |
 
-**Deployment target:** iOS 18.0
+**デプロイメントターゲット：** iOS 18.0
 
-## Project Configuration
+## プロジェクト設定
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+プロジェクトは **XCodeGen** を使用して `project.yml` からプロジェクトファイルを生成します。
 
 - Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- 生成コマンド: `xcodegen generate`
 
-## Directory Structure
+## ディレクトリ構造
 
 ```text
 apps/ios/Bedrud/
@@ -66,9 +66,9 @@ apps/ios/Bedrud/
     └── Components/                # Reusable SwiftUI components
 ```
 
-## Multi-Instance Architecture
+## マルチインスタンスアーキテクチャ
 
-The iOS app mirrors the Android architecture for multi-instance support.
+iOS アプリはマルチインスタンスサポートにおいて Android アーキテクチャと同じパターンを採用しています。
 
 ```text
 ┌──────────────────────────┐
@@ -84,9 +84,9 @@ The iOS app mirrors the Android architecture for multi-instance support.
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### 主要なパターン
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+依存関係は `ObservableObject` である `InstanceManager` の `@Published` プロパティとして公開されます。ビューは `@EnvironmentObject` 経由で受け取ります。
 
 ```swift
 struct DashboardView: View {
@@ -100,7 +100,7 @@ struct DashboardView: View {
 }
 ```
 
-### Navigation Flow
+### ナビゲーションフロー
 
 ```text
 No instances ──► AddInstanceView
@@ -108,11 +108,11 @@ Has instances, not logged in ──► LoginView
 Has instances, logged in ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+インスタンススイッチャーは Dashboard ツールバーからトリガーされる `.sheet` として表示されます。
 
-## App Entry Point
+## アプリのエントリーポイント
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` はコアサービスを初期化し、SwiftUI 環境に注入します。
 
 ```swift
 @main
@@ -132,21 +132,21 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## 機能
 
-### Secure Storage
+### 安全な保存
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+JWT トークンと機密性の高い認証情報を UserDefaults ではなく **KeychainAccess** で保存します。
 
-### Deep Linking
+### ディープリンク
 
-Handles URLs for direct room joining and room codes.
+ルームへの直接参加やルームコード用の URL を処理します。
 
-### Settings
+### 設定
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+ユーザー設定は `SettingsStore` を通じて UserDefaults に永続化されます。
 
-## Building
+## ビルド
 
 ```bash
 # Open in Xcode
@@ -162,8 +162,8 @@ make export-ios
 make build-ios-sim
 ```
 
-### Requirements
+### 必要条件
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode（最新安定版）
+- iOS 18.0 デプロイメントターゲット
+- デバイスビルド：Apple Developer アカウントとプロビジョニングプロファイル

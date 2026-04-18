@@ -1,37 +1,37 @@
 ---
-title: Rooms API
-description: Room management endpoints
+title: Odalar API'si
+description: Oda yönetimi uç noktaları
 order: 24
 ---
 
-Room management endpoints are under `/api/room/`. All endpoints require authentication.
+Oda yönetimi uç noktaları `/api/room/` altındadır. Tüm uç noktalar kimlik doğrulaması gerektirir.
 
-## Overview
+## Genel Bakış
 
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/room/create` | POST | Create a new room |
-| `/api/room/join` | POST | Join a room and get a LiveKit token |
-| `/api/room/list` | GET | List available rooms |
-| `/api/room/:roomId/kick/:identity` | POST | Kick a participant (admin) |
-| `/api/room/:roomId/mute/:identity` | POST | Mute a participant (admin) |
-| `/api/room/:roomId/video/:identity/off` | POST | Disable participant video (admin) |
+| Uç Nokta | Yöntem | Açıklama |
+|----------|--------|----------|
+| `/api/room/create` | POST | Yeni oda oluştur |
+| `/api/room/join` | POST | Odaya katıl ve LiveKit token al |
+| `/api/room/list` | GET | Kullanılabilir odaları listele |
+| `/api/room/:roomId/kick/:identity` | POST | Bir katılımcıyı at (yönetici) |
+| `/api/room/:roomId/mute/:identity` | POST | Bir katılımcıyı sessize al (yönetici) |
+| `/api/room/:roomId/video/:identity/off` | POST | Katılımcı videosunu kapat (yönetici) |
 
 ---
 
-## Endpoints
+## Uç Noktalar
 
-### Create Room
+### Oda Oluştur
 
-Create a new meeting room. The authenticated user becomes the room admin.
+Yeni bir toplantı odası oluşturun. Kimliği doğrulanmış kullanıcı oda yöneticisi olur.
 
 ```
 POST /api/room/create
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -48,25 +48,25 @@ POST /api/room/create
 }
 ```
 
-> **Note:** The `name` field is **optional**. If omitted or empty, the server will
-> auto-generate a random URL-safe name in the format `xxx-xxxx-xxx` (e.g. `bkf-qmzl-rja`).
+> **Not:** `name` alanı **isteğe bağlıdır**. Atlanır veya boş bırakılırsa, sunucu `xxx-xxxx-xxx`
+> formatında rastgele bir URL uyumlu isim otomatik olarak oluşturur (ör. `bkf-qmzl-rja`).
 
-**Room Name Rules:**
+**Oda İsim Kuralları:**
 
-Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL-safe:
+Oda isimleri URL'de `https://bedrud.xyz/m/NAME` şeklinde görünür, bu nedenle URL uyumlu olmalıdır:
 
-| Rule | Description |
-|------|-------------|
-| **Allowed characters** | Lowercase letters (`a-z`), digits (`0-9`), and hyphens (`-`) |
-| **Minimum length** | 3 characters |
-| **Maximum length** | 63 characters |
-| **No special characters** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, spaces, etc. are **not allowed** |
-| **No leading/trailing hyphens** | `-room` and `room-` are invalid |
-| **No consecutive hyphens** | `room--name` is invalid |
-| **Lowercase only** | Uppercase letters are rejected; input is auto-lowercased |
-| **Unique** | Each room name must be unique |
+| Kural | Açıklama |
+|-------|----------|
+| **İzin verilen karakterler** | Küçük harfler (`a-z`), rakamlar (`0-9`) ve tireler (`-`) |
+| **Minimum uzunluk** | 3 karakter |
+| **Maksimum uzunluk** | 63 karakter |
+| **Özel karakter yok** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, boşluk vb. **kullanılamaz** |
+| **Başta/sonda tire olamaz** | `-room` ve `room-` geçersizdir |
+| **Ardışık tire olamaz** | `room--name` geçersizdir |
+| **Yalnızca küçük harf** | Büyük harfler reddedilir; giriş otomatik olarak küçük harfe dönüştürülür |
+| **Benzersiz** | Her oda ismi benzersiz olmalıdır |
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -88,33 +88,33 @@ Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL
 }
 ```
 
-### Fields
+### Alanlar
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | No | URL-safe room name (auto-generated if omitted) |
-| `isPublic` | boolean | No | Whether the room appears in public listings |
-| `mode` | string | No | Room mode (e.g. `"standard"`) |
-| `maxParticipants` | number | No | Maximum number of participants |
-| `settings.allowChat` | boolean | No | Whether text chat is enabled |
-| `settings.allowVideo` | boolean | No | Whether video is enabled |
-| `settings.allowAudio` | boolean | No | Whether audio is enabled |
-| `settings.requireApproval` | boolean | No | Whether participants need admin approval |
-| `settings.e2ee` | boolean | No | Whether end-to-end encryption is enabled |
+| Alan | Tür | Zorunlu | Açıklama |
+|------|-----|---------|----------|
+| `name` | string | Hayır | URL uyumlu oda ismi (atlanırsa otomatik oluşturulur) |
+| `isPublic` | boolean | Hayır | Odanın genel listelemelerde görünmesi |
+| `mode` | string | Hayır | Oda modu (ör. `"standard"`) |
+| `maxParticipants` | number | Hayır | Maksimum katılımcı sayısı |
+| `settings.allowChat` | boolean | Hayır | Metin sohbetinin etkin olup olmadığı |
+| `settings.allowVideo` | boolean | Hayır | Videonun etkin olup olmadığı |
+| `settings.allowAudio` | boolean | Hayır | Sesanın etkin olup olmadığı |
+| `settings.requireApproval` | boolean | Hayır | Katılımcıların yönetici onayı gerektirip gerektirmediği |
+| `settings.e2ee` | boolean | Hayır | Uçtan uca şifrelemenin etkin olup olmadığı |
 
 ---
 
-### Join Room
+### Odaya Katıl
 
-Join an existing room and receive a LiveKit token for media connection.
+Var olan bir odaya katılın ve medya bağlantısı için bir LiveKit token alın.
 
 ```
 POST /api/room/join
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -122,7 +122,7 @@ POST /api/room/join
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -141,7 +141,7 @@ POST /api/room/join
 }
 ```
 
-The `token` is a signed LiveKit access token. Use it to connect to the LiveKit server via WebSocket:
+`token`, imzalı bir LiveKit erişim token'ıdır. WebSocket üzerinden LiveKit sunucusuna bağlanmak için kullanın:
 
 ```javascript
 import { Room } from 'livekit-client';
@@ -152,17 +152,17 @@ await room.connect(livekitUrl, token);
 
 ---
 
-### List Rooms
+### Odaları Listele
 
-Get a list of rooms the user has created.
+Kullanıcının oluşturduğu odaların listesini alın.
 
 ```
 GET /api/room/list
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 [
@@ -182,17 +182,17 @@ GET /api/room/list
 
 ---
 
-### Kick Participant
+### Katılımcıyı At
 
-Remove a participant from the room. Only the room admin can do this.
+Bir katılımcıyı odadan çıkarın. Bunu yalnızca oda yöneticisi yapabilir.
 
 ```
 POST /api/room/:roomId/kick/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -202,17 +202,17 @@ POST /api/room/:roomId/kick/:identity
 
 ---
 
-### Mute Participant
+### Katılımcıyı Sessize Al
 
-Mute a participant's microphone. Only the room admin can do this.
+Bir katılımcının mikrofonunu sessize alın. Bunu yalnızca oda yöneticisi yapabilir.
 
 ```
 POST /api/room/:roomId/mute/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -222,17 +222,17 @@ POST /api/room/:roomId/mute/:identity
 
 ---
 
-### Disable Participant Video
+### Katılımcı Videosunu Kapat
 
-Turn off a participant's camera. Only the room admin can do this.
+Bir katılımcının kamerasını kapatın. Bunu yalnızca oda yöneticisi yapabilir.
 
 ```
 POST /api/room/:roomId/video/:identity/off
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -242,24 +242,24 @@ POST /api/room/:roomId/video/:identity/off
 
 ---
 
-## Admin Controls
+## Yönetici Kontrolleri
 
-Room admin actions (kick, mute, video off) are only available to the user who created the room (`adminId`). Attempting these actions as a non-admin returns a 403 error.
+Oda yöneticisi eylemleri (atma, sessize alma, video kapatma) yalnızca odayı oluşturan kullanıcıya (`adminId`) açıktır. Yönetici olmayan bir kullanıcı bu eylemleri denediğinde 403 hatası döner.
 
-### Permissions Matrix
+### İzinler Matrisi
 
-| Action | Room Admin | Super Admin | Regular User | Guest |
-|--------|-----------|-------------|-------------|-------|
-| Create room | Yes | Yes | Yes | No |
-| Join room | Yes | Yes | Yes | Yes |
-| List rooms | Yes | Yes | Yes | Yes |
-| Kick | Yes | Yes | No | No |
-| Mute | Yes | Yes | No | No |
-| Video off | Yes | Yes | No | No |
+| Eylem | Oda Yöneticisi | Süper Yönetici | Normal Kullanıcı | Misafir |
+|-------|---------------|---------------|-----------------|---------|
+| Oda oluşturma | Evet | Evet | Evet | Hayır |
+| Odaya katılma | Evet | Evet | Evet | Evet |
+| Odaları listeleme | Evet | Evet | Evet | Evet |
+| Atma | Evet | Evet | Hayır | Hayır |
+| Sessize alma | Evet | Evet | Hayır | Hayır |
+| Video kapatma | Evet | Evet | Hayır | Hayır |
 
-## Error Responses
+## Hata Yanıtları
 
-All errors follow a consistent format:
+Tüm hatalar tutarlı bir format izler:
 
 ```json
 {
@@ -267,32 +267,32 @@ All errors follow a consistent format:
 }
 ```
 
-### Create Room Errors
+### Oda Oluşturma Hataları
 
-| Status | Error Message | Description |
-|--------|---------------|-------------|
-| 400 | `"Invalid request body"` | Malformed JSON |
-| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | Name contains special characters (`#`, `@`, `_`, etc.) |
-| 400 | `"room name must be at least 3 characters"` | Name too short |
-| 400 | `"room name must be at most 63 characters"` | Name too long |
-| 409 | `"a room with this name already exists"` | Duplicate name |
-| 500 | `"Failed to create media room"` | LiveKit server error |
-| 500 | `"Failed to create room"` | Database error |
+| Durum | Hata Mesajı | Açıklama |
+|-------|-------------|----------|
+| 400 | `"Invalid request body"` | Hatalı biçimlendirilmiş JSON |
+| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | İsim özel karakterler içeriyor (`#`, `@`, `_` vb.) |
+| 400 | `"room name must be at least 3 characters"` | İsim çok kısa |
+| 400 | `"room name must be at most 63 characters"` | İsim çok uzun |
+| 409 | `"a room with this name already exists"` | Yinelenen isim |
+| 500 | `"Failed to create media room"` | LiveKit sunucu hatası |
+| 500 | `"Failed to create room"` | Veritabanı hatası |
 
-### General Errors
+### Genel Hatalar
 
-| Status | Meaning |
-|--------|---------|
-| 400 | Bad request (missing/invalid data) |
-| 401 | Not authenticated |
-| 403 | Not authorized (non-admin trying admin action) |
-| 404 | Room not found |
-| 409 | Conflict (duplicate resource) |
-| 500 | Internal server error |
+| Durum | Anlamı |
+|-------|--------|
+| 400 | Hatalı istek (eksik/geçersiz veri) |
+| 401 | Kimlik doğrulaması yapılmamış |
+| 403 | Yetkisiz (yönetici olmayan, yönetici eylemi deniyor) |
+| 404 | Oda bulunamadı |
+| 409 | Çakışma (yinelenen kaynak) |
+| 500 | İç sunucu hatası |
 
 ---
 
-## See also
+## Ayrıca bakınız
 
-- [Architecture Overview](/docs/architecture/overview) - data model and meeting connection flow
-- [API Handlers](/docs/backend/api-handlers) - how room endpoints are implemented
+- [Mimari Genel Bakış](/tr/docs/architecture/overview) - veri modeli ve toplantı bağlantı akışı
+- [API İşleyicileri](/tr/docs/backend/api-handlers) - oda uç noktalarının nasıl uygulandığı

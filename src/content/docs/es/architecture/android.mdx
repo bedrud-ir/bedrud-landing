@@ -36,11 +36,11 @@ apps/android/app/src/main/java/com/bedrud/app/
 │   │   └── AuthManager.kt         # Gestión de tokens, login/logout
 │   ├── call/
 │   │   ├── CallService.kt         # Servicio en primer plano para llamadas
-│   │   └── CallConnectionService.kt  | Android ConnectionService
+│   │   └── CallConnectionService.kt  # Android ConnectionService
 │   ├── deeplink/
-│   │   └── DeepLinkHandler.kt     | Maneja enlaces profundos de bedrud.com
+│   │   └── DeepLinkHandler.kt     # Maneja enlaces profundos de bedrud.com
 │   ├── di/
-│   │   └── AppModule.kt           | Definiciones de módulos de Koin
+│   │   └── AppModule.kt           # Definiciones de módulos de Koin
 │   ├── instance/
 │   │   ├── InstanceManager.kt     # Orquestador central multiinstancia
 │   │   ├── InstanceStore.kt       # Almacenamiento persistente de instancias
@@ -57,21 +57,21 @@ apps/android/app/src/main/java/com/bedrud/app/
 └── ui/
     ├── screens/
     │   ├── auth/
-    │   │   ├── LoginScreen.kt     | Login de correo/contraseña + passkey
-    │   │   └── RegisterScreen.kt  | Registro de cuenta
+    │   │   ├── LoginScreen.kt     # Login de correo/contraseña + passkey
+    │   │   └── RegisterScreen.kt  # Registro de cuenta
     │   ├── dashboard/
-    │   │   └── DashboardScreen.kt | Lista y gestión de salas
+    │   │   └── DashboardScreen.kt # Lista y gestión de salas
     │   ├── meeting/
-    │   │   └── MeetingScreen.kt   | Interfaz de videollamada
+    │   │   └── MeetingScreen.kt   # Interfaz de videollamada
     │   ├── instance/
-    │   │   ├── AddInstanceScreen.kt    | Añadir instancia de servidor
-    │   │   └── InstanceSwitcher.kt     | Cambiar entre instancias
+    │   │   ├── AddInstanceScreen.kt    # Añadir instancia de servidor
+    │   │   └── InstanceSwitcher.kt     # Cambiar entre instancias
     │   ├── profile/
-    │   │   └── ProfileScreen.kt   | Perfil de usuario
+    │   │   └── ProfileScreen.kt   # Perfil de usuario
     │   └── settings/
-    │       └── SettingsScreen.kt  | Configuración de la aplicación
+    │       └── SettingsScreen.kt  # Configuración de la aplicación
     ├── components/                 # Componentes Compose reutilizables
-    └── theme/                      | Definición de tema Material 3
+    └── theme/                      # Definición de tema Material 3
 ```
 
 ## Arquitectura Multiinstancia

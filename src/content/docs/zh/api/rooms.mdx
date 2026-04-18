@@ -4,34 +4,34 @@ description: Room management endpoints
 order: 24
 ---
 
-Room management endpoints are under `/api/room/`. All endpoints require authentication.
+房间管理 endpoint 位于 `/api/room/` 下。所有 endpoint 均需要认证。
 
-## Overview
+## 概述
 
-| Endpoint | Method | Description |
+| Endpoint | 方法 | 描述 |
 |----------|--------|-------------|
-| `/api/room/create` | POST | Create a new room |
-| `/api/room/join` | POST | Join a room and get a LiveKit token |
-| `/api/room/list` | GET | List available rooms |
-| `/api/room/:roomId/kick/:identity` | POST | Kick a participant (admin) |
-| `/api/room/:roomId/mute/:identity` | POST | Mute a participant (admin) |
-| `/api/room/:roomId/video/:identity/off` | POST | Disable participant video (admin) |
+| `/api/room/create` | POST | 创建新房间 |
+| `/api/room/join` | POST | 加入房间并获取 LiveKit token |
+| `/api/room/list` | GET | 列出可用房间 |
+| `/api/room/:roomId/kick/:identity` | POST | 踢出参与者（管理员） |
+| `/api/room/:roomId/mute/:identity` | POST | 静音参与者（管理员） |
+| `/api/room/:roomId/video/:identity/off` | POST | 关闭参与者视频（管理员） |
 
 ---
 
 ## Endpoints
 
-### Create Room
+### 创建房间
 
-Create a new meeting room. The authenticated user becomes the room admin.
+创建新的会议室。已认证的用户自动成为房间管理员。
 
 ```
 POST /api/room/create
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -48,25 +48,24 @@ POST /api/room/create
 }
 ```
 
-> **Note:** The `name` field is **optional**. If omitted or empty, the server will
-> auto-generate a random URL-safe name in the format `xxx-xxxx-xxx` (e.g. `bkf-qmzl-rja`).
+> **注意：** `name` 字段是**可选的**。如果省略或为空，服务器将自动生成一个随机的 URL 安全名称，格式为 `xxx-xxxx-xxx`（例如 `bkf-qmzl-rja`）。
 
-**Room Name Rules:**
+**房间名称规则：**
 
-Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL-safe:
+房间名称会出现在 URL 中，如 `https://bedrud.xyz/m/NAME`，因此必须是 URL 安全的：
 
-| Rule | Description |
+| 规则 | 描述 |
 |------|-------------|
-| **Allowed characters** | Lowercase letters (`a-z`), digits (`0-9`), and hyphens (`-`) |
-| **Minimum length** | 3 characters |
-| **Maximum length** | 63 characters |
-| **No special characters** | `#`, `@`, `_`, `.`, `/`, `\`, `<`, `>`, `&`, `%`, `+`, `=`, `;`, `:`, `'`, `"`, `?`, `!`, spaces, etc. are **not allowed** |
-| **No leading/trailing hyphens** | `-room` and `room-` are invalid |
-| **No consecutive hyphens** | `room--name` is invalid |
-| **Lowercase only** | Uppercase letters are rejected; input is auto-lowercased |
-| **Unique** | Each room name must be unique |
+| **允许的字符** | 小写字母 (`a-z`)、数字 (`0-9`) 和连字符 (`-`) |
+| **最小长度** | 3 个字符 |
+| **最大长度** | 63 个字符 |
+| **不允许特殊字符** | `#`、`@`、`_`、`.`、`/`、`\`、`<`、`>`、`&`、`%`、`+`、`=`、`;`、`:`、`'`、`"`、`?`、`!`、空格等均**不允许** |
+| **不能以连字符开头或结尾** | `-room` 和 `room-` 无效 |
+| **不能有连续连字符** | `room--name` 无效 |
+| **仅限小写** | 大写字母会被拒绝；输入自动转小写 |
+| **唯一性** | 每个房间名称必须唯一 |
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -88,33 +87,33 @@ Room names appear in the URL as `https://bedrud.xyz/m/NAME`, so they must be URL
 }
 ```
 
-### Fields
+### 字段说明
 
-| Field | Type | Required | Description |
+| 字段 | 类型 | 必填 | 描述 |
 |-------|------|----------|-------------|
-| `name` | string | No | URL-safe room name (auto-generated if omitted) |
-| `isPublic` | boolean | No | Whether the room appears in public listings |
-| `mode` | string | No | Room mode (e.g. `"standard"`) |
-| `maxParticipants` | number | No | Maximum number of participants |
-| `settings.allowChat` | boolean | No | Whether text chat is enabled |
-| `settings.allowVideo` | boolean | No | Whether video is enabled |
-| `settings.allowAudio` | boolean | No | Whether audio is enabled |
-| `settings.requireApproval` | boolean | No | Whether participants need admin approval |
-| `settings.e2ee` | boolean | No | Whether end-to-end encryption is enabled |
+| `name` | string | 否 | URL 安全的房间名称（省略时自动生成） |
+| `isPublic` | boolean | 否 | 房间是否出现在公开列表中 |
+| `mode` | string | 否 | 房间模式（例如 `"standard"`） |
+| `maxParticipants` | number | 否 | 最大参与者数量 |
+| `settings.allowChat` | boolean | 否 | 是否启用文字聊天 |
+| `settings.allowVideo` | boolean | 否 | 是否启用视频 |
+| `settings.allowAudio` | boolean | 否 | 是否启用音频 |
+| `settings.requireApproval` | boolean | 否 | 参与者是否需要管理员批准 |
+| `settings.e2ee` | boolean | 否 | 是否启用端到端加密 |
 
 ---
 
-### Join Room
+### 加入房间
 
-Join an existing room and receive a LiveKit token for media connection.
+加入现有房间并获取用于媒体连接的 LiveKit token。
 
 ```
 POST /api/room/join
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -122,7 +121,7 @@ POST /api/room/join
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -141,7 +140,7 @@ POST /api/room/join
 }
 ```
 
-The `token` is a signed LiveKit access token. Use it to connect to the LiveKit server via WebSocket:
+`token` 是一个签名的 LiveKit 访问令牌。使用它通过 WebSocket 连接到 LiveKit 服务器：
 
 ```javascript
 import { Room } from 'livekit-client';
@@ -152,17 +151,17 @@ await room.connect(livekitUrl, token);
 
 ---
 
-### List Rooms
+### 列出房间
 
-Get a list of rooms the user has created.
+获取当前用户创建的房间列表。
 
 ```
 GET /api/room/list
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 [
@@ -182,17 +181,17 @@ GET /api/room/list
 
 ---
 
-### Kick Participant
+### 踢出参与者
 
-Remove a participant from the room. Only the room admin can do this.
+将参与者从房间中移除。仅房间管理员可执行此操作。
 
 ```
 POST /api/room/:roomId/kick/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -202,17 +201,17 @@ POST /api/room/:roomId/kick/:identity
 
 ---
 
-### Mute Participant
+### 静音参与者
 
-Mute a participant's microphone. Only the room admin can do this.
+静音参与者的麦克风。仅房间管理员可执行此操作。
 
 ```
 POST /api/room/:roomId/mute/:identity
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -222,17 +221,17 @@ POST /api/room/:roomId/mute/:identity
 
 ---
 
-### Disable Participant Video
+### 关闭参与者视频
 
-Turn off a participant's camera. Only the room admin can do this.
+关闭参与者的摄像头。仅房间管理员可执行此操作。
 
 ```
 POST /api/room/:roomId/video/:identity/off
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -242,24 +241,24 @@ POST /api/room/:roomId/video/:identity/off
 
 ---
 
-## Admin Controls
+## 管理员控制
 
-Room admin actions (kick, mute, video off) are only available to the user who created the room (`adminId`). Attempting these actions as a non-admin returns a 403 error.
+房间管理员操作（踢出、静音、关闭视频）仅对房间创建者（`adminId`）可用。非管理员尝试执行这些操作将返回 403 错误。
 
-### Permissions Matrix
+### 权限矩阵
 
-| Action | Room Admin | Super Admin | Regular User | Guest |
+| 操作 | 房间管理员 | 超级管理员 | 普通用户 | 访客 |
 |--------|-----------|-------------|-------------|-------|
-| Create room | Yes | Yes | Yes | No |
-| Join room | Yes | Yes | Yes | Yes |
-| List rooms | Yes | Yes | Yes | Yes |
-| Kick | Yes | Yes | No | No |
-| Mute | Yes | Yes | No | No |
-| Video off | Yes | Yes | No | No |
+| 创建房间 | 是 | 是 | 是 | 否 |
+| 加入房间 | 是 | 是 | 是 | 是 |
+| 列出房间 | 是 | 是 | 是 | 是 |
+| 踢出 | 是 | 是 | 否 | 否 |
+| 静音 | 是 | 是 | 否 | 否 |
+| 关闭视频 | 是 | 是 | 否 | 否 |
 
-## Error Responses
+## 错误响应
 
-All errors follow a consistent format:
+所有错误遵循统一的格式：
 
 ```json
 {
@@ -267,32 +266,32 @@ All errors follow a consistent format:
 }
 ```
 
-### Create Room Errors
+### 创建房间错误
 
-| Status | Error Message | Description |
+| 状态码 | 错误信息 | 描述 |
 |--------|---------------|-------------|
-| 400 | `"Invalid request body"` | Malformed JSON |
-| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | Name contains special characters (`#`, `@`, `_`, etc.) |
-| 400 | `"room name must be at least 3 characters"` | Name too short |
-| 400 | `"room name must be at most 63 characters"` | Name too long |
-| 409 | `"a room with this name already exists"` | Duplicate name |
-| 500 | `"Failed to create media room"` | LiveKit server error |
-| 500 | `"Failed to create room"` | Database error |
+| 400 | `"Invalid request body"` | JSON 格式错误 |
+| 400 | `"room name must contain only lowercase letters, numbers, and hyphens"` | 名称包含特殊字符（`#`、`@`、`_` 等） |
+| 400 | `"room name must be at least 3 characters"` | 名称过短 |
+| 400 | `"room name must be at most 63 characters"` | 名称过长 |
+| 409 | `"a room with this name already exists"` | 名称重复 |
+| 500 | `"Failed to create media room"` | LiveKit 服务器错误 |
+| 500 | `"Failed to create room"` | 数据库错误 |
 
-### General Errors
+### 通用错误
 
-| Status | Meaning |
+| 状态码 | 含义 |
 |--------|---------|
-| 400 | Bad request (missing/invalid data) |
-| 401 | Not authenticated |
-| 403 | Not authorized (non-admin trying admin action) |
-| 404 | Room not found |
-| 409 | Conflict (duplicate resource) |
-| 500 | Internal server error |
+| 400 | 请求错误（缺少或无效的数据） |
+| 401 | 未认证 |
+| 403 | 无权限（非管理员尝试管理员操作） |
+| 404 | 房间未找到 |
+| 409 | 冲突（资源重复） |
+| 500 | 服务器内部错误 |
 
 ---
 
-## See also
+## 另请参阅
 
-- [Architecture Overview](/docs/architecture/overview) - data model and meeting connection flow
-- [API Handlers](/docs/backend/api-handlers) - how room endpoints are implemented
+- [架构概述](/zh/docs/architecture/overview) — 数据模型和会议连接流程
+- [API 处理](/zh/docs/backend/api-handlers) — 房间 endpoint 的实现方式

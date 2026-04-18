@@ -1,34 +1,34 @@
 ---
-title: TURN Server
-description: TURN relay configuration
+title: TURN サーバー
+description: TURN リレーの設定
 order: 14
 ---
 
-Bedrud embeds a TURN server via LiveKit to relay media for clients behind restrictive NATs or firewalls. This page covers architecture, configuration, and troubleshooting.
+Bedrud は LiveKit 経由で TURN サーバーを組み込み、制限的な NAT やファイアウォールの背後にあるクライアントのメディアをリレーします。このページではアーキテクチャ、設定、トラブルシューティングについて説明します。
 
 ---
 
-## What is TURN
+## TURN とは
 
-**TURN** (Traversal Using Relays around NAT) is a protocol that forwards media packets through a server when two endpoints cannot connect directly.
+**TURN**（Traversal Using Relays around NAT）は、2つのエンドポイントが直接接続できない場合に、メディアパケットをサーバー経由で転送するプロトコルです。
 
-**Related protocols:**
+**関連プロトコル：**
 
-| Protocol | Role | Cost |
+| プロトコル | 役割 | コスト |
 |----------|------|------|
-| **STUN** | Discover public IP/port. Lightweight. | None (server only sees small binding requests) |
-| **ICE** | Framework that tries all connectivity options in priority order. | None (orchestration only) |
-| **TURN** | Relay all media when direct path fails. Last resort. | High (server bandwidth = all relayed media) |
+| **STUN** | パブリック IP/ポートの発見。軽量。 | なし（サーバーは小さなバインディングリクエストのみを受信） |
+| **ICE** | すべての接続オプションを優先順位に従って試行するフレームワーク。 | なし（調整のみ） |
+| **TURN** | 直接パスが失敗した場合にすべてのメディアをリレー。最後の手段。 | 高い（サーバー帯域幅 = リレーされるすべてのメディア） |
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+完全な接続スタックについては [WebRTC 接続](/ja/docs/architecture/webrtc-connectivity) を参照してください。
 
 ---
 
-## TURN in Bedrud
+## Bedrud における TURN
 
-LiveKit includes an embedded TURN server. No external infrastructure needed.
+LiveKit には組み込みの TURN サーバーが含まれています。外部インフラは不要です。
 
-### Relay Architecture
+### リレーアーキテクチャ
 
 ```mermaid
 flowchart LR
@@ -54,9 +54,9 @@ flowchart LR
     A -.->|"discover public IP"| STUN
 ```
 
-### Connection Priority
+### 接続の優先順位
 
-LiveKit tries connection types in order. Each fallback adds latency and server cost:
+LiveKit は接続タイプを順番に試行します。フォールバックごとにレイテンシとサーバーコストが増加します。
 
 ```mermaid
 flowchart TD
@@ -70,43 +70,43 @@ flowchart TD
     D -->|"fail"| E[Connection failed]
 ```
 
-| Priority | Type | Port | Typical scenario |
+| 優先度 | タイプ | ポート | 典型的なシナリオ |
 |----------|------|------|-----------------|
-| 1 | ICE/UDP (direct) | 50000-60000 | Most connections. No relay. |
-| 2 | TURN/UDP | 3478 | Symmetric NAT, P2P blocked. |
-| 3 | ICE/TCP | 7881 | UDP blocked (VPN, some firewalls). |
-| 4 | TURN/TLS | 5349 or 443 | Corporate firewall, only HTTPS outbound. |
+| 1 | ICE/UDP（直接） | 50000-60000 | ほとんどの接続。リレーなし。 |
+| 2 | TURN/UDP | 3478 | Symmetric NAT、P2P ブロック。 |
+| 3 | ICE/TCP | 7881 | UDP ブロック（VPN、一部のファイアウォール）。 |
+| 4 | TURN/TLS | 5349 または 443 | 企業ファイアウォール、HTTPS 送信のみ。 |
 
 ---
 
-## When TURN Activates
+## TURN がアクティブになる条件
 
-TURN activates when direct media path fails. Common causes:
+TURN は直接メディアパスが失敗した場合にアクティブになります。一般的な原因：
 
-- **Symmetric NAT on both peers** - Both the client and server have Symmetric NAT. The NAT assigns a different public port for each destination, so the address discovered by STUN becomes unreachable.
-- **Corporate firewall** - blocks outbound UDP entirely. Only TCP port 443 allowed.
-- **VPN restrictions** - some VPNs intercept or block WebRTC traffic.
-- **Cloud VMs without public IP** - some cloud providers use NAT that breaks direct ICE.
+- **両端での Symmetric NAT** - クライアントとサーバーの両方が Symmetric NAT を持っています。NAT は宛先ごとに異なるパブリックポートを割り当てるため、STUN で発見されたアドレスに到達できません。
+- **企業ファイアウォール** - 送信 UDP を完全にブロック。TCP ポート 443 のみ許可。
+- **VPN の制限** - 一部の VPN が WebRTC トラフィックを傍受またはブロック。
+- **パブリック IP のないクラウド VM** - 一部のクラウドプロバイダーは直接 ICE を阻害する NAT を使用。
 
-Most users (~80%) never hit TURN. Direct UDP path works.
+ほとんどのユーザー（約 80%）は TURN に到達しません。直接 UDP パスが機能します。
 
-### Bandwidth Cost
+### 帯域幅コスト
 
-When TURN relays, the server carries all media for that participant. Approximate per-stream bandwidth:
+TURN がリレーする場合、サーバーはその参加者のすべてのメディアを処理します。ストリームあたりの概算帯域幅：
 
-| Stream type | Bitrate | Per relayed participant |
+| ストリームタイプ | ビットレート | リレー参加者あたり |
 |-------------|---------|------------------------|
-| Audio (Opus) | ~32 Kbps | ~32 Kbps |
-| Video 720p (VP8) | ~1.5 Mbps | ~1.5 Mbps up + 1.5 Mbps down per subscribed track |
-| Screen share 1080p | ~2.5 Mbps | ~2.5 Mbps |
+| 音声（Opus） | ~32 Kbps | ~32 Kbps |
+| ビデオ 720p（VP8） | ~1.5 Mbps | 購読トラックごとに ~1.5 Mbps 上り + 1.5 Mbps 下り |
+| 画面共有 1080p | ~2.5 Mbps | ~2.5 Mbps |
 
-For a 5-person meeting with one relayed participant: server handles ~1.5 Mbps extra for that participant's video relay. Multiply these values by the number of relayed participants to estimate total server bandwidth.
+5人の会議で1人がリレーされている場合、サーバーはその参加者のビデオリレーのために約 1.5 Mbps の追加帯域を処理します。リレー参加者の数を掛けて合計サーバー帯域幅を見積もってください。
 
 ---
 
-## Configuration
+## 設定
 
-**File:** `server/config/livekit.yaml` (dev) or `/etc/bedrud/livekit.yaml` (production)
+**ファイル：** `server/config/livekit.yaml`（開発）または `/etc/bedrud/livekit.yaml`（本番）
 
 ```yaml
 turn:
@@ -121,40 +121,40 @@ turn:
   external_tls: false
 ```
 
-### Key Reference
+### 設定キー参照
 
-| Key | Default | Description |
+| キー | デフォルト | 説明 |
 |-----|---------|-------------|
-| `enabled` | `true` | Enable embedded TURN server. |
-| `domain` | `localhost` | Domain advertised to clients. Must resolve to server's public IP. |
-| `udp_port` | `3478` | TURN/UDP port. Also serves STUN binding requests when TURN is enabled. |
-| `tls_port` | `5349` | TURN/TLS port. Set to `443` if no load balancer terminates TLS. |
-| `cert_file` | - | TLS certificate for TURN/TLS. Required when TURN/TLS clients exist. |
-| `key_file` | - | TLS private key matching `cert_file`. |
-| `relay_range_start` | `30000` | Start of UDP port range used for relayed media packets. |
-| `relay_range_end` | `40000` | End of relay port range. Each relayed participant consumes ports from this range. |
-| `external_tls` | `false` | Set `true` when a Layer 4 load balancer terminates TURN/TLS. LiveKit skips its own TLS on the TURN port. |
+| `enabled` | `true` | 組み込み TURN サーバーを有効にします。 |
+| `domain` | `localhost` | クライアントにアドバタイズされるドメイン。サーバーのパブリック IP に解決される必要があります。 |
+| `udp_port` | `3478` | TURN/UDP ポート。TURN が有効な場合、STUN バインディングリクエストも処理します。 |
+| `tls_port` | `5349` | TURN/TLS ポート。ロードバランサーが TLS を終端しない場合は `443` に設定。 |
+| `cert_file` | - | TURN/TLS 用 TLS 証明書。TURN/TLS クライアントが存在する場合に必須。 |
+| `key_file` | - | `cert_file` に対応する TLS 秘密鍵。 |
+| `relay_range_start` | `30000` | リレーメディアパケットに使用される UDP ポート範囲の開始。 |
+| `relay_range_end` | `40000` | リレーポート範囲の終了。リレー参加者ごとにこの範囲からポートを消費します。 |
+| `external_tls` | `false` | Layer 4 ロードバランサーが TURN/TLS を終端する場合に `true` に設定。LiveKit は TURN ポートで独自の TLS をスキップします。 |
 
-### `use_external_ip` Interaction
+### `use_external_ip` との連携
 
-In the same `livekit.yaml`, under `rtc:`:
+同じ `livekit.yaml` の `rtc:` セクション：
 
 ```yaml
 rtc:
   use_external_ip: true
 ```
 
-Must be `true` for TURN to work correctly. When `false`, ICE candidates contain internal (private) IP addresses that clients on the internet cannot reach.
+TURN が正しく機能するには `true` である必要があります。`false` の場合、ICE 候補にはインターネット上のクライアントから到達できない内部（プライベート）IP アドレスが含まれます。
 
 ---
 
-## Production TLS Setup
+## 本番 TLS の設定
 
-TURN/TLS requires its own TLS certificate. Two approaches:
+TURN/TLS には独自の TLS 証明書が必要です。2つのアプローチがあります。
 
-### Single Domain (No Load Balancer)
+### シングルドメイン（ロードバランサーなし）
 
-Reuse the server's TLS certificate. Set `tls_port` to `443`:
+サーバーの TLS 証明書を再利用します。`tls_port` を `443` に設定。
 
 ```yaml
 turn:
@@ -165,9 +165,9 @@ turn:
   key_file: /etc/bedrud/meet.example.com.key
 ```
 
-The TURN domain and server domain are the same. Port 443 handles both HTTPS API and TURN/TLS - LiveKit distinguishes by protocol.
+TURN ドメインとサーバードメインは同じです。ポート 443 は HTTPS API と TURN/TLS の両方を処理します。LiveKit はプロトコルで区別します。
 
-### Dedicated TURN Domain (With Load Balancer)
+### 専用 TURN ドメイン（ロードバランサーあり）
 
 ```mermaid
 flowchart LR
@@ -187,11 +187,11 @@ turn:
   external_tls: true
 ```
 
-The load balancer terminates TLS. `external_tls: true` tells LiveKit to expect already-decrypted traffic.
+ロードバランサーが TLS を終端します。`external_tls: true` は LiveKit に既に復号されたトラフィックを想定するよう指示します。
 
 ---
 
-## Port & Firewall Reference
+## ポートとファイアウォールの参照
 
 ```mermaid
 flowchart TB
@@ -220,18 +220,18 @@ flowchart TB
     C --> PRANGE --> LK
 ```
 
-| Port | Protocol | Service | Required | Notes |
+| ポート | プロトコル | サービス | 必須 | 備考 |
 |------|----------|---------|----------|-------|
-| 443 | TCP | HTTPS + TURN/TLS | Yes | API + web UI. Also TURN/TLS if `tls_port: 443`. |
-| 3478 | UDP | TURN/UDP + STUN | Recommended | Dual purpose: STUN binding + TURN relay. |
-| 5349 | TCP | TURN/TLS | If no LB | Dedicated TURN/TLS port. Skip if using port 443. |
-| 7881 | TCP | ICE/TCP | Recommended | Fallback when UDP blocked but TLS not needed. |
-| 50000-60000 | UDP | RTC media | Yes | ICE candidate ports. Each participant uses 2 ports. |
-| 7880 | TCP | LiveKit API | Internal | WebSocket signaling. Not exposed directly in production. |
+| 443 | TCP | HTTPS + TURN/TLS | はい | API + Web UI。`tls_port: 443` の場合は TURN/TLS も兼用。 |
+| 3478 | UDP | TURN/UDP + STUN | 推奨 | デュアルパーパス：STUN バインディング + TURN リレー。 |
+| 5349 | TCP | TURN/TLS | LB なしの場合 | 専用 TURN/TLS ポート。ポート 443 を使用する場合は不要。 |
+| 7881 | TCP | ICE/TCP | 推奨 | UDP がブロックされているが TLS が不要な場合のフォールバック。 |
+| 50000-60000 | UDP | RTC メディア | はい | ICE 候補ポート。参加者ごとに 2 ポートを使用。 |
+| 7880 | TCP | LiveKit API | 内部 | WebSocket シグナリング。本番では直接公開しません。 |
 
-### Minimum Firewall Rules
+### 最小ファイアウォールルール
 
-For basic connectivity:
+基本的な接続のため：
 
 ```
 Allow TCP 443    (HTTPS + TURN/TLS)
@@ -239,7 +239,7 @@ Allow UDP 3478   (TURN/UDP + STUN)
 Allow UDP 50000-60000  (RTC media)
 ```
 
-For maximum compatibility (corporate networks):
+最大限の互換性（企業ネットワーク）のため：
 
 ```
 Also allow TCP 7881  (ICE/TCP)
@@ -248,26 +248,26 @@ Also allow TCP 5349  (TURN/TLS, if not using port 443)
 
 ---
 
-## Testing & Debugging
+## テストとデバッグ
 
-### Browser: chrome://webrtc-internals
+### ブラウザ：chrome://webrtc-internals
 
-1. Open `chrome://webrtc-internals` in Chrome/Edge before joining a meeting.
-2. Create a dump.
-3. Look for **ICE candidate pairs** in the Stats tab.
-4. Candidate types tell you the connection path:
+1. Chrome/Edge で会議に参加する前に `chrome://webrtc-internals` を開きます。
+2. ダンプを作成します。
+3. Stats タブで **ICE candidate pairs** を探します。
+4. 候補タイプが接続パスを示します。
 
-| Candidate type | Meaning |
+| 候補タイプ | 意味 |
 |---------------|---------|
-| `host` | Local IP. Direct interface. |
-| `srflx` (server reflexive) | STUN-discovered public IP. Direct P2P working. |
-| `relay` | TURN relay active. Media goes through server. |
+| `host` | ローカル IP。直接インターフェース。 |
+| `srflx`（サーバーリフレクシブ） | STUN で発見されたパブリック IP。直接 P2P が機能中。 |
+| `relay` | TURN リレーアクティブ。メディアがサーバー経由。 |
 
-If you see `relay` candidates as the active pair, TURN is handling that connection.
+`relay` 候補がアクティブペアとして表示される場合、TURN がその接続を処理しています。
 
-### LiveKit Client SDK Events
+### LiveKit クライアント SDK イベント
 
-All LiveKit SDKs emit connection state events:
+すべての LiveKit SDK は接続状態イベントを発行します。
 
 ```typescript
 room.on(RoomEvent.Connected, () => {
@@ -279,68 +279,69 @@ room.on(RoomEvent.Reconnecting, () => {
 });
 ```
 
-Check `room.localParticipant.connectionQuality` for connection stats.
+接続統計は `room.localParticipant.connectionQuality` を確認してください。
 
-### LiveKit Server Logs
+### LiveKit サーバーログ
 
-Increase log level to debug in `livekit.yaml`:
+`livekit.yaml` でログレベルを debug に上げます。
 
 ```yaml
 logging:
   level: debug
 ```
 
-Look for log entries containing:
-- `ICE` - candidate gathering status
-- `TURN` - relay allocation events
-- `relay` - active relay connections
+以下を含むログエントリを確認します。
 
-### Manual TURN Test with turnutils
+- `ICE` - 候補収集ステータス
+- `TURN` - リレー割り当てイベント
+- `relay` - アクティブなリレー接続
 
-Install `coturn-utils` package, then test TURN connectivity:
+### turnutils による手動 TURN テスト
+
+`coturn-utils` パッケージをインストールし、TURN 接続をテストします。
 
 ```bash
 turnutils_uclient -t -p 3478 -W devkey -u devkey turn.example.com
 ```
 
-- `-t` - use TCP
-- `-p` - TURN port
-- Replace credentials with production values
+- `-t` - TCP を使用
+- `-p` - TURN ポート
+- 認証情報は本番の値に置き換えてください
 
-Success output shows allocated relay addresses.
+成功時の出力には割り当てられたリレーアドレスが表示されます。
 
 ---
 
-## Troubleshooting
+## トラブルシューティング
 
-| Symptom | Likely Cause | Fix |
+| 症状 | 考えられる原因 | 修正 |
 |---------|-------------|-----|
-| Clients can't connect, timeout | TURN ports blocked by firewall | Open UDP 3478, TCP 5349, UDP 50000-60000 |
-| TURN/TLS fails | Missing or mismatched TLS cert | Verify `cert_file`/`key_file` paths. Check cert matches `domain`. |
-| TURN/TLS fails with LB | `external_tls` not set | Set `external_tls: true` in config. |
-| One-way audio/video | Relay port range blocked | Open `relay_range_start` to `relay_range_end` UDP. |
-| High server bandwidth | Many clients behind NAT using relay | Expected. Scale server or reduce relay users. |
-| `relay` candidates but `srflx` expected | `use_external_ip: false` | Set `rtc.use_external_ip: true`. |
-| TURN domain doesn't resolve | DNS misconfigured | `dig +short turn.example.com` must return server's public IP. |
-| Clients behind corporate firewall | Only port 443 allowed | Set `turn.tls_port: 443`. Ensure cert is valid. |
-| `turn.enabled: true` but no relay | Direct path works (good) | TURN is fallback. No relay = better. Verify with `chrome://webrtc-internals`. |
+| クライアントが接続できない、タイムアウト | ファイアウォールで TURN ポートがブロック | UDP 3478、TCP 5349、UDP 50000-60000 を開放 |
+| TURN/TLS が失敗する | TLS 証明書の欠落または不一致 | `cert_file`/`key_file` のパスを確認。証明書が `domain` と一致するか確認。 |
+| ロードバランサー使用時の TURN/TLS 失敗 | `external_tls` 未設定 | 設定で `external_tls: true` を指定。 |
+| 一方通行の音声/ビデオ | リレーポート範囲がブロック | `relay_range_start` から `relay_range_end` までの UDP を開放。 |
+| サーバー帯域幅が高い | NAT 背後の多くのクライアントがリレーを使用 | 想定内。サーバーをスケールアップするかリレーユーザーを減らす。 |
+| `relay` 候補が表示されるが `srflx` が期待される | `use_external_ip: false` | `rtc.use_external_ip: true` を設定。 |
+| TURN ドメインが解決されない | DNS 設定ミス | `dig +short turn.example.com` がサーバーのパブリック IP を返す必要がある。 |
+| 企業ファイアウォール背後のクライアント | ポート 443 のみ許可 | `turn.tls_port: 443` を設定。証明書が有効であることを確認。 |
+| `turn.enabled: true` だがリレーなし | 直接パスが機能している（正常） | TURN はフォールバック。リレーなしの方が良い。`chrome://webrtc-internals` で確認。 |
 
-### Quick Diagnostic Checklist
+### クイック診断チェックリスト
 
-1. `dig +short <turn.domain>` returns correct public IP?
-2. Firewall allows UDP 3478, TCP 5349, UDP 50000-60000?
-3. `tls_port: 443` or `5349` matches firewall rules?
-4. `cert_file` and `key_file` exist and are readable?
-5. Certificate CN/SAN matches `turn.domain`?
-6. `rtc.use_external_ip: true` set?
-7. LiveKit logs show no TURN-related errors?
+1. `dig +short <turn.domain>` が正しいパブリック IP を返すか？
+2. ファイアウォールが UDP 3478、TCP 5349、UDP 50000-60000 を許可しているか？
+3. `tls_port: 443` または `5349` がファイアウォールルールと一致するか？
+4. `cert_file` と `key_file` が存在し、読み取り可能か？
+5. 証明書の CN/SAN が `turn.domain` と一致するか？
+6. `rtc.use_external_ip: true` が設定されているか？
+7. LiveKit ログに TURN 関連のエラーがないか？
 
 ---
 
-## See also
+## 関連項目
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Configuration Reference](/docs/getting-started/configuration) - all config options
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
-- [Deployment Guide](/docs/guides/deployment) - production deployment steps
+- [WebRTC 接続](/ja/docs/architecture/webrtc-connectivity) - 完全な STUN/ICE/TURN/SFU 接続スタック
+- [LiveKit インテグレーション](/ja/docs/backend/livekit) - Bedrud が LiveKit を組み込む方法
+- [設定リファレンス](/ja/docs/getting-started/configuration) - すべての設定オプション
+- [Internal TLS](/ja/docs/guides/internal-tls) - 分離ネットワーク向け TLS
+- [デプロイメントガイド](/ja/docs/guides/deployment) - 本番デプロイメント手順

@@ -1,33 +1,33 @@
 ---
-title: Makefile Reference
-description: Build automation commands
+title: Makefile Referansı
+description: Derleme otomasyon komutları
 order: 31
 ---
 
-The root `Makefile` is the central build orchestration tool for the Bedrud monorepo. It provides commands for development, building, and deployment across all platforms.
+Kök dizindeki `Makefile`, Bedrud monoreposu için merkezi derleme orkestrasyon aracıdır. Tüm platformlarda geliştirme, derleme ve dağıtım için komutlar sağlar.
 
-## Usage
+## Kullanım
 
 ```bash
-make <target>
-make help       # Show all available targets
+make <hedef>
+make help       # Tüm kullanılabilir hedefleri göster
 ```
 
-## Development Targets
+## Geliştirme Hedefleri
 
-| Target | Description |
-|--------|-------------|
-| `make init` | Install all dependencies (web + server) |
-| `make dev` | Run LiveKit + server + web concurrently |
-| `make dev-web` | Run frontend dev server only |
-| `make dev-server` | Run backend server only |
-| `make dev-livekit` | Run local LiveKit server |
-| `make dev-ios` | Open iOS project in Xcode |
-| `make dev-android` | Open Android project in Android Studio |
+| Hedef               | Açıklama                                         |
+|----------------------|--------------------------------------------------|
+| `make init`          | Tüm bağımlılıkları kurar (web + sunucu)          |
+| `make dev`           | LiveKit + sunucu + web'i eşzamanlı çalıştırır    |
+| `make dev-web`       | Yalnızca ön uç geliştirme sunucusunu çalıştırır  |
+| `make dev-server`    | Yalnızca arka uç sunucusunu çalıştırır            |
+| `make dev-livekit`   | Yerel LiveKit sunucusunu çalıştırır               |
+| `make dev-ios`       | iOS projesini Xcode'da açar                      |
+| `make dev-android`   | Android projesini Android Studio'da açar         |
 
 ### `make init`
 
-Installs dependencies for both the web frontend and Go server:
+Hem web ön ucu hem de Go sunucusu için bağımlılıkları kurar:
 
 ```bash
 cd apps/web && bun install
@@ -36,103 +36,103 @@ cd server && go mod tidy && go mod download
 
 ### `make dev`
 
-Starts all three development services concurrently. Press `Ctrl+C` to stop all:
+Üç geliştirme servisini eşzamanlı başlatır. Durdurmak için `Ctrl+C` tuşlarına basın:
 
-- **LiveKit** at `localhost:7880`
-- **Server** at `localhost:8090`
-- **Web** at `localhost:3000`
+- **LiveKit** `localhost:7880` adresinde
+- **Sunucu** `localhost:8090` adresinde
+- **Web** `localhost:3000` adresinde
 
-## Build Targets
+## Derleme Hedefleri
 
-| Target | Description |
-|--------|-------------|
-| `make build` | Build frontend + backend (embedded) |
-| `make build-front` | Build frontend only |
-| `make build-back` | Build backend only |
-| `make build-dist` | Build production linux/amd64 tarball |
+| Hedef                  | Açıklama                                        |
+|------------------------|-------------------------------------------------|
+| `make build`           | Ön uç + arka uç derlemesi (gömülü)              |
+| `make build-front`     | Yalnızca ön uç derlemesi                        |
+| `make build-back`      | Yalnızca arka uç derlemesi                      |
+| `make build-dist`      | Üretim linux/amd64 arşivi oluşturur             |
 
 ### `make build`
 
-Full production build:
+Tam üretim derlemesi:
 
-1. Runs `bun run build:embed` - SSR pre-renders the React app and copies assets to `server/frontend/`
-2. Builds the Go binary with the embedded frontend
+1. `bun run build:embed` çalıştırır - React uygulamasını SSR ile ön rendeleyip varlıkları `server/frontend/` dizinine kopyalar
+2. Gömülü ön uçla birlikte Go ikili dosyasını derler
 
-Output: `server/dist/bedrud`
+Çıktı: `server/dist/bedrud`
 
 ### `make build-dist`
 
-Creates a compressed, production-ready distribution:
+Sıkıştırılmış, üretim hazır bir dağıtım oluşturur:
 
-1. Runs `make build`
-2. Cross-compiles for `linux/amd64` with stripped debug symbols
-3. Creates `dist/bedrud_linux_amd64.tar.xz`
+1. `make build` çalıştırır
+2. Hata ayıklama sembolleri çıkarılarak `linux/amd64` için çapraz derler
+3. `dist/bedrud_linux_amd64.tar.xz` oluşturur
 
-## Android Targets
+## Android Hedefleri
 
-| Target | Description |
-|--------|-------------|
-| `make build-android-debug` | Build debug APK |
-| `make build-android` | Build release APK (requires keystore) |
-| `make install-android` | Install release APK on connected device |
-| `make release-android` | Build + install release APK |
+| Hedef                      | Açıklama                                        |
+|----------------------------|-------------------------------------------------|
+| `make build-android-debug` | Debug APK derler                                |
+| `make build-android`       | Release APK derler (keystore gerektirir)        |
+| `make install-android`     | Release APK'yı bağlı cihaza kurar               |
+| `make release-android`     | Derler + release APK'yı cihaza kurar            |
 
-### APK Output Paths
+### APK Çıktı Yolları
 
 - Debug: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
 - Release: `apps/android/app/build/outputs/apk/release/app-release.apk`
 
-## iOS Targets
+## iOS Hedefleri
 
-| Target | Description |
-|--------|-------------|
-| `make build-ios` | Build iOS archive (Release) |
-| `make export-ios` | Export IPA from archive |
-| `make build-ios-sim` | Build for iOS Simulator (Debug) |
+| Hedef                   | Açıklama                                   |
+|-------------------------|---------------------------------------------|
+| `make build-ios`        | iOS arşivi derler (Release)                |
+| `make export-ios`       | Arşivden IPA dışa aktarır                  |
+| `make build-ios-sim`    | iOS Simülatörü için derler (Debug)         |
 
-### Output Paths
+### Çıktı Yolları
 
-- Archive: `apps/ios/build/Bedrud.xcarchive`
+- Arşiv: `apps/ios/build/Bedrud.xcarchive`
 - IPA: `apps/ios/build/export/Bedrud.ipa`
 
-## Deploy Target
+## Dağıtım Hedefi
 
-| Target | Description |
-|--------|-------------|
-| `make deploy ARGS=...` | Run the deployment CLI tool |
+| Hedef                    | Açıklama                       |
+|--------------------------|---------------------------------|
+| `make deploy ARGS=...`   | Dağıtım CLI aracını çalıştırır  |
 
-### Example
+### Örnek
 
 ```bash
 make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.com"
 ```
 
-This runs the Python CLI at `tools/cli/bedrud.py` with the provided arguments.
+Bu, `tools/cli/bedrud.py` konumundaki Python CLI aracını belirtilen argümanlarla çalıştırır.
 
-## Clean Targets
+## Temizleme Hedefleri
 
-| Target | Description |
-|--------|-------------|
-| `make clean` | Remove build artifacts and compiled binaries |
-| `make full-clean` | Remove artifacts + all installed dependencies |
+| Hedef                | Açıklama                                              |
+|-----------------------|-------------------------------------------------------|
+| `make clean`          | Derleme çıktılarını ve derlenmiş ikili dosyaları kaldırır |
+| `make full-clean`     | Çıktılar + tüm kurulmuş bağımlılıkları kaldırır       |
 
 ### `make clean`
 
-Removes:
+Şunları kaldırır:
 
-- `dist/` - distribution tarballs
-- `server/dist/` - compiled server binary
-- `apps/web/dist/` - React build output
-- `server/frontend/` contents - embedded frontend assets
-- `apps/android/app/build/` - Android build outputs
-- `apps/ios/build/` - iOS build outputs
+- `dist/` - dağıtım arşivleri
+- `server/dist/` - derlenmiş sunucu ikilisi
+- `apps/web/dist/` - React derleme çıktısı
+- `server/frontend/` içeriği - gömülü ön uç varlıkları
+- `apps/android/app/build/` - Android derleme çıktıları
+- `apps/ios/build/` - iOS derleme çıktıları
 
 ### `make full-clean`
 
-Everything `clean` does, plus:
+`clean` komutunun yaptığı her şey, ayrıca:
 
 - `apps/web/node_modules/`
 - `apps/android/.gradle/`
-- Go module cache (`go clean -modcache`)
+- Go modül önbelleği (`go clean -modcache`)
 
-Run `make init` afterwards to reinstall dependencies.
+Sonrasında bağımlılıkları yeniden kurmak için `make init` çalıştırın.

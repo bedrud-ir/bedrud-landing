@@ -1,44 +1,44 @@
 ---
-title: Development Workflow
-description: Set up development environment
+title: 開発ワークフロー
+description: 開発環境のセットアップ
 order: 27
 ---
 
-This guide covers the day-to-day development workflow for contributing to Bedrud.
+Bedrud へのコントリビューションに必要な日常的な開発ワークフローについて説明します。
 
-## Repository Layout
+## リポジトリレイアウト
 
 ```
 bedrud/
-├── server/          # Go backend
+├── server/          # Go バックエンド
 ├── apps/
-│   ├── web/         # React frontend (TanStack Start)
-│   ├── android/     # Android app
-│   ├── ios/         # iOS app
-│   └── desktop/     # Desktop app (Rust + Slint)
-├── agents/          # Python bot agents
-├── packages/        # Shared TypeScript types
-├── tools/cli/       # Deployment CLI
-├── docs/            # Documentation (MkDocs)
-├── Cargo.toml       # Rust workspace root
-├── Makefile         # Build orchestration
-└── Dockerfile       # Container build
+│   ├── web/         # React フロントエンド (TanStack Start)
+│   ├── android/     # Android アプリ
+│   ├── ios/         # iOS アプリ
+│   └── desktop/     # デスクトップアプリ (Rust + Slint)
+├── agents/          # Python ボットエージェント
+├── packages/        # 共有 TypeScript 型
+├── tools/cli/       # デプロイ CLI
+├── docs/            # ドキュメント (MkDocs)
+├── Cargo.toml       # Rust ワークスペースルート
+├── Makefile         # ビルドオーケストレーション
+└── Dockerfile       # コンテナビルド
 ```
 
-## Prerequisites
+## 前提条件
 
-| Tool | Required For |
+| ツール | 対象 |
 |------|-------------|
-| Go 1.24+ | Server |
-| Bun | Web frontend |
-| LiveKit Server | Local media server |
-| Android Studio + JDK 17 | Android app |
-| Xcode | iOS app |
-| Rust (stable) | Desktop app |
-| Python 3.10+ | Bot agents |
-| FFmpeg | Radio and video agents |
+| Go 1.24+ | サーバー |
+| Bun | Web フロントエンド |
+| LiveKit Server | ローカルメディアサーバー |
+| Android Studio + JDK 17 | Android アプリ |
+| Xcode | iOS アプリ |
+| Rust (stable) | デスクトップアプリ |
+| Python 3.10+ | ボットエージェント |
+| FFmpeg | ラジオ・動画エージェント |
 
-## Initial Setup
+## 初期セットアップ
 
 ```bash
 git clone https://github.com/bedrud-ir/bedrud.git
@@ -46,22 +46,22 @@ cd bedrud
 make init
 ```
 
-## Full-Stack Development
+## フルスタック開発
 
-To run the entire stack locally:
+ローカルで全体スタックを実行するには：
 
 ```bash
 make dev
 ```
 
-This starts LiveKit, the Go server, and the React dev server concurrently. Press `Ctrl+C` to stop all processes.
+LiveKit、Go サーバー、React 開発サーバーが同時に起動します。`Ctrl+C` ですべてのプロセスを停止します。
 
-### Running Services Individually
+### サービスの個別実行
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="web-frontend">Web Frontend</TabsTrigger>
-    <TabsTrigger value="go-server">Go Server</TabsTrigger>
+    <TabsTrigger value="web-frontend">Web フロントエンド</TabsTrigger>
+    <TabsTrigger value="go-server">Go サーバー</TabsTrigger>
     <TabsTrigger value="livekit">LiveKit</TabsTrigger>
   </TabsList>
 
@@ -69,133 +69,133 @@ This starts LiveKit, the Go server, and the React dev server concurrently. Press
     ```bash
     make dev-web
     ```
-    Runs at `http://localhost:3000` with hot module replacement.
+    `http://localhost:3000` でホットモジュール置換付きで実行されます。
   </TabsContent>
 
   <TabsContent value="go-server">
     ```bash
     make dev-server
     ```
-    Runs at `http://localhost:8090`. Restart manually after Go code changes.
+    `http://localhost:8090` で実行されます。Go コード変更後は手動で再起動が必要です。
   </TabsContent>
 
   <TabsContent value="livekit">
     ```bash
     make dev-livekit
     ```
-    Runs at `http://localhost:7880` with development credentials.
+    `http://localhost:7880` で開発用認証情報で実行されます。
   </TabsContent>
 </Tabs>
 
-## Server Development
+## サーバー開発
 
-The Go server entry point is `server/cmd/server/main.go`.
+Go サーバーのエントリポイントは `server/cmd/server/main.go` です。
 
-### Adding an API Endpoint
+### API エンドポイントの追加
 
-1. **Define the handler** in `server/internal/handlers/`
-2. **Add repository methods** in `server/internal/repository/` if new DB queries are needed
-3. **Register the route** in the server setup (usually in `main.go` or a routes file)
-4. **Add middleware** if the endpoint needs auth or admin checks
+1. `server/internal/handlers/` に**ハンドラーを定義**
+2. 新しい DB クエリが必要な場合は `server/internal/repository/` に**リポジトリメソッドを追加**
+3. サーバーセットアップ（通常 `main.go` またはルーティングファイル）に**ルートを登録**
+4. 認証や管理者チェックが必要な場合は**ミドルウェアを追加**
 
-### Database Changes
+### データベースの変更
 
-Add or modify GORM model structs in `server/internal/models/`. GORM auto-migrates on startup.
+`server/internal/models/` で GORM モデル構造体を追加または変更します。GORM は起動時に自動マイグレーションを行います。
 
-### Swagger Docs
+### Swagger ドキュメント
 
-API documentation annotations use swaggo format. After changes, regenerate:
+API ドキュメントのアノテーションには swaggo 形式を使用します。変更後、再生成します：
 
 ```bash
 cd server
 swag init -g cmd/server/main.go
 ```
 
-> See [Server Architecture](/docs/architecture/server) for the full directory layout and layered design.
+> 完全なディレクトリレイアウトとレイヤー設計については、[サーバーアーキテクチャ](/ja/docs/architecture/server)を参照してください。
 
-## Web Frontend Development
+## Web フロントエンド開発
 
-The frontend is at `apps/web/` and uses React 19 with TanStack Start.
+フロントエンドは `apps/web/` にあり、React 19 と TanStack Start を使用しています。
 
-### Adding a Page
+### ページの追加
 
-Create a new file under `src/routes/` following [TanStack Router's file-based routing convention](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing) (e.g. `src/routes/settings.tsx`). Export a `Route` created with `createFileRoute`.
+[TanStack Router のファイルベースルーティング規約](https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing)に従って、`src/routes/` の下に新しいファイルを作成します（例：`src/routes/settings.tsx`）。`createFileRoute` で作成した `Route` をエクスポートします。
 
-### Adding an API Client Function
+### API クライアント関数の追加
 
-1. Add the function in `src/lib/api.ts` using `authFetch`
-2. Define TypeScript types inline or in a shared types file
-3. Use the function from your route component, typically via a TanStack Query `useQuery` hook
+1. `src/lib/api.ts` に `authFetch` を使用して関数を追加
+2. TypeScript 型をインラインまたは共有型ファイルで定義
+3. ルートコンポーネントから TanStack Query の `useQuery` フック経由で使用
 
-### Type Checking
+### 型チェック
 
 ```bash
 cd apps/web
 bun run check    # runs Biome lint + TypeScript type check
 ```
 
-> See [Web Frontend Architecture](/docs/architecture/web) for the complete frontend structure and patterns.
+> 完全なフロントエンド構造とパターンについては、[Web フロントエンドアーキテクチャ](/ja/docs/architecture/web)を参照してください。
 
-## Android Development
+## Android 開発
 
 ```bash
-make dev-android    # Opens in Android Studio
+make dev-android    # Android Studio で開く
 ```
 
-### Key Patterns
+### 主要なパターン
 
-- All screens are Composable functions
-- Dependencies come from `InstanceManager` via `koinInject()`
-- Use `collectAsState().value ?: return` for nullable `StateFlow` values
-- Navigation is handled in `MainActivity.kt`
+- すべての画面は Composable 関数
+- 依存関係は `InstanceManager` 経由で `koinInject()` で取得
+- nullable な `StateFlow` 値には `collectAsState().value ?: return` を使用
+- ナビゲーションは `MainActivity.kt` で処理
 
-### Building
+### ビルド
 
 ```bash
 make build-android-debug    # Debug APK
-make build-android          # Release APK (needs keystore)
-make release-android        # Build + install on device
+make build-android          # Release APK（キーストアが必要）
+make release-android        # ビルド + デバイスにインストール
 ```
 
-> See [Android App Architecture](/docs/architecture/android) for detailed mobile app architecture.
+> 詳しいモバイルアプリアーキテクチャについては、[Android アプリアーキテクチャ](/ja/docs/architecture/android)を参照してください。
 
-## iOS Development
+## iOS 開発
 
 ```bash
-make dev-ios    # Opens in Xcode
+make dev-ios    # Xcode で開く
 ```
 
-### Key Patterns
+### 主要なパターン
 
-- Views are SwiftUI structs
-- Dependencies come from `InstanceManager` via `@EnvironmentObject`
-- Use optional binding for nullable published properties
-- Navigation uses SwiftUI's native navigation stack
+- ビューは SwiftUI 構造体
+- 依存関係は `InstanceManager` 経由で `@EnvironmentObject` で取得
+- nullable な published プロパティにはオプショナルバインディングを使用
+- ナビゲーションは SwiftUI のネイティブナビゲーションスタックを使用
 
-### Project Generation
+### プロジェクト生成
 
-If you modify `project.yml`, regenerate the Xcode project:
+`project.yml` を変更した場合、Xcode プロジェクトを再生成します：
 
 ```bash
 cd apps/ios
 xcodegen generate
 ```
 
-### Building
+### ビルド
 
 ```bash
-make build-ios          # Release archive
-make build-ios-sim      # Simulator build
-make export-ios         # Export IPA
+make build-ios          # Release アーカイブ
+make build-ios-sim      # シミュレータビルド
+make export-ios         # IPA をエクスポート
 ```
 
-> See [iOS App Architecture](/docs/architecture/ios) for detailed mobile app architecture.
+> 詳しいモバイルアプリアーキテクチャについては、[iOS アプリアーキテクチャ](/ja/docs/architecture/ios)を参照してください。
 
-## Desktop Development
+## デスクトップ開発
 
-The desktop app lives in `apps/desktop/` and is a Rust crate in the workspace.
+デスクトップアプリは `apps/desktop/` にあり、ワークスペース内の Rust クレートです。
 
-### Prerequisites (Linux)
+### 前提条件（Linux）
 
 ```bash
 sudo apt-get install -y \
@@ -205,31 +205,31 @@ sudo apt-get install -y \
   libasound2-dev
 ```
 
-Windows requires Visual Studio Build Tools with the C++ workload (MSVC).
+Windows には Visual Studio Build Tools（C++ ワークロード、MSVC）が必要です。
 
-### Running
+### 実行
 
 ```bash
 make dev-desktop    # cargo run -p bedrud-desktop
 ```
 
-### Building
+### ビルド
 
 ```bash
 make build-desktop           # optimised binary for the current platform
 ```
 
-### Key Patterns
+### 主要なパターン
 
-- All UI is defined in `.slint` files under `apps/desktop/ui/`; compiled to Rust at build time by `build.rs`
-- `apps/desktop/src/ui/bridge.rs` is the only place where Slint callbacks are wired to Rust logic - keep business logic out of the `.slint` files
-- Use `Weak<AppWindow>` when spawning background tasks that need to update the UI
+- すべての UI は `apps/desktop/ui/` 以下の `.slint` ファイルで定義 — `build.rs` がビルド時に Rust にコンパイル
+- `apps/desktop/src/ui/bridge.rs` が Slint コールバックを Rust ロジックに接続する唯一の場所 — ビジネスロジックを `.slint` ファイルに配置しないでください
+- UI の更新が必要なバックグラウンドタスクを起動する場合は `Weak<AppWindow>` を使用
 
-> See [Desktop App Architecture](/docs/architecture/desktop) for detailed desktop app architecture.
+> 詳しいデスクトップアプリアーキテクチャについては、[デスクトップアプリアーキテクチャ](/ja/docs/architecture/desktop)を参照してください。
 
-## Bot Agent Development
+## ボットエージェント開発
 
-Agents are in `agents/` with one directory per agent.
+エージェントは `agents/` にあり、エージェントごとに1つのディレクトリがあります。
 
 ```bash
 cd agents/music_agent
@@ -237,34 +237,34 @@ pip install -r requirements.txt
 python agent.py "http://localhost:8090/m/test-room"
 ```
 
-All agents need a running Bedrud server to authenticate against.
+すべてのエージェントは認証先として動作中の Bedrud サーバーが必要です。
 
 ## CI/CD
 
-GitHub Actions runs on every push to `main` and on pull requests:
+GitHub Actions は `main` へのプッシュおよびプルリクエストごとに実行されます：
 
-| Job | What it checks |
+| ジョブ | チェック内容 |
 |-----|---------------|
-| Server | `go vet`, build, tests |
-| Web | Type check, build |
-| Android | Lint, unit tests, debug APK |
-| iOS | Build + test (simulator, with coverage) |
-| Desktop | `cargo build`, `cargo test` |
+| Server | `go vet`、ビルド、テスト |
+| Web | 型チェック、ビルド |
+| Android | リント、ユニットテスト、デバッグ APK |
+| iOS | ビルド + テスト（シミュレータ、カバレッジ付き） |
+| Desktop | `cargo build`、`cargo test` |
 
-Release builds are triggered by version tags (`v*`).
+リリースビルドはバージョンタグ（`v*`）でトリガーされます。
 
-## Code Style
+## コードスタイル
 
-- **Go:** Standard `gofmt` formatting
-- **TypeScript/React:** Biome (configured in `apps/web/biome.json`)
-- **Kotlin:** Android Studio default formatting
-- **Swift:** Xcode default formatting
+- **Go:** 標準の `gofmt` フォーマット
+- **TypeScript/React:** Biome（`apps/web/biome.json` で設定）
+- **Kotlin:** Android Studio のデフォルトフォーマット
+- **Swift:** Xcode のデフォルトフォーマット
 
-## Testing
+## テスト
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="server">Server</TabsTrigger>
+    <TabsTrigger value="server">サーバー</TabsTrigger>
     <TabsTrigger value="web">Web</TabsTrigger>
     <TabsTrigger value="android">Android</TabsTrigger>
     <TabsTrigger value="ios">iOS</TabsTrigger>
@@ -300,7 +300,7 @@ Release builds are triggered by version tags (`v*`).
 
 ---
 
-## See also
+## 関連項目
 
-- [Makefile Reference](/docs/guides/makefile) - all build and dev commands
-- [Architecture Overview](/docs/architecture/overview) - how components fit together
+- [Makefile リファレンス](/ja/docs/guides/makefile) — すべてのビルド・開発コマンド
+- [アーキテクチャ概要](/ja/docs/architecture/overview) — コンポーネントの全体構成

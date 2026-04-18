@@ -4,27 +4,27 @@ description: Native iOS application
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+Bedrud iOS 应用使用 SwiftUI 构建，提供原生视频会议体验，支持多实例和安全凭证存储。
 
-## Technology Stack
+## 技术栈
 
-| Technology | Version | Purpose |
+| 技术 | 版本 | 用途 |
 |-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| Swift | 5.9+ | 语言 |
+| SwiftUI | Latest | UI 框架 |
+| LiveKit Swift SDK | 2.0+ | WebRTC 媒体 |
+| KeychainAccess | 4.2.2+ | 安全凭证存储 |
 
-**Deployment target:** iOS 18.0
+**部署目标：** iOS 18.0
 
-## Project Configuration
+## 项目配置
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+项目使用 **XCodeGen** 从 `project.yml` 生成项目：
 
-- Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- Bundle ID：`com.bedrud.ios`
+- 生成命令：`xcodegen generate`
 
-## Directory Structure
+## 目录结构
 
 ```text
 apps/ios/Bedrud/
@@ -66,9 +66,9 @@ apps/ios/Bedrud/
     └── Components/                # Reusable SwiftUI components
 ```
 
-## Multi-Instance Architecture
+## 多实例架构
 
-The iOS app mirrors the Android architecture for multi-instance support.
+iOS 应用在多实例支持方面镜像了 Android 架构。
 
 ```text
 ┌──────────────────────────┐
@@ -84,9 +84,9 @@ The iOS app mirrors the Android architecture for multi-instance support.
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### 关键模式
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+依赖项是 `InstanceManager` 上的 `@Published` 属性，而 `InstanceManager` 是一个 `ObservableObject`。视图通过 `@EnvironmentObject` 接收它：
 
 ```swift
 struct DashboardView: View {
@@ -100,7 +100,7 @@ struct DashboardView: View {
 }
 ```
 
-### Navigation Flow
+### 导航流程
 
 ```text
 No instances ──► AddInstanceView
@@ -108,11 +108,11 @@ Has instances, not logged in ──► LoginView
 Has instances, logged in ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+实例切换器作为从仪表板工具栏触发的 `.sheet` 出现。
 
-## App Entry Point
+## 应用入口
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` 初始化核心服务并将它们注入到 SwiftUI 环境中：
 
 ```swift
 @main
@@ -132,21 +132,21 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## 功能
 
-### Secure Storage
+### 安全存储
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+使用 **KeychainAccess** 存储 JWT 令牌和敏感凭证，而非 UserDefaults。
 
-### Deep Linking
+### 深度链接
 
-Handles URLs for direct room joining and room codes.
+处理用于直接加入房间和房间代码的 URL。
 
-### Settings
+### 设置
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+用户偏好通过 `SettingsStore` 使用 UserDefaults 持久化。
 
-## Building
+## 构建
 
 ```bash
 # Open in Xcode
@@ -162,8 +162,8 @@ make export-ios
 make build-ios-sim
 ```
 
-### Requirements
+### 要求
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode（最新稳定版）
+- iOS 18.0 部署目标
+- 设备构建：Apple Developer 账户和配置描述文件

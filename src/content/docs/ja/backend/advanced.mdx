@@ -1,17 +1,17 @@
 ---
-title: Advanced Topics
-description: Advanced backend features
+title: 高度なトピック
+description: バックエンドの高度な機能
 order: 22
 ---
 
-This document covers the internal technical decisions behind Bedrud's single-binary architecture.
+このドキュメントでは、Bedrudのシングルバイナリアーキテクチャの背後にある内部技術的判断について説明します。
 
-## 1. The Fiber-to-Standard Bridge
-Bedrud uses **Fiber** for its speed, but some dependencies like **Goth** (OAuth) and **LiveKit SDK** (Twirp) expect standard Go `http.ResponseWriter` and `http.Request`.
+## 1. Fiberから標準ライブラリへのブリッジ
+Bedrudは速度のために**Fiber**を使用していますが、**Goth**（OAuth）や**LiveKit SDK**（Twirp）などの一部の依存関係は標準Goの`http.ResponseWriter`と`http.Request`を必要とします。
 
-To bridge these two worlds, Bedrud implements an **Adapter Pattern** in `internal/handlers/auth.go`:
+これら2つの世界を橋渡しするため、Bedrudは`internal/handlers/auth.go`で**アダプタパターン**を実装しています:
 
-### `responseWriter` Adapter
+### `responseWriter`アダプタ
 ```go
 type responseWriter struct {
     ctx     *fiber.Ctx
@@ -19,49 +19,49 @@ type responseWriter struct {
     status  int
 }
 ```
-This struct implements the `http.ResponseWriter` interface. When a standard library function (like Goth) calls `Header().Add()`, the adapter stores it in a local `headers` map. When `WriteHeader()` is called, it manually copies all headers back into the **Fiber Context**.
+この構造体は`http.ResponseWriter`インターフェースを実装しています。標準ライブラリ関数（Gothなど）が`Header().Add()`を呼び出すと、アダプタはローカルの`headers`マップに保存します。`WriteHeader()`が呼び出されると、すべてのヘッダーを**Fiberコンテキスト**に手動でコピーし戻します。
 
-### Purpose
-It allows Bedrud to remain extremely fast (using Fiber) while maintaining full compatibility with the vast ecosystem of standard Go web libraries.
+### 目的
+Bedrudは極めて高速なまま（Fiberを使用）、標準Goウェブライブラリの広大なエコシステムとの完全な互換性を維持できます。
 
-## 2. LiveKit Reverse Proxying
-Bedrud avoids port management issues by routing all media signaling through its main port.
+## 2. LiveKitリバースプロキシ
+Bedrudはメインポート経由ですべてのメディアシグナリングをルーティングすることで、ポート管理の問題を回避しています。
 
-### How it works:
+### 仕組み:
 
-1.  **Detection:** If `LIVEKIT_INTERNAL_HOST` points to `127.0.0.1`, Bedrud starts the internal media engine.
-2.  **Mounting:** It mounts a `httputil.NewSingleHostReverseProxy` on the `/livekit` route.
-3.  **Path Stripping:** A custom **Director** function is used to strip the `/livekit` prefix so that the media server receives the request as if it were at root.
-4.  **WebSocket Support:** Since the proxy operates on the underlying TCP stream via `adaptor.HTTPHandler`, it natively supports the WebSockets used by LiveKit for real-time signaling.
+1.  **検出:** `LIVEKIT_INTERNAL_HOST`が`127.0.0.1`を指している場合、Bedrudは内部メディアエンジンを起動します。
+2.  **マウント:** `/livekit`ルートに`httputil.NewSingleHostReverseProxy`をマウントします。
+3.  **パスストリッピング:** カスタム**Director**関数を使用して`/livekit`プレフィックスを削除し、メディアサーバーがルートにリクエストが来たかのように受け取れるようにします。
+4.  **WebSocketサポート:** プロキシは`adaptor.HTTPHandler`を経由して基盤のTCPストリーム上で動作するため、LiveKitがリアルタイムシグナリングに使用するWebSocketsをネイティブにサポートします。
 
-## 3. Storage Efficiency: Embedded Structs
-Bedrud makes heavy use of GORM's `embedded` tag to keep the database schema flat and optimized.
+## 3. ストレージ効率: 埋め込み構造体
+BedrudはGORMの`embedded`タグを活用して、データベーススキーマをフラットかつ最適化された状態に保っています。
 
-**Example from `models/room.go`:**
+**`models/room.go`の例:**
 ```go
 type Room struct {
     ID       string       `gorm:"primaryKey"`
     Settings RoomSettings `gorm:"embedded;embeddedPrefix:settings_"`
 }
 ```
-This causes GORM to create columns like `settings_allow_chat` directly in the `rooms` table. This is faster than a `JOIN` and more searchable than a `JSON` blob.
+これにより、GORMは`settings_allow_chat`のようなカラムを`rooms`テーブルに直接作成します。これは`JOIN`よりも高速で、`JSON`ブロブよりも検索性に優れています。
 
-## 4. Testing Infrastructure
-Bedrud follows a "DB-First" testing strategy using the `internal/testutil` package.
+## 4. テストインフラストラクチャ
+Bedrudは`internal/testutil`パッケージを使用した「DB-First」テスト戦略に従っています。
 
-### `SetupTestDB` logic:
+### `SetupTestDB`の仕組み:
 
-- Creates a unique **SQLite in-memory** database for every test.
-- Automatically runs all migrations.
-- Provides a clean slate, ensuring tests are deterministic and can run in parallel.
+- 各テストごとに固有の**SQLiteインメモリ**データベースを作成します。
+- すべてのマイグレーションを自動的に実行します。
+- クリーンな状態を提供し、テストが決定論的で並列実行可能であることを保証します。
 
-To run backend tests:
+バックエンドテストを実行するには:
 ```bash
 go test ./internal/...
 ```
 
-## 5. Security: Token Rotation & Revocation
-Unlike simple JWT implementations, Bedrud rotates **both** tokens on every refresh.
+## 5. セキュリティ: トークンローテーションと失効
+シンプルなJWT実装とは異なり、Bedrudは更新のたびに**両方**のトークンをローテーションします。
 
-- **Refresh Token Reuse Detection:** Once a refresh token is used to get a new pair, it is blocked.
-- **Cleanup:** The `BlockedRefreshToken` table ensures that even if a refresh token is stolen, it cannot be used after the user has cleanly logged out or refreshed their session.
+- **リフレッシュトークンの再利用検出:** リフレッシュトークンが新しいペアの取得に使用されると、直ちにブロックされます。
+- **クリーンアップ:** `BlockedRefreshToken`テーブルにより、リフレッシュトークンが盗まれた場合でも、ユーザーが正常にログアウトまたはセッションを更新した後は使用できなくなります。

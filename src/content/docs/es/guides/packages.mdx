@@ -1,20 +1,20 @@
 ---
-title: Instalación de Paquetes
+title: Instalación por paquetes
 description: Instalar desde gestores de paquetes
 order: 32
 ---
 
-Esta guía cubre todos los métodos de instalación disponibles a través de gestores de paquetes y binarios para Bedrud, tanto el **servidor** como el **cliente de escritorio**.
+Esta guía cubre todos los métodos de instalación disponibles mediante gestores de paquetes y binarios para Bedrud, tanto el **servidor** como el **cliente de escritorio**.
 
 ---
 
-## Instalación del Servidor
+## Instalación del servidor
 
 ### Repositorio apt (Ubuntu / Debian)
 
-La forma más fácil de instalar el servidor Bedrud en sistemas basados en Debian es a través del repositorio apt autoalojado en GitHub Pages.
+La forma más fácil de instalar el servidor de Bedrud en sistemas basados en Debian es mediante el repositorio apt autoalojado en GitHub Pages.
 
-**1. Agregar el repositorio y la clave GPG:**
+**1. Añadir el repositorio y la clave GPG:**
 
 ```bash
 curl -fsSL https://bedrud-ir.github.io/bedrud/bedrud.gpg.key \
@@ -30,13 +30,13 @@ echo "deb https://bedrud-ir.github.io/bedrud stable main" \
 sudo apt update && sudo apt install bedrud
 ```
 
-El paquete instala el binario en `/usr/local/bin/bedrud` y registra un servicio systemd. Después de instalar, ejecute el instalador interactivo:
+El paquete instala el binario en `/usr/local/bin/bedrud` y registra un servicio systemd. Después de instalar, ejecuta el instalador interactivo:
 
 ```bash
 sudo bedrud install
 ```
 
-Consulte la [Guía de Instalación](/es/docs/getting-started/installation) para todas las opciones de configuración.
+Consulta la [guía de instalación](/es/docs/getting-started/installation) para todas las opciones de configuración.
 
 ---
 
@@ -46,7 +46,7 @@ Consulte la [Guía de Instalación](/es/docs/getting-started/installation) para 
 yay -S bedrud-bin
 ```
 
-Después de instalar, ejecute:
+Después de instalar, ejecuta:
 
 ```bash
 sudo bedrud install
@@ -56,7 +56,7 @@ sudo bedrud install
 
 ### Repositorio DNF / RPM (Fedora / RHEL / openSUSE)
 
-**1. Agregar el repositorio:**
+**1. Añadir el repositorio:**
 
 ```bash
 sudo curl -fsSL https://bedrud-ir.github.io/bedrud/dnf/bedrud.gpg.key \
@@ -74,9 +74,9 @@ sudo dnf install bedrud
 
 ---
 
-### Descarga Directa .deb
+### Descarga directa de .deb
 
-Descargue el paquete `.deb` directamente desde la [última versión en GitHub](https://github.com/bedrud-ir/bedrud/releases/latest):
+Descarga el paquete `.deb` directamente desde el [último lanzamiento en GitHub](https://github.com/bedrud-ir/bedrud/releases/latest):
 
 <Tabs>
   <TabsList>
@@ -103,9 +103,9 @@ Descargue el paquete `.deb` directamente desde la [última versión en GitHub](h
 
 ---
 
-### Descarga Directa .rpm
+### Descarga directa de .rpm
 
-Descargue el paquete `.rpm` desde la [última versión en GitHub](https://github.com/bedrud-ir/bedrud/releases/latest):
+Descarga el paquete `.rpm` desde el [último lanzamiento en GitHub](https://github.com/bedrud-ir/bedrud/releases/latest):
 
 <Tabs>
   <TabsList>
@@ -128,9 +128,9 @@ Descargue el paquete `.rpm` desde la [última versión en GitHub](https://github
 
 ---
 
-### Descarga Manual de Binario
+### Descarga manual de binario
 
-Descargue el archivo tar comprimido y extráigalo en cualquier lugar de su `$PATH`:
+Descarga el tarball comprimido y extráelo en cualquier ubicación de tu `$PATH`:
 
 <Tabs>
   <TabsList>
@@ -159,7 +159,7 @@ Descargue el archivo tar comprimido y extráigalo en cualquier lugar de su `$PAT
 
 ### Docker
 
-Extraiga la imagen precompilada desde GitHub Container Registry:
+Obtén la imagen precompilada desde GitHub Container Registry:
 
 ```bash
 docker pull ghcr.io/bedrud-ir/bedrud:latest
@@ -171,11 +171,11 @@ docker run -d \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles completos incluyendo montajes de volúmenes y configuración de proxy inverso.
+Consulta la [guía de Docker](/es/docs/guides/docker) para obtener detalles completos incluyendo montaje de volúmenes y configuración de reverse proxy.
 
 ---
 
-## Instalación del Cliente de Escritorio
+## Instalación del cliente de escritorio
 
 ### Linux
 
@@ -187,17 +187,17 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
     <TabsTrigger value="snap">Snap (cualquier distro)</TabsTrigger>
     <TabsTrigger value="flatpak">Flatpak (cualquier distro)</TabsTrigger>
     <TabsTrigger value="appimage">AppImage (cualquier distro)</TabsTrigger>
-    <TabsTrigger value="tarball">tar.xz portátil</TabsTrigger>
+    <TabsTrigger value="tarball">Tar.xz portátil</TabsTrigger>
   </TabsList>
 
   <TabsContent value="apt">
-    Primero agregue el repositorio apt (consulte [Servidor - Repositorio apt](#repositorio-apt-ubuntu-debian) arriba), luego:
+    Añade primero el repositorio apt (consulta [Servidor - Repositorio apt](#repositorio-apt-ubuntu-debian) más arriba), luego:
 
     ```bash
     sudo apt install bedrud-desktop
     ```
 
-    El paquete instala un iniciador `.desktop` y registra la aplicación en su menú de aplicaciones.
+    El paquete instala un lanzador `.desktop` y registra la aplicación en tu menú de aplicaciones.
   </TabsContent>
 
   <TabsContent value="aur">
@@ -207,7 +207,7 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
   </TabsContent>
 
   <TabsContent value="dnf">
-    Primero agregue el repositorio DNF (consulte [Servidor - Repositorio DNF](#repositorio-dnf-rpm-fedora-rhel-opensuse) arriba), luego:
+    Añade primero el repositorio DNF (consulta [Servidor - Repositorio DNF](#repositorio-dnf-rpm-fedora-rhel-opensuse) más arriba), luego:
 
     ```bash
     sudo dnf install bedrud-desktop
@@ -219,11 +219,11 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
     sudo snap install bedrud-desktop
     ```
 
-    Snap está disponible en cualquier distribución de Linux que soporte el daemon Snap (snapd).
+    Snap está disponible en cualquier distribución Linux que soporte el daemon de Snap (snapd).
   </TabsContent>
 
   <TabsContent value="flatpak">
-    Instale desde el paquete Flatpak:
+    Instala desde el bundle de Flatpak:
 
     ```bash
     flatpak install https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.flatpak
@@ -232,7 +232,7 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
   </TabsContent>
 
   <TabsContent value="appimage">
-    El AppImage es autocontenido y funciona en cualquier distribución de Linux sin instalación.
+    El AppImage es autocontenido y funciona en cualquier distribución Linux sin necesidad de instalación.
 
     ```bash
     wget https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.AppImage
@@ -241,12 +241,12 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
     ```
 
     <Callout type="tip">
-      Para integrar AppImage en su iniciador de aplicaciones, use una herramienta como [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
+      Para integrar el AppImage en tu lanzador de aplicaciones, usa una herramienta como [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
     </Callout>
   </TabsContent>
 
   <TabsContent value="tarball">
-    Extraiga y ejecute desde cualquier directorio:
+    Extrae y ejecuta desde cualquier directorio:
 
     ```bash
     tar xf bedrud-desktop-linux-x86_64.tar.xz
@@ -259,7 +259,7 @@ Consulte la [Guía de Docker](/es/docs/guides/docker) para obtener detalles comp
 
 ### macOS
 
-Están disponibles archivos tar portátiles precompilados tanto para Intel como para Apple Silicon. La aplicación está **sin firmar** - después de extraerla, es posible que deba permitirirla en **Configuración del Sistema → Privacidad y Seguridad**.
+Hay tarballs portátiles precompilados disponibles tanto para Intel como para Apple Silicon. La aplicación **no está firmada** — después de extraer puede que necesites permitirla en **Configuración del sistema → Privacidad y seguridad**.
 
 <Tabs>
   <TabsList>
@@ -296,11 +296,11 @@ Están disponibles archivos tar portátiles precompilados tanto para Intel como 
 </Tabs>
 
 <Callout type="info">
-  Las versiones de macOS están **firmadas con código y notarizadas** cuando `MACOS_CERTIFICATE` está configurado en CI (consulte [Referencia de Secrets](#referencia-de-secrets)). Sin esos secretos, el binario no está firmado - use la solución alternativa `xattr` anterior o haga clic derecho → Abrir en Finder.
+  Los lanzamientos de macOS están **firmados con código y notarizados** cuando `MACOS_CERTIFICATE` está configurado en CI (consulta [Referencia de secretos](#referencia-de-secretos)). Sin esos secretos, el binario no está firmado — usa la solución alternativa con `xattr` descrita arriba o haz clic derecho → Abrir en Finder.
 </Callout>
 
 <Callout type="warning">
-  Advertencia de Gatekeeper para macOS sin firmar: ejecute el comando `xattr` anterior, o abra **Configuración del Sistema → Privacidad y Seguridad** y haga clic en **Abrir de todos modos** después del primer intento de inicio bloqueado.
+  Advertencia de macOS Gatekeeper para binarios sin firmar: ejecuta el comando `xattr` descrito arriba, o abre **Configuración del sistema → Privacidad y seguridad** y haz clic en **Abrir de todos modos** después del primer intento de ejecución bloqueado.
 </Callout>
 
 ---
@@ -316,18 +316,18 @@ Están disponibles archivos tar portátiles precompilados tanto para Intel como 
   </TabsList>
 
   <TabsContent value="nsis">
-    Descargue y ejecute el instalador desde la [última versión](https://github.com/bedrud-ir/bedrud/releases/latest):
+    Descarga y ejecuta el instalador desde el [último lanzamiento](https://github.com/bedrud-ir/bedrud/releases/latest):
 
     | Arquitectura | Archivo |
     |---|---|
     | x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
     | ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
 
-    El instalador registra la aplicación en el Menú Inicio y en Agregar o quitar programas.
+    El instalador registra la aplicación en el Menú de inicio y en Agregar o quitar programas.
   </TabsContent>
 
   <TabsContent value="zip">
-    No se requiere instalación - extraiga y ejecute:
+    No requiere instalación — extrae y ejecuta:
 
     | Arquitectura | Archivo |
     |---|---|
@@ -350,41 +350,41 @@ Están disponibles archivos tar portátiles precompilados tanto para Intel como 
 
 ---
 
-## Tabla Resumen
+## Tabla resumen
 
-| Plataforma | Servidor | Cliente de Escritorio |
+| Plataforma | Servidor | Cliente de escritorio |
 |---|---|---|
 | Ubuntu / Debian (apt) | `apt install bedrud` | `apt install bedrud-desktop` |
 | Fedora / RHEL (dnf) | `dnf install bedrud` | `dnf install bedrud-desktop` |
 | Arch Linux (AUR) | `yay -S bedrud-bin` | `yay -S bedrud-desktop-bin` |
 | Cualquier Linux | AppImage / binario `tar.xz` | AppImage / Flatpak / Snap / `tar.xz` |
 | macOS | binario `tar.xz` | Homebrew tap / `tar.gz` portátil |
-| Windows | - | WinGet / Chocolatey / instalador NSIS / `.zip` portátil |
+| Windows | - | WinGet / Chocolatey / Instalador NSIS / `.zip` portátil |
 | Docker | `ghcr.io/bedrud-ir/bedrud` | - |
 
 ---
 
-## Referencia de Secrets
+## Referencia de secretos
 
-Estos secrets de GitHub Actions desbloquean los canales de distribución opcionales:
+Estos secretos de GitHub Actions habilitan los canales de distribución opcionales:
 
-| Secret | Canal | Descripción |
+| Secreto | Canal | Descripción |
 |---|---|---|
-| `AUR_SSH_PRIVATE_KEY` | AUR | Clave SSH para envío a `aur.archlinux.org` |
+| `AUR_SSH_PRIVATE_KEY` | AUR | Clave SSH para push a `aur.archlinux.org` |
 | `APT_GPG_PRIVATE_KEY` | repositorio apt | Clave GPG para firmar el archivo `Release` |
-| `APT_GPG_KEY_ID` | repositorio apt | ID de clave de lo anterior |
+| `APT_GPG_KEY_ID` | repositorio apt | ID de la clave anterior |
 | `RPM_GPG_PRIVATE_KEY` | repositorio DNF | Clave GPG para firmar paquetes RPM |
-| `SNAPCRAFT_STORE_CREDENTIALS` | Snap Store | Inicio de sesión desde `snapcraft export-login` |
-| `CHOCOLATEY_API_KEY` | Chocolatey | Clave API desde chocolatey.org |
-| `HOMEBREW_TAP_TOKEN` | tap Homebrew | PAT de GitHub con acceso de escritura a `bedrud-ir/homebrew-bedrud` |
-| `WINGET_GITHUB_TOKEN` | WinGet | PAT de GitHub para enviar PR a `microsoft/winget-pkgs` |
-| `MACOS_CERTIFICATE` | firma macOS | Certificado `.p12` de ID de desarrollador codificado en base64 |
-| `MACOS_CERTIFICATE_PWD` | firma macOS | Contraseña para el archivo `.p12` |
-| `MACOS_TEAM_ID` | firma/notarización macOS | ID de equipo de desarrollador de Apple |
-| `MACOS_APPLE_ID` | notarización macOS | Dirección de correo electrónico de Apple ID |
-| `MACOS_APP_PWD` | notarización macOS | Contraseña específica de la aplicación para notarytool |
-| `IOS_P12_BASE64` | IPA iOS | Certificado de distribución iOS |
-| `TELEGRAM_BOT_TOKEN` | Telegram | Token de bot para notificaciones de lanzamiento |
-| `TELEGRAM_CHAT_ID` | Telegram | ID de canal/grupo objetivo |
+| `SNAPCRAFT_STORE_CREDENTIALS` | Snap Store | Credenciales de `snapcraft export-login` |
+| `CHOCOLATEY_API_KEY` | Chocolatey | Clave API de chocolatey.org |
+| `HOMEBREW_TAP_TOKEN` | Homebrew tap | GitHub PAT con acceso de escritura a `bedrud-ir/homebrew-bedrud` |
+| `WINGET_GITHUB_TOKEN` | WinGet | GitHub PAT para enviar PR a `microsoft/winget-pkgs` |
+| `MACOS_CERTIFICATE` | Firma macOS | Certificado `.p12` de Developer ID codificado en Base64 |
+| `MACOS_CERTIFICATE_PWD` | Firma macOS | Contraseña del archivo `.p12` |
+| `MACOS_TEAM_ID` | Firma / notarización macOS | Apple Developer Team ID |
+| `MACOS_APPLE_ID` | Notarización macOS | Dirección de email de Apple ID |
+| `MACOS_APP_PWD` | Notarización macOS | Contraseña específica de aplicación para notarytool |
+| `IOS_P12_BASE64` | iOS IPA | Certificado de distribución iOS |
+| `TELEGRAM_BOT_TOKEN` | Telegram | Token del bot para notificaciones de lanzamiento |
+| `TELEGRAM_CHAT_ID` | Telegram | ID del canal/grupo destino |
 
-Todos los secrets son opcionales - si están ausentes, el trabajo de ese canal se omite silenciosamente.
+Todos los secretos son opcionales — si están ausentes, el trabajo de ese canal se omite silenciosamente.

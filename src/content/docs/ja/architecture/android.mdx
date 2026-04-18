@@ -1,27 +1,27 @@
 ---
-title: Android App
-description: Native Android application
+title: Android アプリ
+description: ネイティブ Android アプリケーション
 order: 9
 ---
 
-The Bedrud Android app is built with Jetpack Compose and Kotlin, providing a native video meeting experience with picture-in-picture, deep linking, and multi-instance support.
+Bedrud Android アプリは Jetpack Compose と Kotlin で構築され、ピクチャーインピクチャー、ディープリンク、マルチインスタンスサポートを備えたネイティブビデオ会議エクスペリエンスを提供します。
 
-## Technology Stack
+## テクノロジースタック
 
-| Technology | Version | Purpose |
+| テクノロジー | バージョン | 目的 |
 |-----------|---------|---------|
-| Kotlin | 2.1.0 | Language |
-| Jetpack Compose | Material 3 | UI toolkit |
-| Koin | 4.0.0 | Dependency injection |
-| Retrofit + OkHttp | Latest | HTTP client |
-| LiveKit Android SDK | 2.23.3 | WebRTC media |
-| Credentials API | Latest | Passkey support |
-| Encrypted SharedPreferences | Latest | Secure storage |
-| Coil | Latest | Image loading |
+| Kotlin | 2.1.0 | 言語 |
+| Jetpack Compose | Material 3 | UI ツールキット |
+| Koin | 4.0.0 | 依存性注入 |
+| Retrofit + OkHttp | Latest | HTTP クライアント |
+| LiveKit Android SDK | 2.23.3 | WebRTC メディア |
+| Credentials API | Latest | パスキーサポート |
+| Encrypted SharedPreferences | Latest | 安全な保存 |
+| Coil | Latest | 画像読み込み |
 
-**Target:** Min SDK 28, Target SDK 35, JDK 17
+**ターゲット：** Min SDK 28、Target SDK 35、JDK 17
 
-## Directory Structure
+## ディレクトリ構造
 
 ```
 apps/android/app/src/main/java/com/bedrud/app/
@@ -74,9 +74,9 @@ apps/android/app/src/main/java/com/bedrud/app/
     └── theme/                      # Material 3 theme definition
 ```
 
-## Multi-Instance Architecture
+## マルチインスタンスアーキテクチャ
 
-The Android app supports connecting to multiple Bedrud servers simultaneously.
+Android アプリは複数の Bedrud サーバーへの同時接続をサポートします。
 
 ```
 ┌──────────────────────────┐
@@ -96,18 +96,18 @@ The Android app supports connecting to multiple Bedrud servers simultaneously.
 └──────────────────────────┘    └── RoomManager
 ```
 
-### Key Pattern
+### 主要なパターン
 
-All per-instance dependencies are exposed as `StateFlow<T?>` on `InstanceManager`. Composables collect them:
+インスタンスごとの依存関係はすべて `InstanceManager` 上の `StateFlow<T?>` として公開されます。コンポーザブルはこれらを収集します。
 
 ```kotlin
 val authManager = instanceManager.authManager.collectAsState().value ?: return
 val roomApi = instanceManager.roomApi.collectAsState().value ?: return
 ```
 
-The `?: return` pattern ensures the composable doesn't render until the instance is fully initialized.
+`?: return` パターンにより、インスタンスが完全に初期化されるまでコンポーザブルは描画されません。
 
-### Navigation Flow
+### ナビゲーションフロー
 
 ```
 No instances ──► AddInstanceScreen
@@ -115,34 +115,34 @@ Has instances, not logged in ──► LoginScreen
 Has instances, logged in ──► DashboardScreen
 ```
 
-The instance switcher appears as a `ModalBottomSheet` triggered from the Dashboard toolbar.
+インスタンススイッチャーは Dashboard ツールバーからトリガーされる `ModalBottomSheet` として表示されます。
 
-## Features
+## 機能
 
-### Deep Linking
+### ディープリンク
 
-The app handles URLs matching:
+アプリは以下の URL パターンを処理します。
 
-- `https://bedrud.com/m/*` - Direct room join
-- `https://bedrud.com/c/*` - Room join by code
+- `https://bedrud.com/m/*` - ルームへの直接参加
+- `https://bedrud.com/c/*` - コードによるルーム参加
 
-Configured via intent filters in `AndroidManifest.xml`.
+`AndroidManifest.xml` のインテントフィルターで設定されています。
 
-### Call Management
+### 通話管理
 
-- **CallService** - Foreground service that keeps the connection alive during calls
-- **CallConnectionService** - Integrates with Android's telephony framework for proper call UI
-- Required permissions: `MANAGE_OWN_CALLS`, `FOREGROUND_SERVICE_PHONE_CALL`, `FOREGROUND_SERVICE_CAMERA`, `FOREGROUND_SERVICE_MICROPHONE`
+- **CallService** - 通話中に接続を維持するフォアグラウンドサービス
+- **CallConnectionService** - Android のテレフォニーフレームワークとの統合で適切な通話 UI を表示
+- 必要なパーミッション：`MANAGE_OWN_CALLS`、`FOREGROUND_SERVICE_PHONE_CALL`、`FOREGROUND_SERVICE_CAMERA`、`FOREGROUND_SERVICE_MICROPHONE`
 
-### Picture-in-Picture
+### ピクチャーインピクチャー
 
-The meeting screen supports PiP mode, allowing users to see the video feed while using other apps.
+会議画面は PiP モードをサポートし、他のアプリを使用中でもビデオフィードを表示できます。
 
-### Passkeys
+### パスキー
 
-Uses Android's Credentials API for FIDO2/WebAuthn passkey registration and login.
+Android の Credentials API を使用して FIDO2/WebAuthn パスキーの登録とログインを行います。
 
-## Building
+## ビルド
 
 ```bash
 # Debug APK
@@ -158,6 +158,6 @@ make release-android
 make dev-android
 ```
 
-### Release Signing
+### リリース署名
 
-Release builds require a `keystore.properties` file in the android project root with your signing configuration.
+リリースビルドには Android プロジェクトルートに署名設定を含む `keystore.properties` ファイルが必要です。

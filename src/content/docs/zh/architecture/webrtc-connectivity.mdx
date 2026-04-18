@@ -4,13 +4,13 @@ description: STUN/ICE/TURN and media routing
 order: 13
 ---
 
-How clients establish real-time media connections in Bedrud. Covers the full connectivity stack: signaling, ICE, STUN, TURN, and the SFU media path.
+客户端在 Bedrud 中如何建立实时媒体连接。涵盖完整的连接堆栈：信令、ICE、STUN、TURN 和 SFU 媒体路径。
 
 ---
 
-## Overview
+## 概述
 
-WebRTC requires a series of steps before audio and video flow between client and server. Bedrud uses LiveKit's SFU (Selective Forwarding Unit) architecture - clients connect to the server, not to each other. **This means only the client-to-server network path matters**, not the connection between individual participants.
+WebRTC 需要一系列步骤才能在客户端和服务器之间传输音频和视频。Bedrud 使用 LiveKit 的 SFU（选择性转发单元）架构 - 客户端连接到服务器，而非彼此之间直接连接。**这意味着只有客户端到服务器的网络路径是重要的**，而非各个参与者之间的连接。
 
 ```mermaid
 sequenceDiagram
@@ -46,9 +46,9 @@ sequenceDiagram
 
 ---
 
-## Connectivity Stack
+## 连接堆栈
 
-Five layers work together to establish the media path:
+五层协同工作以建立媒体路径：
 
 ```mermaid
 flowchart TB
@@ -68,21 +68,21 @@ flowchart TB
     TURN --> SFU
 ```
 
-### Layer Details
+### 各层详情
 
-**1. Signaling** - Client and server exchange connection metadata using SDP (Session Description Protocol) offers and answers via WebSocket. This is not media - it is the setup phase. Bedrud proxies signaling through the API server to the embedded LiveKit instance.
+**1. 信令** - 客户端和服务器通过 WebSocket 使用 SDP（会话描述协议）offer 和 answer 交换连接元数据。这不是媒体 - 它是设置阶段。Bedrud 通过 API 服务器将信令代理到嵌入式 LiveKit 实例。
 
-**2. ICE (Interactive Connectivity Establishment)** - Gathers all possible connection paths, called candidates, and tests them in order of priority. ICE is a framework - it coordinates the connection attempts but is not a protocol itself.
+**2. ICE（交互式连接建立）** - 收集所有可能的连接路径（称为候选者），并按优先级顺序测试它们。ICE 是一个框架 - 它协调连接尝试，但本身不是协议。
 
-**3. STUN (Session Traversal Utilities for NAT)** - Lightweight protocol. Client sends a binding request to the STUN server, which responds with the client's public IP and port. This "server reflexive" candidate is then tested for direct connectivity. Works for ~80% of connections.
+**3. STUN（NAT 会话遍历实用工具）** - 轻量级协议。客户端向 STUN 服务器发送绑定请求，服务器响应客户端的公共 IP 和端口。这个"服务器反射"候选者随后被测试是否可以直接连接。适用于约 80% 的连接。
 
-**4. TURN (Traversal Using Relays around NAT)** - When direct connectivity fails, TURN allocates a relay address on the server. All media packets are forwarded through this relay. Highest cost - server bandwidth scales with relayed users. See the [TURN Server Guide](turn-server.mdx) for deep coverage.
+**4. TURN（NAT 中继遍历）** - 当直接连接失败时，TURN 在服务器上分配一个中继地址。所有媒体数据包通过此中继转发。成本最高 - 服务器带宽随中继用户数量线性增长。详见 [TURN 服务器指南](turn-server.mdx)。
 
-**5. SFU (Selective Forwarding Unit)** - Once the transport path is established, LiveKit's SFU routes media between participants. Each participant sends one stream up; the SFU forwards copies to other participants. This is not peer-to-peer - the server is always in the path.
+**5. SFU（选择性转发单元）** - 一旦传输路径建立，LiveKit 的 SFU 在参与者之间路由媒体。每个参与者向上发送一个流；SFU 将副本转发给其他参与者。这不是点对点 - 服务器始终在路径中。
 
 ---
 
-## ICE Candidate Gathering
+## ICE 候选者收集
 
 ```mermaid
 flowchart TD
@@ -98,21 +98,21 @@ flowchart TD
     TEST -->|"None work"| FAIL[Connection failed]
 ```
 
-ICE gathers three candidate types simultaneously:
+ICE 同时收集三种候选者类型：
 
-| Type | Source | Priority | How it works |
+| 类型 | 来源 | 优先级 | 工作方式 |
 |------|--------|----------|-------------|
-| **host** | Local network interfaces | Highest | Direct IP from machine. Works on LAN. |
-| **srflx** (server reflexive) | STUN server response | Medium | Public IP discovered via STUN. Works for most NAT types. |
-| **relay** | TURN server allocation | Lowest | Address on TURN server. Always works. Highest cost. |
+| **host** | 本地网络接口 | 最高 | 来自机器的直接 IP。在局域网内有效。 |
+| **srflx**（服务器反射） | STUN 服务器响应 | 中等 | 通过 STUN 发现的公共 IP。适用于大多数 NAT 类型。 |
+| **relay** | TURN 服务器分配 | 最低 | TURN 服务器上的地址。始终有效。成本最高。 |
 
-ICE tests all candidates and selects the highest-priority pair that succeeds. If `srflx` works, it skips `relay`.
+ICE 测试所有候选者并选择成功的最高优先级对。如果 `srflx` 有效，则跳过 `relay`。
 
 ---
 
-## NAT Types & Connectivity
+## NAT 类型与连接
 
-Different NAT types affect whether direct connectivity works:
+不同的 NAT 类型影响直接连接是否可行：
 
 ```mermaid
 flowchart LR
@@ -142,22 +142,22 @@ flowchart LR
 
 ```
 
-| NAT Type | Description | Direct P2P | Needs TURN |
+| NAT 类型 | 描述 | 直接 P2P | 需要 TURN |
 |----------|-------------|------------|-----------|
-| **Full Cone** | All requests from same internal IP/port map to same public IP/port. Any external host can send to it. | Yes | No |
-| **Restricted Cone** | Same mapping as Full Cone, but only external hosts that received a packet can send back. | Usually | No |
-| **Port Restricted Cone** | Similar to Restricted Cone, but the NAT also restricts the external port number. Most common home router type. | Usually | Rarely |
-| **Symmetric** | Different public IP/port mapping per destination. The STUN-discovered address cannot be reused. | No (when both symmetric) | **Yes** |
+| **完全锥形** | 来自相同内部 IP/端口的所有请求映射到相同的公共 IP/端口。任何外部主机都可以发送数据。 | 是 | 否 |
+| **受限锥形** | 与完全锥形相同，但只有收到过数据包的外部主机才能回发。 | 通常 | 否 |
+| **端口受限锥形** | 类似受限锥形，但 NAT 还限制外部端口号。最常见的家庭路由器类型。 | 通常 | 很少 |
+| **对称型** | 每个目标使用不同的公共 IP/端口映射。STUN 发现的地址无法复用。 | 否（双方都对称时） | **是** |
 
-**Key insight:** Since the server has a public IP and predictable port range, most NAT types work directly. TURN is mainly needed when the client's firewall blocks outbound UDP entirely.
+**关键洞察：** 由于服务器有公共 IP 和可预测的端口范围，大多数 NAT 类型可以直接工作。TURN 主要在客户端防火墙完全阻止出站 UDP 时才需要。
 
 ---
 
-## Configuration Summary
+## 配置摘要
 
-Which Bedrud/LiveKit config keys affect WebRTC connectivity:
+哪些 Bedrud/LiveKit 配置键影响 WebRTC 连接：
 
-**`livekit.yaml` keys:**
+**`livekit.yaml` 键：**
 
 ```yaml
 rtc:
@@ -180,7 +180,7 @@ turn:
   external_tls: false           # L4 LB terminates TLS
 ```
 
-**`config.yaml` keys (Bedrud server):**
+**`config.yaml` 键 (Bedrud 服务器)：**
 
 ```yaml
 server:
@@ -189,23 +189,23 @@ server:
   domain: "meet.example.com"    # Public domain
 ```
 
-### Debugging Connectivity Issues
+### 连接问题排查
 
-| Symptom | Check |
+| 症状 | 检查 |
 |---------|-------|
-| Can't connect at all | `rtc.use_external_ip: true`? Firewall open on 443 + UDP range? |
-| Connects but no audio/video | UDP 50000-60000 blocked? Check ICE candidates in browser. |
-| Slow connection | TURN relay active (check candidates). Expected if client behind strict NAT. |
-| Fails behind corporate network | TURN/TLS not configured. Set `turn.tls_port: 443` with valid cert. |
-| Works on LAN, fails remotely | Public IP not advertised. Set `rtc.use_external_ip: true`. |
+| 完全无法连接 | `rtc.use_external_ip: true`？防火墙是否开放 443 + UDP 范围？ |
+| 已连接但无音视频 | UDP 50000-60000 被阻止？检查浏览器中的 ICE 候选者。 |
+| 连接缓慢 | TURN 中继激活（检查候选者）。客户端处于严格 NAT 后面时属正常。 |
+| 在企业网络中失败 | TURN/TLS 未配置。设置 `turn.tls_port: 443` 并使用有效证书。 |
+| 局域网正常，远程失败 | 公共 IP 未广播。设置 `rtc.use_external_ip: true`。 |
 
-For deep TURN troubleshooting, see the [TURN Server Guide](/docs/architecture/turn-server).
+深入了解 TURN 故障排除，请参阅 [TURN 服务器指南](/zh/docs/architecture/turn-server)。
 
 ---
 
-## See also
+## 另请参阅
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, debugging
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
+- [TURN 服务器指南](/zh/docs/architecture/turn-server) - TURN 架构、配置、TLS、调试
+- [LiveKit 集成](/zh/docs/backend/livekit) - Bedrud 如何嵌入 LiveKit
+- [架构概览](/zh/docs/architecture/overview) - 完整系统架构
+- [内部 TLS](/zh/docs/guides/internal-tls) - 隔离网络的 TLS

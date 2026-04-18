@@ -4,29 +4,29 @@ description: TURN relay configuration
 order: 14
 ---
 
-Bedrud embeds a TURN server via LiveKit to relay media for clients behind restrictive NATs or firewalls. This page covers architecture, configuration, and troubleshooting.
+Bedrud embeds un TURN server via LiveKit pour relay media pour les clients derrière restrictive NATs ou firewalls. Cette page couvre l'architecture, la configuration, et le troubleshooting.
 
 ---
 
 ## What is TURN
 
-**TURN** (Traversal Using Relays around NAT) is a protocol that forwards media packets through a server when two endpoints cannot connect directly.
+**TURN** (Traversal Using Relays around NAT) est un protocol qui forwards media packets à travers un serveur quand deux endpoints ne peuvent pas connect directly.
 
-**Related protocols:**
+**Related protocols :**
 
 | Protocol | Role | Cost |
 |----------|------|------|
-| **STUN** | Discover public IP/port. Lightweight. | None (server only sees small binding requests) |
-| **ICE** | Framework that tries all connectivity options in priority order. | None (orchestration only) |
-| **TURN** | Relay all media when direct path fails. Last resort. | High (server bandwidth = all relayed media) |
+| **STUN** | Discover public IP/port. Lightweight. | None (server seulement voit small binding requests) |
+| **ICE** | Framework qui essaie tous les connectivity options en priority order. | None (orchestration seulement) |
+| **TURN** | Relay tous les media quand le direct path échoue. Last resort. | High (server bandwidth = tous les relayed media) |
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+Voir [WebRTC Connectivity](/fr/docs/architecture/webrtc-connectivity) pour la full connectivity stack.
 
 ---
 
 ## TURN in Bedrud
 
-LiveKit includes an embedded TURN server. No external infrastructure needed.
+LiveKit includes un embedded TURN server. No external infrastructure needed.
 
 ### Relay Architecture
 
@@ -38,7 +38,7 @@ flowchart LR
 
     subgraph NAT["NAT / Firewall"]
         direction TB
-        N{Direct P2P<br/>possible?}
+        N{Direct P2P<br/>possible ?}
     end
 
     subgraph Server["Bedrud Server"]
@@ -56,7 +56,7 @@ flowchart LR
 
 ### Connection Priority
 
-LiveKit tries connection types in order. Each fallback adds latency and server cost:
+LiveKit essaie les connection types en order. Chaque fallback ajoute de la latency et du server cost :
 
 ```mermaid
 flowchart TD
@@ -74,25 +74,25 @@ flowchart TD
 |----------|------|------|-----------------|
 | 1 | ICE/UDP (direct) | 50000-60000 | Most connections. No relay. |
 | 2 | TURN/UDP | 3478 | Symmetric NAT, P2P blocked. |
-| 3 | ICE/TCP | 7881 | UDP blocked (VPN, some firewalls). |
-| 4 | TURN/TLS | 5349 or 443 | Corporate firewall, only HTTPS outbound. |
+| 3 | ICE/TCP | 7881 | UDP blocked (VPN, certains firewalls). |
+| 4 | TURN/TLS | 5349 ou 443 | Corporate firewall, seulement HTTPS outbound. |
 
 ---
 
 ## When TURN Activates
 
-TURN activates when direct media path fails. Common causes:
+TURN s'active quand le direct media path échoue. Common causes :
 
-- **Symmetric NAT on both peers** - Both the client and server have Symmetric NAT. The NAT assigns a different public port for each destination, so the address discovered by STUN becomes unreachable.
-- **Corporate firewall** - blocks outbound UDP entirely. Only TCP port 443 allowed.
-- **VPN restrictions** - some VPNs intercept or block WebRTC traffic.
-- **Cloud VMs without public IP** - some cloud providers use NAT that breaks direct ICE.
+- **Symmetric NAT sur les deux peers** - Le client et le serveur ont tous les deux Symmetric NAT. Le NAT assigns un différent public port pour chaque destination, donc l'address discovered par STUN devient unreachable.
+- **Corporate firewall** - blocks outbound UDP entirely. Seulement TCP port 443 allowed.
+- **VPN restrictions** - certains VPNs interceptent ou block WebRTC traffic.
+- **Cloud VMs sans public IP** - certains cloud providers utilisent NAT qui breaks direct ICE.
 
-Most users (~80%) never hit TURN. Direct UDP path works.
+Most users (~80%) never hit TURN. Le direct UDP path works.
 
 ### Bandwidth Cost
 
-When TURN relays, the server carries all media for that participant. Approximate per-stream bandwidth:
+Quand TURN relays, le serveur carries tous les media pour ce participant. Approximate per-stream bandwidth :
 
 | Stream type | Bitrate | Per relayed participant |
 |-------------|---------|------------------------|
@@ -100,13 +100,13 @@ When TURN relays, the server carries all media for that participant. Approximate
 | Video 720p (VP8) | ~1.5 Mbps | ~1.5 Mbps up + 1.5 Mbps down per subscribed track |
 | Screen share 1080p | ~2.5 Mbps | ~2.5 Mbps |
 
-For a 5-person meeting with one relayed participant: server handles ~1.5 Mbps extra for that participant's video relay. Multiply these values by the number of relayed participants to estimate total server bandwidth.
+Pour une 5-person meeting avec un relayed participant : le serveur handles ~1.5 Mbps extra pour ce participant's video relay. Multiply ces valeurs par le nombre de relayed participants pour estimate total server bandwidth.
 
 ---
 
 ## Configuration
 
-**File:** `server/config/livekit.yaml` (dev) or `/etc/bedrud/livekit.yaml` (production)
+**File :** `server/config/livekit.yaml` (dev) ou `/etc/bedrud/livekit.yaml` (production)
 
 ```yaml
 turn:
@@ -126,35 +126,35 @@ turn:
 | Key | Default | Description |
 |-----|---------|-------------|
 | `enabled` | `true` | Enable embedded TURN server. |
-| `domain` | `localhost` | Domain advertised to clients. Must resolve to server's public IP. |
-| `udp_port` | `3478` | TURN/UDP port. Also serves STUN binding requests when TURN is enabled. |
-| `tls_port` | `5349` | TURN/TLS port. Set to `443` if no load balancer terminates TLS. |
-| `cert_file` | - | TLS certificate for TURN/TLS. Required when TURN/TLS clients exist. |
+| `domain` | `localhost` | Domain advertised aux clients. Doit résoudre vers server's public IP. |
+| `udp_port` | `3478` | TURN/UDP port. Sert également STUN binding requests quand TURN est enabled. |
+| `tls_port` | `5349` | TURN/TLS port. Set à `443` si no load balancer terminates TLS. |
+| `cert_file` | - | TLS certificate pour TURN/TLS. Required quand TURN/TLS clients exist. |
 | `key_file` | - | TLS private key matching `cert_file`. |
-| `relay_range_start` | `30000` | Start of UDP port range used for relayed media packets. |
-| `relay_range_end` | `40000` | End of relay port range. Each relayed participant consumes ports from this range. |
-| `external_tls` | `false` | Set `true` when a Layer 4 load balancer terminates TURN/TLS. LiveKit skips its own TLS on the TURN port. |
+| `relay_range_start` | `30000` | Start de UDP port range utilisé pour relayed media packets. |
+| `relay_range_end` | `40000` | End de relay port range. Chaque relayed participant consumes ports depuis cette range. |
+| `external_tls` | `false` | Set `true` quand un Layer 4 load balancer terminates TURN/TLS. LiveKit skips son propre TLS sur le TURN port. |
 
 ### `use_external_ip` Interaction
 
-In the same `livekit.yaml`, under `rtc:`:
+Dans le même `livekit.yaml`, sous `rtc:` :
 
 ```yaml
 rtc:
   use_external_ip: true
 ```
 
-Must be `true` for TURN to work correctly. When `false`, ICE candidates contain internal (private) IP addresses that clients on the internet cannot reach.
+Doit être `true` pour TURN à work correctement. Quand `false`, ICE candidates contiennent internal (private) IP addresses que les clients sur internet ne peuvent pas reach.
 
 ---
 
 ## Production TLS Setup
 
-TURN/TLS requires its own TLS certificate. Two approaches:
+TURN/TLS nécessite son propre TLS certificate. Deux approches :
 
 ### Single Domain (No Load Balancer)
 
-Reuse the server's TLS certificate. Set `tls_port` to `443`:
+Réutiliser le server's TLS certificate. Set `tls_port` à `443` :
 
 ```yaml
 turn:
@@ -165,7 +165,7 @@ turn:
   key_file: /etc/bedrud/meet.example.com.key
 ```
 
-The TURN domain and server domain are the same. Port 443 handles both HTTPS API and TURN/TLS - LiveKit distinguishes by protocol.
+Le TURN domain et server domain sont les mêmes. Port 443 handles à la fois HTTPS API et TURN/TLS - LiveKit distinguishes par protocol.
 
 ### Dedicated TURN Domain (With Load Balancer)
 
@@ -187,7 +187,7 @@ turn:
   external_tls: true
 ```
 
-The load balancer terminates TLS. `external_tls: true` tells LiveKit to expect already-decrypted traffic.
+Le load balancer terminates TLS. `external_tls: true` tells LiveKit à expect already-decrypted traffic.
 
 ---
 
@@ -222,16 +222,16 @@ flowchart TB
 
 | Port | Protocol | Service | Required | Notes |
 |------|----------|---------|----------|-------|
-| 443 | TCP | HTTPS + TURN/TLS | Yes | API + web UI. Also TURN/TLS if `tls_port: 443`. |
-| 3478 | UDP | TURN/UDP + STUN | Recommended | Dual purpose: STUN binding + TURN relay. |
-| 5349 | TCP | TURN/TLS | If no LB | Dedicated TURN/TLS port. Skip if using port 443. |
-| 7881 | TCP | ICE/TCP | Recommended | Fallback when UDP blocked but TLS not needed. |
-| 50000-60000 | UDP | RTC media | Yes | ICE candidate ports. Each participant uses 2 ports. |
-| 7880 | TCP | LiveKit API | Internal | WebSocket signaling. Not exposed directly in production. |
+| 443 | TCP | HTTPS + TURN/TLS | Yes | API + web UI. Aussi TURN/TLS si `tls_port: 443`. |
+| 3478 | UDP | TURN/UDP + STUN | Recommended | Dual purpose : STUN binding + TURN relay. |
+| 5349 | TCP | TURN/TLS | If no LB | Dedicated TURN/TLS port. Skip si utilisant port 443. |
+| 7881 | TCP | ICE/TCP | Recommended | Fallback quand UDP blocked mais TLS non needed. |
+| 50000-60000 | UDP | RTC media | Yes | ICE candidate ports. Chaque participant utilise 2 ports. |
+| 7880 | TCP | LiveKit API | Internal | WebSocket signaling. Not exposed directement en production. |
 
 ### Minimum Firewall Rules
 
-For basic connectivity:
+Pour basic connectivity :
 
 ```
 Allow TCP 443    (HTTPS + TURN/TLS)
@@ -239,11 +239,11 @@ Allow UDP 3478   (TURN/UDP + STUN)
 Allow UDP 50000-60000  (RTC media)
 ```
 
-For maximum compatibility (corporate networks):
+Pour maximum compatibility (corporate networks) :
 
 ```
 Also allow TCP 7881  (ICE/TCP)
-Also allow TCP 5349  (TURN/TLS, if not using port 443)
+Also allow TCP 5349  (TURN/TLS, si pas d'utilisation de port 443)
 ```
 
 ---
@@ -252,22 +252,22 @@ Also allow TCP 5349  (TURN/TLS, if not using port 443)
 
 ### Browser: chrome://webrtc-internals
 
-1. Open `chrome://webrtc-internals` in Chrome/Edge before joining a meeting.
-2. Create a dump.
-3. Look for **ICE candidate pairs** in the Stats tab.
-4. Candidate types tell you the connection path:
+1. Ouvrez `chrome://webrtc-internals` dans Chrome/Edge avant de rejoindre une meeting.
+2. Créez un dump.
+3. Regardez les **ICE candidate pairs** dans le Stats tab.
+4. Candidate types vous disent la connection path :
 
 | Candidate type | Meaning |
 |---------------|---------|
 | `host` | Local IP. Direct interface. |
 | `srflx` (server reflexive) | STUN-discovered public IP. Direct P2P working. |
-| `relay` | TURN relay active. Media goes through server. |
+| `relay` | TURN relay active. Media va à travers le serveur. |
 
-If you see `relay` candidates as the active pair, TURN is handling that connection.
+Si vous voyez `relay` candidates comme la active pair, TURN gère cette connection.
 
 ### LiveKit Client SDK Events
 
-All LiveKit SDKs emit connection state events:
+Tous les LiveKit SDKs emit connection state events :
 
 ```typescript
 room.on(RoomEvent.Connected, () => {
@@ -279,25 +279,25 @@ room.on(RoomEvent.Reconnecting, () => {
 });
 ```
 
-Check `room.localParticipant.connectionQuality` for connection stats.
+Check `room.localParticipant.connectionQuality` pour les connection stats.
 
 ### LiveKit Server Logs
 
-Increase log level to debug in `livekit.yaml`:
+Increase log level à debug dans `livekit.yaml` :
 
 ```yaml
 logging:
   level: debug
 ```
 
-Look for log entries containing:
+Regardez les log entries contenant :
 - `ICE` - candidate gathering status
 - `TURN` - relay allocation events
 - `relay` - active relay connections
 
-### Manual TURN Test with turnutils
+### Manual TURN Test avec turnutils
 
-Install `coturn-utils` package, then test TURN connectivity:
+Installez `coturn-utils` package, puis testez TURN connectivity :
 
 ```bash
 turnutils_uclient -t -p 3478 -W devkey -u devkey turn.example.com
@@ -305,9 +305,9 @@ turnutils_uclient -t -p 3478 -W devkey -u devkey turn.example.com
 
 - `-t` - use TCP
 - `-p` - TURN port
-- Replace credentials with production values
+- Remplacez credentials avec production values
 
-Success output shows allocated relay addresses.
+Success output montre les allocated relay addresses.
 
 ---
 
@@ -315,32 +315,32 @@ Success output shows allocated relay addresses.
 
 | Symptom | Likely Cause | Fix |
 |---------|-------------|-----|
-| Clients can't connect, timeout | TURN ports blocked by firewall | Open UDP 3478, TCP 5349, UDP 50000-60000 |
-| TURN/TLS fails | Missing or mismatched TLS cert | Verify `cert_file`/`key_file` paths. Check cert matches `domain`. |
-| TURN/TLS fails with LB | `external_tls` not set | Set `external_tls: true` in config. |
-| One-way audio/video | Relay port range blocked | Open `relay_range_start` to `relay_range_end` UDP. |
-| High server bandwidth | Many clients behind NAT using relay | Expected. Scale server or reduce relay users. |
-| `relay` candidates but `srflx` expected | `use_external_ip: false` | Set `rtc.use_external_ip: true`. |
-| TURN domain doesn't resolve | DNS misconfigured | `dig +short turn.example.com` must return server's public IP. |
-| Clients behind corporate firewall | Only port 443 allowed | Set `turn.tls_port: 443`. Ensure cert is valid. |
-| `turn.enabled: true` but no relay | Direct path works (good) | TURN is fallback. No relay = better. Verify with `chrome://webrtc-internals`. |
+| Clients can't connect, timeout | TURN ports blocked par firewall | Open UDP 3478, TCP 5349, UDP 50000-60000 |
+| TURN/TLS fails | Missing ou mismatched TLS cert | Verify `cert_file`/`key_file` paths. Check cert matches `domain`. |
+| TURN/TLS fails avec LB | `external_tls` pas set | Set `external_tls: true` dans config. |
+| One-way audio/video | Relay port range blocked | Open `relay_range_start` à `relay_range_end` UDP. |
+| High server bandwidth | Many clients derrière NAT utilisant relay | Expected. Scale server ou reduce relay users. |
+| `relay` candidates mais `srflx` expected | `use_external_ip: false` | Set `rtc.use_external_ip: true`. |
+| TURN domain doesn't resolve | DNS misconfigured | `dig +short turn.example.com` doit return server's public IP. |
+| Clients derrière corporate firewall | Seulement port 443 allowed | Set `turn.tls_port: 443`. Ensure cert est valid. |
+| `turn.enabled: true` mais no relay | Direct path works (bon) | TURN est fallback. No relay = better. Verify avec `chrome://webrtc-internals`. |
 
 ### Quick Diagnostic Checklist
 
-1. `dig +short <turn.domain>` returns correct public IP?
-2. Firewall allows UDP 3478, TCP 5349, UDP 50000-60000?
-3. `tls_port: 443` or `5349` matches firewall rules?
-4. `cert_file` and `key_file` exist and are readable?
-5. Certificate CN/SAN matches `turn.domain`?
-6. `rtc.use_external_ip: true` set?
-7. LiveKit logs show no TURN-related errors?
+1. `dig +short <turn.domain>` returns correct public IP ?
+2. Firewall allows UDP 3478, TCP 5349, UDP 50000-60000 ?
+3. `tls_port: 443` ou `5349` matches firewall rules ?
+4. `cert_file` et `key_file` exist et sont readable ?
+5. Certificate CN/SAN matches `turn.domain` ?
+6. `rtc.use_external_ip: true` set ?
+7. LiveKit logs show no TURN-related errors ?
 
 ---
 
 ## See also
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
-- [Configuration Reference](/docs/getting-started/configuration) - all config options
-- [Internal TLS](/docs/guides/internal-tls) - TLS for isolated networks
-- [Deployment Guide](/docs/guides/deployment) - production deployment steps
+- [WebRTC Connectivity](/fr/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [LiveKit Integration](/fr/docs/backend/livekit) - comment Bedrud embeds LiveKit
+- [Configuration Reference](/fr/docs/getting-started/configuration) - toutes les config options
+- [Internal TLS](/fr/docs/guides/internal-tls) - TLS pour isolated networks
+- [Deployment Guide](/fr/docs/guides/deployment) - production deployment steps

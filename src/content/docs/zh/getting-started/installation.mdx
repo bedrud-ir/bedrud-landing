@@ -4,30 +4,30 @@ description: Install Bedrud server on Linux
 order: 2
 ---
 
-This guide covers installing the **Bedrud server** (API, web UI, WebRTC media server) on a Linux server. For desktop and mobile client apps, see [Client Installation](/docs/getting-started/clients).
+本指南介绍如何在 Linux 服务器上安装 **Bedrud 服务器**（API、Web UI、WebRTC 媒体服务器）。桌面和移动客户端应用请参阅[客户端安装](/zh/docs/getting-started/clients)。
 
 ---
 
-## Prerequisites
+## 前提条件
 
-| Requirement | Details |
-|-------------|---------|
-| **Operating system** | Debian 12+, Ubuntu 22.04+, Arch Linux (rolling), Fedora 39+ |
-| **Architecture** | amd64 (x86_64) or arm64 (aarch64) |
-| **Access** | Root or sudo |
-| **Init system** | systemd |
-| **Hardware** | 1 vCPU, 512 MB RAM minimum. 2 vCPU, 2 GB RAM recommended for 10+ concurrent rooms |
-| **Ports** | `8090` (API + web UI), `7880` (LiveKit WebSocket), `50000–60000/udp` (WebRTC media) |
-| **Auto-TLS** | Additionally open `80` and `443`. Requires a domain with DNS A record pointing to this server |
-| **Tools** | `curl`, `tar` (pre-installed on most distros) |
+| 需求 | 详情 |
+|------|------|
+| **操作系统** | Debian 12+、Ubuntu 22.04+、Arch Linux (rolling)、Fedora 39+ |
+| **架构** | amd64 (x86_64) 或 arm64 (aarch64) |
+| **权限** | Root 或 sudo |
+| **初始化系统** | systemd |
+| **硬件** | 最低 1 vCPU、512 MB RAM。10+ 并发房间建议 2 vCPU、2 GB RAM |
+| **端口** | `8090`（API + Web UI）、`7880`（LiveKit WebSocket）、`50000–60000/udp`（WebRTC 媒体） |
+| **自动 TLS** | 需额外开放 `80` 和 `443`。需要域名配置 DNS A record 指向此服务器 |
+| **工具** | `curl`、`tar`（大多数发行版已预装） |
 
-> **No domain?** Bedrud works with an IP address using self-signed TLS. Browsers will show a certificate warning but video and audio work. For trusted certificates on internal networks, see the [Internal TLS Guide](/docs/guides/internal-tls).
+> **没有域名？** Bedrud 可使用 IP 地址配合 self-signed TLS。浏览器会显示证书警告，但音视频功能正常。内网可信证书请参阅[内网 TLS 指南](/zh/docs/guides/internal-tls)。
 
 ---
 
-## 1. Package Manager Install
+## 1. 包管理器安装
 
-Install via your distribution's package manager.
+通过发行版的包管理器安装。
 
 <Tabs>
   <TabsList>
@@ -47,7 +47,7 @@ Install via your distribution's package manager.
     sudo apt update && sudo apt install bedrud
     ```
 
-    Then run the interactive installer:
+    然后运行交互式安装程序：
 
     ```bash
     sudo bedrud install
@@ -76,16 +76,16 @@ Install via your distribution's package manager.
 </Tabs>
 
 <Callout type="tip">
-    For desktop client installation (Linux, macOS, Windows) see [Client Installation](/docs/getting-started/clients).
+    桌面客户端安装（Linux、macOS、Windows）请参阅[客户端安装](/zh/docs/getting-started/clients)。
 </Callout>
 
 ---
 
 ## 2. Docker
 
-Run Bedrud in a container - no Linux server setup, no systemd, no binary download.
+在容器中运行 Bedrud — 无需 Linux 服务器配置、无需 systemd、无需下载二进制文件。
 
-### Pre-built Image (fastest)
+### 预构建镜像（最快）
 
 ```bash
 docker pull ghcr.io/bedrud-ir/bedrud:latest
@@ -116,17 +116,17 @@ volumes:
   bedrud-data:
 ```
 
-### Ports
+### 端口
 
-| Port | Service | Protocol |
-|------|---------|----------|
+| 端口 | 服务 | 协议 |
+|------|------|------|
 | 8090 | API + Web UI | HTTP |
 | 7880 | LiveKit | WebSocket + HTTP |
-| 50000–60000 | WebRTC media | UDP |
+| 50000–60000 | WebRTC 媒体 | UDP |
 
-### Configuration
+### 配置
 
-Pass a config file or use environment variables:
+传入配置文件或使用环境变量：
 
 ```bash
 docker run -d --name bedrud \
@@ -140,152 +140,152 @@ docker run -d --name bedrud \
 ```
 
 <Callout type="warning">
-    The default JWT and LiveKit secrets are for quick testing only. Change them before exposing the container to the internet.
+    默认的 JWT 和 LiveKit 密钥仅用于快速测试。在将容器暴露到互联网之前请更改它们。
 </Callout>
 
-Full Docker documentation including volumes, reverse proxy, and TLS setup: [Docker Guide](/docs/guides/docker).
+完整的 Docker 文档包括卷、反向代理和 TLS 配置：[Docker 指南](/zh/docs/guides/docker)。
 
 ---
 
-## 3. Interactive Install
+## 3. 交互式安装
 
-If you already have the `bedrud` binary on the server:
+如果服务器上已有 `bedrud` 二进制文件：
 
 ```bash
 sudo ./bedrud install
 ```
 
-The installer auto-detects your server's IP and prompts for:
+安装程序会自动检测服务器 IP 并提示以下内容：
 
-| Prompt | Default | Notes |
-|--------|---------|-------|
-| **IP address** | Auto-detected (first non-loopback IPv4) | Press Enter to accept, or type a different IP |
-| **Domain** | Empty (IP-only) | If provided with an email, enables Let's Encrypt TLS |
-| **Email** | Empty | Used for Let's Encrypt registration (only if domain is set) |
-| **Self-signed TLS** | Yes | Offered when no domain is provided. Default is `Y` |
+| 提示 | 默认值 | 说明 |
+|------|--------|------|
+| **IP 地址** | 自动检测（首个非回环 IPv4） | 按 Enter 接受，或输入其他 IP |
+| **域名** | 空（仅 IP） | 如果提供域名和邮箱，将启用 Let's Encrypt TLS |
+| **邮箱** | 空 | 用于 Let's Encrypt 注册（仅在设置了域名时） |
+| **self-signed TLS** | 是 | 未提供域名时显示。默认为 `Y` |
 
-All prompts are skipped when stdin is piped (non-interactive mode) - flags and defaults are used instead.
+当 stdin 被管道传输时（非交互模式），所有提示将被跳过 — 使用标志和默认值。
 
 ---
 
-## 4. Non-Interactive (Flag-Based)
+## 4. 非交互式（基于标志）
 
-Skip all prompts by passing flags.
+通过传入标志跳过所有提示。
 
-### Let's Encrypt (domain required)
+### Let's Encrypt（需要域名）
 
-**Requires:** DNS A record for your domain already pointing to this server's IP.
+**前提：** 域名的 DNS A record 已指向此服务器的 IP。
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com --email webmaster@example.com
 ```
 
-### Self-Signed TLS (IP-based)
+### self-signed TLS（基于 IP）
 
-**Requires:** Nothing extra. Works immediately.
+**前提：** 无额外要求。可立即使用。
 
 ```bash
 sudo ./bedrud install --tls --ip 1.2.3.4
 ```
 
-### Plain HTTP (dev / internal only)
+### 纯 HTTP（仅开发/内网）
 
-**Requires:** localhost or `127.0.0.1`. Browsers block camera/mic on non-HTTPS except localhost.
+**前提：** localhost 或 `127.0.0.1`。除 localhost 外，浏览器会阻止非 HTTPS 上的摄像头/麦克风。
 
 ```bash
 sudo ./bedrud install --ip 1.2.3.4
 ```
 
-### Self-Signed for a Domain (pre-DNS testing)
+### 域名的 self-signed 证书（DNS 配置前测试）
 
-**Requires:** Domain name (DNS does not need to resolve yet).
+**前提：** 域名（DNS 无需解析）。
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com
 ```
 
-### Custom Port
+### 自定义端口
 
-**Requires:** Port not already in use.
+**前提：** 端口未被占用。
 
 ```bash
 sudo ./bedrud install --tls --port 8443 --domain meet.example.com
 ```
 
-### External Certificates
+### 外部证书
 
-**Requires:** PEM-formatted fullchain and private key files.
+**前提：** PEM 格式的 fullchain 和私钥文件。
 
 ```bash
 sudo ./bedrud install --tls --cert /path/to/fullchain.pem --key /path/to/privkey.pem
 ```
 
-### Custom LiveKit Ports
+### 自定义 LiveKit 端口
 
-**Requires:** All three ports open on your firewall.
+**前提：** 防火墙中三个端口均已开放。
 
 ```bash
 sudo ./bedrud install --lk-port 9000 --lk-tcp-port 9001 --lk-udp-port 9002
 ```
 
-### Behind a Reverse Proxy
+### 反向代理后部署
 
-**Requires:** A reverse proxy (Nginx, Caddy, Traefik, Cloudflare) terminating TLS in front of Bedrud.
+**前提：** 前端有一个终止 TLS 的反向代理（Nginx、Caddy、Traefik、Cloudflare）。
 
 ```bash
 sudo ./bedrud install --behind-proxy --domain meet.example.com
 ```
 
-Sets `behindProxy: true` in the config and configures trusted proxy headers.
+在配置中设置 `behindProxy: true` 并配置可信代理头。
 
-### External LiveKit Server
+### 外部 LiveKit 服务器
 
-**Requires:** A separate LiveKit server already running, accessible from this machine.
+**前提：** 已运行独立的 LiveKit 服务器，且可从本机访问。
 
 ```bash
 sudo ./bedrud install --external-livekit https://livekit.example.com
 ```
 
-Skips embedded LiveKit installation. API key and secret must match in both configs.
+跳过嵌入式 LiveKit 安装。API key 和 secret 必须在两边的配置中匹配。
 
-### Separate LiveKit Domain
+### 独立 LiveKit 域名
 
-**Requires:** A domain that resolves directly to this server, bypassing any CDN.
+**前提：** 一个直接解析到此服务器的域名，绕过任何 CDN。
 
 ```bash
 sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 ```
 
-Useful when the main domain is behind Cloudflare but WebRTC media needs a direct connection.
+适用于主域名在 Cloudflare 后面但 WebRTC 媒体需要直连的场景。
 
-### All Flags Reference
+### 所有标志参考
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--tls` | `false` | Enable HTTPS (self-signed or Let's Encrypt) |
-| `--self-signed` | `false` | Generate a self-signed TLS certificate |
-| `--no-tls` | `false` | Disable TLS entirely (overrides `--tls`) |
-| `--ip` | auto-detected | Override the server IP address |
-| `--domain` | `""` | Domain name for Let's Encrypt or self-signed cert |
-| `--email` | `""` | Email for Let's Encrypt registration |
-| `--port` | `443` (TLS) / `8090` (HTTP) | Override the listening port |
-| `--cert` | `""` | Path to existing certificate file (PEM) |
-| `--key` | `""` | Path to existing private key file (PEM) |
-| `--lk-port` | `7880` | LiveKit API port |
-| `--lk-tcp-port` | `7881` | LiveKit RTC TCP port |
-| `--lk-udp-port` | `7882` | LiveKit RTC UDP port |
-| `--fresh` | `false` | Remove existing installation before installing |
-| `--behind-proxy` | `false` | Server is behind a reverse proxy / CDN |
-| `--external-livekit` | `""` | URL of an external LiveKit server |
-| `--livekit-domain` | `""` | Separate domain for LiveKit (bypass CDN) |
+| 标志 | 默认值 | 说明 |
+|------|--------|------|
+| `--tls` | `false` | 启用 HTTPS（self-signed 或 Let's Encrypt） |
+| `--self-signed` | `false` | 生成 self-signed TLS 证书 |
+| `--no-tls` | `false` | 完全禁用 TLS（覆盖 `--tls`） |
+| `--ip` | 自动检测 | 覆盖服务器 IP 地址 |
+| `--domain` | `""` | 用于 Let's Encrypt 或 self-signed 证书的域名 |
+| `--email` | `""` | 用于 Let's Encrypt 注册的邮箱 |
+| `--port` | `443`（TLS）/ `8090`（HTTP） | 覆盖监听端口 |
+| `--cert` | `""` | 现有证书文件路径（PEM） |
+| `--key` | `""` | 现有私钥文件路径（PEM） |
+| `--lk-port` | `7880` | LiveKit API 端口 |
+| `--lk-tcp-port` | `7881` | LiveKit RTC TCP 端口 |
+| `--lk-udp-port` | `7882` | LiveKit RTC UDP 端口 |
+| `--fresh` | `false` | 安装前删除已有安装 |
+| `--behind-proxy` | `false` | 服务器在反向代理 / CDN 后面 |
+| `--external-livekit` | `""` | 外部 LiveKit 服务器的 URL |
+| `--livekit-domain` | `""` | LiveKit 专用域名（绕过 CDN） |
 
 ---
 
-## 5. Fully Automated (Python CLI)
+## 5. 全自动部署（Python CLI）
 
-Build, upload, and configure your server from your local machine.
+从本地机器构建、上传并配置服务器。
 
-**Requires:** Python 3.12+, [uv](https://docs.astral.sh/uv/) (Python package runner), SSH key access to the target server, Go 1.24+ and Bun installed locally.
+**前提：** Python 3.12+、[uv](https://docs.astral.sh/uv/)（Python 包运行器）、目标服务器的 SSH 密钥访问权限、本地安装 Go 1.24+ 和 Bun。
 
 ```bash
 cd tools/cli
@@ -297,62 +297,62 @@ uv run python bedrud.py --auto-config \
   --acme-email admin@example.com
 ```
 
-**What it does:**
+**执行步骤：**
 
-1. Builds the backend binary (`dist/bedrud`)
-2. Compresses it into `bedrud.tar.xz`
-3. Uploads it to the server via rsync
-4. Clears conflicting services (Nginx, Apache, Caddy)
-5. Configures the firewall (UFW)
-6. Runs the internal `install` logic on the server
+1. 构建后端二进制文件（`dist/bedrud`）
+2. 压缩为 `bedrud.tar.xz`
+3. 通过 rsync 上传到服务器
+4. 清理冲突服务（Nginx、Apache、Caddy）
+5. 配置防火墙（UFW）
+6. 在服务器上执行内部 `install` 逻辑
 
-| Flag | Description |
-|------|-------------|
-| `--ip` | Server IP address |
-| `--user` | SSH user (default: root) |
-| `--auth-key` | Path to SSH private key |
-| `--domain` | Domain name for Let's Encrypt |
-| `--acme-email` | Email for Let's Encrypt |
-| `--uninstall` | Remove Bedrud from server |
+| 标志 | 说明 |
+|------|------|
+| `--ip` | 服务器 IP 地址 |
+| `--user` | SSH 用户（默认：root） |
+| `--auth-key` | SSH 私钥路径 |
+| `--domain` | 用于 Let's Encrypt 的域名 |
+| `--acme-email` | 用于 Let's Encrypt 的邮箱 |
+| `--uninstall` | 从服务器上删除 Bedrud |
 
 ---
 
 <InstallerSteps />
 
-### Service Entrypoints
+### 服务入口
 
 ```
-bedrud --run --config /etc/bedrud/config.yaml       # API + web server
-bedrud --livekit --config /etc/bedrud/livekit.yaml   # Media server
+bedrud --run --config /etc/bedrud/config.yaml       # API + Web 服务器
+bedrud --livekit --config /etc/bedrud/livekit.yaml   # 媒体服务器
 ```
 
 ---
 
-## Post-Installation
+## 安装后
 
 <CreateAdmin />
 
-### Verify Services
+### 验证服务
 
 ```bash
 systemctl status bedrud livekit
 ```
 
-### Verify the API
+### 验证 API
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 ```
 
-Expect: `200`
+预期结果：`200`
 
-### Check the Firewall
+### 检查防火墙
 
 ```bash
 sudo ufw status
 ```
 
-Ensure ports `8090/tcp`, `7880/tcp`, and `50000:60000/udp` are allowed:
+确保以下端口已放行：
 
 ```bash
 sudo ufw allow 8090/tcp
@@ -360,13 +360,13 @@ sudo ufw allow 7880/tcp
 sudo ufw allow 50000:60000/udp
 ```
 
-### View Logs
+### 查看日志
 
 ```bash
 tail -f /var/log/bedrud/bedrud.log
 ```
 
-Or via journalctl:
+或通过 journalctl：
 
 ```bash
 journalctl -u bedrud -u livekit -f
@@ -374,9 +374,9 @@ journalctl -u bedrud -u livekit -f
 
 ---
 
-## Upgrading
+## 升级
 
-### Package Manager
+### 包管理器
 
 ```bash
 # Ubuntu / Debian
@@ -389,11 +389,11 @@ yay -Syu bedrud-bin
 sudo dnf upgrade bedrud
 ```
 
-Services restart automatically after package upgrade.
+包升级后服务会自动重启。
 
-### Binary Download
+### 二进制下载
 
-Download the latest release and re-run install. The installer is safe to re-run - it overwrites the binary and config while preserving the database:
+下载最新版本并重新运行安装。安装程序可安全地重复运行 — 它会覆盖二进制文件和配置，同时保留数据库：
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -402,7 +402,7 @@ sudo ./bedrud install --fresh
 ```
 
 <Callout type="tip">
-    `--fresh` removes the old installation first. Omit it to keep your existing config and database.
+    `--fresh` 会先删除旧安装。省略此标志可保留现有配置和数据库。
 </Callout>
 
 ### Docker
@@ -418,7 +418,7 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-With Docker Compose:
+使用 Docker Compose：
 
 ```bash
 docker compose pull
@@ -427,30 +427,30 @@ docker compose up -d
 
 ---
 
-## Uninstallation
+## 卸载
 
-To completely remove Bedrud:
+完全删除 Bedrud：
 
 ```bash
 sudo bedrud uninstall
 ```
 
-This stops services, removes systemd units, deletes the binary from `/usr/local/bin`, and cleans up `/etc/bedrud`, `/var/lib/bedrud`, and `/var/log/bedrud`.
+此操作会停止服务、删除 systemd 单元文件、从 `/usr/local/bin` 中删除二进制文件，并清理 `/etc/bedrud`、`/var/lib/bedrud` 和 `/var/log/bedrud`。
 
 ---
 
-## Troubleshooting
+## 故障排除
 
-| Problem | Solution |
-|---------|----------|
-| **Port 80/443 in use** | Stop conflicting web servers: `systemctl stop nginx apache2 caddy` |
-| **Services won't start** | Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| **TLS certificate issues** | Verify DNS: `dig +short meet.example.com` - must return this server's IP |
-| **LiveKit port conflicts** | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags to change ports |
-| **Install succeeded but 404 on web UI** | Frontend not embedded. Build with `make build` before `bedrud install`. Binary-only builds skip the frontend |
-| **Install succeeded but services crashed** | Check for silent failures: `journalctl -u bedrud --no-pager -n 100`. Verify config at `/etc/bedrud/config.yaml` |
-| **Port already in use (unknown process)** | Find it: `ss -tlnp \| grep 8090` or `ss -ulnp \| grep 7880` |
-| **Firewall blocking media** | Open ports: `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| **Self-signed cert warnings** | Expected. See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
-| **No video / WebRTC failed** | HTTPS required for camera access. Use `--tls`. Ensure UDP 50000–60000 is open |
-| **Reverse proxy: wrong client IP** | Use `--behind-proxy` flag. Configures trusted proxy headers |
+| 问题 | 解决方案 |
+|------|----------|
+| **端口 80/443 被占用** | 停止冲突的 Web 服务器：`systemctl stop nginx apache2 caddy` |
+| **服务无法启动** | 查看日志：`journalctl -u bedrud -u livekit --no-pager -n 50` |
+| **TLS 证书问题** | 验证 DNS：`dig +short meet.example.com` — 必须返回此服务器的 IP |
+| **LiveKit 端口冲突** | 使用 `--lk-port`、`--lk-tcp-port`、`--lk-udp-port` 标志更改端口 |
+| **安装成功但 Web UI 显示 404** | 前端未嵌入。在 `bedrud install` 之前使用 `make build` 构建。仅二进制构建会跳过前端 |
+| **安装成功但服务崩溃** | 检查静默失败：`journalctl -u bedrud --no-pager -n 100`。验证 `/etc/bedrud/config.yaml` 配置 |
+| **端口被占用（未知进程）** | 查找：`ss -tlnp \| grep 8090` 或 `ss -ulnp \| grep 7880` |
+| **防火墙阻止媒体** | 开放端口：`sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| **self-signed certificate 警告** | 属于正常现象。参阅[内网 TLS 指南](/zh/docs/guides/internal-tls)了解私有 CA 配置 |
+| **无视频 / WebRTC 失败** | 摄像头访问需要 HTTPS。使用 `--tls`。确保 UDP 50000–60000 已开放 |
+| **反向代理：错误的客户端 IP** | 使用 `--behind-proxy` 标志。会配置可信代理头 |

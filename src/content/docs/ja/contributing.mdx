@@ -1,108 +1,108 @@
 ---
-title: Contributing
-description: How to contribute to Bedrud
+title: コントリビューション
+description: Bedrudへのコントリビューション方法
 order: 34
 ---
 
-Contributions to Bedrud are welcome. This guide covers the process for submitting changes.
+Bedrudへのコントリビューションをお待ちしております。このガイドでは変更を提出するまでのプロセスについて説明します。
 
-> **Note:** The canonical contributing guide is at the repository root: [CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md). This page is archived for reference only.
+> **注意：** 公式のコントリビューションガイドはリポジトリのルートにあります：[CONTRIBUTING.md](https://github.com/bedrud-ir/bedrud/blob/main/CONTRIBUTING.md)。このページは参考用としてアーカイブされています。
 
-## Getting Started
+## はじめに
 
-1. Fork the repository
-2. Clone your fork
-3. Create a feature branch from `main`
-4. Make your changes
-5. Submit a pull request
+1. リポジトリをフォークします
+2. フォークをクローンします
+3. `main` からフィーチャーブランチを作成します
+4. 変更を加えます
+5. プルリクエストを提出します
 
-## Prerequisites
+## 前提条件
 
 - Go 1.22+
-- Bun (for web frontend)
-- Rust (for desktop app)
+- Bun（Webフロントエンド用）
+- Rust（デスクトップアプリ用）
 - Make
 - Git
 
-## Development Setup
+## 開発環境のセットアップ
 
 ```bash
-# After forking on GitHub, clone your fork
+# GitHubでフォークした後、フォークをクローン
 git clone https://github.com/<your-username>/bedrud.git
 cd bedrud
 make init
 make dev
 ```
 
-See the [Development Workflow](/en/docs/guides/development) for detailed setup instructions.
+詳細なセットアップ手順については、[開発ワークフロー](/ja/docs/guides/development)を参照してください。
 
-## Project Structure
+## プロジェクト構成
 
-| Directory       | Language         | Description                      |
+| ディレクトリ       | 言語         | 説明                      |
 |-----------------|------------------|----------------------------------|
-| `server/`       | Go               | Backend API and embedded LiveKit |
-| `apps/web/`     | TypeScript/React | Web frontend                     |
-| `apps/desktop/` | Rust + Slint     | Desktop app                      |
-| `apps/android/` | Kotlin           | Android app                      |
-| `apps/ios/`     | Swift            | iOS app                          |
-| `agents/`       | Python           | Bot agents                       |
-| `packages/`     | TypeScript       | Shared type definitions          |
-| `tools/cli/`    | Python           | Deployment CLI                   |
-| `docs/`         | Markdown         | Documentation                    |
+| `server/`       | Go               | バックエンドAPIと組み込みLiveKit |
+| `apps/web/`     | TypeScript/React | Webフロントエンド                     |
+| `apps/desktop/` | Rust + Slint     | デスクトップアプリ                      |
+| `apps/android/` | Kotlin           | Androidアプリ                      |
+| `apps/ios/`     | Swift            | iOSアプリ                          |
+| `agents/`       | Python           | ボットエージェント                       |
+| `packages/`     | TypeScript       | 共有型定義          |
+| `tools/cli/`    | Python           | デプロイCLI                   |
+| `docs/`         | Markdown         | ドキュメント                    |
 
-## Code Style
+## コードスタイル
 
-| Language         | Standard                |
+| 言語         | 規準                |
 |------------------|-------------------------|
 | Go               | `gofmt`                 |
 | TypeScript/React | Biome                   |
-| Kotlin           | Android Studio defaults |
-| Swift            | Xcode defaults          |
+| Kotlin           | Android Studioのデフォルト |
+| Swift            | Xcodeのデフォルト          |
 | Python           | ruff                    |
 
-## Pull Request Process
+## プルリクエストのプロセス
 
-1. **Branch naming:** `feature/description`, `fix/description`, or `docs/description`
-2. **Commit messages:** `<action> <what> for <why>` (e.g., `add user model for auth feature`, `fix login redirect for expired sessions`)
-3. **CI checks:** All GitHub Actions checks must pass
-4. **Description:** Include what changed and why
+1. **ブランチの命名：** `feature/description`、`fix/description`、または `docs/description`
+2. **コミットメッセージ：** `<action> <what> for <why>`（例：`add user model for auth feature`、`fix login redirect for expired sessions`）
+3. **CIチェック：** すべてのGitHub Actionsチェックをパスする必要があります
+4. **説明：** 変更内容と理由を含めてください
 
-### CI Checks
+### CIチェック
 
-Every PR runs these checks automatically:
+すべてのPRで以下のチェックが自動的に実行されます：
 
-| Check   | What it validates            |
+| チェック   | 検証内容            |
 |---------|------------------------------|
-| Server  | `go vet`, build, tests       |
-| Web     | TypeScript type check, build |
-| Android | Lint, unit tests             |
-| iOS     | Build, test (simulator)      |
+| Server  | `go vet`、ビルド、テスト       |
+| Web     | TypeScript型チェック、ビルド |
+| Android | Lint、ユニットテスト             |
+| iOS     | ビルド、テスト（シミュレーター）      |
 
-## Reporting Issues
+## バグ報告
 
-File issues on [GitHub Issues](https://github.com/bedrud-ir/bedrud/issues) with:
+[GitHub Issues](https://github.com/bedrud-ir/bedrud/issues)に以下の情報を含めてIssueを報告してください：
 
-- Steps to reproduce
-- Expected vs actual behavior
-- Environment details (OS, browser, app version)
+- 再現手順
+- 期待される動作と実際の動作
+- 環境情報（OS、ブラウザ、アプリバージョン）
 
-## Documentation
+## ドキュメント
 
-Documentation lives in `docs/` and is built with [MkDocs Material](https://squidfunk.github.io/mkdocs-material/).
+ドキュメントは `docs/` ディレクトリにあり、[MkDocs Material](https://squidfunk.github.io/mkdocs-material/) でビルドされています。
 
-### Local Preview
+### ローカルプレビュー
 
 ```bash
 pip install mkdocs-material
 mkdocs serve
 ```
 
-Then open `http://localhost:8000` in your browser.
+その後、ブラウザで `http://localhost:8000` を開きます。
 
-### Structure
+### 構成
 
-Documentation pages are organized by topic. The navigation is defined in `mkdocs.yml` at the project root.
+ドキュメントページはトピックごとに整理されています。ナビゲーションはプロジェクトルートの `mkdocs.yml` で定義されています。
 
-## License
+## ライセンス
 
-By contributing, you agree that your contributions will be licensed under the [Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE).
+コントリビューションすることで、あなたの贡献物が[Apache License 2.0](https://github.com/bedrud-ir/bedrud/blob/main/LICENSE)の下でライセンスされることに同意したものとみなされます。

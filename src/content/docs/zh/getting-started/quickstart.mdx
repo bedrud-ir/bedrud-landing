@@ -4,28 +4,28 @@ description: Deploy Bedrud and join a video meeting in under 5 minutes
 order: 1
 ---
 
-Deploy Bedrud and join a video meeting in under 5 minutes.
+5 分钟内部署 Bedrud 并加入视频会议。
 
-**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/docs/getting-started/installation). For config see [Configuration](/docs/getting-started/configuration).
+**本指南：** 下载 → 安装 → 验证 → 加入。其他安装方式请参阅[安装指南](/zh/docs/getting-started/installation)。配置相关请参阅[配置](/zh/docs/getting-started/configuration)。
 
-> **Single binary, no internet needed after download.** It includes an embedded media server and SQLite - it works on isolated networks. Transfer file, run one command, done.
-
----
-
-## What You Need
-
-| Requirement | Details |
-|-------------|---------|
-| A Linux server | amd64, with `sudo` access and `systemd`. Windows: Docker or WSL2. macOS: build from source |
-| Open ports | `8090`, `7880`, `50000–60000/udp`. For auto-TLS: also `80` and `443` |
-| Tools | `curl`, `tar` |
-| A domain (optional) | With DNS A record pointing to your server. No domain? Works with IP - see alternatives below |
-
-> **How it works:** You run one Bedrud **server**. People join meetings in their **browser** (no install) or via **native apps** (Android, Windows, macOS, Linux).
+> **单二进制文件，下载后无需联网。** 内置媒体服务器和 SQLite — 可在隔离网络中运行。传输文件，执行一条命令即可。
 
 ---
 
-## 1. Download
+## 你需要什么
+
+| 需求 | 详情 |
+|------|------|
+| 一台 Linux 服务器 | amd64，需要 `sudo` 权限和 `systemd`。Windows：Docker 或 WSL2。macOS：从源码构建 |
+| 开放端口 | `8090`、`7880`、`50000–60000/udp`。自动 TLS 还需开放 `80` 和 `443` |
+| 工具 | `curl`、`tar` |
+| 域名（可选） | 需配置 DNS A record 指向你的服务器。没有域名？可直接使用 IP — 参见下方替代方案 |
+
+> **工作原理：** 你运行一个 Bedrud **服务器**。参与者通过**浏览器**加入会议（无需安装）或通过**原生应用**（Android、Windows、macOS、Linux）。
+
+---
+
+## 1. 下载
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -33,62 +33,62 @@ tar -xJf bedrud.tar.xz
 chmod +x bedrud
 ```
 
-> **No internet on server?** Download on any machine, transfer via USB or `scp bedrud.tar.xz user@server:/tmp/`, then extract there. Binary is fully self-contained - zero outbound requests after transfer.
+> **服务器没有网络？** 在任意机器上下载，通过 USB 或 `scp bedrud.tar.xz user@server:/tmp/` 传输，然后在服务器上解压。二进制文件完全自包含 — 传输后不会产生任何出站请求。
 
-> **Download failed?** Check internet access, or verify URL at [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+> **下载失败？** 检查网络连接，或在 [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) 验证 URL。
 
 ---
 
-## 2. Install
+## 2. 安装
 
-Replace `meet.example.com` and `admin@example.com` with your values:
+将 `meet.example.com` 和 `admin@example.com` 替换为你的实际值：
 
 ```bash
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-Installs binary, generates config, creates systemd services, provisions TLS, starts everything.
+安装二进制文件、生成配置、创建 systemd 服务、配置 TLS、启动所有服务。
 
-> **Port 80 or 443 busy?** Stop conflicting services: `sudo systemctl stop nginx apache2 caddy`, then re-run.
+> **端口 80 或 443 被占用？** 停止冲突服务：`sudo systemctl stop nginx apache2 caddy`，然后重新运行。
 
-> **No domain?** Use your server IP instead:
+> **没有域名？** 使用服务器 IP 代替：
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/docs/guides/internal-tls).
+> 这将使用 self-signed certificate。浏览器会显示警告，但视频功能正常。内网可信证书请参阅[内网 TLS 指南](/zh/docs/guides/internal-tls)。
 
 ---
 
-## 3. Verify
+## 3. 验证
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 ```
 
-Expect: `200`
+预期结果：`200`
 
-> **Not 200?** Check service status: `sudo systemctl status bedrud livekit`. Check logs: `journalctl -u bedrud -u livekit --no-pager -n 50`.
+> **不是 200？** 检查服务状态：`sudo systemctl status bedrud livekit`。查看日志：`journalctl -u bedrud -u livekit --no-pager -n 50`。
 
 ---
 
-## 4. Register & Create Admin
+## 4. 注册并创建管理员
 
-Open `https://meet.example.com` (or `https://<your-ip>:8090`) in your browser:
+在浏览器中打开 `https://meet.example.com`（或 `https://<你的IP>:8090`）：
 
 <CreateAdmin createOption />
 
-3. Log in (or refresh) - **Admin** section appears in sidebar (Overview, Users, Rooms, Settings). Success: you're admin.
-4. **Create a room** → **Join** → **Share video/audio** - grant camera/mic permissions when prompted
+3. 登录（或刷新页面）— 侧边栏中出现**管理员**区域（概览、用户、房间、设置）。成功：你已成为管理员。
+4. **创建房间** → **加入** → **共享视频/音频** — 根据提示授予摄像头/麦克风权限
 
-> **Admin dashboard** - After promoting, log in to access admin panel at `/dashboard/admin`. Manage users, rooms, system settings, and invite tokens.
+> **管理面板** — 提升权限后，登录即可访问 `/dashboard/admin` 管理面板。管理用户、房间、系统设置和邀请令牌。
 
-> **CLI reference** - Full user management: `bedrud user promote`, `demote`, `create`, `delete`.
+> **CLI 参考** — 完整的用户管理：`bedrud user promote`、`demote`、`create`、`delete`。
 
-**Native clients** for Android, Windows, macOS, and Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Or share the meeting link - participants join in any browser.
+Android、Windows、macOS 和 Linux **原生客户端**：[GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest)。或者直接分享会议链接 — 参与者在任意浏览器中即可加入。
 
 ---
 
-## Alternative Install Paths
+## 其他安装方式
 
 ### Docker
 
@@ -101,11 +101,11 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Custom config, Docker Compose, and env vars: see [Docker guide](/docs/guides/docker).
+自定义配置、Docker Compose 和环境变量：参见 [Docker 指南](/zh/docs/guides/docker)。
 
-### Build from Source
+### 从源码构建
 
-Requires [Go 1.24+](https://go.dev/dl/) and [Bun](https://bun.sh/):
+需要 [Go 1.24+](https://go.dev/dl/) 和 [Bun](https://bun.sh/)：
 
 ```bash
 git clone https://github.com/bedrud-ir/bedrud.git
@@ -114,82 +114,82 @@ make init
 make local-run
 ```
 
-`make init` installs LiveKit, creates config, fetches deps. `make local-run` builds and starts on `http://localhost:8090`.
+`make init` 安装 LiveKit、创建配置、获取依赖。`make local-run` 构建并在 `http://localhost:8090` 上启动。
 
-### Plain HTTP (dev / localhost only)
+### 纯 HTTP（仅开发/localhost）
 
 ```bash
 sudo ./bedrud install --ip 127.0.0.1
 ```
 
-> **Warning:** Browsers block camera/mic on non-HTTPS except `localhost`. HTTP is dev-only.
+> **警告：** 除 `localhost` 外，浏览器会阻止非 HTTPS 上的摄像头/麦克风。HTTP 仅用于开发。
 
-### Non-Linux Systems
+### 非 Linux 系统
 
-The `install` command is Linux-only. Place binary in PATH manually:
+`install` 命令仅限 Linux。需手动将二进制文件放入 PATH：
 
-| OS      | How                                       |
-|---------|-------------------------------------------|
-| macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | Move `bedrud.exe` to a folder in `%PATH%` |
-
----
-
-## Internal Networks
-
-No public domain or outbound internet? See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup and client trust store configuration.
+| 操作系统 | 方式 |
+|----------|------|
+| macOS | `sudo cp bedrud /usr/local/bin/` |
+| Windows | 将 `bedrud.exe` 移动到 `%PATH%` 中的文件夹 |
 
 ---
 
-## Configuration
+## 内网部署
 
-Installer generates `/etc/bedrud/config.yaml`. Defaults work for most setups.
-Change `jwtSecret` and `sessionSecret` for production, then restart:
+没有公网域名或出站网络？参阅[内网 TLS 指南](/zh/docs/guides/internal-tls)了解私有 CA 配置和客户端信任存储设置。
+
+---
+
+## 配置
+
+安装程序会生成 `/etc/bedrud/config.yaml`。默认配置适用于大多数场景。
+生产环境中请更改 `jwtSecret` 和 `sessionSecret`，然后重启：
 
 ```bash
 sudo systemctl restart bedrud livekit
 ```
 
-To adjust room capacity, timeouts, or media ports, see [LiveKit section in Configuration](/docs/getting-started/configuration#livekit-configuration).
+要调整房间容量、超时时间或媒体端口，请参阅[配置中的 LiveKit 部分](/zh/docs/getting-started/configuration#livekit-configuration)。
 
-Full reference: [Configuration](/docs/getting-started/configuration)
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---------|-----|
-| Port 80/443 in use | `sudo systemctl stop nginx apache2 caddy` |
-| Services won't start | `journalctl -u bedrud -u livekit --no-pager -n 50` |
-| TLS cert errors | Verify DNS: `dig meet.example.com`. Must point to server IP |
-| No video / WebRTC failed | HTTPS required for camera. Use `--tls`. Open UDP 50000–60000 on firewall |
-| LiveKit port conflicts | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags |
-| Firewall blocking media | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| Self-signed cert warnings | See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+完整参考：[配置](/zh/docs/getting-started/configuration)
 
 ---
 
-## Teardown
+## 故障排除
+
+| 问题 | 解决方案 |
+|------|----------|
+| 端口 80/443 被占用 | `sudo systemctl stop nginx apache2 caddy` |
+| 服务无法启动 | `journalctl -u bedrud -u livekit --no-pager -n 50` |
+| TLS 证书错误 | 验证 DNS：`dig meet.example.com`。必须指向服务器 IP |
+| 无视频 / WebRTC 失败 | 摄像头需要 HTTPS。使用 `--tls`。在防火墙中开放 UDP 50000–60000 |
+| LiveKit 端口冲突 | 使用 `--lk-port`、`--lk-tcp-port`、`--lk-udp-port` 标志 |
+| 防火墙阻止媒体 | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
+| self-signed certificate 警告 | 参见[内网 TLS 指南](/zh/docs/guides/internal-tls)了解私有 CA 配置 |
+
+---
+
+## 卸载
 
 ```bash
-# Binary install
+# Binary 安装
 sudo ./bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
-# Source build
-# Ctrl+C to stop, then: make clean
+# 源码构建
+# Ctrl+C 停止，然后：make clean
 ```
 
 ---
 
-## Next Steps
+## 后续步骤
 
-- [Configuration Reference](/docs/getting-started/configuration) - ports, database, auth providers, TURN
-- [Installation Guide](/docs/getting-started/installation) - package managers, advanced flags, all methods
-- [Internal TLS Guide](/docs/guides/internal-tls) - air-gapped deployment, private CA
-- [Deployment Guide](/docs/guides/deployment) - production setup, reverse proxy, scaling
-- [Architecture Overview](/docs/architecture/overview) - how pieces fit together
-- [API Docs](http://localhost:8090/api/swagger) - Swagger UI (running instance)
+- [配置参考](/zh/docs/getting-started/configuration) - 端口、数据库、身份验证提供者、TURN
+- [安装指南](/zh/docs/getting-started/installation) - 包管理器、高级标志、所有安装方式
+- [内网 TLS 指南](/zh/docs/guides/internal-tls) - 气隙部署、私有 CA
+- [部署指南](/zh/docs/guides/deployment) - 生产环境配置、反向代理、扩容
+- [架构概览](/zh/docs/architecture/overview) - 各组件如何协同工作
+- [API 文档](http://localhost:8090/api/swagger) - Swagger UI（需运行实例）

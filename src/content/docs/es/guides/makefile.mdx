@@ -1,33 +1,33 @@
 ---
-title: Referencia de Makefile
-description: Comandos de automatización de construcción
+title: Referencia del Makefile
+description: Comandos de automatización de compilación
 order: 31
 ---
 
-El `Makefile` raíz es la herramienta central de orquestación de construcción para el monorepo de Bedrud. Proporciona comandos para desarrollo, construcción y despliegue en todas las plataformas.
+El `Makefile` raíz es la herramienta central de orquestación de compilación del monorepo de Bedrud. Proporciona comandos para desarrollo, compilación y despliegue en todas las plataformas.
 
 ## Uso
 
 ```bash
 make <target>
-make help       # Mostrar todos los objetivos disponibles
+make help       # Mostrar todos los targets disponibles
 ```
 
-## Objetivos de Desarrollo
+## Targets de desarrollo
 
-| Objetivo | Descripción |
-|----------|-------------|
+| Target | Descripción |
+|--------|-------------|
 | `make init` | Instalar todas las dependencias (web + servidor) |
 | `make dev` | Ejecutar LiveKit + servidor + web simultáneamente |
 | `make dev-web` | Ejecutar solo el servidor de desarrollo del frontend |
-| `make dev-server` | Ejecutar solo el servidor del backend |
-| `make dev-livekit` | Ejecutar el servidor LiveKit local |
-| `make dev-ios` | Abrir el proyecto iOS en Xcode |
-| `make dev-android` | Abrir el proyecto Android en Android Studio |
+| `make dev-server` | Ejecutar solo el servidor backend |
+| `make dev-livekit` | Ejecutar el servidor local de LiveKit |
+| `make dev-ios` | Abrir el proyecto de iOS en Xcode |
+| `make dev-android` | Abrir el proyecto de Android en Android Studio |
 
 ### `make init`
 
-Instala dependencias tanto para el frontend web como para el servidor de Go:
+Instala las dependencias tanto del frontend web como del servidor Go:
 
 ```bash
 cd apps/web && bun install
@@ -36,29 +36,29 @@ cd server && go mod tidy && go mod download
 
 ### `make dev`
 
-Inicia los tres servicios de desarrollo simultáneamente. Presione `Ctrl+C` para detener todos:
+Inicia los tres servicios de desarrollo simultáneamente. Presiona `Ctrl+C` para detener todos:
 
 - **LiveKit** en `localhost:7880`
 - **Servidor** en `localhost:8090`
 - **Web** en `localhost:3000`
 
-## Objetivos de Construcción
+## Targets de compilación
 
-| Objetivo | Descripción |
-|----------|-------------|
-| `make build` | Construir frontend + backend (incrustado) |
-| `make build-front` | Construir solo el frontend |
-| `make build-back` | Construir solo el backend |
-| `make build-dist` | Construir tarball de linux/amd64 para producción |
+| Target | Descripción |
+|--------|-------------|
+| `make build` | Compilar frontend + backend (embebido) |
+| `make build-front` | Compilar solo el frontend |
+| `make build-back` | Compilar solo el backend |
+| `make build-dist` | Compilar tarball de producción para linux/amd64 |
 
 ### `make build`
 
-Construcción completa de producción:
+Compilación completa de producción:
 
-1. Ejecuta `bun run build:embed` - pre-renderiza la aplicación React con SSR y copia los activos a `server/frontend/`
-2. Construye el binario de Go con el frontend incrustado
+1. Ejecuta `bun run build:embed` — pre-renderiza con SSR la aplicación React y copia los assets a `server/frontend/`
+2. Compila el binario de Go con el frontend embebido
 
-Salida: `server/dist/bedrud`
+Resultado: `server/dist/bedrud`
 
 ### `make build-dist`
 
@@ -68,37 +68,37 @@ Crea una distribución comprimida lista para producción:
 2. Compila cruzadamente para `linux/amd64` con símbolos de depuración eliminados
 3. Crea `dist/bedrud_linux_amd64.tar.xz`
 
-## Objetivos de Android
+## Targets de Android
 
-| Objetivo | Descripción |
-|----------|-------------|
-| `make build-android-debug` | Construir APK de depuración |
-| `make build-android` | Construir APK de lanzamiento (requiere keystore) |
-| `make install-android` | Instalar APK de lanzamiento en dispositivo conectado |
-| `make release-android` | Construir + instalar APK de lanzamiento |
+| Target | Descripción |
+|--------|-------------|
+| `make build-android-debug` | Compilar APK de depuración |
+| `make build-android` | Compilar APK de producción (requiere keystore) |
+| `make install-android` | Instalar APK de producción en un dispositivo conectado |
+| `make release-android` | Compilar + instalar APK de producción |
 
-### Rutas de Salida de APK
+### Rutas de salida de APK
 
 - Depuración: `apps/android/app/build/outputs/apk/debug/app-debug.apk`
-- Lanzamiento: `apps/android/app/build/outputs/apk/release/app-release.apk`
+- Producción: `apps/android/app/build/outputs/apk/release/app-release.apk`
 
-## Objetivos de iOS
+## Targets de iOS
 
-| Objetivo | Descripción |
-|----------|-------------|
-| `make build-ios` | Construir archivo iOS (Release) |
-| `make export-ios` | Exportar IPA del archivo |
-| `make build-ios-sim` | Construir para iOS Simulator (Debug) |
+| Target | Descripción |
+|--------|-------------|
+| `make build-ios` | Compilar archivo de iOS (Release) |
+| `make export-ios` | Exportar IPA desde el archivo |
+| `make build-ios-sim` | Compilar para simulador de iOS (Debug) |
 
-### Rutas de Salida
+### Rutas de salida
 
 - Archivo: `apps/ios/build/Bedrud.xcarchive`
 - IPA: `apps/ios/build/export/Bedrud.ipa`
 
-## Objetivo de Despliegue
+## Target de despliegue
 
-| Objetivo | Descripción |
-|----------|-------------|
+| Target | Descripción |
+|--------|-------------|
 | `make deploy ARGS=...` | Ejecutar la herramienta CLI de despliegue |
 
 ### Ejemplo
@@ -109,11 +109,11 @@ make deploy ARGS="--auto-config --ip 1.2.3.4 --user root --domain meet.example.c
 
 Esto ejecuta la CLI de Python en `tools/cli/bedrud.py` con los argumentos proporcionados.
 
-## Objetivos de Limpieza
+## Targets de limpieza
 
-| Objetivo | Descripción |
-|----------|-------------|
-| `make clean` | Eliminar artefactos de construcción y binarios compilados |
+| Target | Descripción |
+|--------|-------------|
+| `make clean` | Eliminar artefactos de compilación y binarios compilados |
 | `make full-clean` | Eliminar artefactos + todas las dependencias instaladas |
 
 ### `make clean`
@@ -121,18 +121,18 @@ Esto ejecuta la CLI de Python en `tools/cli/bedrud.py` con los argumentos propor
 Elimina:
 
 - `dist/` - tarballs de distribución
-- `server/dist/` - binario del servidor compilado
-- `apps/web/dist/` - salida de construcción de React
-- Contenido de `server/frontend/` - activos del frontend incrustado
-- `apps/android/app/build/` - salidas de construcción de Android
-- `apps/ios/build/` - salidas de construcción de iOS
+- `server/dist/` - binario compilado del servidor
+- `apps/web/dist/` - resultado de compilación de React
+- Contenido de `server/frontend/` - assets del frontend embebido
+- `apps/android/app/build/` - resultados de compilación de Android
+- `apps/ios/build/` - resultados de compilación de iOS
 
 ### `make full-clean`
 
-Todo lo que hace `clean`, más:
+Todo lo que hace `clean`, además de:
 
 - `apps/web/node_modules/`
 - `apps/android/.gradle/`
 - Caché de módulos de Go (`go clean -modcache`)
 
-Ejecute `make init` después para reinstalar las dependencias.
+Ejecuta `make init` después para reinstalar las dependencias.

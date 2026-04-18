@@ -1,74 +1,74 @@
 ---
-title: iOS App
-description: Native iOS application
+title: iOS Uygulaması
+description: Yerel iOS uygulaması
 order: 10
 ---
 
-The Bedrud iOS app is built with SwiftUI, providing a native video meeting experience with multi-instance support and secure credential storage.
+Bedrud iOS uygulaması SwiftUI ile oluşturulmuş olup, çoklu örnek desteği ve güvenli kimlik bilgisi depolama ile yerel bir video toplantısı deneyimi sunar.
 
-## Technology Stack
+## Teknoloji Yığını
 
-| Technology | Version | Purpose |
-|-----------|---------|---------|
-| Swift | 5.9+ | Language |
-| SwiftUI | Latest | UI framework |
-| LiveKit Swift SDK | 2.0+ | WebRTC media |
-| KeychainAccess | 4.2.2+ | Secure credential storage |
+| Teknoloji | Sürüm | Amaç |
+|-----------|-------|------|
+| Swift | 5.9+ | Dil |
+| SwiftUI | En son | UI çerçevesi |
+| LiveKit Swift SDK | 2.0+ | WebRTC medya |
+| KeychainAccess | 4.2.2+ | Güvenli kimlik bilgisi depolama |
 
-**Deployment target:** iOS 18.0
+**Dağıtım hedefi:** iOS 18.0
 
-## Project Configuration
+## Proje Yapılandırması
 
-The project uses **XCodeGen** for project generation from `project.yml`:
+Proje `project.yml` dosyasından proje üretimi için **XCodeGen** kullanır:
 
 - Bundle ID: `com.bedrud.ios`
-- Generated with: `xcodegen generate`
+- Üretim komutu: `xcodegen generate`
 
-## Directory Structure
+## Dizin Yapısı
 
 ```text
 apps/ios/Bedrud/
-├── BedrudApp.swift                # App entry point
+├── BedrudApp.swift                # Uygulama giriş noktası
 ├── Core/
 │   ├── API/
-│   │   └── APIClient.swift        # URLSession-based REST client
+│   │   └── APIClient.swift        # URLSession tabanlı REST istemcisi
 │   ├── Auth/
-│   │   └── AuthManager.swift      # Token management, login/logout
+│   │   └── AuthManager.swift      # Token yönetimi, giriş/çıkış
 │   ├── Instance/
-│   │   ├── InstanceManager.swift  # Central multi-instance orchestrator
-│   │   └── InstanceStore.swift    # Persistent instance storage (UserDefaults)
+│   │   ├── InstanceManager.swift  # Merkezi çoklu örnek düzenleyici
+│   │   └── InstanceStore.swift    # Kalıcı örnek depolama (UserDefaults)
 │   └── LiveKit/
-│       └── RoomManager.swift      # LiveKit room connection manager
+│       └── RoomManager.swift      # LiveKit oda bağlantı yöneticisi
 ├── Features/
 │   ├── Auth/
-│   │   ├── LoginView.swift        # Login screen
-│   │   └── RegisterView.swift     # Registration screen
+│   │   ├── LoginView.swift        # Giriş ekranı
+│   │   └── RegisterView.swift     # Kayıt ekranı
 │   ├── Dashboard/
-│   │   └── DashboardView.swift    # Room list and management
+│   │   └── DashboardView.swift    # Oda listesi ve yönetimi
 │   ├── Meeting/
-│   │   └── MeetingView.swift      # Video call interface
+│   │   └── MeetingView.swift      # Görüntülü arama arayüzü
 │   ├── Profile/
-│   │   └── ProfileView.swift      # User profile
+│   │   └── ProfileView.swift      # Kullanıcı profili
 │   ├── Instance/
-│   │   ├── AddInstanceView.swift  # Add server instance
-│   │   └── InstanceSwitcherView.swift  # Switch between instances
+│   │   ├── AddInstanceView.swift  # Sunucu örneği ekleme
+│   │   └── InstanceSwitcherView.swift  # Örnekler arasında geçiş
 │   ├── Settings/
-│   │   └── SettingsView.swift     # App settings
+│   │   └── SettingsView.swift     # Uygulama ayarları
 │   ├── JoinByURL/
-│   │   └── JoinByURLView.swift    # Deep link handling
+│   │   └── JoinByURLView.swift    # Derin bağlantı işleme
 │   └── Main/
-│       └── MainTabView.swift      # Tab navigation
+│       └── MainTabView.swift      # Sekme gezintisi
 ├── Models/
 │   ├── User.swift
 │   ├── Room.swift
 │   └── Instance.swift
 └── Design/
-    └── Components/                # Reusable SwiftUI components
+    └── Components/                # Yeniden kullanılabilir SwiftUI bileşenleri
 ```
 
-## Multi-Instance Architecture
+## Çoklu Örnek Mimarisi
 
-The iOS app mirrors the Android architecture for multi-instance support.
+iOS uygulaması çoklu örnek desteği için Android mimarisini yansıtır.
 
 ```text
 ┌──────────────────────────┐
@@ -77,16 +77,16 @@ The iOS app mirrors the Android architecture for multi-instance support.
 │  @Published properties:  │
 │  ├── instances: [Instance]│
 │  ├── activeInstance       │
-│  ├── authManager          │──► Per-instance
-│  ├── apiClient            │    dependency
-│  ├── roomManager          │    container
+│  ├── authManager          │──► Örnek başına
+│  ├── apiClient            │    bağımlılık
+│  ├── roomManager          │    konteyneri
 │  └── ...                  │
 └──────────────────────────┘
 ```
 
-### Key Pattern
+### Temel Örüntü
 
-Dependencies are `@Published` properties on `InstanceManager`, which is an `ObservableObject`. Views receive it via `@EnvironmentObject`:
+Bağımlılıklar bir `ObservableObject` olan `InstanceManager` üzerinde `@Published` özellikleridir. Görünümler bunları `@EnvironmentObject` ile alır:
 
 ```swift
 struct DashboardView: View {
@@ -100,19 +100,19 @@ struct DashboardView: View {
 }
 ```
 
-### Navigation Flow
+### Gezinti Akışı
 
 ```text
-No instances ──► AddInstanceView
-Has instances, not logged in ──► LoginView
-Has instances, logged in ──► DashboardView
+Örnek yok ──► AddInstanceView
+Örnek var, giriş yapılmamış ──► LoginView
+Örnek var, giriş yapılmış ──► DashboardView
 ```
 
-The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
+Örnek değiştirici Dashboard araç çubuğundan tetiklenen bir `.sheet` olarak görünür.
 
-## App Entry Point
+## Uygulama Giriş Noktası
 
-`BedrudApp.swift` initializes the core services and injects them into the SwiftUI environment:
+`BedrudApp.swift` çekirdek servisleri başlatır ve bunları SwiftUI ortamına enjekte eder:
 
 ```swift
 @main
@@ -132,38 +132,38 @@ struct BedrudApp: App {
 }
 ```
 
-## Features
+## Özellikler
 
-### Secure Storage
+### Güvenli Depolama
 
-Uses **KeychainAccess** for storing JWT tokens and sensitive credentials, rather than UserDefaults.
+JWT tokenları ve hassas kimlik bilgileri UserDefaults yerine **KeychainAccess** ile saklanır.
 
-### Deep Linking
+### Derin Bağlantı
 
-Handles URLs for direct room joining and room codes.
+Doğrudan odaya katılma ve oda kodları için URL'leri işler.
 
-### Settings
+### Ayarlar
 
-User preferences are persisted via `SettingsStore` using UserDefaults.
+Kullanıcı tercihleri `SettingsStore` üzerinden UserDefaults kullanılarak kalıcı olarak saklanır.
 
-## Building
+## Derleme
 
 ```bash
-# Open in Xcode
+# Xcode'da aç
 make dev-ios
 
-# Build archive (Release)
+# Arşiv derle (Sürüm)
 make build-ios
 
-# Export IPA (requires ExportOptions.plist)
+# IPA dışa aktar (ExportOptions.plist gerektirir)
 make export-ios
 
-# Build for simulator (Debug)
+# Simülatör için derle (Hata Ayıklama)
 make build-ios-sim
 ```
 
-### Requirements
+### Gereksinimler
 
-- Xcode (latest stable)
-- iOS 18.0 deployment target
-- For device builds: Apple Developer account and provisioning profile
+- Xcode (en son kararlı sürüm)
+- iOS 18.0 dağıtım hedefi
+- Cihaz derlemeleri için: Apple Developer hesabı ve sağlama profili

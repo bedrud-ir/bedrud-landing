@@ -1,35 +1,35 @@
 ---
-title: Admin API
-description: Administrative operations
+title: 管理者API
+description: 管理操作用エンドポイント
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+管理者エンドポイントは `/api/admin/` 以下にあります。これらには **Super Admin** ロールが必要です。
 
-## Overview
+## 概要
 
-| Endpoint | Method | Description |
+| エンドポイント | メソッド | 説明 |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | すべてのユーザーを一覧表示 |
+| `/api/admin/users/:id/status` | PUT | ユーザーの有効化・無効化 |
 
 ---
 
-## Endpoints
+## エンドポイント
 
-### List All Users
+### ユーザー一覧の取得
 
-Retrieve a list of all registered users.
+登録済みのすべてのユーザーの一覧を取得します。
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**必要なロール：** Super Admin
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### ユーザーステータスの更新
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+ユーザーアカウントを有効化または無効化します。無効化されたユーザーはログインできません。
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**必要なロール：** Super Admin
 
-**URL Parameters:**
+**URLパラメータ：**
 
-| Parameter | Description |
+| パラメータ | 説明 |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | ユーザーUUID |
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -100,31 +100,31 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## ユーザーロール
 
-| Role | Description | Permissions |
+| ロール | 説明 | 権限 |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | 一時ユーザー | ルームへの参加のみ |
+| `user` | 一般ユーザー | ルームの作成・参加、プロフィール管理 |
+| `admin` | Super Admin | すべてのユーザー権限 + ユーザー管理、すべてのルームの閲覧 |
 
-### Creating an Admin
+### 管理者の作成
 
-Admin users are created via the CLI:
+管理者ユーザーはCLI経由で作成します：
 
 ```bash
-# Create a user
+# ユーザーの作成
 bedrud user create --email "admin@example.com" --password "securepassword" --name "Admin"
 
-# Promote to admin
+# 管理者への昇格
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+ユーザーを管理者に昇格させるAPIエンドポイントは意図的に用意されていません。これはセキュリティ上の理由です。
 
 ---
 
-## Error Responses
+## エラーレスポンス
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
+| ステータスコード | 意味 |
 |--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| 401 | 未認証 |
+| 403 | Super Admin権限がありません |
+| 404 | ユーザーが見つかりません |
+| 500 | サーバー内部エラー |
 
 ---
 
-## See also
+## 関連ドキュメント
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [APIハンドラーとルーティング](/ja/docs/backend/api-handlers) - 管理者ルートの実装方法
+- [Rooms API](/ja/docs/api/rooms) - ルーム管理エンドポイント

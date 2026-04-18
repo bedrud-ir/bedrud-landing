@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: Kimlik Doğrulama API'si
+description: Kimlik doğrulama uç noktaları ve yöntemleri
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+Tüm kimlik doğrulama uç noktaları `/api/auth/` altındadır.
 
-## Overview
+## Genel Bakış
 
-Bedrud supports multiple authentication methods:
+Bedrud birden fazla kimlik doğrulama yöntemini destekler:
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
-| Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| Yöntem | Uç Nokta | Açıklama |
+|--------|----------|----------|
+| E-posta/Parola | `POST /api/auth/login` | Geleneksel giriş |
+| Kayıt | `POST /api/auth/register` | Hesap oluşturma |
+| Misafir | `POST /api/auth/guest-login` | Geçici erişim |
+| OAuth | `GET /api/auth/:provider/login` | Sosyal hesap ile giriş |
+| Passkey | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
+| Token Yenileme | `POST /api/auth/refresh` | Erişim token'ını yenileme |
 
-## Token Format
+## Token Formatı
 
-Successful authentication returns a pair of JWT tokens:
+Başarılı bir kimlik doğrulama, bir çift JWT token döndürür:
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **Access Token** - Kısa ömürlü, `Authorization` başlığında kullanılır
+- **Refresh Token** - Uzun ömürlü, yeni access token almak için kullanılır
 
-### Using Tokens
+### Token Kullanımı
 
-Include the access token in all authenticated requests:
+Tüm kimlik doğrulamalı isteklerde access token'ı ekleyin:
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## Uç Noktalar
 
-### Register
+### Kayıt Ol
 
-Create a new user account.
+Yeni bir kullanıcı hesabı oluşturun.
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### Giriş Yap
 
-Authenticate with email and password.
+E-posta ve parola ile kimlik doğrulayın.
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### Misafir Girişi
 
-Join as a guest without creating an account. Guests have limited permissions.
+Hesap oluşturmadan misafir olarak katılın. Misafir kullanıcıların sınırlı izinleri vardır.
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### Mevcut Kullanıcıyı Getir
 
-Retrieve the authenticated user's profile.
+Kimliği doğrulanmış kullanıcının profilini alın.
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### Token Yenile
 
-Exchange a refresh token for a new access token.
+Refresh token'ı yeni bir access token ile değiştirin.
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### Çıkış Yap
 
-Invalidate the current refresh token.
+Mevcut refresh token'ı geçersiz kılın.
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Başlıklar:** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**İstek Gövdesi:**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**Yanıt (200):**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### OAuth Girişi
 
-Start an OAuth flow with a social provider.
+Bir sosyal sağlayıcı ile OAuth akışını başlatın.
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**Desteklenen Sağlayıcılar:**
 
-| Provider | Path |
-|----------|------|
+| Sağlayıcı | Yol |
+|------------|-----|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+Sunucu, kullanıcıyı sağlayıcının yetkilendirme sayfasına yönlendirir. Onay sonrasında sağlayıcı, callback URL'sine geri yönlendirir ve sunucu JWT token'larını döndürür.
 
 ---
 
-## Error Responses
+## Hata Yanıtları
 
-All auth endpoints return errors in this format:
+Tüm kimlik doğrulama uç noktaları hataları bu formatta döndürür:
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
-|--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| Durum | Anlamı |
+|-------|--------|
+| 400 | Hatalı istek (eksik alanlar, doğrulama hatası) |
+| 401 | Geçersiz kimlik bilgileri veya süresi dolmuş token |
+| 409 | E-posta adresi zaten kayıtlı |
+| 500 | İç sunucu hatası |
 
 ---
 
-## See also
+## Ayrıca bakınız
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [Kimlik Doğrulama Akışı](/tr/docs/backend/authentication) - JWT, OAuth ve passkey'lerin dahili çalışma şekli
+- [Passkeys API](/tr/docs/api/passkeys) - FIDO2/WebAuthn uç nokta referansı

@@ -4,15 +4,15 @@ description: Install desktop and mobile apps
 order: 3
 ---
 
-Open the meeting link in a browser to join - no installation required. For a native app experience, install the client for your platform below.
+在浏览器中打开会议链接即可加入 — 无需安装。如需原生应用体验，请安装以下对应平台的客户端。
 
 ---
 
-## Browser (Zero Install)
+## 浏览器（零安装）
 
-Open the meeting URL in **Chrome**, **Firefox**, **Edge**, or **Safari**. Camera and microphone access requires HTTPS (your server admin handles this).
+在 **Chrome**、**Firefox**、**Edge** 或 **Safari** 中打开会议 URL。摄像头和麦克风访问需要 HTTPS（由服务器管理员配置）。
 
-No downloads, no extensions, no account required if guest access is enabled.
+如果启用了访客访问，则无需下载、无需扩展、无需账号。
 
 ---
 
@@ -21,21 +21,21 @@ No downloads, no extensions, no account required if guest access is enabled.
 <Tabs>
   <TabsList>
     <TabsTrigger value="google-play">Google Play</TabsTrigger>
-    <TabsTrigger value="apk-sideload">APK (sideload)</TabsTrigger>
+    <TabsTrigger value="apk-sideload">APK（侧载）</TabsTrigger>
   </TabsList>
   <TabsContent value="google-play">
 
-    Search for **Bedrud** on Google Play, or follow the direct link from your server admin.
+    在 Google Play 上搜索 **Bedrud**，或通过服务器管理员提供的直接链接下载。
   </TabsContent>
   <TabsContent value="apk-sideload">
 
-    Download the latest APK from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载最新 APK：
 
     ```bash
     # Transfer to your phone, then open to install
     ```
 
-    You may need to enable **Install from unknown sources** in your device settings.
+    可能需要在设备设置中启用**允许安装未知来源应用**。
   </TabsContent>
 </Tabs>
 
@@ -46,25 +46,25 @@ No downloads, no extensions, no account required if guest access is enabled.
 <Tabs>
   <TabsList>
     <TabsTrigger value="app-store">App Store</TabsTrigger>
-    <TabsTrigger value="ipa-sideload">IPA (sideload)</TabsTrigger>
+    <TabsTrigger value="ipa-sideload">IPA（侧载）</TabsTrigger>
   </TabsList>
   <TabsContent value="app-store">
 
-    Search for **Bedrud** on the App Store, or follow the direct link from your server admin.
+    在 App Store 上搜索 **Bedrud**，或通过服务器管理员提供的直接链接下载。
   </TabsContent>
   <TabsContent value="ipa-sideload">
 
-    Download the latest IPA from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Sideload using AltStore or a similar tool.
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载最新 IPA。使用 AltStore 或类似工具进行侧载。
   </TabsContent>
 </Tabs>
 
 ---
 
-## Linux Desktop
+## Linux 桌面
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="appimage-recommended">AppImage (recommended)</TabsTrigger>
+    <TabsTrigger value="appimage-recommended">AppImage（推荐）</TabsTrigger>
     <TabsTrigger value="flatpak">Flatpak</TabsTrigger>
     <TabsTrigger value="snap">Snap</TabsTrigger>
     <TabsTrigger value="ubuntu-debian-apt">Ubuntu / Debian (apt)</TabsTrigger>
@@ -74,7 +74,7 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsList>
   <TabsContent value="appimage-recommended">
 
-    No installation required. Download, make executable, run:
+    无需安装。下载、赋予执行权限、运行：
 
     ```bash
     wget https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud-desktop-linux-x86_64.AppImage
@@ -83,7 +83,7 @@ No downloads, no extensions, no account required if guest access is enabled.
     ```
 
     <Callout type="tip">
-        To integrate AppImage into your application launcher, use [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
+        要将 AppImage 集成到应用程序启动器中，请使用 [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher)。
     </Callout>
   </TabsContent>
   <TabsContent value="flatpak">
@@ -101,13 +101,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="ubuntu-debian-apt">
 
-    If the Bedrud apt repository is already configured on your system:
+    如果系统已配置 Bedrud apt 仓库：
 
     ```bash
     sudo apt install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    仓库设置请参阅[包安装指南](/zh/docs/guides/packages)。
   </TabsContent>
   <TabsContent value="arch-linux-aur">
 
@@ -117,13 +117,13 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="fedora-rhel-dnf">
 
-    If the Bedrud DNF repository is already configured:
+    如果已配置 Bedrud DNF 仓库：
 
     ```bash
     sudo dnf install bedrud-desktop
     ```
 
-    See the [Package Installation guide](/docs/guides/packages) for repository setup.
+    仓库设置请参阅[包安装指南](/zh/docs/guides/packages)。
   </TabsContent>
   <TabsContent value="portable-tarxz">
 
@@ -141,9 +141,11 @@ No downloads, no extensions, no account required if guest access is enabled.
 
 <Tabs>
   <TabsList>
-    <TabsTrigger value="homebrew-recommended">Homebrew (recommended)</TabsTrigger>
-    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (arm64)</TabsTrigger>
-    <TabsTrigger value="intel-x8664">Intel (x86_64)</TabsTrigger>
+    <TabsTrigger value="homebrew-recommended">Homebrew（推荐）</TabsTrigger>
+    <TabsTrigger value="dmg-apple-silicon">Apple Silicon (.dmg)</TabsTrigger>
+    <TabsTrigger value="dmg-intel">Intel (.dmg)</TabsTrigger>
+    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (tar.gz)</TabsTrigger>
+    <TabsTrigger value="intel-x8664">Intel (tar.gz)</TabsTrigger>
   </TabsList>
   <TabsContent value="homebrew-recommended">
 
@@ -151,6 +153,26 @@ No downloads, no extensions, no account required if guest access is enabled.
     brew tap bedrud-ir/bedrud
     brew install bedrud-desktop
     ```
+  </TabsContent>
+  <TabsContent value="dmg-apple-silicon">
+
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载 DMG：
+
+    | 架构 | 文件 |
+    |---|---|
+    | Apple Silicon | `bedrud-desktop-macos-arm64.dmg` |
+
+    打开 DMG，将 Bedrud 拖到应用程序文件夹。如果 Gatekeeper 阻止了应用，前往**系统设置 → 隐私与安全性**并点击**仍然允许**。
+  </TabsContent>
+  <TabsContent value="dmg-intel">
+
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载 DMG：
+
+    | 架构 | 文件 |
+    |---|---|
+    | Intel | `bedrud-desktop-macos-x86_64.dmg` |
+
+    打开 DMG，将 Bedrud 拖到应用程序文件夹。如果 Gatekeeper 阻止了应用，前往**系统设置 → 隐私与安全性**并点击**仍然允许**。
   </TabsContent>
   <TabsContent value="apple-silicon-arm64">
 
@@ -171,7 +193,7 @@ No downloads, no extensions, no account required if guest access is enabled.
 </Tabs>
 
 <Callout type="warning">
-    macOS builds may be **unsigned**. If Gatekeeper blocks the app, run the `xattr` command above, or go to **System Settings → Privacy & Security** and click **Open Anyway**.
+    macOS 构建版本可能是**未签名**的。如果 Gatekeeper 阻止了应用，请运行上述 `xattr` 命令，或前往**系统设置 → 隐私与安全性**并点击**仍然允许**。
 </Callout>
 
 ---
@@ -182,7 +204,7 @@ No downloads, no extensions, no account required if guest access is enabled.
   <TabsList>
     <TabsTrigger value="winget">WinGet</TabsTrigger>
     <TabsTrigger value="chocolatey">Chocolatey</TabsTrigger>
-    <TabsTrigger value="nsis-installer">NSIS Installer</TabsTrigger>
+    <TabsTrigger value="nsis-installer">NSIS 安装程序</TabsTrigger>
     <TabsTrigger value="portable-zip">Portable .zip</TabsTrigger>
   </TabsList>
   <TabsContent value="winget">
@@ -199,44 +221,44 @@ No downloads, no extensions, no account required if guest access is enabled.
   </TabsContent>
   <TabsContent value="nsis-installer">
 
-    Download the installer from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载安装程序：
 
-    | Architecture | File |
+    | 架构 | 文件 |
     |---|---|
     | x86_64 | `bedrud-desktop-windows-x86_64-setup.exe` |
     | ARM64 | `bedrud-desktop-windows-arm64-setup.exe` |
 
-    Run the installer. The app appears in Start Menu and Add/Remove Programs.
+    运行安装程序。应用将出现在开始菜单和"添加/删除程序"中。
   </TabsContent>
   <TabsContent value="portable-zip">
 
-    Download and extract from [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest):
+    从 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 下载并解压：
 
-    | Architecture | File |
+    | 架构 | 文件 |
     |---|---|
     | x86_64 | `bedrud-desktop-windows-x86_64.zip` |
     | ARM64 | `bedrud-desktop-windows-arm64.zip` |
 
-    No installation required - run `bedrud-desktop.exe` from the extracted folder.
+    无需安装 — 从解压后的文件夹中运行 `bedrud-desktop.exe`。
   </TabsContent>
 </Tabs>
 
 ---
 
-## Connecting to a Server
+## 连接服务器
 
-When you first open the desktop app, you'll be prompted for a server URL.
+首次打开桌面应用时，会提示输入服务器 URL。
 
-1. Enter the URL provided by your server admin (e.g. `https://meet.example.com`)
-2. Register an account or sign in
-3. Create or join a meeting room
+1. 输入服务器管理员提供的 URL（如 `https://meet.example.com`）
+2. 注册账号或登录
+3. 创建或加入会议室
 
-The desktop app supports connecting to **multiple servers**. Add more in **Settings**.
+桌面应用支持连接**多个服务器**。可在**设置**中添加更多。
 
 ---
 
-## All Downloads
+## 所有下载
 
-All client installers and binaries are available on the [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) page.
+所有客户端安装程序和二进制文件均可在 [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) 页面获取。
 
-For the complete reference of all package managers, repositories, and platforms, see the [Package Installation Guide](/docs/guides/packages).
+所有包管理器、仓库和平台的完整参考请参阅[包安装指南](/zh/docs/guides/packages)。

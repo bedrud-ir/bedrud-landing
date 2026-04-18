@@ -4,32 +4,32 @@ description: Administrative operations
 order: 25
 ---
 
-Admin endpoints are under `/api/admin/`. These require **Super Admin** role.
+管理员 endpoint 位于 `/api/admin/` 下。这些 endpoint 需要 **Super Admin** 角色。
 
-## Overview
+## 概述
 
-| Endpoint | Method | Description |
+| Endpoint | 方法 | 描述 |
 |----------|--------|-------------|
-| `/api/admin/users` | GET | List all users |
-| `/api/admin/users/:id/status` | PUT | Activate or deactivate a user |
+| `/api/admin/users` | GET | 列出所有用户 |
+| `/api/admin/users/:id/status` | PUT | 激活或停用用户 |
 
 ---
 
 ## Endpoints
 
-### List All Users
+### 列出所有用户
 
-Retrieve a list of all registered users.
+获取所有已注册用户的列表。
 
 ```
 GET /api/admin/users
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**所需角色：** Super Admin
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -59,25 +59,25 @@ GET /api/admin/users
 
 ---
 
-### Update User Status
+### 更新用户状态
 
-Activate or deactivate a user account. Deactivated users cannot log in.
+激活或停用用户账户。被停用的用户无法登录。
 
 ```
 PUT /api/admin/users/:id/status
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**Headers：** `Authorization: Bearer <accessToken>`
 
-**Required Role:** Super Admin
+**所需角色：** Super Admin
 
-**URL Parameters:**
+**URL 参数：**
 
-| Parameter | Description |
+| 参数 | 描述 |
 |-----------|-------------|
-| `id` | User UUID |
+| `id` | 用户 UUID |
 
-**Request Body:**
+**请求体：**
 
 ```json
 {
@@ -85,7 +85,7 @@ PUT /api/admin/users/:id/status
 }
 ```
 
-**Response (200):**
+**响应 (200)：**
 
 ```json
 {
@@ -100,17 +100,17 @@ PUT /api/admin/users/:id/status
 
 ---
 
-## User Roles
+## 用户角色
 
-| Role | Description | Permissions |
+| 角色 | 描述 | 权限 |
 |------|-------------|------------|
-| `guest` | Temporary user | Join rooms only |
-| `user` | Regular user | Create/join rooms, manage own profile |
-| `admin` | Super Admin | All user permissions + manage users, view all rooms |
+| `guest` | 临时用户 | 仅能加入房间 |
+| `user` | 普通用户 | 创建/加入房间，管理个人资料 |
+| `admin` | 超级管理员 | 所有用户权限 + 管理用户、查看所有房间 |
 
-### Creating an Admin
+### 创建管理员
 
-Admin users are created via the CLI:
+管理员通过 CLI 创建：
 
 ```bash
 # Create a user
@@ -120,11 +120,11 @@ bedrud user create --email "admin@example.com" --password "securepassword" --nam
 bedrud user promote --email "admin@example.com"
 ```
 
-There is no API endpoint to promote users - this is intentional for security.
+没有用于提升用户权限的 API endpoint — 这是出于安全考虑的刻意设计。
 
 ---
 
-## Error Responses
+## 错误响应
 
 ```json
 {
@@ -132,16 +132,16 @@ There is no API endpoint to promote users - this is intentional for security.
 }
 ```
 
-| Status | Meaning |
+| 状态码 | 含义 |
 |--------|---------|
-| 401 | Not authenticated |
-| 403 | Not a Super Admin |
-| 404 | User not found |
-| 500 | Internal server error |
+| 401 | 未认证 |
+| 403 | 非 Super Admin |
+| 404 | 用户未找到 |
+| 500 | 服务器内部错误 |
 
 ---
 
-## See also
+## 另请参阅
 
-- [API Handlers and Routing](/docs/backend/api-handlers) - how admin routes are implemented
-- [Rooms API](/docs/api/rooms) - room management endpoints
+- [API 处理与路由](/zh/docs/backend/api-handlers) — 管理员路由的实现方式
+- [Rooms API](/zh/docs/api/rooms) — 房间管理 endpoint

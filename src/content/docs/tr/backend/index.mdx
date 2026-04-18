@@ -1,49 +1,49 @@
 ---
-title: Backend Documentation
-description: Overview of the Bedrud backend system architecture
+title: Arka Uç Dokümantasyonu
+description: Bedrud arka uç sistem mimarisine genel bakış
 order: 15
 ---
 
-## Introduction
-The Bedrud backend is a single-binary meeting platform written in **Go 1.24+**. All dependencies - media server, web frontend, TURN server - are embedded in one executable.
+## Giriş
+Bedrud arka ucu, **Go 1.24+** ile yazılmış tek ikili (single-binary) toplantı platformudur. Medya sunucusu, web ön ucu, TURN sunucusu gibi tüm bağımlılıklar tek bir çalıştırılabilir dosyaya gömülüdür.
 
-### Key Technologies
-- **Core Framework:** [Fiber v2](https://gofiber.io/) (Zero allocation router, Express-like API).
-- **Database Layer:** [GORM](https://gorm.io/) with support for **SQLite** (standard) and **PostgreSQL** (production).
-- **Media Engine:** [LiveKit](https://livekit.io/) (Embedded as a sibling binary).
-- **Auth System:** Multi-layered auth supporting JWT, OAuth2 (Google/GitHub/Twitter), and passwordless FIDO2 Passkeys.
-- **Embedded Static Assets:** Uses Go 1.16+ `embed` package to bundle the React frontend (SSR pre-rendered client assets).
-- **Deployment:** Integrated Debian/Ubuntu auto-installer with systemd orchestration and ACME (Let's Encrypt) support.
+### Temel Teknolojiler
+- **Çekirdek Framework:** [Fiber v2](https://gofiber.io/) (Sıfır tahsisatlı yönlendirici, Express benzeri API).
+- **Veritabanı Katmanı:** **SQLite** (standart) ve **PostgreSQL** (üretim) desteğiyle [GORM](https://gorm.io/).
+- **Medya Motoru:** [LiveKit](https://livekit.io/) (Eş ikili olarak gömülü).
+- **Kimlik Doğrulama Sistemi:** JWT, OAuth2 (Google/GitHub/Twitter) ve parolasız FIDO2 Passkey destekli çok katmanlı kimlik doğrulama.
+- **Gömülü Statik Dosyalar:** Go 1.16+ `embed` paketi kullanılarak React ön ucunun (SSR ön renderlı istemci dosyaları) paketlenmesi.
+- **Dağıtım:** systemd orkestrasyonu ve ACME (Let's Encrypt) desteğiyle entegre Debian/Ubuntu otomatik kurucu.
 
-## Why this Architecture?
-WebRTC platforms typically run separate services for signaling, TURN, web serving, and database management. Bedrud consolidates these into one binary by:
+## Neden Bu Mimari?
+WebRTC platformları genellikle sinyalleşme, TURN, web sunucusu ve veritabanı yönetimi için ayrı servisler çalıştırır. Bedrud, bunları tek bir ikili dosyada birleştirir:
 
-1.  **Extracting** the media server binary at runtime.
-2.  **Proxying** media traffic through the main HTTP(S) port.
-3.  **Automating** OS-level configuration (SSL, systemd) via the binary itself.
+1.  Medya sunucusu ikili dosyasını **çalışma zamanında çıkararak**.
+2.  Medya trafiğini ana HTTP(S) portu üzerinden **proxyleyerek**.
+3.  İşletim sistemi düzeyindeki yapılandırmayı (SSL, systemd) ikili dosya kendisi aracılığıyla **otomatikleştirerek**.
 
-## High-Level Architecture
-The backend follows a standard layered architecture:
+## Üst Düzey Mimari
+Arka uç, standart katmanlı bir mimari izler:
 
-1.  **Server Layer (`internal/server`):** Sets up the Fiber app, routes, and middleware.
-2.  **Handler Layer (`internal/handlers`):** Manages HTTP requests and responses.
-3.  **Repository Layer (`internal/repository`):** Handles database queries using GORM.
-4.  **Model Layer (`internal/models`):** Defines the database tables and Go structures.
-5.  **Service/Logic Layer:** Integrated into handlers and repositories for simplicity, with specialized packages like `internal/auth` and `internal/livekit`.
+1.  **Sunucu Katmanı (`internal/server`):** Fiber uygulamasını, rotaları ve ara katmanı (middleware) kurar.
+2.  **İşleyici Katmanı (`internal/handlers`):** HTTP isteklerini ve yanıtlarını yönetir.
+3.  **Depo Katmanı (`internal/repository`):** GORM kullanarak veritabanı sorgularını gerçekleştirir.
+4.  **Model Katmanı (`internal/models`):** Veritabanı tablolarını ve Go yapılarını tanımlar.
+5.  **Hizmet/Mantık Katmanı:** Basitlik için işleyicilere ve depolara entegre edilmiştir; `internal/auth` ve `internal/livekit` gibi özelleşmiş paketler bulunur.
 
-## Main Entry Point
-The application starts in `server/cmd/bedrud/main.go`. It has three main modes:
+## Ana Giriş Noktası
+Uygulama `server/cmd/bedrud/main.go` dosyasından başlar. Üç ana moda sahiptir:
 
-- `run`: Starts the full meeting server.
-- `livekit`: Starts only the embedded media server.
-- `install`: Automatically sets up the server on Debian/Ubuntu systems.
+- `run`: Tam toplantı sunucusunu başlatır.
+- `livekit`: Yalnızca gömülü medya sunucusunu başlatır.
+- `install`: Debian/Ubuntu sistemlerinde sunucuyu otomatik olarak kurar.
 
-## Documentation Sections
-- [**Code Structure**](/docs/backend/structure): Where is everything located?
-- [**Database & Models**](/docs/backend/database): How is data stored?
-- [**Authentication**](/docs/backend/authentication): How do users log in?
-- [**API Handlers**](/docs/backend/api-handlers): How are requests processed?
-- [**LiveKit Integration**](/docs/backend/livekit): How does the video server work?
-- [**WebRTC Connectivity**](/docs/architecture/webrtc-connectivity): How do clients establish media connections? (STUN/ICE/TURN/SFU)
-- [**TURN Server**](/docs/architecture/turn-server): TURN relay architecture, configuration, and troubleshooting
-- [**Installation & Deployment**](/docs/backend/deployment): How does the auto-installer work?
+## Dokümantasyon Bölümleri
+- [**Kod Yapısı**](/tr/docs/backend/structure): Her şey nerede bulunur?
+- [**Veritabanı ve Modeller**](/tr/docs/backend/database): Veriler nasıl saklanır?
+- [**Kimlik Doğrulama**](/tr/docs/backend/authentication): Kullanıcılar nasıl giriş yapar?
+- [**API İşleyicileri**](/tr/docs/backend/api-handlers): İstekler nasıl işlenir?
+- [**LiveKit Entegrasyonu**](/tr/docs/backend/livekit): Video sunucusu nasıl çalışır?
+- [**WebRTC Bağlantısı**](/tr/docs/architecture/webrtc-connectivity): İstemciler medya bağlantılarını nasıl kurar? (STUN/ICE/TURN/SFU)
+- [**TURN Sunucusu**](/tr/docs/architecture/turn-server): TURN röle mimarisi, yapılandırma ve sorun giderme
+- [**Kurulum ve Dağıtım**](/tr/docs/backend/deployment): Otomatik kurucu nasıl çalışır?

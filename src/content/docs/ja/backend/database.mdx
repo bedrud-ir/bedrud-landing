@@ -1,52 +1,52 @@
 ---
-title: Database & Models
-description: Data models and database schema
+title: データベースとモデル
+description: データモデルとデータベーススキーマ
 order: 17
 ---
 
-Bedrud uses **GORM** as its ORM, supporting both SQLite and PostgreSQL.
+Bedrudは**GORM**をORMとして使用し、SQLiteとPostgreSQLの両方をサポートしています。
 
-## Supported Databases
-- **SQLite:** Used by default for easy development and small installations. The database is stored in a file (usually `bedrud.db`).
-- **PostgreSQL:** Recommended for production environments with many users.
+## サポートされているデータベース
+- **SQLite:** 開発の容易さと小規模なインストール用にデフォルトで使用されます。データベースはファイル（通常は`bedrud.db`）に保存されます。
+- **PostgreSQL:** 多くのユーザーがいる本番環境で推奨されます。
 
-You can configure the database type and connection details in the `config.yaml` file under the `database:` section.
+データベースの種類と接続の詳細は、`config.yaml`ファイルの`database:`セクションで設定できます。
 
-## Core Models
+## コアモデル
 
-The models are located in `internal/models/`. Here are the most important ones:
+モデルは`internal/models/`に配置されています。以下は最も重要なものです:
 
 ### User (`user.go`)
 
-Stores account information including credentials and roles.
+認証情報やロールを含むアカウント情報を保存します。
 
 ### Room (`room.go`)
-Represents a meeting session. It uses GORM's **Embedded Structs** to organize settings.
-Instead of a separate table or a JSON blob, the `RoomSettings` fields (like `allow_chat`, `allow_video`) are stored directly in the `rooms` table with a `settings_` prefix (e.g., `settings_allow_chat`). This provides a clean model in Go while maintaining a flat, performant database structure.
+ミーティングセッションを表します。GORMの**埋め込み構造体**を使用して設定を整理しています。
+別のテーブルやJSONブロブの代わりに、`RoomSettings`フィールド（`allow_chat`、`allow_video`など）は`settings_`プレフィックス（例: `settings_allow_chat`）付きで`rooms`テーブルに直接保存されます。これにより、Goではクリーンなモデルを維持しながら、フラットで高性能なデータベース構造を実現しています。
 
 ### Passkey (`passkey.go`)
 
-Stores FIDO2/WebAuthn public keys for passwordless login.
+パスワードレスログイン用のFIDO2/WebAuthn公開鍵を保存します。
 
-### Custom Types: `StringArray`
+### カスタム型: `StringArray`
 
-Standard SQL databases handle arrays differently (PostgreSQL has native arrays, SQLite does not). To maintain compatibility, Bedrud defines a `StringArray` type in `internal/models/user.go`.
+標準SQLデータベースは配列の処理が異なります（PostgreSQLはネイティブ配列を持ち、SQLiteは持ちません）。互換性を維持するため、Bedrudは`internal/models/user.go`で`StringArray`型を定義しています。
 
-- It implements `sql.Scanner` and `driver.Valuer`.
-- In **PostgreSQL**, it uses the native `text[]` type.
-- In **SQLite**, it serializes the array into a string (e.g., `{admin,user}`) for storage.
+- `sql.Scanner`と`driver.Valuer`を実装しています。
+- **PostgreSQL**では、ネイティブの`text[]`型を使用します。
+- **SQLite**では、配列を文字列（例: `{admin,user}`）にシリアライズして保存します。
 
-### Foreign Key Management
+### 外部キー管理
 
-GORM's `AutoMigrate` does not handle composite primary keys (e.g., `room_participants`).
+GORMの`AutoMigrate`は複合主キー（例: `room_participants`）を処理できません。
 
-In `internal/database/migrations.go`, Bedrud manually executes `ALTER TABLE` statements to ensure foreign key constraints (like `ON DELETE CASCADE`) are correctly applied in production (PostgreSQL).
+`internal/database/migrations.go`で、Bedrudは手動で`ALTER TABLE`ステートメントを実行し、外部キー制約（`ON DELETE CASCADE`など）が本番環境（PostgreSQL）で正しく適用されるようにしています。
 
-## Repository Pattern
+## リポジトリパターン
 
-The backend uses the **Repository Pattern** for database access. Handlers do not call GORM directly - they use a repository.
+バックエンドはデータベースアクセスに**リポジトリパターン**を使用しています。ハンドラはGORMを直接呼び出さず、リポジトリを使用します。
 
-Example:
+例:
 ```go
 // In handler:
 user, err := h.userRepo.GetByEmail(email)
@@ -59,6 +59,6 @@ func (r *UserRepository) GetByEmail(email string) (*models.User, error) {
 }
 ```
 
-## Automatic Migrations
+## 自動マイグレーション
 
-When the server starts, it automatically runs "AutoMigrate". This creates or updates database tables based on the Go structures in `internal/models`. No manual `CREATE TABLE` statements are required for simple schema changes.
+サーバー起動時に、自動的に「AutoMigrate」が実行されます。これにより、`internal/models`のGo構造体に基づいてデータベーステーブルが作成または更新されます。単純なスキーマ変更であれば、手動の`CREATE TABLE`ステートメントは不要です。

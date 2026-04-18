@@ -142,8 +142,10 @@ Aucun téléchargement, aucune extension, aucun compte requis si l'accès invit�
 <Tabs>
   <TabsList>
     <TabsTrigger value="homebrew-recommended">Homebrew (recommandé)</TabsTrigger>
-    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (arm64)</TabsTrigger>
-    <TabsTrigger value="intel-x8664">Intel (x86_64)</TabsTrigger>
+    <TabsTrigger value="dmg-apple-silicon">Apple Silicon (.dmg)</TabsTrigger>
+    <TabsTrigger value="dmg-intel">Intel (.dmg)</TabsTrigger>
+    <TabsTrigger value="apple-silicon-arm64">Apple Silicon (tar.gz)</TabsTrigger>
+    <TabsTrigger value="intel-x8664">Intel (tar.gz)</TabsTrigger>
   </TabsList>
   <TabsContent value="homebrew-recommended">
 
@@ -151,6 +153,26 @@ Aucun téléchargement, aucune extension, aucun compte requis si l'accès invit�
     brew tap bedrud-ir/bedrud
     brew install bedrud-desktop
     ```
+  </TabsContent>
+  <TabsContent value="dmg-apple-silicon">
+
+    Téléchargez le DMG depuis les [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) :
+
+    | Architecture | Fichier |
+    |---|---|
+    | Apple Silicon | `bedrud-desktop-macos-arm64.dmg` |
+
+    Ouvrez le DMG, faites glisser Bedrud vers Applications. Si Gatekeeper bloque l'application, allez dans **Réglages système → Confidentialité et sécurité** et cliquez sur **Ouvrir quand même**.
+  </TabsContent>
+  <TabsContent value="dmg-intel">
+
+    Téléchargez le DMG depuis les [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest) :
+
+    | Architecture | Fichier |
+    |---|---|
+    | Intel | `bedrud-desktop-macos-x86_64.dmg` |
+
+    Ouvrez le DMG, faites glisser Bedrud vers Applications. Si Gatekeeper bloque l'application, allez dans **Réglages système → Confidentialité et sécurité** et cliquez sur **Ouvrir quand même**.
   </TabsContent>
   <TabsContent value="apple-silicon-arm64">
 

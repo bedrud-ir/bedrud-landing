@@ -74,7 +74,7 @@ Bedrud supporte l'authentification sans mot de passe via le standard FIDO2 (WebA
    2.  **Fin :** L'authentificateur du client (ex: TouchID, YubiKey) signe le challenge. Le serveur vérifie l'attestation, extrait la **Clé Publique**, et la sauvegarde dans la table `passkeys`.
 - **Cérémonie d'Authentification :**
    1.  **Début :** Le serveur émet un nouveau challenge.
-   2.  **Fin :** Le client signe le challenge avec sa clé privée. Le serveur récupère la Clé Publique de la base de données, vérifie la signature, et vérifie le **Compteur de Signe**.
+   2.  **Fin :** Le client signe le challenge avec sa clé privée. Le serveur récupère la Clé Publique de la base de données, vérifie la signature, et vérifie le **Compteur de Signe (Sign Counter)**.
 - **Sécurité :** La correspondance du champ `Counter` empêche les **Attaques par Rejeu**. Si le compteur de l'authentificateur n'est pas supérieur au compteur stocké, la connexion est rejetée.
 
 ### 4. Connexion Invité

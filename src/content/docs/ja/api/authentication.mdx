@@ -1,27 +1,27 @@
 ---
-title: Authentication API
-description: Auth endpoints and methods
+title: 認証API
+description: 認証エンドポイントとメソッド
 order: 23
 ---
 
-All authentication endpoints are under `/api/auth/`.
+すべての認証エンドポイントは `/api/auth/` 以下にあります。
 
-## Overview
+## 概要
 
-Bedrud supports multiple authentication methods:
+Bedrudは複数の認証方式に対応しています：
 
-| Method | Endpoint | Description |
+| 方式 | エンドポイント | 説明 |
 |--------|----------|-------------|
-| Email/Password | `POST /api/auth/login` | Traditional login |
-| Registration | `POST /api/auth/register` | Create account |
-| Guest | `POST /api/auth/guest-login` | Temporary access |
-| OAuth | `GET /api/auth/:provider/login` | Social login |
+| Email/Password | `POST /api/auth/login` | 従来のログイン |
+| Registration | `POST /api/auth/register` | アカウント作成 |
+| Guest | `POST /api/auth/guest-login` | 一時アクセス |
+| OAuth | `GET /api/auth/:provider/login` | ソーシャルログイン |
 | Passkeys | `POST /api/auth/passkey/*` | FIDO2/WebAuthn |
-| Token Refresh | `POST /api/auth/refresh` | Renew access token |
+| Token Refresh | `POST /api/auth/refresh` | アクセストークンの更新 |
 
-## Token Format
+## トークン形式
 
-Successful authentication returns a pair of JWT tokens:
+認証に成功すると、JWTトークンのペアが返されます：
 
 ```json
 {
@@ -30,12 +30,12 @@ Successful authentication returns a pair of JWT tokens:
 }
 ```
 
-- **Access Token** - Short-lived, used in the `Authorization` header
-- **Refresh Token** - Long-lived, used to obtain new access tokens
+- **Access Token** - 有効期間が短く、`Authorization` ヘッダーで使用します
+- **Refresh Token** - 有効期間が長く、新しいアクセストークンを取得するために使用します
 
-### Using Tokens
+### トークンの使用
 
-Include the access token in all authenticated requests:
+認証が必要なすべてのリクエストにアクセストークンを含めてください：
 
 ```
 Authorization: Bearer <accessToken>
@@ -43,17 +43,17 @@ Authorization: Bearer <accessToken>
 
 ---
 
-## Endpoints
+## エンドポイント
 
-### Register
+### アカウント作成
 
-Create a new user account.
+新しいユーザーアカウントを作成します。
 
 ```
 POST /api/auth/register
 ```
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -63,7 +63,7 @@ POST /api/auth/register
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -80,15 +80,15 @@ POST /api/auth/register
 
 ---
 
-### Login
+### ログイン
 
-Authenticate with email and password.
+メールアドレスとパスワードで認証します。
 
 ```
 POST /api/auth/login
 ```
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -97,7 +97,7 @@ POST /api/auth/login
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -114,15 +114,15 @@ POST /api/auth/login
 
 ---
 
-### Guest Login
+### ゲストログイン
 
-Join as a guest without creating an account. Guests have limited permissions.
+アカウントを作成せずにゲストとして参加します。ゲストには制限付きの権限が付与されます。
 
 ```
 POST /api/auth/guest-login
 ```
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -130,7 +130,7 @@ POST /api/auth/guest-login
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -146,17 +146,17 @@ POST /api/auth/guest-login
 
 ---
 
-### Get Current User
+### 現在のユーザー情報の取得
 
-Retrieve the authenticated user's profile.
+認証済みユーザーのプロフィールを取得します。
 
 ```
 GET /api/auth/me
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -171,15 +171,15 @@ GET /api/auth/me
 
 ---
 
-### Refresh Token
+### トークンのリフレッシュ
 
-Exchange a refresh token for a new access token.
+リフレッシュトークンを新しいアクセストークンと交換します。
 
 ```
 POST /api/auth/refresh
 ```
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -187,7 +187,7 @@ POST /api/auth/refresh
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -198,17 +198,17 @@ POST /api/auth/refresh
 
 ---
 
-### Logout
+### ログアウト
 
-Invalidate the current refresh token.
+現在のリフレッシュトークンを無効化します。
 
 ```
 POST /api/auth/logout
 ```
 
-**Headers:** `Authorization: Bearer <accessToken>`
+**ヘッダー：** `Authorization: Bearer <accessToken>`
 
-**Request Body:**
+**リクエストボディ：**
 
 ```json
 {
@@ -216,7 +216,7 @@ POST /api/auth/logout
 }
 ```
 
-**Response (200):**
+**レスポンス (200)：**
 
 ```json
 {
@@ -226,29 +226,29 @@ POST /api/auth/logout
 
 ---
 
-### OAuth Login
+### OAuthログイン
 
-Start an OAuth flow with a social provider.
+ソーシャルプロバイダーでOAuthフローを開始します。
 
 ```
 GET /api/auth/:provider/login
 ```
 
-**Supported Providers:**
+**対応プロバイダー：**
 
-| Provider | Path |
+| プロバイダー | パス |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-The server redirects the user to the provider's authorization page. After consent, the provider redirects back to the callback URL, and the server returns JWT tokens.
+サーバーはユーザーをプロバイダーの認証ページにリダイレクトします。認証後、プロバイダーはコールバックURLにリダイレクトし、サーバーがJWTトークンを返します。
 
 ---
 
-## Error Responses
+## エラーレスポンス
 
-All auth endpoints return errors in this format:
+すべての認証エンドポイントは以下の形式でエラーを返します：
 
 ```json
 {
@@ -256,16 +256,16 @@ All auth endpoints return errors in this format:
 }
 ```
 
-| Status | Meaning |
+| ステータスコード | 意味 |
 |--------|---------|
-| 400 | Bad request (missing fields, validation error) |
-| 401 | Invalid credentials or expired token |
-| 409 | Email already registered |
-| 500 | Internal server error |
+| 400 | 不正なリクエスト（フィールド不足、バリデーションエラー） |
+| 401 | 認証情報が無効、またはトークンの有効期限切れ |
+| 409 | メールアドレスはすでに登録されています |
+| 500 | サーバー内部エラー |
 
 ---
 
-## See also
+## 関連ドキュメント
 
-- [Authentication Flow](/docs/backend/authentication) - how JWT, OAuth, and passkeys work internally
-- [Passkeys API](/docs/api/passkeys) - FIDO2/WebAuthn endpoint reference
+- [認証フロー](/ja/docs/backend/authentication) - JWT、OAuth、パスキーの内部動作
+- [Passkeys API](/ja/docs/api/passkeys) - FIDO2/WebAuthnエンドポイントリファレンス

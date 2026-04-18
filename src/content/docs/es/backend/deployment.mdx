@@ -4,7 +4,7 @@ description: Estrategias de despliegue del backend
 order: 21
 ---
 
-El instalador integrado configura un servidor Linux fresco para uso de producción con un solo comando.
+El instalador integrado configura un servidor Linux nuevo para uso en producción con un solo comando.
 
 <InstallerSteps />
 
@@ -12,11 +12,11 @@ El instalador integrado configura un servidor Linux fresco para uso de producci�
 
 ## Seguridad y TLS
 
-El instalador maneja la seguridad automáticamente:
+El instalador gestiona la seguridad automáticamente:
 
-- **ACME (Let's Encrypt):** Si proporcionas un dominio y correo electrónico, configura la renovación automática de certificados.
-- **Certificados Autofirmados:** Si no se proporciona un dominio, genera un certificado autofirmado para que el sitio aún funcione a través de HTTPS.
-- **Proxy Inverso:** El backend actúa como un proxy inverso. Recibe tráfico en el puerto 443 y envía solicitudes `/livekit` al servidor de medios interno.
+- **ACME (Let's Encrypt):** Si proporcionas un dominio y un correo electrónico, configura la renovación automática de certificados.
+- **Certificados Auto-firmados:** Si no se proporciona un dominio, genera un certificado auto-firmado para que el sitio siga funcionando mediante HTTPS.
+- **Proxy Inverso:** El backend actúa como proxy inverso. Recibe el tráfico en el puerto 443 y envía las solicitudes `/livekit` al servidor de medios interno.
 
 ## Desinstalación
 
@@ -24,11 +24,11 @@ Si necesitas eliminar Bedrud, puedes ejecutar:
 ```bash
 sudo bedrud uninstall
 ```
-Esto detiene los servicios, elimina los archivos de systemd y elimina las carpetas de configuración y datos.
+Esto detiene los servicios, elimina los archivos de systemd y borra las carpetas de configuración y datos.
 
 ---
 
-## Ver también
+## Consulta también
 
 - [Guía de Despliegue](/es/docs/guides/deployment) - instrucciones completas de despliegue en producción
-- [Modo Dispositivo](/es/docs/guides/appliance) - referencia de configuración de binario único
+- [Modo Appliance](/es/docs/guides/appliance) - referencia de configuración de binario único
