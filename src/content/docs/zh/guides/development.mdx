@@ -222,7 +222,7 @@ make build-desktop           # 当前平台的优化二进制文件
 ### 关键模式
 
 - 所有 UI 在 `apps/desktop/ui/` 下的 `.slint` 文件中定义；由 `build.rs` 在构建时编译为 Rust
-- `apps/desktop/src/ui/bridge.rs` 是唯一将 Slint 回调连接到 Rust 逻辑的地方——请将业务逻辑保持在 `.slint` 文件之外
+- `apps/desktop/src/ui/bridge.rs` 是唯一将 Slint 回调连接到 Rust 逻辑的地方--请将业务逻辑保持在 `.slint` 文件之外
 - 当生成需要更新 UI 的后台任务时，使用 `Weak<AppWindow>`
 
 > 详细的桌面应用架构请参阅[桌面应用架构](/zh/docs/architecture/desktop)。

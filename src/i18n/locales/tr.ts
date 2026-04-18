@@ -83,16 +83,16 @@ export default {
   problem: {
     title: "Toplantılarınız Bu Kadar Pahalı Olmamalı",
     subtitle:
-      "Kurumsal video platformları yıllardır ekiplerden aşırı ücret alıyor. Sorun ne — ve geliştiriciler neden geçiş yapıyor.",
+      "Kurumsal video platformları yıllardır ekiplerden aşırı ücret alıyor. Sorun ne - ve geliştiriciler neden geçiş yapıyor.",
     perSeatPricing: {
       title: "Kullanıcı Başı Fiyatlandırma Bir Tuzak",
       description:
-        "Zoom, Teams, Meet — hepsi kullanıcı başına ücret alıyor. 10'dan 100 kişiye büyüdüğünüzde faturanız 10 kat artıyor. Bunu departmanlar, yükleniciler ve misafirler arasında çarpın ve insanların günde 30 dakika kullandığı bir araç için bütçenizi boş yere harcıyorsunuz.",
+        "Zoom, Teams, Meet - hepsi kullanıcı başına ücret alıyor. 10'dan 100 kişiye büyüdüğünüzde faturanız 10 kat artıyor. Bunu departmanlar, yükleniciler ve misafirler arasında çarpın ve insanların günde 30 dakika kullandığı bir araç için bütçenizi boş yere harcıyorsunuz.",
     },
     vendorLockIn: {
       title: "Satıcı Kilidi Pazarlık Gücünüzü Öldürür",
       description:
-        "Toplantı kayıtlarınız, transkriptleriniz, katılımcı verileriniz — hepsi kontrol etmediğiniz sunucularda saklanıyor. Bir sağlayıcı fiyatları değiştirdiğinde, özellikleri kaldırdığında veya sızdırıldığında, çıkış stratejiniz yok.",
+        "Toplantı kayıtlarınız, transkriptleriniz, katılımcı verileriniz - hepsi kontrol etmediğiniz sunucularda saklanıyor. Bir sağlayıcı fiyatları değiştirdiğinde, özellikleri kaldırdığında veya sızdırıldığında, çıkış stratejiniz yok.",
     },
     selfHostedNightmare: {
       title: "Kendi Sunucunuzda Barındırma Seçenekleri Bir Kabus",
@@ -181,7 +181,7 @@ export default {
     fiveDollarVps: {
       title: "$5 VPS'te Çalışır",
       description:
-        "~200MB RAM boşta (512MB min). Herhangi bir ucuz VPS'e dağıtın — Hetzner, DigitalOcean, AWS Lightsail, kendi donanımınız. Aynı özellikler, küçük bir maliyet.",
+        "~200MB RAM boşta (512MB min). Herhangi bir ucuz VPS'e dağıtın - Hetzner, DigitalOcean, AWS Lightsail, kendi donanımınız. Aynı özellikler, küçük bir maliyet.",
     },
     webrtcLatency: {
       title: "WebRTC Alt-Saniye Gecikme",
@@ -191,7 +191,7 @@ export default {
     enterpriseSso: {
       title: "Kurumsal SSO ve OIDC",
       description:
-        "Kimlik sağlayıcınıza dakikalar içinde bağlanın. Passkeys, OAuth 2.0, OIDC — hepsi kutudan çıkar çıkmaz desteklenir. İhlal edilecek şifre veritabanı yok.",
+        "Kimlik sağlayıcınıza dakikalar içinde bağlanın. Passkeys, OAuth 2.0, OIDC - hepsi kutudan çıkar çıkmaz desteklenir. İhlal edilecek şifre veritabanı yok.",
     },
   },
   install: {
@@ -267,7 +267,7 @@ export default {
     recordingScreenSharing: {
       question: "Kayıt ve ekran paylaşımını destekliyor mu?",
       answer:
-        "Evet. Yerleşik ekran paylaşımı ve toplantı kaydı dahil. Kayıtlar sunucunuza kaydedilir — başkasının bulutuna değil. Bot ajanları ayrıca toplantıları gerçek zamanlı olarak transkript edebilir.",
+        "Evet. Yerleşik ekran paylaşımı ve toplantı kaydı dahil. Kayıtlar sunucunuza kaydedilir - başkasının bulutuna değil. Bot ajanları ayrıca toplantıları gerçek zamanlı olarak transkript edebilir.",
     },
   },
   footer: {
@@ -811,14 +811,14 @@ export default {
     meta: {
       title: "Bedrud Hakkında",
       description:
-        "Bedrud'un arkasındaki ekip ve misyon hakkında bilgi edinin — herkes için açık kaynaklı video toplantıları.",
+        "Bedrud'un arkasındaki ekip ve misyon hakkında bilgi edinin - herkes için açık kaynaklı video toplantıları.",
     },
     title: "Bedrud Hakkında",
     subtitle:
       "Gizliliğin varsayılan olması gerektiğine inanan insanlar tarafından geliştirilen açık kaynaklı video toplantıları.",
     mission: {
       title: "Misyonumuz",
-      text: "Bedrud, video toplantılarının verilerinizi dev teknoloji devlerine teslim etmeyi gerektirmemesi gerektiği için var. Tek bir dosya, ucuz bir VPS ve açık kaynak kodun milyon dolarlık SaaS sözleşmelerinin yerini alabileceğine — kaliteden veya özelliklerden ödün vermeden inanıyoruz. Gizlilik bir özellik değil, temeldir.",
+      text: "Bedrud, video toplantılarının verilerinizi dev teknoloji devlerine teslim etmeyi gerektirmemesi gerektiği için var. Tek bir dosya, ucuz bir VPS ve açık kaynak kodun milyon dolarlık SaaS sözleşmelerinin yerini alabileceğine - kaliteden veya özelliklerden ödün vermeden inanıyoruz. Gizlilik bir özellik değil, temeldir.",
     },
     team: {
       title: "Çekirdek Ekip",

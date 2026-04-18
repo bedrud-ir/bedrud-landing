@@ -89,7 +89,7 @@ make dev
 
 ## Разработка сервера
 
-Точка входа Go-сервера — `server/cmd/server/main.go`.
+Точка входа Go-сервера - `server/cmd/server/main.go`.
 
 ### Добавление API-эндпоинта
 
@@ -144,7 +144,7 @@ make dev-android    # Открывает в Android Studio
 
 ### Основные паттерны
 
-- Все экраны — Composable-функции
+- Все экраны - Composable-функции
 - Зависимости поступают из `InstanceManager` через `koinInject()`
 - Используйте `collectAsState().value ?: return` для обнуляемых значений `StateFlow`
 - Навигация обрабатывается в `MainActivity.kt`
@@ -167,7 +167,7 @@ make dev-ios    # Открывает в Xcode
 
 ### Основные паттерны
 
-- Представления — SwiftUI-структуры
+- Представления - SwiftUI-структуры
 - Зависимости поступают из `InstanceManager` через `@EnvironmentObject`
 - Используйте optional binding для обнуляемых published-свойств
 - Навигация использует нативный навигационный стек SwiftUI
@@ -222,7 +222,7 @@ make build-desktop           # оптимизированный бинарник
 ### Основные паттерны
 
 - Весь UI определён в файлах `.slint` в `apps/desktop/ui/`; компилируется в Rust при сборке через `build.rs`
-- `apps/desktop/src/ui/bridge.rs` — единственное место, где обратные вызовы Slint привязываются к логике Rust — не помещайте бизнес-логику в файлы `.slint`
+- `apps/desktop/src/ui/bridge.rs` - единственное место, где обратные вызовы Slint привязываются к логике Rust - не помещайте бизнес-логику в файлы `.slint`
 - Используйте `Weak<AppWindow>` при запуске фоновых задач, которым нужно обновлять UI
 
 > См. [Архитектура десктопного приложения](/ru/docs/architecture/desktop) для детальной архитектуры десктопного приложения.
@@ -302,5 +302,5 @@ GitHub Actions запускается при каждом пуше в `main` и 
 
 ## См. также
 
-- [Справочник Makefile](/ru/docs/guides/makefile) — все команды сборки и разработки
-- [Обзор архитектуры](/ru/docs/architecture/overview) — как компоненты работают вместе
+- [Справочник Makefile](/ru/docs/guides/makefile) - все команды сборки и разработки
+- [Обзор архитектуры](/ru/docs/architecture/overview) - как компоненты работают вместе

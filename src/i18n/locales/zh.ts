@@ -82,16 +82,16 @@ export default {
   problem: {
     title: "你的会议不该这么贵",
     subtitle:
-      "企业视频平台多年来一直对团队过度收费。以下是问题所在——以及开发者为什么在转向其他方案。",
+      "企业视频平台多年来一直对团队过度收费。以下是问题所在--以及开发者为什么在转向其他方案。",
     perSeatPricing: {
       title: "按座位收费是个陷阱",
       description:
-        "Zoom、Teams、Meet——全都按用户收费。从 10 人增长到 100 人，账单直接翻 10 倍。跨部门、承包商和访客叠加后，你在一个每天只用 30 分钟的工具上大量流失预算。",
+        "Zoom、Teams、Meet--全都按用户收费。从 10 人增长到 100 人，账单直接翻 10 倍。跨部门、承包商和访客叠加后，你在一个每天只用 30 分钟的工具上大量流失预算。",
     },
     vendorLockIn: {
       title: "供应商锁定扼杀主动权",
       description:
-        "你的会议录制、转录、参会者数据——全都存储在你无法控制的服务器上。当供应商涨价、砍功能或被入侵时，你没有任何退出策略。",
+        "你的会议录制、转录、参会者数据--全都存储在你无法控制的服务器上。当供应商涨价、砍功能或被入侵时，你没有任何退出策略。",
     },
     selfHostedNightmare: {
       title: "自建方案简直是噩梦",
@@ -178,7 +178,7 @@ export default {
     fiveDollarVps: {
       title: "5 美元 VPS 即可运行",
       description:
-        "空闲时约 200MB 内存（最低 512MB）。部署在任何廉价 VPS 上——Hetzner、DigitalOcean、AWS Lightsail 或你自己的硬件。同样功能，几分之一成本。",
+        "空闲时约 200MB 内存（最低 512MB）。部署在任何廉价 VPS 上--Hetzner、DigitalOcean、AWS Lightsail 或你自己的硬件。同样功能，几分之一成本。",
     },
     webrtcLatency: {
       title: "WebRTC 亚秒级延迟",
@@ -188,7 +188,7 @@ export default {
     enterpriseSso: {
       title: "企业 SSO 和 OIDC",
       description:
-        "几分钟内连接你的身份提供商。通行密钥、OAuth 2.0、OIDC——全部开箱即用。没有可能被泄露的密码数据库。",
+        "几分钟内连接你的身份提供商。通行密钥、OAuth 2.0、OIDC--全部开箱即用。没有可能被泄露的密码数据库。",
     },
   },
   install: {
@@ -203,7 +203,7 @@ export default {
   platforms: {
     title: "原生应用，不是网页套壳",
     subtitle:
-      "真正的原生应用——Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova。",
+      "真正的原生应用--Web 用 React、Android 用 Kotlin、iOS 用 Swift、桌面用 Rust、服务端用 Go。不用 Electron，不用 Cordova。",
     web: {
       title: "Web",
       tech: "React + TypeScript",
@@ -264,7 +264,7 @@ export default {
     recordingScreenSharing: {
       question: "支持录制和屏幕共享吗？",
       answer:
-        "支持。内置屏幕共享和会议录制。录制文件保存到你的服务器——不是别人的云上。机器人代理还可以实时转录会议内容。",
+        "支持。内置屏幕共享和会议录制。录制文件保存到你的服务器--不是别人的云上。机器人代理还可以实时转录会议内容。",
     },
   },
   footer: {

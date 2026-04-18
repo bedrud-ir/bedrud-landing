@@ -85,16 +85,16 @@ export default {
   problem: {
     title: "Vos réunions ne devraient pas coûter si cher",
     subtitle:
-      "Les plateformes vidéo d'entreprise surfacturent les équipes depuis des années. Voici ce qui cloche — et pourquoi les développeurs changent.",
+      "Les plateformes vidéo d'entreprise surfacturent les équipes depuis des années. Voici ce qui cloche - et pourquoi les développeurs changent.",
     perSeatPricing: {
       title: "La tarification par siège est un piège",
       description:
-        "Zoom, Teams, Meet — tous facturent par utilisateur. Passez de 10 à 100 personnes et votre facture décuple. Multipliez ça entre départements, prestataires et invités, et vous videz votre budget sur un outil utilisé 30 minutes par jour.",
+        "Zoom, Teams, Meet - tous facturent par utilisateur. Passez de 10 à 100 personnes et votre facture décuple. Multipliez ça entre départements, prestataires et invités, et vous videz votre budget sur un outil utilisé 30 minutes par jour.",
     },
     vendorLockIn: {
       title: "Le verrouillage fournisseur détruit votre liberté",
       description:
-        "Vos enregistrements de réunion, vos transcriptions, les données des participants — tout est stocké sur des serveurs que vous ne contrôlez pas. Quand un fournisseur change ses prix, supprime des fonctionnalités ou subit une faille, vous n'avez pas de porte de sortie.",
+        "Vos enregistrements de réunion, vos transcriptions, les données des participants - tout est stocké sur des serveurs que vous ne contrôlez pas. Quand un fournisseur change ses prix, supprime des fonctionnalités ou subit une faille, vous n'avez pas de porte de sortie.",
     },
     selfHostedNightmare: {
       title: "Les options auto-hébergées sont un cauchemar",
@@ -182,7 +182,7 @@ export default {
     fiveDollarVps: {
       title: "Fonctionne sur un VPS à 5$",
       description:
-        "~200 Mo de RAM au repos (512 Mo min). Déployez sur n'importe quel VPS pas cher — Hetzner, DigitalOcean, AWS Lightsail, votre propre matériel. Mêmes fonctionnalités, fraction du coût.",
+        "~200 Mo de RAM au repos (512 Mo min). Déployez sur n'importe quel VPS pas cher - Hetzner, DigitalOcean, AWS Lightsail, votre propre matériel. Mêmes fonctionnalités, fraction du coût.",
     },
     webrtcLatency: {
       title: "Latence WebRTC sub-seconde",
@@ -192,7 +192,7 @@ export default {
     enterpriseSso: {
       title: "SSO entreprise & OIDC",
       description:
-        "Connectez-vous à votre fournisseur d'identité en quelques minutes. Passkeys, OAuth 2.0, OIDC — tout pris en charge nativement. Pas de bases de mots de passe à compromettre.",
+        "Connectez-vous à votre fournisseur d'identité en quelques minutes. Passkeys, OAuth 2.0, OIDC - tout pris en charge nativement. Pas de bases de mots de passe à compromettre.",
     },
   },
   install: {
@@ -269,7 +269,7 @@ export default {
       question:
         "L'enregistrement et le partage d'écran sont-ils pris en charge ?",
       answer:
-        "Oui. Le partage d'écran et l'enregistrement de réunion sont inclus. Les enregistrements sont sauvegardés sur votre serveur — pas sur le cloud de quelqu'un d'autre. Les agents bots peuvent aussi transcrire les réunions en temps réel.",
+        "Oui. Le partage d'écran et l'enregistrement de réunion sont inclus. Les enregistrements sont sauvegardés sur votre serveur - pas sur le cloud de quelqu'un d'autre. Les agents bots peuvent aussi transcrire les réunions en temps réel.",
     },
   },
   footer: {

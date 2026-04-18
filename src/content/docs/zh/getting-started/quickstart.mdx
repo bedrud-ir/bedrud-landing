@@ -8,7 +8,7 @@ order: 1
 
 **本指南：** 下载 → 安装 → 验证 → 加入。其他安装方式请参阅[安装指南](/zh/docs/getting-started/installation)。配置相关请参阅[配置](/zh/docs/getting-started/configuration)。
 
-> **单二进制文件，下载后无需联网。** 内置媒体服务器和 SQLite — 可在隔离网络中运行。传输文件，执行一条命令即可。
+> **单二进制文件，下载后无需联网。** 内置媒体服务器和 SQLite - 可在隔离网络中运行。传输文件，执行一条命令即可。
 
 ---
 
@@ -19,7 +19,7 @@ order: 1
 | 一台 Linux 服务器 | amd64，需要 `sudo` 权限和 `systemd`。Windows：Docker 或 WSL2。macOS：从源码构建 |
 | 开放端口 | `8090`、`7880`、`50000–60000/udp`。自动 TLS 还需开放 `80` 和 `443` |
 | 工具 | `curl`、`tar` |
-| 域名（可选） | 需配置 DNS A record 指向你的服务器。没有域名？可直接使用 IP — 参见下方替代方案 |
+| 域名（可选） | 需配置 DNS A record 指向你的服务器。没有域名？可直接使用 IP - 参见下方替代方案 |
 
 > **工作原理：** 你运行一个 Bedrud **服务器**。参与者通过**浏览器**加入会议（无需安装）或通过**原生应用**（Android、Windows、macOS、Linux）。
 
@@ -33,7 +33,7 @@ tar -xJf bedrud.tar.xz
 chmod +x bedrud
 ```
 
-> **服务器没有网络？** 在任意机器上下载，通过 USB 或 `scp bedrud.tar.xz user@server:/tmp/` 传输，然后在服务器上解压。二进制文件完全自包含 — 传输后不会产生任何出站请求。
+> **服务器没有网络？** 在任意机器上下载，通过 USB 或 `scp bedrud.tar.xz user@server:/tmp/` 传输，然后在服务器上解压。二进制文件完全自包含 - 传输后不会产生任何出站请求。
 
 > **下载失败？** 检查网络连接，或在 [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) 验证 URL。
 
@@ -77,14 +77,14 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 
 <CreateAdmin createOption />
 
-3. 登录（或刷新页面）— 侧边栏中出现**管理员**区域（概览、用户、房间、设置）。成功：你已成为管理员。
-4. **创建房间** → **加入** → **共享视频/音频** — 根据提示授予摄像头/麦克风权限
+3. 登录（或刷新页面）- 侧边栏中出现**管理员**区域（概览、用户、房间、设置）。成功：你已成为管理员。
+4. **创建房间** → **加入** → **共享视频/音频** - 根据提示授予摄像头/麦克风权限
 
-> **管理面板** — 提升权限后，登录即可访问 `/dashboard/admin` 管理面板。管理用户、房间、系统设置和邀请令牌。
+> **管理面板** - 提升权限后，登录即可访问 `/dashboard/admin` 管理面板。管理用户、房间、系统设置和邀请令牌。
 
-> **CLI 参考** — 完整的用户管理：`bedrud user promote`、`demote`、`create`、`delete`。
+> **CLI 参考** - 完整的用户管理：`bedrud user promote`、`demote`、`create`、`delete`。
 
-Android、Windows、macOS 和 Linux **原生客户端**：[GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest)。或者直接分享会议链接 — 参与者在任意浏览器中即可加入。
+Android、Windows、macOS 和 Linux **原生客户端**：[GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest)。或者直接分享会议链接 - 参与者在任意浏览器中即可加入。
 
 ---
 

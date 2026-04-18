@@ -83,7 +83,7 @@ order: 2
 
 ## 2. Docker
 
-在容器中运行 Bedrud — 无需 Linux 服务器配置、无需 systemd、无需下载二进制文件。
+在容器中运行 Bedrud - 无需 Linux 服务器配置、无需 systemd、无需下载二进制文件。
 
 ### 预构建镜像（最快）
 
@@ -164,7 +164,7 @@ sudo ./bedrud install
 | **邮箱** | 空 | 用于 Let's Encrypt 注册（仅在设置了域名时） |
 | **self-signed TLS** | 是 | 未提供域名时显示。默认为 `Y` |
 
-当 stdin 被管道传输时（非交互模式），所有提示将被跳过 — 使用标志和默认值。
+当 stdin 被管道传输时（非交互模式），所有提示将被跳过 - 使用标志和默认值。
 
 ---
 
@@ -393,7 +393,7 @@ sudo dnf upgrade bedrud
 
 ### 二进制下载
 
-下载最新版本并重新运行安装。安装程序可安全地重复运行 — 它会覆盖二进制文件和配置，同时保留数据库：
+下载最新版本并重新运行安装。安装程序可安全地重复运行 - 它会覆盖二进制文件和配置，同时保留数据库：
 
 ```bash
 curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
@@ -445,7 +445,7 @@ sudo bedrud uninstall
 |------|----------|
 | **端口 80/443 被占用** | 停止冲突的 Web 服务器：`systemctl stop nginx apache2 caddy` |
 | **服务无法启动** | 查看日志：`journalctl -u bedrud -u livekit --no-pager -n 50` |
-| **TLS 证书问题** | 验证 DNS：`dig +short meet.example.com` — 必须返回此服务器的 IP |
+| **TLS 证书问题** | 验证 DNS：`dig +short meet.example.com` - 必须返回此服务器的 IP |
 | **LiveKit 端口冲突** | 使用 `--lk-port`、`--lk-tcp-port`、`--lk-udp-port` 标志更改端口 |
 | **安装成功但 Web UI 显示 404** | 前端未嵌入。在 `bedrud install` 之前使用 `make build` 构建。仅二进制构建会跳过前端 |
 | **安装成功但服务崩溃** | 检查静默失败：`journalctl -u bedrud --no-pager -n 100`。验证 `/etc/bedrud/config.yaml` 配置 |

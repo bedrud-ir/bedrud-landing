@@ -4,7 +4,7 @@ description: Install from package managers
 order: 32
 ---
 
-本指南介绍 Bedrud 所有可用的包管理器和二进制文件安装方式——包括**服务器**和**桌面客户端**。
+本指南介绍 Bedrud 所有可用的包管理器和二进制文件安装方式--包括**服务器**和**桌面客户端**。
 
 ---
 
@@ -259,7 +259,7 @@ docker run -d \
 
 ### macOS
 
-为 Intel 和 Apple Silicon 提供预构建的便携 tar 包。应用**未签名** — 解压后可能需要在**系统设置 → 隐私与安全性**中允许运行。
+为 Intel 和 Apple Silicon 提供预构建的便携 tar 包。应用**未签名** - 解压后可能需要在**系统设置 → 隐私与安全性**中允许运行。
 
 <Tabs>
   <TabsList>
@@ -296,7 +296,7 @@ docker run -d \
 </Tabs>
 
 <Callout type="info">
-  当在 CI 中配置了 `MACOS_CERTIFICATE` 时，macOS 发布版本会**经过代码签名和公证**（见[密钥参考](#密钥参考)）。没有这些密钥时二进制文件未签名 — 请使用上方的 `xattr` 解决方法，或在 Finder 中右键点击 → 打开。
+  当在 CI 中配置了 `MACOS_CERTIFICATE` 时，macOS 发布版本会**经过代码签名和公证**（见[密钥参考](#密钥参考)）。没有这些密钥时二进制文件未签名 - 请使用上方的 `xattr` 解决方法，或在 Finder 中右键点击 → 打开。
 </Callout>
 
 <Callout type="warning">
@@ -327,7 +327,7 @@ docker run -d \
   </TabsContent>
 
   <TabsContent value="zip">
-    无需安装 — 解压后即可运行：
+    无需安装 - 解压后即可运行：
 
     | 架构 | 文件 |
     |---|---|
@@ -387,4 +387,4 @@ docker run -d \
 | `TELEGRAM_BOT_TOKEN` | Telegram | 用于发布通知的机器人令牌 |
 | `TELEGRAM_CHAT_ID` | Telegram | 目标频道/群组 ID |
 
-所有密钥都是可选的 — 如果缺少某个密钥，该渠道的任务会被静默跳过。
+所有密钥都是可选的 - 如果缺少某个密钥，该渠道的任务会被静默跳过。

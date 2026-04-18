@@ -123,15 +123,15 @@ Has instances, logged in ──► DashboardScreen
 
 Приложение обрабатывает URL-адреса:
 
-- `https://bedrud.com/m/*` — прямое подключение к комнате
-- `https://bedrud.com/c/*` — подключение к комнате по коду
+- `https://bedrud.com/m/*` - прямое подключение к комнате
+- `https://bedrud.com/c/*` - подключение к комнате по коду
 
 Настроено через intent-фильтры в `AndroidManifest.xml`.
 
 ### Управление звонками
 
-- **CallService** — foreground-сервис, поддерживающий соединение во время звонков
-- **CallConnectionService** — интеграция с телефонным фреймворком Android для корректного UI звонков
+- **CallService** - foreground-сервис, поддерживающий соединение во время звонков
+- **CallConnectionService** - интеграция с телефонным фреймворком Android для корректного UI звонков
 - Необходимые разрешения: `MANAGE_OWN_CALLS`, `FOREGROUND_SERVICE_PHONE_CALL`, `FOREGROUND_SERVICE_CAMERA`, `FOREGROUND_SERVICE_MICROPHONE`
 
 ### Картинка в картинке

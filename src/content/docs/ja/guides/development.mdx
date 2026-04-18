@@ -221,8 +221,8 @@ make build-desktop           # optimised binary for the current platform
 
 ### 主要なパターン
 
-- すべての UI は `apps/desktop/ui/` 以下の `.slint` ファイルで定義 — `build.rs` がビルド時に Rust にコンパイル
-- `apps/desktop/src/ui/bridge.rs` が Slint コールバックを Rust ロジックに接続する唯一の場所 — ビジネスロジックを `.slint` ファイルに配置しないでください
+- すべての UI は `apps/desktop/ui/` 以下の `.slint` ファイルで定義 - `build.rs` がビルド時に Rust にコンパイル
+- `apps/desktop/src/ui/bridge.rs` が Slint コールバックを Rust ロジックに接続する唯一の場所 - ビジネスロジックを `.slint` ファイルに配置しないでください
 - UI の更新が必要なバックグラウンドタスクを起動する場合は `Weak<AppWindow>` を使用
 
 > 詳しいデスクトップアプリアーキテクチャについては、[デスクトップアプリアーキテクチャ](/ja/docs/architecture/desktop)を参照してください。
@@ -302,5 +302,5 @@ GitHub Actions は `main` へのプッシュおよびプルリクエストごと
 
 ## 関連項目
 
-- [Makefile リファレンス](/ja/docs/guides/makefile) — すべてのビルド・開発コマンド
-- [アーキテクチャ概要](/ja/docs/architecture/overview) — コンポーネントの全体構成
+- [Makefile リファレンス](/ja/docs/guides/makefile) - すべてのビルド・開発コマンド
+- [アーキテクチャ概要](/ja/docs/architecture/overview) - コンポーネントの全体構成
