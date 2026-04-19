@@ -87,10 +87,14 @@ flowchart TB
 ```mermaid
 flowchart TD
     START[Start ICE Gathering] --> HOST
-    HOST["Host candidates<br/>Local interface IPs<br/>e.g. 192.168.1.5:50001"] --> SRFLX
-    SRFLX["STUN candidates (srflx)<br/>Public IP discovered via STUN<br/>e.g. 203.0.113.5:50001"] --> TEST
-    TURN_C["TURN candidates (relay)<br/>Relay address on server<br/>e.g. 203.0.113.10:30001"] --> TEST
-
+    START --> SRFLX
+    START --> TURN_C
+    HOST["Host candidates<br/>Local interface IPs<br/>e.g. 192.168.1.5:50001"]
+    SRFLX["STUN candidates (srflx)<br/>Public IP discovered via STUN<br/>e.g. 203.0.113.5:50001"]
+    TURN_C["TURN candidates (relay)<br/>Relay address on server<br/>e.g. 203.0.113.10:30001"]
+    HOST --> TEST
+    SRFLX --> TEST
+    TURN_C --> TEST
     TEST{Test candidate<br/>connectivity}
     TEST -->|"Host works"| CONNECTED[Connected via host]
     TEST -->|"srflx works"| CONNECTED2[Connected via STUN<br/>direct P2P]

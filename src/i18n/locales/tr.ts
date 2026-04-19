@@ -355,7 +355,7 @@ export default {
     title: "Hizmet Şartları",
     lastUpdated: "Son güncelleme: 17 Nisan 2026",
     intro:
-      "Bu şartlar bedrud.org web sitesini ve demo.bedrud.org adresindeki genel demo örneğini kapsar. Bedrud'u indirip kendi sunucunuzda barındırırsanız, Apache 2.0 lisansı yazılım kullanımınızı yönetir.",
+      "Bu şartlar bedrud.org web sitesini ve bedrud.xyz adresindeki genel demo örneğini kapsar. Bedrud'u indirip kendi sunucunuzda barındırırsanız, Apache 2.0 lisansı yazılım kullanımınızı yönetir.",
     acceptance: {
       title: "Bedrud'u Kullanmak Bu Şartları Kabul Ettiğiniz Anlamına Gelir",
       content:
@@ -480,7 +480,7 @@ export default {
       "architecture/agents": "Bot Ajanları",
       "architecture/webrtc-connectivity": "WebRTC Bağlantısı",
       "architecture/turn-server": "TURN Sunucusu",
-      "backend/index": "Backend Belgeleri",
+      "backend/overview": "Backend Belgeleri",
       "backend/structure": "Kod Yapısı",
       "backend/database": "Veritabanı ve Modeller",
       "backend/authentication": "Kimlik Doğrulama",

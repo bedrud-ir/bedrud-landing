@@ -78,22 +78,24 @@ apps/android/app/src/main/java/com/bedrud/app/
 
 La aplicación Android admite la conexión simultánea a múltiples servidores Bedrud.
 
-```
-┌──────────────────────────┐
-│     InstanceManager      │  (singleton Koin)
-│                          │
-│  ┌────────────────────┐  │
-│  │   InstanceStore    │  │  Persiste lista en SharedPreferences
-│  └────────────────────┘  │
-│                          │
-│  ┌────────────────────┐  │
-│  │  Active Instance   │──┼──► InstanceDeps
-│  │  (StateFlow)       │  │    ├── AuthManager
-│  └────────────────────┘  │    ├── ApiClient
-│                          │    ├── AuthApi
-│ instances: List<Instance>│    ├── RoomApi
-│                          │    ├── PasskeyManager
-└──────────────────────────┘    └── RoomManager
+```mermaid
+flowchart TB
+    subgraph IM ["InstanceManager (Koin singleton)"]
+        IS["InstanceStore<br/>Persists list to SharedPreferences"]
+        AI["Active Instance (StateFlow)"]
+        INST["instances: List Instance"]
+    end
+
+    subgraph DEPS ["InstanceDeps"]
+        AM["AuthManager"]
+        AC["ApiClient"]
+        AA["AuthApi"]
+        RA["RoomApi"]
+        PM["PasskeyManager"]
+        RM["RoomManager"]
+    end
+
+    AI --> DEPS
 ```
 
 ### Patrón Clave
@@ -109,10 +111,11 @@ El patrón `?: return` asegura que el composable no se renderice hasta que la in
 
 ### Flujo de Navegación
 
-```
-Sin instancias ──► AddInstanceScreen
-Tiene instancias, no iniciado sesión ──► LoginScreen
-Tiene instancias, iniciado sesión ──► DashboardScreen
+```mermaid
+flowchart LR
+    A["No instances"] --> B[AddInstanceScreen]
+    C["Has instances, not logged in"] --> D[LoginScreen]
+    E["Has instances, logged in"] --> F[DashboardScreen]
 ```
 
 El conmutador de instancias aparece como un `ModalBottomSheet` activado desde la barra de herramientas del Dashboard.

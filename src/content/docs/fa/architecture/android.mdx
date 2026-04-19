@@ -78,22 +78,24 @@ apps/android/app/src/main/java/com/bedrud/app/
 
 اپلیکیشن Android اتصال همزمان به چندین سرور بدرود را پشتیبانی می‌کند.
 
-```
-┌──────────────────────────┐
-│     InstanceManager      │  (singleton Koin)
-│                          │
-│  ┌────────────────────┐  │
-│  │   InstanceStore    │  │  لیست را در SharedPreferences پایدار می‌کند
-│  └────────────────────┘  │
-│                          │
-│  ┌────────────────────┐  │
-│  │  Active Instance   │──┼──► InstanceDeps
-│  │  (StateFlow)       │  │    ├── AuthManager
-│  └────────────────────┘  │    ├── ApiClient
-│                          │    ├── AuthApi
-│  instances: List<Instance>│    ├── RoomApi
-│                          │    ├── PasskeyManager
-└──────────────────────────┘    └── RoomManager
+```mermaid
+flowchart TB
+    subgraph IM ["InstanceManager (Koin singleton)"]
+        IS["InstanceStore<br/>Persists list to SharedPreferences"]
+        AI["Active Instance (StateFlow)"]
+        INST["instances: List Instance"]
+    end
+
+    subgraph DEPS ["InstanceDeps"]
+        AM["AuthManager"]
+        AC["ApiClient"]
+        AA["AuthApi"]
+        RA["RoomApi"]
+        PM["PasskeyManager"]
+        RM["RoomManager"]
+    end
+
+    AI --> DEPS
 ```
 
 ### الگوی کلیدی
@@ -109,10 +111,11 @@ val roomApi = instanceManager.roomApi.collectAsState().value ?: return
 
 ### جریان ناوبری
 
-```
-بدون نمونه ──► AddInstanceScreen
-نمونه دارد، وارد نشده ──► LoginScreen
-نمونه دارد، وارد شده ──► DashboardScreen
+```mermaid
+flowchart LR
+    A["No instances"] --> B[AddInstanceScreen]
+    C["Has instances, not logged in"] --> D[LoginScreen]
+    E["Has instances, logged in"] --> F[DashboardScreen]
 ```
 
 جابجایی نمونه به عنوان `ModalBottomSheet` که از نوار Dashboard راه‌اندازی می‌شود ظاهر می‌شود.

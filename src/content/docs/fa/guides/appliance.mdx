@@ -54,19 +54,14 @@ sudo ./bedrud install --ip 1.2.3.4
 
 پس از نصب، دو سرویس systemd اجرا می‌شوند:
 
-```
-┌──────────────────┐     ┌──────────────────┐
-│  bedrud.service  │     │  livekit.service  │
-│                  │     │                   │
-│  bedrud --run    │────►│  bedrud --livekit │
-│  (API + Web UI)  │     │  (WebRTC media)   │
-└──────────────────┘     └───────────────────┘
-          │
-          ▼
-    ┌──────────┐
-    │  SQLite  │
-    │ database │
-    └──────────┘
+```mermaid
+flowchart LR
+    BS["bedrud.service<br/>bedrud --run<br/>(API + Web UI)"]
+    LS["livekit.service<br/>bedrud --livekit<br/>(WebRTC media)"]
+    DB["SQLite database"]
+
+    BS --> LS
+    BS --> DB
 ```
 
 ## فایل‌های پیکربندی

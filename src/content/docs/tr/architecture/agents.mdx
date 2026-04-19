@@ -18,25 +18,36 @@ Bedrud, toplantı odalarına katılıp medya içeriği yayınlayabilen Python ta
 
 Tüm aracılar aynı bağlantı örüntüsünü izler:
 
-```
-1. Toplantı URL'sini ayrıştır ──► Oda adını çıkar
-2. Misafir girişi ──► POST /api/auth/guest-login
-3. Odaya katıl ──► POST /api/room/join (LiveKit token al)
-4. LiveKit'e bağlan ──► WebSocket bağlantısı
-5. Kanalları yayınla ──► Ses/video karelerini akıt
+```mermaid
+flowchart TD
+    A[1. Parse meeting URL] --> B[2. Guest login<br/>POST /api/auth/guest-login]
+    B --> C[3. Join room<br/>POST /api/room/join]
+    C --> D[4. Connect to LiveKit<br/>WebSocket + Token]
+    D --> E[5. Publish tracks<br/>Stream audio/video frames]
 ```
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  Medya Kaynak │────►│ Python Agent │────►│   LiveKit     │
-│  (dosya/URL)  │     │  (FFmpeg)    │     │   (WebRTC)    │
-└──────────────┘     └──────────────┘     └──────────────┘
-                            │
-                     Misafir girişi + katılım
-                            │
-                     ┌──────────────┐
-                     │ Bedrud Server│
-                     └──────────────┘
+```mermaid
+flowchart LR
+    subgraph Media["Media Source"]
+        MS["File / URL<br/>(MP3, radio, HLS, MP4)"]
+    end
+    subgraph Agent["Python Agent"]
+        FF[FFmpeg Decoder]
+        PA[Agent Logic]
+    end
+    subgraph Server["Bedrud Server"]
+        GL[Guest Login<br/>/api/auth/guest-login]
+        JR[Join Room<br/>/api/room/join]
+    end
+    subgraph LK["LiveKit SFU<br/>(WebRTC)"]
+        WS[WebSocket Connect]
+        PT[Publish Tracks]
+    end
+    MS --> FF --> PA
+    PA --> GL
+    GL --> JR
+    JR --> WS
+    WS --> PT
 ```
 
 ## Müzik Aracısı

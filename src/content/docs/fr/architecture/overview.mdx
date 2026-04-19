@@ -8,39 +8,26 @@ Bedrud est un monorepo contenant un serveur Go, trois applications client, des a
 
 ## Diagramme de haut niveau
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                          Clients                             │
-│                                                              │
-│  ┌─────────┐  ┌──────────┐  ┌────────┐  ┌───────────────┐   │
-│  │  Web    │  │ Android  │  │  iOS   │  │ Desktop       │   │
-│  │ React   │  │ Compose  │  │SwiftUI │  │ Rust + Slint  │   │
-│  └────┬────┘  └────┬─────┘  └───┬────┘  └──────┬────────┘   │
-│       │            │            │              │             │
-│       └────────────┼────────────┼──────────────┘             │
-│                    │                                         │
-│               REST API + WebSocket                          │
-└────────────────────┼────────────────────────────────────────┘
-                           │
-┌────────────────────────┼────────────────────────────────┐
-│                   Bedrud Server                         │
-│                        │                                │
-│  ┌─────────────────────┴──────────────────────────┐     │
-│  │              Fiber HTTP Router                  │     │
-│  │  /api/auth/*  /api/room/*  /api/admin/*        │     │
-│  └──────────┬─────────────────────┬───────────────┘     │
-│             │                     │                     │
-│  ┌──────────┴──────────┐  ┌──────┴────────────────┐     │
-│  │   GORM / SQLite     │  │  LiveKit Protocol SDK │     │
-│  │   (ou PostgreSQL)   │  │  (génération de token, │     │
-│  │                     │  │   gestion des salles)  │     │
-│  └─────────────────────┘  └──────────┬────────────┘     │
-│                                      │                  │
-│                           ┌──────────┴────────────┐     │
-│                           │  Embedded LiveKit      │     │
-│                           │  Media Server (WebRTC) │     │
-│                           └───────────────────────┘     │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Clients ["Clients"]
+        Web["Web<br/>React"]
+        Android["Android<br/>Compose"]
+        iOS["iOS<br/>SwiftUI"]
+        Desktop["Desktop<br/>Rust + Slint"]
+    end
+
+    subgraph Server ["Bedrud Server"]
+        Router["Fiber HTTP Router<br/>/api/auth/* /api/room/* /api/admin/*"]
+        DB["GORM / SQLite<br/>(or PostgreSQL)"]
+        LKSDK["LiveKit Protocol SDK<br/>(token generation, room management)"]
+        LiveKit["Embedded LiveKit<br/>Media Server (WebRTC)"]
+    end
+
+    Clients -->|"REST API + WebSocket"| Router
+    Router --> DB
+    Router --> LKSDK
+    LKSDK --> LiveKit
 ```
 
 ## Composants
@@ -123,17 +110,20 @@ Voir [Agents bots](/fr/docs/architecture/agents) pour plus de détails.
 
 ## Authentication Flow
 
-```
-Client                    Serveur                    Base de données
-   │                         │                          │
-   ├─POST /api/auth/login───►│                          │
-   │                         ├──vérifier les identifiants───►│
-   │                         │◄─────────────────────────┤
-   │◄──access + refresh JWT──┤                          │
-   │                         │                          │
-   ├─GET /api/room/list──────►│  (en-tête Authorization)  │
-   │  (Bearer <access_token>)│                          │
-   │◄──liste des salles───────┤                          │
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: POST /api/auth/login
+    Server->>Database: verify credentials
+    Database-->>Server: credentials valid
+    Server-->>Client: access + refresh JWT
+
+    Client->>Server: GET /api/room/list
+    Note right of Server: "Authorization: Bearer <access_token>"
+    Server-->>Client: room list
 ```
 
 Toutes les requêtes authentifiées utilisent des tokens JWT dans l'en-tête `Authorization`. Le web frontend's `authFetch` wrapper gère l'attachement des tokens et le rafraîchissement automatique.
@@ -157,18 +147,18 @@ sequenceDiagram
     participant LK as LiveKit SFU
 
     C->>S: POST /api/room/join
-    S->>S: Valider les permissions
+    S->>S: Validate permissions
     S->>C: LiveKit JWT token
-    C->>LK: WebSocket connect (avec token)
+    C->>LK: WebSocket connect (with token)
     LK->>C: SDP offer + join response
 
-    Note over C,LK: Vérification de connectivité ICE
+    Note over C,LK: ICE connectivity check
     C->>LK: Host + STUN + TURN candidates
 
     alt Direct path (UDP)
-        C-->>LK: Média via UDP 50000-60000
+        C-->>LK: Media via UDP 50000-60000
     else TURN relay
-        C-->>LK: Média via TURN relay
+        C-->>LK: Media via TURN relay
     end
 
     Note over C,LK: Audio/video tracks flow through SFU

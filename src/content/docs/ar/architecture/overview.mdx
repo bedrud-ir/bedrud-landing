@@ -8,39 +8,26 @@ order: 6
 
 ## المخطط العام
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                          Clients                             │
-│                                                              │
-│  ┌─────────┐  ┌──────────┐  ┌────────┐  ┌───────────────┐   │
-│  │  Web    │  │ Android  │  │  iOS   │  │ Desktop       │   │
-│  │ React   │  │ Compose  │  │SwiftUI │  │ Rust + Slint  │   │
-│  └────┬────┘  └────┬─────┘  └───┬────┘  └──────┬────────┘   │
-│       │            │            │              │             │
-│       └────────────┼────────────┼──────────────┘             │
-│                    │                                         │
-│               REST API + WebSocket                          │
-└────────────────────┼────────────────────────────────────────┘
-                           │
-┌────────────────────────┼────────────────────────────────┐
-│                   Bedrud Server                         │
-│                        │                                │
-│  ┌─────────────────────┴──────────────────────────┐     │
-│  │              Fiber HTTP Router                  │     │
-│  │  /api/auth/*  /api/room/*  /api/admin/*        │     │
-│  └──────────┬─────────────────────┬───────────────┘     │
-│             │                     │                     │
-│  ┌──────────┴──────────┐  ┌──────┴────────────────┐     │
-│  │   GORM / SQLite     │  │  LiveKit Protocol SDK │     │
-│  │   (or PostgreSQL)   │  │  (token generation,   │     │
-│  │                     │  │   room management)    │     │
-│  └─────────────────────┘  └──────────┬────────────┘     │
-│                                      │                  │
-│                           ┌──────────┴────────────┐     │
-│                           │  Embedded LiveKit      │     │
-│                           │  Media Server (WebRTC) │     │
-│                           └───────────────────────┘     │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Clients ["Clients"]
+        Web["Web<br/>React"]
+        Android["Android<br/>Compose"]
+        iOS["iOS<br/>SwiftUI"]
+        Desktop["Desktop<br/>Rust + Slint"]
+    end
+
+    subgraph Server ["Bedrud Server"]
+        Router["Fiber HTTP Router<br/>/api/auth/* /api/room/* /api/admin/*"]
+        DB["GORM / SQLite<br/>(or PostgreSQL)"]
+        LKSDK["LiveKit Protocol SDK<br/>(token generation, room management)"]
+        LiveKit["Embedded LiveKit<br/>Media Server (WebRTC)"]
+    end
+
+    Clients -->|"REST API + WebSocket"| Router
+    Router --> DB
+    Router --> LKSDK
+    LKSDK --> LiveKit
 ```
 
 ## المكونات
@@ -123,17 +110,20 @@ order: 6
 
 ## مسار المصادقة
 
-```
-Client                    Server                    Database
-  │                         │                          │
-  ├─POST /api/auth/login───►│                          │
-  │                         ├──verify credentials─────►│
-  │                         │◄─────────────────────────┤
-  │◄──access + refresh JWT──┤                          │
-  │                         │                          │
-  ├─GET /api/room/list──────►│  (Authorization header)  │
-  │  (Bearer <access_token>)│                          │
-  │◄──room list─────────────┤                          │
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: POST /api/auth/login
+    Server->>Database: verify credentials
+    Database-->>Server: credentials valid
+    Server-->>Client: access + refresh JWT
+
+    Client->>Server: GET /api/room/list
+    Note right of Server: "Authorization: Bearer <access_token>"
+    Server-->>Client: room list
 ```
 
 جميع الطلبات المصادَق عليها تستخدم رموز JWT في ترويسة `Authorization`. مغلف `authFetch` في واجهة الويب يتولى إرفاق الرموز وتحديثها تلقائيًا.

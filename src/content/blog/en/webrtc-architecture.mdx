@@ -25,12 +25,14 @@ Three reasons:
 
 ## Architecture Overview
 
-```
-Client ←→ Signaling (WebSocket) ←→ Room Manager
-                                         ↓
-Client ←→ Media (SRTP/DTLS) ←→ Peer Connection ←→ Router
-                                                         ↓
-                                                   Recording/Bots
+```mermaid
+flowchart LR
+    C1[Client] <-->|WebSocket| SIG[Signaling]
+    SIG <-->|SDP/ICE| RM[Room Manager]
+    C2[Client] <-->|SRTP/DTLS| PC[Peer Connection]
+    PC <-->|Media| ROUTER[Router]
+    RM --> PC
+    ROUTER --> REC[Recording/Bots]
 ```
 
 - **Signaling** handles SDP exchange and ICE candidates over WebSocket

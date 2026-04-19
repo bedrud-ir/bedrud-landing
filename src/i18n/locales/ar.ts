@@ -354,7 +354,7 @@ export default {
     title: "شروط الخدمة",
     lastUpdated: "آخر تحديث: ١٧ أبريل ٢٠٢٦",
     intro:
-      "تغطي هذه الشروط موقع bedrud.org والنسخة التجريبية العامة على demo.bedrud.org. إذا نزّلت واستضفت بدرود ذاتيًا، تخضع رخصة Apache 2.0 لاستخدامك للبرنامج.",
+      "تغطي هذه الشروط موقع bedrud.org والنسخة التجريبية العامة على bedrud.xyz. إذا نزّلت واستضفت بدرود ذاتيًا، تخضع رخصة Apache 2.0 لاستخدامك للبرنامج.",
     acceptance: {
       title: "استخدام بدرود يعني أنك تقبل هذه الشروط",
       content:
@@ -447,7 +447,7 @@ export default {
       "architecture/agents": "وكلاء الروبوت",
       "architecture/webrtc-connectivity": "اتصال WebRTC",
       "architecture/turn-server": "خادم TURN",
-      "backend/index": "توثيق الواجهة الخلفية",
+      "backend/overview": "توثيق الواجهة الخلفية",
       "backend/structure": "هيكل الكود",
       "backend/database": "قاعدة البيانات والنماذج",
       "backend/authentication": "المصادقة",

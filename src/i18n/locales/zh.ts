@@ -352,7 +352,7 @@ export default {
     title: "服务条款",
     lastUpdated: "最后更新：2026 年 4 月 17 日",
     intro:
-      "本条款涵盖 bedrud.org 网站和 demo.bedrud.org 上的公共演示实例。如果你下载并自托管 Bedrud，Apache 2.0 许可证适用于你对软件的使用。",
+      "本条款涵盖 bedrud.org 网站和 bedrud.xyz 上的公共演示实例。如果你下载并自托管 Bedrud，Apache 2.0 许可证适用于你对软件的使用。",
     acceptance: {
       title: "使用 Bedrud 即表示你接受本条款",
       content:
@@ -474,7 +474,7 @@ export default {
       "architecture/agents": "机器人代理",
       "architecture/webrtc-connectivity": "WebRTC 连接",
       "architecture/turn-server": "TURN 服务器",
-      "backend/index": "后端文档",
+      "backend/overview": "后端文档",
       "backend/structure": "代码结构",
       "backend/database": "数据库与模型",
       "backend/authentication": "身份认证",

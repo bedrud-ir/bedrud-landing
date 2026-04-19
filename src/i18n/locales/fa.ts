@@ -561,7 +561,7 @@ export default {
     title: "شرایط استفاده",
     lastUpdated: "آخرین به‌روزرسانی: ۲۸ فروردین ۱۴۰۵",
     intro:
-      "این شرایط وب‌سایت bedrud.org و نمونه دموی عمومی در demo.bedrud.org را پوشش می‌دهد. اگر بدرود را دانلود و خودمیزبان می‌کنید، مجوز Apache 2.0 بر استفاده شما از نرم‌افزار حاکم است.",
+      "این شرایط وب‌سایت bedrud.org و نمونه دموی عمومی در bedrud.xyz را پوشش می‌دهد. اگر بدرود را دانلود و خودمیزبان می‌کنید، مجوز Apache 2.0 بر استفاده شما از نرم‌افزار حاکم است.",
     acceptance: {
       title: "استفاده از بدرود به معنای پذیرش این شرایط است",
       content:
@@ -685,7 +685,7 @@ export default {
       "architecture/agents": "عوامل ربات",
       "architecture/webrtc-connectivity": "اتصال WebRTC",
       "architecture/turn-server": "سرور TURN",
-      "backend/index": "مستندات بک‌اند",
+      "backend/overview": "مستندات بک‌اند",
       "backend/structure": "ساختار کد",
       "backend/database": "پایگاه داده و مدل‌ها",
       "backend/authentication": "احراز هویت",

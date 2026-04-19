@@ -354,7 +354,7 @@ export default {
     title: "Nutzungsbedingungen",
     lastUpdated: "Zuletzt aktualisiert: 17. April 2026",
     intro:
-      "Diese Bedingungen decken die Website bedrud.org und die öffentliche Demo-Instanz unter demo.bedrud.org ab. Wenn Sie Bedrud herunterladen und selbst hosten, gilt die Apache 2.0 Lizenz für Ihre Nutzung der Software.",
+      "Diese Bedingungen decken die Website bedrud.org und die öffentliche Demo-Instanz unter bedrud.xyz ab. Wenn Sie Bedrud herunterladen und selbst hosten, gilt die Apache 2.0 Lizenz für Ihre Nutzung der Software.",
     acceptance: {
       title: "Bedrud zu nutzen bedeutet, Sie akzeptieren diese Bedingungen",
       content:
@@ -478,7 +478,7 @@ export default {
       "architecture/agents": "Bot-Agenten",
       "architecture/webrtc-connectivity": "WebRTC-Konnektivität",
       "architecture/turn-server": "TURN-Server",
-      "backend/index": "Backend-Dokumentation",
+      "backend/overview": "Backend-Dokumentation",
       "backend/structure": "Code-Struktur",
       "backend/database": "Datenbank & Modelle",
       "backend/authentication": "Authentifizierung",

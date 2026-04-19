@@ -65,30 +65,29 @@ apps/desktop/
 
 ## Arquitectura
 
-```
-┌─────────────────────────────────────────────────────┐
-│                   Capa UI Slint                     │
-│  (app.slint, login.slint, dashboard.slint, …)       │
-│                 Compilado a código nativo           │
-└────────────────────────┬────────────────────────────┘
-                          │  callbacks / enlaces de propiedades
-┌────────────────────────┴────────────────────────────┐
-│                  ui/bridge.rs                       │
-│  Mapea callbacks Slint → tareas asíncronas de Rust  │
-│  Actualiza propiedades Slint desde hilos en segundo │
-│  plano                                             │
-└───────┬──────────────────┬──────────────────┘
-        │                          │
-┌───────┴──────────┐   ┌───────────┴──────────────────┐
-│   api/ module    │   │       livekit/ module         │
-│  (reqwest, JWT)  │   │  (LiveKit Rust SDK, WebRTC)   │
-└───────┬──────────┘   └───────────┬──────────────────┘
-        │                          │
-┌───────┴──────────┐   ┌───────────┴──────────────────┐
-│  store/ module   │   │  auth/session.rs              │
-│  (instancias,    │   │  (bucle de actualización JWT,  │
-│   configuración) │   │   almacenamiento en llavero)   │
-└──────────────────┘   └───────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph UI ["Slint UI Layer"]
+        direction TB
+        SLINT[app.slint<br/>theme.slint<br/>components/ + screens]
+    end
+
+    subgraph Bridge ["Bridge Layer"]
+        BRIDGE[ui/bridge.rs<br/>Slint ↔ Rust wiring]
+    end
+
+    subgraph Core ["Core Modules"]
+        direction TB
+        API[api/<br/>client.rs • auth.rs • rooms.rs • admin.rs]
+        LIVEKIT[livekit/<br/>room.rs • tracks.rs • devices.rs]
+        AUTH[auth/<br/>session.rs • passkey.rs]
+        STORE[store/<br/>instance.rs • settings.rs]
+    end
+
+    SLINT -->|"callbacks /<br/>property bindings"| BRIDGE
+    BRIDGE <-->|"async tasks<br/>+ Weak&lt;AppWindow&gt;"| Core
+    API <--> LIVEKIT
+    AUTH <--> STORE
 ```
 
 ### Decisiones de diseño clave

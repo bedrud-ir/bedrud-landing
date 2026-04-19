@@ -629,7 +629,7 @@ export default {
       "architecture/agents": "Боты-агенты",
       "architecture/webrtc-connectivity": "Подключение WebRTC",
       "architecture/turn-server": "TURN-сервер",
-      "backend/index": "Документация бэкенда",
+      "backend/overview": "Документация бэкенда",
       "backend/structure": "Структура кода",
       "backend/database": "База данных",
       "backend/authentication": "Аутентификация",

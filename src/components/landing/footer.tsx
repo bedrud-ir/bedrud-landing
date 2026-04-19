@@ -211,6 +211,14 @@ export function Footer({ lang }: { lang: Locale }) {
             >
               Apache 2.0
             </a>
+            <a
+              href={`https://bedrud.org/sitemap-${lang}-0.xml`}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-foreground"
+            >
+              Sitemap
+            </a>
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3 text-sm text-muted-foreground">

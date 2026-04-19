@@ -62,33 +62,14 @@ server/
 
 Der Server folgt einer dreischichtigen Architektur:
 
-```
-HTTP Request
-     │
-     ▼
-┌─────────────┐
-│  Middleware  │  JWT validation, CORS, logging
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Handlers   │  Parse requests, call services, format responses
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Services   │  Business logic (auth, room management)
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ Repository  │  Database queries via GORM
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Database   │  SQLite (dev) or PostgreSQL (production)
-└─────────────┘
+```mermaid
+flowchart TB
+    HTTP[HTTP Request] --> Middleware
+    Middleware["Middleware<br/>JWT validation, CORS, logging"] --> Handlers
+    Handlers["Handlers<br/>Parse requests, call services, format responses"] --> Services
+    Services["Services<br/>Business logic (auth, room management)"] --> Repository
+    Repository["Repository<br/>Database queries via GORM"] --> Database
+    Database["Database<br/>SQLite (dev) or PostgreSQL (production)"]
 ```
 
 ## Wichtige Muster

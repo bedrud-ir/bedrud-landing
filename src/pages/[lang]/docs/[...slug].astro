@@ -186,8 +186,8 @@ const breadcrumbItems = [
         container.className = "mermaid-container";
         container.style.direction = "ltr";
         figure.replaceWith(container);
+        const id = `mermaid-${Math.random().toString(36).slice(2)}`;
         try {
-          const id = `mermaid-${Math.random().toString(36).slice(2)}`;
           const { svg, bindFunctions } = await mermaid.render(id, diagram);
           container.innerHTML = svg;
           bindFunctions?.(container);

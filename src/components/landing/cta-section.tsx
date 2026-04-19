@@ -1,38 +1,10 @@
-import { Copy } from "lucide-react";
-import { useCallback, useState } from "react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { GITHUB_URL } from "~/lib/config";
 import { type Locale, t } from "../../i18n/utils";
 import { GitHubIcon } from "./github-icon";
 
-const INSTALL_CMD = "curl -fsSL https://get.bedrud.org | bash";
-
-export function CtaSection({
-  lang,
-  linkToQuickstart = false,
-}: {
-  lang: Locale;
-  linkToQuickstart?: boolean;
-}) {
-  const [copied, setCopied] = useState(false);
-
-  const copyInstall = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(INSTALL_CMD);
-    } catch {
-      const ta = document.createElement("textarea");
-      ta.value = INSTALL_CMD;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-    }
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, []);
-
+export function CtaSection({ lang }: { lang: Locale }) {
   return (
     <section id="cta" className="scroll-mt-20 section-y">
       <div className="section-container">
@@ -46,26 +18,15 @@ export function CtaSection({
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-4">
-          {linkToQuickstart ? (
-            <Button size="lg" asChild>
-              <a
-                href={`/${lang}/docs/getting-started/quickstart`}
-                className="h-12 rounded-md px-8 font-mono text-sm"
-              >
-                <Copy className="size-4" />
-                {t(lang, "cta.getStarted")}
-              </a>
-            </Button>
-          ) : (
-            <Button
-              size="lg"
+          <Button size="lg" asChild>
+            <a
+              href={`/${lang}/docs/getting-started/quickstart`}
               className="h-12 rounded-md px-8 font-mono text-sm"
-              onClick={copyInstall}
             >
-              <Copy className="size-4" />
-              {copied ? t(lang, "cta.copied") : t(lang, "cta.installNow")}
-            </Button>
-          )}
+              <ArrowRight className="size-4" />
+              {t(lang, "cta.getStarted")}
+            </a>
+          </Button>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-sm">
             <a

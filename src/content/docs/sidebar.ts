@@ -113,7 +113,7 @@ export const sections: SidebarSection[] = [
     titleKey: "backend",
     items: [
       {
-        slug: "backend/index",
+        slug: "backend/overview",
         title: "Backend Documentation",
         description: "Overview of the Bedrud backend system architecture",
         order: 15,

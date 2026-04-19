@@ -70,18 +70,24 @@ apps/ios/Bedrud/
 
 The iOS app mirrors the Android architecture for multi-instance support.
 
-```text
-┌──────────────────────────┐
-│     InstanceManager      │  (ObservableObject)
-│                          │
-│  @Published properties:  │
-│  ├── instances: [Instance]│
-│  ├── activeInstance       │
-│  ├── authManager          │──► Per-instance
-│  ├── apiClient            │    dependency
-│  ├── roomManager          │    container
-│  └── ...                  │
-└──────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph InstanceManager [InstanceManager ObservableObject]
+        direction TB
+        instances["instances: [Instance]"]
+        activeInstance["activeInstance"]
+        authManager["authManager"]
+        apiClient["apiClient"]
+        roomManager["roomManager"]
+        others["..."]
+        
+        instances --- activeInstance
+        activeInstance --- authManager
+        authManager --- apiClient
+        apiClient --- roomManager
+        roomManager --- others
+    end
+    style InstanceManager fill:#f0f0f0,stroke:#333
 ```
 
 ### Key Pattern
@@ -102,10 +108,12 @@ struct DashboardView: View {
 
 ### Navigation Flow
 
-```text
-No instances ──► AddInstanceView
-Has instances, not logged in ──► LoginView
-Has instances, logged in ──► DashboardView
+```mermaid
+flowchart LR
+    NoInstances["No instances"] --> AddInstanceView
+    HasInstancesNotLogged["Has instances,<br>not logged in"] --> LoginView
+    HasInstancesLogged["Has instances,<br>logged in"] --> DashboardView
+    DashboardView -. "toolbar sheet" .-> InstanceSwitcherView["InstanceSwitcherView"]
 ```
 
 The instance switcher appears as a `.sheet` triggered from the Dashboard toolbar.
