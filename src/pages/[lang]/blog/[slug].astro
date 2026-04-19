@@ -65,4 +65,54 @@ const { Content } = await render(post);
       </div>
     </div>
   </article>
+
+  <script>
+    import mermaid from "mermaid";
+
+    let initialized = false;
+
+    function initMermaid() {
+      if (initialized) return;
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: document.documentElement.classList.contains("dark")
+          ? "dark"
+          : "default",
+        securityLevel: "loose",
+      });
+      initialized = true;
+    }
+
+    async function renderDiagrams() {
+      const codes = document.querySelectorAll(
+        'code[data-language="mermaid"]',
+      );
+      if (!codes.length) return;
+      initMermaid();
+      for (const codeEl of codes) {
+        const figure = codeEl.closest("figure");
+        if (!figure || figure.dataset.mermaidDone) continue;
+        figure.dataset.mermaidDone = "true";
+        const diagram = codeEl.textContent.trim();
+        const container = document.createElement("div");
+        container.className = "mermaid-container";
+        container.style.direction = "ltr";
+        figure.replaceWith(container);
+        const id = `mermaid-${Math.random().toString(36).slice(2)}`;
+        try {
+          const { svg, bindFunctions } = await mermaid.render(id, diagram);
+          container.innerHTML = svg;
+          bindFunctions?.(container);
+        } catch (err) {
+          const orphan = document.getElementById(`d${id}`);
+          orphan?.remove();
+          container.className = "mermaid-error";
+          container.innerHTML =
+            `<strong>Diagram error</strong><pre style="margin-top:0.5rem;font-size:0.75rem;white-space:pre-wrap">${String(err)}</pre>`;
+        }
+      }
+    }
+
+    document.addEventListener("astro:page-load", renderDiagrams);
+  </script>
 </Landing>

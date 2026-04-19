@@ -78,22 +78,24 @@ apps/android/app/src/main/java/com/bedrud/app/
 
 Die Android-App unterstützt die gleichzeitige Verbindung zu mehreren Bedrud-Servern.
 
-```
-┌──────────────────────────┐
-│     InstanceManager      │  (Koin singleton)
-│                          │
-│  ┌────────────────────┐  │
-│  │   InstanceStore    │  │  Persists list to SharedPreferences
-│  └────────────────────┘  │
-│                          │
-│  ┌────────────────────┐  │
-│  │  Active Instance   │──┼──► InstanceDeps
-│  │  (StateFlow)       │  │    ├── AuthManager
-│  └────────────────────┘  │    ├── ApiClient
-│                          │    ├── AuthApi
-│  instances: List<Instance>│    ├── RoomApi
-│                          │    ├── PasskeyManager
-└──────────────────────────┘    └── RoomManager
+```mermaid
+flowchart TB
+    subgraph IM ["InstanceManager (Koin singleton)"]
+        IS["InstanceStore<br/>Persists list to SharedPreferences"]
+        AI["Active Instance (StateFlow)"]
+        INST["instances: List Instance"]
+    end
+
+    subgraph DEPS ["InstanceDeps"]
+        AM["AuthManager"]
+        AC["ApiClient"]
+        AA["AuthApi"]
+        RA["RoomApi"]
+        PM["PasskeyManager"]
+        RM["RoomManager"]
+    end
+
+    AI --> DEPS
 ```
 
 ### Schlüsselmuster
@@ -109,10 +111,11 @@ Das `?: return`-Muster stellt sicher, dass das Composable nicht rendert, bis die
 
 ### Navigationsablauf
 
-```
-No instances ──► AddInstanceScreen
-Has instances, not logged in ──► LoginScreen
-Has instances, logged in ──► DashboardScreen
+```mermaid
+flowchart LR
+    A["No instances"] --> B[AddInstanceScreen]
+    C["Has instances, not logged in"] --> D[LoginScreen]
+    E["Has instances, logged in"] --> F[DashboardScreen]
 ```
 
 Der Instanzwechsler erscheint als `ModalBottomSheet`, der aus der Dashboard-Toolbar aufgerufen wird.

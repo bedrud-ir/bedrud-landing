@@ -130,28 +130,12 @@ docker pull ghcr.io/bedrud-ir/bedrud:latest
 
 ## معماری تولید
 
-```
-Internet
-    │
-    ▼
-┌──────────┐
-│  Traefik │  TLS termination, reverse proxy
-│  (443)   │
-└────┬─────┘
-     │
-     ├──────────────────────────┐
-     ▼                          ▼
-┌──────────┐            ┌──────────────┐
-│  Bedrud  │            │   LiveKit    │
-│  (8090)  │            │   (7880)     │
-│  API +   │            │   WebRTC     │
-│  Web UI  │            │   media      │
-└──────────┘            └──────────────┘
-     │
-     ▼
-┌──────────┐
-│  SQLite  │  (or PostgreSQL)
-└──────────┘
+```mermaid
+flowchart TB
+    NET[Internet] --> TRAEFIK["Traefik (443)<br/>TLS termination, reverse proxy"]
+    TRAEFIK --> BEDRUD["Bedrud (8090)<br/>API + Web UI"]
+    TRAEFIK --> LIVEKIT["LiveKit (7880)<br/>WebRTC media"]
+    BEDRUD --> DB["SQLite<br/>(or PostgreSQL)"]
 ```
 
 برای اتصال WebRTC، این پورت‌ها را نیز روی فایروال باز کنید:

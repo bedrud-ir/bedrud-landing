@@ -62,33 +62,14 @@ server/
 
 سرور یک معماری سه لایه را دنبال می‌کند:
 
-```
-HTTP Request
-     │
-     ▼
-┌─────────────┐
-│  Middleware  │  تأیید JWT، CORS، لاگ‌بندی
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Handlers   │  تجزیه درخواست‌ها، فراخوانی سرویس‌ها، فرمت پاسخ‌ها
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Services   │  منطق کسب و کار (احراز هویت، مدیریت اتاق)
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│ Repository  │  پرس‌وجوی پایگاه داده از طریق GORM
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│  Database   │  SQLite (توسعه) یا PostgreSQL (تولید)
-└─────────────┘
+```mermaid
+flowchart TB
+    HTTP[HTTP Request] --> Middleware
+    Middleware["Middleware<br/>JWT validation, CORS, logging"] --> Handlers
+    Handlers["Handlers<br/>Parse requests, call services, format responses"] --> Services
+    Services["Services<br/>Business logic (auth, room management)"] --> Repository
+    Repository["Repository<br/>Database queries via GORM"] --> Database
+    Database["Database<br/>SQLite (dev) or PostgreSQL (production)"]
 ```
 
 ## الگوهای کلیدی

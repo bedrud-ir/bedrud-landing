@@ -54,19 +54,14 @@ sudo ./bedrud install --ip 1.2.3.4
 
 安装后，会运行两个 systemd 服务：
 
-```
-┌──────────────────┐     ┌──────────────────┐
-│  bedrud.service  │     │  livekit.service  │
-│                  │     │                   │
-│  bedrud --run    │────►│  bedrud --livekit │
-│  (API + Web UI)  │     │  (WebRTC media)   │
-└──────────────────┘     └───────────────────┘
-         │
-         ▼
-   ┌──────────┐
-   │  SQLite  │
-   │ database │
-   └──────────┘
+```mermaid
+flowchart LR
+    BS["bedrud.service<br/>bedrud --run<br/>(API + Web UI)"]
+    LS["livekit.service<br/>bedrud --livekit<br/>(WebRTC media)"]
+    DB["SQLite database"]
+
+    BS --> LS
+    BS --> DB
 ```
 
 ## 配置文件

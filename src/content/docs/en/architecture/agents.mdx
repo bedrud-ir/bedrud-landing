@@ -18,25 +18,36 @@ Bedrud includes Python-based bot agents that can join meeting rooms and stream m
 
 All agents follow the same connection pattern:
 
-```
-1. Parse meeting URL ──► Extract room name
-2. Guest login ──► POST /api/auth/guest-login
-3. Join room ──► POST /api/room/join (get LiveKit token)
-4. Connect to LiveKit ──► WebSocket connection
-5. Publish tracks ──► Stream audio/video frames
+```mermaid
+flowchart TD
+    A[1. Parse meeting URL] --> B[2. Guest login<br/>POST /api/auth/guest-login]
+    B --> C[3. Join room<br/>POST /api/room/join]
+    C --> D[4. Connect to LiveKit<br/>WebSocket + Token]
+    D --> E[5. Publish tracks<br/>Stream audio/video frames]
 ```
 
-```
-┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  Media Source │────►│  Python Agent│────►│   LiveKit     │
-│  (file/URL)  │     │  (FFmpeg)    │     │   (WebRTC)    │
-└──────────────┘     └──────────────┘     └──────────────┘
-                            │
-                     Guest login + join
-                            │
-                     ┌──────────────┐
-                     │ Bedrud Server│
-                     └──────────────┘
+```mermaid
+flowchart LR
+    subgraph Media["Media Source"]
+        MS["File / URL<br/>(MP3, radio, HLS, MP4)"]
+    end
+    subgraph Agent["Python Agent"]
+        FF[FFmpeg Decoder]
+        PA[Agent Logic]
+    end
+    subgraph Server["Bedrud Server"]
+        GL[Guest Login<br/>/api/auth/guest-login]
+        JR[Join Room<br/>/api/room/join]
+    end
+    subgraph LK["LiveKit SFU<br/>(WebRTC)"]
+        WS[WebSocket Connect]
+        PT[Publish Tracks]
+    end
+    MS --> FF --> PA
+    PA --> GL
+    GL --> JR
+    JR --> WS
+    WS --> PT
 ```
 
 ## Music Agent

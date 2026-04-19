@@ -130,28 +130,12 @@ Consultez le [Guide Docker](/fr/docs/guides/docker) pour tous les détails, y co
 
 ## Architecture de production
 
-```
-Internet
-    │
-    ▼
-┌──────────┐
-│  Traefik │  TLS termination, reverse proxy
-│  (443)   │
-└────┬─────┘
-     │
-     ├──────────────────────────┐
-     ▼                          ▼
-┌──────────┐            ┌──────────────┐
-│  Bedrud  │            │   LiveKit    │
-│  (8090)  │            │   (7880)     │
-│  API +   │            │   WebRTC     │
-│  Web UI  │            │   media      │
-└──────────┘            └──────────────┘
-     │
-     ▼
-┌──────────┐
-│  SQLite  │  (ou PostgreSQL)
-└──────────┘
+```mermaid
+flowchart TB
+    NET[Internet] --> TRAEFIK["Traefik (443)<br/>TLS termination, reverse proxy"]
+    TRAEFIK --> BEDRUD["Bedrud (8090)<br/>API + Web UI"]
+    TRAEFIK --> LIVEKIT["LiveKit (7880)<br/>WebRTC media"]
+    BEDRUD --> DB["SQLite<br/>(or PostgreSQL)"]
 ```
 
 Pour la connectivité WebRTC, ouvrez également ces ports sur le pare-feu :

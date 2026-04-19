@@ -19,8 +19,10 @@ function Sidebar({ lang, currentSlug = "" }: SidebarProps) {
     section.items.some((item) => item.slug === currentSlug),
   );
 
+  const openSections = activeSection ? [activeSection.title] : [];
+
   return (
-    <aside className="border-e">
+    <aside className="border-e" suppressHydrationWarning>
       <div className="scroll-area h-[calc(100vh-4rem)] py-6 pe-4">
         <div className="space-y-3">
           <div className="pb-4">
@@ -39,7 +41,7 @@ function Sidebar({ lang, currentSlug = "" }: SidebarProps) {
           </div>
           <Accordion
             type="multiple"
-            defaultValue={activeSection ? [activeSection.title] : []}
+            defaultValue={openSections}
             className="space-y-2"
           >
             {sections.map((section) => (

@@ -70,18 +70,24 @@ apps/ios/Bedrud/
 
 La aplicación iOS refleja la arquitectura de Android para el soporte multiinstancia.
 
-```text
-┌──────────────────────────┐
-│     InstanceManager      │  (ObservableObject)
-│                          │
-│  Propiedades @Published: │
-│  ├── instances: [Instance]│
-│  ├── activeInstance       │
-│  ├── authManager          │──► Dependencia
-│  ├── apiClient            │    por instancia
-│  ├── roomManager          │    (contenedor)
-│  └── ...                  │
-└──────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph InstanceManager [InstanceManager ObservableObject]
+        direction TB
+        instances["instances: [Instance]"]
+        activeInstance["activeInstance"]
+        authManager["authManager"]
+        apiClient["apiClient"]
+        roomManager["roomManager"]
+        others["..."]
+        
+        instances --- activeInstance
+        activeInstance --- authManager
+        authManager --- apiClient
+        apiClient --- roomManager
+        roomManager --- others
+    end
+    style InstanceManager fill:#f0f0f0,stroke:#333
 ```
 
 ### Patrón Clave
@@ -102,10 +108,12 @@ struct DashboardView: View {
 
 ### Flujo de Navegación
 
-```text
-Sin instancias ──► AddInstanceView
-Tiene instancias, no iniciado sesión ──► LoginView
-Tiene instancias, iniciado sesión ──► DashboardView
+```mermaid
+flowchart LR
+    NoInstances["No instances"] --> AddInstanceView
+    HasInstancesNotLogged["Has instances,<br>not logged in"] --> LoginView
+    HasInstancesLogged["Has instances,<br>logged in"] --> DashboardView
+    DashboardView -. "toolbar sheet" .-> InstanceSwitcherView["InstanceSwitcherView"]
 ```
 
 El conmutador de instancias aparece como un `.sheet` activado desde la barra de herramientas del Dashboard.
