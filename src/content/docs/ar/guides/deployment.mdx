@@ -14,7 +14,7 @@ order: 28
 | [CLI آلي](#automated-cli-deployment) | إعداد بعيد سريع |
 | [تثبيت يدوي](#manual-installation) | تحكم كامل في الإعدادات |
 | [Docker](#docker-deployment) | البيئات الحاوية |
-| [وضع الجهاز الجاهز](/docs/guides/appliance) | إعداد شامل بملف ثنائي واحد |
+| [وضع الجهاز الجاهز](/ar/docs/guides/appliance) | إعداد شامل بملف ثنائي واحد |
 
 ---
 
@@ -22,7 +22,7 @@ order: 28
 
 ثبّت Bedrud على Debian/Ubuntu أو Arch Linux باستخدام مدير الحزم الأصلي. هذه هي الطريقة الموصى بها لعمليات نشر الخادم المستمرة حيث تريد تحديثات تلقائية عبر `apt upgrade` أو AUR.
 
-راجع [دليل تثبيت الحزم](/docs/guides/packages) للتعليمات الكاملة، بما في ذلك إضافة مفتاح GPG الخاص بـ apt والمستودع.
+راجع [دليل تثبيت الحزم](/ar/docs/guides/packages) للتعليمات الكاملة، بما في ذلك إضافة مفتاح GPG الخاص بـ apt والمستودع.
 
 ```bash
 # Ubuntu / Debian
@@ -101,7 +101,7 @@ ssh root@server
 sudo /tmp/bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-راجع [دليل التثبيت](/docs/getting-started/installation) لجميع سيناريوهات التثبيت.
+راجع [دليل التثبيت](/ar/docs/getting-started/installation) لجميع سيناريوهات التثبيت.
 
 ### ٤. إنشاء مستخدم مسؤول
 
@@ -124,7 +124,7 @@ docker run -d --name bedrud -p 8090:8090 -p 7880:7880 -v bedrud-data:/var/lib/be
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-راجع [دليل Docker](/docs/guides/docker) للتفاصيل الكاملة بما في ذلك الأقراص والإعدادات وDocker Compose.
+راجع [دليل Docker](/ar/docs/guides/docker) للتفاصيل الكاملة بما في ذلك الأقراص والإعدادات وDocker Compose.
 
 ---
 
@@ -163,7 +163,7 @@ Internet
 | 7881 | TCP | احتياطي ICE/TCP |
 | 50000-60000 | UDP | تدفقات وسائط RTC |
 
-راجع [اتصال WebRTC](/docs/architecture/webrtc-connectivity) للاطلاع على حزمة الاتصال الكاملة.
+راجع [اتصال WebRTC](/ar/docs/architecture/webrtc-connectivity) للاطلاع على حزمة الاتصال الكاملة.
 
 <SystemdServices />
 

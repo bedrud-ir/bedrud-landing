@@ -56,7 +56,7 @@ The Go backend is the core of Bedrud. It handles:
 
 The server uses the **Fiber** web framework (similar to Express.js in Node.js) and **GORM** as the ORM layer. It supports SQLite for development and PostgreSQL for production.
 
-See [Server Architecture](/docs/architecture/server) for details.
+See [Server Architecture](/en/docs/architecture/server) for details.
 
 ### Web Frontend (`apps/web/`)
 
@@ -69,7 +69,7 @@ Key capabilities:
 - Admin dashboard for user and room management
 - Design system with consistent component library
 
-See [Web Frontend](/docs/architecture/web) for details.
+See [Web Frontend](/en/docs/architecture/web) for details.
 
 ### Android App (`apps/android/`)
 
@@ -83,7 +83,7 @@ Key capabilities:
 - Call management with Android's ConnectionService
 - Multi-instance support (connect to multiple servers)
 
-See [Android App](/docs/architecture/android) for details.
+See [Android App](/en/docs/architecture/android) for details.
 
 ### iOS App (`apps/ios/`)
 
@@ -96,7 +96,7 @@ Key capabilities:
 - Deep link handling
 - Keychain-based secure storage
 
-See [iOS App](/docs/architecture/ios) for details.
+See [iOS App](/en/docs/architecture/ios) for details.
 
 ### Desktop App (`apps/desktop/`)
 
@@ -109,7 +109,7 @@ Key capabilities:
 - Multi-instance support (connect to multiple Bedrud servers)
 - OS keyring integration for secure credential storage
 
-See [Desktop App](/docs/architecture/desktop) for details.
+See [Desktop App](/en/docs/architecture/desktop) for details.
 
 ### Bot Agents (`agents/`)
 
@@ -119,7 +119,7 @@ Python scripts that join meeting rooms as bots and stream media content:
 - **Radio Agent** - streams internet radio stations
 - **Video Stream Agent** - shares video content (HLS, MP4)
 
-See [Bot Agents](/docs/architecture/agents) for details.
+See [Bot Agents](/en/docs/architecture/agents) for details.
 
 ## Authentication Flow
 
@@ -180,7 +180,7 @@ sequenceDiagram
 4. ICE gathers candidates (host, STUN, TURN) and selects the best path
 5. Audio/video tracks flow through LiveKit's SFU
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+See [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity) for the full connectivity stack.
 
 ## Data Model
 
@@ -237,7 +237,7 @@ In production, Bedrud runs as two systemd services:
 
 Both are managed by a single binary. Traefik or another reverse proxy handles TLS termination and routes traffic.
 
-See [Deployment Guide](/docs/guides/deployment) for setup instructions.
+See [Deployment Guide](/en/docs/guides/deployment) for setup instructions.
 
 ## Key Terms
 
@@ -256,6 +256,6 @@ These terms appear throughout the architecture documentation:
 
 ## See Also
 
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN relay architecture and configuration
-- [LiveKit Integration](/docs/backend/livekit) - how Bedrud embeds LiveKit
+- [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [TURN Server Guide](/en/docs/architecture/turn-server) - TURN relay architecture and configuration
+- [LiveKit Integration](/en/docs/backend/livekit) - how Bedrud embeds LiveKit

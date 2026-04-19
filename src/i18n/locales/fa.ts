@@ -840,7 +840,7 @@ export default {
       sendEmail: "ارسال از طریق ایمیل",
       copyLink: "کپی لینک",
       or: "یا",
-      meetingTitle: "ایستاد تیمی",
+      meetingTitle: "استندآپ تیم",
       today: "امروز، ۲:۰۰ بعدازظهر",
       duration: "۳۰ دقیقه",
       participants: "۵ شرکت‌کننده",
@@ -848,7 +848,7 @@ export default {
       anyBrowser: "در هر مرورگری کار می‌کند",
     },
     meeting: {
-      title: "ایستاد تیمی",
+      title: "استندآپ تیم",
       micOn: "میکروفون روشن",
       cameraOn: "دوربین روشن",
       shareScreen: "اشتراک‌گذاری صفحه",
@@ -857,7 +857,7 @@ export default {
       leaveCall: "ترک تماس",
     },
     preview: {
-      title: "ایستاد تیمی",
+      title: "استندآپ تیم",
       you: "شما",
       chat: "چت",
       messagePlaceholder: "پیام...",

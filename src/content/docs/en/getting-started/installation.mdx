@@ -4,7 +4,7 @@ description: Install Bedrud server on Linux
 order: 2
 ---
 
-This guide covers installing the **Bedrud server** (API, web UI, WebRTC media server) on a Linux server. For desktop and mobile client apps, see [Client Installation](/docs/getting-started/clients).
+This guide covers installing the **Bedrud server** (API, web UI, WebRTC media server) on a Linux server. For desktop and mobile client apps, see [Client Installation](/en/docs/getting-started/clients).
 
 ---
 
@@ -21,7 +21,7 @@ This guide covers installing the **Bedrud server** (API, web UI, WebRTC media se
 | **Auto-TLS** | Additionally open `80` and `443`. Requires a domain with DNS A record pointing to this server |
 | **Tools** | `curl`, `tar` (pre-installed on most distros) |
 
-> **No domain?** Bedrud works with an IP address using self-signed TLS. Browsers will show a certificate warning but video and audio work. For trusted certificates on internal networks, see the [Internal TLS Guide](/docs/guides/internal-tls).
+> **No domain?** Bedrud works with an IP address using self-signed TLS. Browsers will show a certificate warning but video and audio work. For trusted certificates on internal networks, see the [Internal TLS Guide](/en/docs/guides/internal-tls).
 
 ---
 
@@ -76,7 +76,7 @@ Install via your distribution's package manager.
 </Tabs>
 
 <Callout type="tip">
-    For desktop client installation (Linux, macOS, Windows) see [Client Installation](/docs/getting-started/clients).
+    For desktop client installation (Linux, macOS, Windows) see [Client Installation](/en/docs/getting-started/clients).
 </Callout>
 
 ---
@@ -143,7 +143,7 @@ docker run -d --name bedrud \
     The default JWT and LiveKit secrets are for quick testing only. Change them before exposing the container to the internet.
 </Callout>
 
-Full Docker documentation including volumes, reverse proxy, and TLS setup: [Docker Guide](/docs/guides/docker).
+Full Docker documentation including volumes, reverse proxy, and TLS setup: [Docker Guide](/en/docs/guides/docker).
 
 ---
 
@@ -451,6 +451,6 @@ This stops services, removes systemd units, deletes the binary from `/usr/local/
 | **Install succeeded but services crashed** | Check for silent failures: `journalctl -u bedrud --no-pager -n 100`. Verify config at `/etc/bedrud/config.yaml` |
 | **Port already in use (unknown process)** | Find it: `ss -tlnp \| grep 8090` or `ss -ulnp \| grep 7880` |
 | **Firewall blocking media** | Open ports: `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| **Self-signed cert warnings** | Expected. See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+| **Self-signed cert warnings** | Expected. See [Internal TLS Guide](/en/docs/guides/internal-tls) for private CA setup |
 | **No video / WebRTC failed** | HTTPS required for camera access. Use `--tls`. Ensure UDP 50000–60000 is open |
 | **Reverse proxy: wrong client IP** | Use `--behind-proxy` flag. Configures trusted proxy headers |

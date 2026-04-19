@@ -14,7 +14,7 @@ order: 28
 | [CLI خودکار](#automated-cli-deployment) | راه‌اندازی سریع از راه دور |
 | [نصب دستی](#manual-installation) | کنترل کامل بر پیکربندی |
 | [Docker](#docker-deployment) | محیط‌های کانتینری |
-| [حالت لوازم](/docs/guides/appliance) | تنظیمات همه‌کاره تک‌باینری |
+| [حالت لوازم](/fa/docs/guides/appliance) | تنظیمات همه‌کاره تک‌باینری |
 
 ---
 
@@ -22,7 +22,7 @@ order: 28
 
 Bedrud را در Debian/Ubuntu یا Arch Linux با استفاده از مدیر بسته بومی نصب کنید. این روش برای استقرارهای سرور مداوم که می‌خواهید به‌روزرسانی‌های خودکار از طریق `apt upgrade` یا AUR داشته باشید، توصیه می‌شود.
 
-به [راهنمای نصب بسته](/docs/guides/packages) برای دستورالعمل‌های کامل، از جمله افزودن کلید GPG apt و مخزن مراجعه کنید.
+به [راهنمای نصب بسته](/fa/docs/guides/packages) برای دستورالعمل‌های کامل، از جمله افزودن کلید GPG apt و مخزن مراجعه کنید.
 
 ```bash
 # Ubuntu / Debian
@@ -101,7 +101,7 @@ ssh root@server
 sudo /tmp/bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-به [راهنمای نصب](/docs/getting-started/installation) برای تمام سناریوهای نصب مراجعه کنید.
+به [راهنمای نصب](/fa/docs/getting-started/installation) برای تمام سناریوهای نصب مراجعه کنید.
 
 ### ۴. ایجاد کاربر مدیر
 
@@ -124,7 +124,7 @@ docker run -d --name bedrud -p 8090:8090 -p 7880:7880 -v bedrud-data:/var/lib/be
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-به [راهنمای Docker](/docs/guides/docker) برای جزئیات کامل شامل حجم‌ها، پیکربندی و Docker Compose مراجعه کنید.
+به [راهنمای Docker](/fa/docs/guides/docker) برای جزئیات کامل شامل حجم‌ها، پیکربندی و Docker Compose مراجعه کنید.
 
 ---
 
@@ -163,7 +163,7 @@ Internet
 | 7881 | TCP | بازگشت ICE/TCP |
 | 50000-60000 | UDP | جریان‌های رسانه RTC |
 
-به [اتصال WebRTC](/docs/architecture/webrtc-connectivity) برای پشته اتصال کامل مراجعه کنید.
+به [اتصال WebRTC](/fa/docs/architecture/webrtc-connectivity) برای پشته اتصال کامل مراجعه کنید.
 
 <SystemdServices />
 

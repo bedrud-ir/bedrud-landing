@@ -6,7 +6,7 @@ order: 1
 
 انشر بدرود وانضم إلى اجتماع فيديو في أقل من ٥ دقائق.
 
-**هذا الدليل:** تنزيل ← تثبيت ← تحقق ← انضمام. للبدائل راجع [التثبيت](/docs/getting-started/installation). للتهيئة راجع [التهيئة](/docs/getting-started/configuration).
+**هذا الدليل:** تنزيل ← تثبيت ← تحقق ← انضمام. للبدائل راجع [التثبيت](/ar/docs/getting-started/installation). للتهيئة راجع [التهيئة](/ar/docs/getting-started/configuration).
 
 > **ملف ثنائي واحد، لا حاجة للإنترنت بعد التنزيل.** يتضمن خادم وسائط مدمج و SQLite - يعمل على الشبكات المعزولة. انقل الملف، شغّل أمراً واحداً، انتهى.
 
@@ -55,7 +55,7 @@ sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> يستخدم شهادة موقّعة ذاتياً. ستحذر المتصفحات لكن الفيديو يعمل. لشهادات موثوقة على الشبكات الداخلية، راجع [دليل TLS الداخلي](/docs/guides/internal-tls).
+> يستخدم شهادة موقّعة ذاتياً. ستحذر المتصفحات لكن الفيديو يعمل. لشهادات موثوقة على الشبكات الداخلية، راجع [دليل TLS الداخلي](/ar/docs/guides/internal-tls).
 
 ---
 
@@ -101,7 +101,7 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-تهيئة مخصصة، Docker Compose، ومتغيرات البيئة: راجع [دليل Docker](/docs/guides/docker).
+تهيئة مخصصة، Docker Compose، ومتغيرات البيئة: راجع [دليل Docker](/ar/docs/guides/docker).
 
 ### البناء من المصدر
 
@@ -137,7 +137,7 @@ sudo ./bedrud install --ip 127.0.0.1
 
 ## الشبكات الداخلية
 
-بدون نطاق عام أو إنترنت صادر؟ راجع [دليل TLS الداخلي](/docs/guides/internal-tls) لإعداد CA خاص وتهيئة مخزن الثقة للعميل.
+بدون نطاق عام أو إنترنت صادر؟ راجع [دليل TLS الداخلي](/ar/docs/guides/internal-tls) لإعداد CA خاص وتهيئة مخزن الثقة للعميل.
 
 ---
 
@@ -150,9 +150,9 @@ sudo ./bedrud install --ip 127.0.0.1
 sudo systemctl restart bedrud livekit
 ```
 
-لتعديل سعة الغرف أو المهلات أو منافذ الوسائط، راجع [قسم LiveKit في التهيئة](/docs/getting-started/configuration#livekit-configuration).
+لتعديل سعة الغرف أو المهلات أو منافذ الوسائط، راجع [قسم LiveKit في التهيئة](/ar/docs/getting-started/configuration#livekit-configuration).
 
-المرجع الكامل: [التهيئة](/docs/getting-started/configuration)
+المرجع الكامل: [التهيئة](/ar/docs/getting-started/configuration)
 
 ---
 
@@ -166,7 +166,7 @@ sudo systemctl restart bedrud livekit
 | بدون فيديو / فشل WebRTC | HTTPS مطلوب للكاميرا. استخدم `--tls`. افتح UDP 50000–60000 على جدار الحماية |
 | تعارض منافذ LiveKit | استخدم العلامات `--lk-port`، `--lk-tcp-port`، `--lk-udp-port` |
 | جدار الحماية يمنع الوسائط | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| تحذيرات شهادة موقّعة ذاتياً | راجع [دليل TLS الداخلي](/docs/guides/internal-tls) لإعداد CA خاص |
+| تحذيرات شهادة موقّعة ذاتياً | راجع [دليل TLS الداخلي](/ar/docs/guides/internal-tls) لإعداد CA خاص |
 
 ---
 
@@ -187,9 +187,9 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## الخطوات التالية
 
-- [مرجع التهيئة](/docs/getting-started/configuration) - المنافذ، قاعدة البيانات، مزوّدو المصادقة، TURN
-- [دليل التثبيت](/docs/getting-started/installation) - مديرو الحزم، العلامات المتقدمة، جميع الطرق
-- [دليل TLS الداخلي](/docs/guides/internal-tls) - النشر المعزول، CA خاص
-- [دليل النشر](/docs/guides/deployment) - إعداد الإنتاج، البروكسي العكسي، التوسع
-- [نظرة عامة على البنية](/docs/architecture/overview) - كيف تتلاءم الأجزاء معاً
+- [مرجع التهيئة](/ar/docs/getting-started/configuration) - المنافذ، قاعدة البيانات، مزوّدو المصادقة، TURN
+- [دليل التثبيت](/ar/docs/getting-started/installation) - مديرو الحزم، العلامات المتقدمة، جميع الطرق
+- [دليل TLS الداخلي](/ar/docs/guides/internal-tls) - النشر المعزول، CA خاص
+- [دليل النشر](/ar/docs/guides/deployment) - إعداد الإنتاج، البروكسي العكسي، التوسع
+- [نظرة عامة على البنية](/ar/docs/architecture/overview) - كيف تتلاءم الأجزاء معاً
 - [وثائق API](http://localhost:8090/api/swagger) - Swagger UI (نسخة تعمل)

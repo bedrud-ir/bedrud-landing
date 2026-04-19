@@ -61,9 +61,9 @@ The backend uses the LiveKit Go SDK to perform administrative actions:
 
 - **API Port (8090/443):** Handles HTTP requests and WebSocket signaling for call setup.
 - **Media Port (7880):** Handles video and audio data using WebRTC protocols. ICE/TCP fallback uses port 7881 when UDP is blocked.
-- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/docs/architecture/turn-server).
+- **TURN Port (3478 UDP / 5349 TLS):** Relays media for clients behind restrictive NATs or firewalls. See [TURN Server Guide](/en/docs/architecture/turn-server).
 
-For firewall and port requirements, see [WebRTC Connectivity](/docs/architecture/webrtc-connectivity).
+For firewall and port requirements, see [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity).
 
 ## Error Handling
 
@@ -92,6 +92,6 @@ LiveKit join tokens have a short validity window. If a client waits too long bet
 
 ## See also
 
-- [TURN Server Guide](/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
-- [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
-- [Architecture Overview](/docs/architecture/overview) - full system architecture
+- [TURN Server Guide](/en/docs/architecture/turn-server) - TURN architecture, configuration, TLS, and troubleshooting
+- [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity) - full STUN/ICE/TURN/SFU connectivity stack
+- [Architecture Overview](/en/docs/architecture/overview) - full system architecture

@@ -14,7 +14,7 @@ This guide explains how to deploy Bedrud to a production server.
 | [Automated CLI](#automated-cli-deployment) | Quick remote setup |
 | [Manual Install](#manual-installation) | Full control over configuration |
 | [Docker](#docker-deployment) | Containerized environments |
-| [Appliance Mode](/docs/guides/appliance) | Single-binary all-in-one setup |
+| [Appliance Mode](/en/docs/guides/appliance) | Single-binary all-in-one setup |
 
 ---
 
@@ -22,7 +22,7 @@ This guide explains how to deploy Bedrud to a production server.
 
 Install Bedrud on Debian/Ubuntu or Arch Linux using the native package manager. This is the recommended method for persistent server deployments where you want automatic updates via `apt upgrade` or the AUR.
 
-See the [Package Installation guide](/docs/guides/packages) for full instructions, including adding the apt GPG key and repository.
+See the [Package Installation guide](/en/docs/guides/packages) for full instructions, including adding the apt GPG key and repository.
 
 ```bash
 # Ubuntu / Debian
@@ -101,7 +101,7 @@ ssh root@server
 sudo /tmp/bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-See the [Installation Guide](/docs/getting-started/installation) for all installation scenarios.
+See the [Installation Guide](/en/docs/getting-started/installation) for all installation scenarios.
 
 ### 4. Create Admin User
 
@@ -124,7 +124,7 @@ A pre-built image is also available:
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-See the [Docker Guide](/docs/guides/docker) for full details including volumes, configuration, and Docker Compose.
+See the [Docker Guide](/en/docs/guides/docker) for full details including volumes, configuration, and Docker Compose.
 
 ---
 
@@ -163,7 +163,7 @@ For WebRTC connectivity, also open these ports on the firewall:
 | 7881 | TCP | ICE/TCP fallback |
 | 50000-60000 | UDP | RTC media streams |
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for the full connectivity stack.
+See [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity) for the full connectivity stack.
 
 <SystemdServices />
 

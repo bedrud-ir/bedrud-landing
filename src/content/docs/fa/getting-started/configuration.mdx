@@ -6,7 +6,7 @@ order: 4
 
 بدرود از فایل‌های پیکربندی YAML برای سرور اصلی و سرور مدیا LiveKit جاسازی‌شده استفاده می‌کند.
 
-**همچنین ببینید:** [شروع سریع](/docs/getting-started/quickstart) | [نصب](/docs/getting-started/installation) | [راهنمای استقرار](/docs/guides/deployment) | [راهنمای Docker](/docs/guides/docker)
+**همچنین ببینید:** [شروع سریع](/fa/docs/getting-started/quickstart) | [نصب](/fa/docs/getting-started/installation) | [راهنمای استقرار](/fa/docs/guides/deployment) | [راهنمای Docker](/fa/docs/guides/docker)
 
 ## پیکربندی حداقل تولید
 
@@ -141,7 +141,7 @@ room:
 
 LiveKit از پورت‌های UDP برای جریان‌های مدیا استفاده می‌کند. محدوده پیش‌فرض `50000-60000` برای اکثر تنظیمات کار می‌کند. اگر پشت فایروال اجرا می‌شود، اطمینان حاصل کنید که این پورت‌ها باز هستند.
 
-برای معماری و عیب‌یابی به [اتصال WebRTC](/docs/architecture/webrtc-connectivity) مراجعه کنید.
+برای معماری و عیب‌یابی به [اتصال WebRTC](/fa/docs/architecture/webrtc-connectivity) مراجعه کنید.
 
 ### سرور TURN
 
@@ -151,7 +151,7 @@ TURN یک رله آخرین راه حل است - اکثر کلاینت‌ها (~
 
 **نیاز TLS:** TURN/TLS (پورت ۵۳۴۹) به گواهی TLS معتبر نیاز دارد. برای تولید، `turn.tls_port: 443` را تنظیم کنید و `cert_file`/`key_file` را به گواهی خود اشاره دهید، یا یک بالانس‌کننده بار لایه ۴ جلوی آن با `external_tls: true` قرار دهید.
 
-برای معماری، جزئیات تنظیمات، محاسبات پهنای باند و عیب‌یابی به [راهنمای سرور TURN](/docs/architecture/turn-server) مراجعه کنید.
+برای معماری، جزئیات تنظیمات، محاسبات پهنای باند و عیب‌یابی به [راهنمای سرور TURN](/fa/docs/architecture/turn-server) مراجعه کنید.
 
 ### تنظیمات اتاق
 
@@ -174,7 +174,7 @@ TURN یک رله آخرین راه حل است - اکثر کلاینت‌ها (~
 
 مقادیر پیکربندی می‌توانند با متغیرهای محیطی جایگزین شوند. نام‌گذاری یک قرارداد پیشوند بخشی دنبال می‌کند:
 
-برای استقرار Docker، به [راهنمای Docker](/docs/guides/docker) مراجعه کنید.
+برای استقرار Docker، به [راهنمای Docker](/fa/docs/guides/docker) مراجعه کنید.
 
 ```bash
 export SERVER_PORT=8090
@@ -230,4 +230,4 @@ export LIVEKIT_API_SECRET=prodsecret
 - [ ] محدوده پورت RTC LiveKit را در فایروال خود باز کنید
 - [ ] چرخش لاگ را برای `/var/log/bedrud/` تنظیم کنید
 
-برای تنظیم کامل تولید، به [راهنمای استقرار](/docs/guides/deployment) مراجعه کنید.
+برای تنظیم کامل تولید، به [راهنمای استقرار](/fa/docs/guides/deployment) مراجعه کنید.

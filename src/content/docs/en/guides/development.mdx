@@ -111,7 +111,7 @@ cd server
 swag init -g cmd/server/main.go
 ```
 
-> See [Server Architecture](/docs/architecture/server) for the full directory layout and layered design.
+> See [Server Architecture](/en/docs/architecture/server) for the full directory layout and layered design.
 
 ## Web Frontend Development
 
@@ -134,7 +134,7 @@ cd apps/web
 bun run check    # runs Biome lint + TypeScript type check
 ```
 
-> See [Web Frontend Architecture](/docs/architecture/web) for the complete frontend structure and patterns.
+> See [Web Frontend Architecture](/en/docs/architecture/web) for the complete frontend structure and patterns.
 
 ## Android Development
 
@@ -157,7 +157,7 @@ make build-android          # Release APK (needs keystore)
 make release-android        # Build + install on device
 ```
 
-> See [Android App Architecture](/docs/architecture/android) for detailed mobile app architecture.
+> See [Android App Architecture](/en/docs/architecture/android) for detailed mobile app architecture.
 
 ## iOS Development
 
@@ -189,7 +189,7 @@ make build-ios-sim      # Simulator build
 make export-ios         # Export IPA
 ```
 
-> See [iOS App Architecture](/docs/architecture/ios) for detailed mobile app architecture.
+> See [iOS App Architecture](/en/docs/architecture/ios) for detailed mobile app architecture.
 
 ## Desktop Development
 
@@ -225,7 +225,7 @@ make build-desktop           # optimised binary for the current platform
 - `apps/desktop/src/ui/bridge.rs` is the only place where Slint callbacks are wired to Rust logic - keep business logic out of the `.slint` files
 - Use `Weak<AppWindow>` when spawning background tasks that need to update the UI
 
-> See [Desktop App Architecture](/docs/architecture/desktop) for detailed desktop app architecture.
+> See [Desktop App Architecture](/en/docs/architecture/desktop) for detailed desktop app architecture.
 
 ## Bot Agent Development
 
@@ -302,5 +302,5 @@ Release builds are triggered by version tags (`v*`).
 
 ## See also
 
-- [Makefile Reference](/docs/guides/makefile) - all build and dev commands
-- [Architecture Overview](/docs/architecture/overview) - how components fit together
+- [Makefile Reference](/en/docs/guides/makefile) - all build and dev commands
+- [Architecture Overview](/en/docs/architecture/overview) - how components fit together

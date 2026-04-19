@@ -56,7 +56,7 @@ order: 6
 
 يستخدم الخادم إطار عمل الويب **Fiber** (مشابه لـ Express.js في Node.js) و**GORM** كطبقة ORM. يدعم SQLite للتطوير وPostgreSQL للإنتاج.
 
-للتفاصيل راجع [بنية الخادم](/docs/architecture/server).
+للتفاصيل راجع [بنية الخادم](/ar/docs/architecture/server).
 
 ### واجهة الويب (`apps/web/`)
 
@@ -69,7 +69,7 @@ order: 6
 - لوحة تحكم المسؤول لإدارة المستخدمين والغرف
 - نظام تصميم مع مكتبة مكونات متسقة
 
-للتفاصيل راجع [واجهة الويب](/docs/architecture/web).
+للتفاصيل راجع [واجهة الويب](/ar/docs/architecture/web).
 
 ### تطبيق Android (`apps/android/`)
 
@@ -83,7 +83,7 @@ order: 6
 - إدارة المكالمات مع ConnectionService في Android
 - دعم تعدد المثيلات (الاتصال بعدة خوادم)
 
-للتفاصيل راجع [تطبيق Android](/docs/architecture/android).
+للتفاصيل راجع [تطبيق Android](/ar/docs/architecture/android).
 
 ### تطبيق iOS (`apps/ios/`)
 
@@ -96,7 +96,7 @@ order: 6
 - معالجة الروابط العميقة
 - تخزين آمن قائم على Keychain
 
-للتفاصيل راجع [تطبيق iOS](/docs/architecture/ios).
+للتفاصيل راجع [تطبيق iOS](/ar/docs/architecture/ios).
 
 ### تطبيق سطح المكتب (`apps/desktop/`)
 
@@ -109,7 +109,7 @@ order: 6
 - دعم تعدد المثيلات (الاتصال بعدة خوادم بدرود)
 - تكامل مع keyring نظام التشغيل لتخزين بيانات الاعتماد بأمان
 
-للتفاصيل راجع [تطبيق سطح المكتب](/docs/architecture/desktop).
+للتفاصيل راجع [تطبيق سطح المكتب](/ar/docs/architecture/desktop).
 
 ### وكلاء البوت (`agents/`)
 
@@ -119,7 +119,7 @@ order: 6
 - **وكيل الراديو** - يبث محطات الراديو عبر الإنترنت
 - **وكيل بث الفيديو** - يشارك محتوى الفيديو (HLS، MP4)
 
-للتفاصيل راجع [وكلاء البوت](/docs/architecture/agents).
+للتفاصيل راجع [وكلاء البوت](/ar/docs/architecture/agents).
 
 ## مسار المصادقة
 
@@ -180,7 +180,7 @@ sequenceDiagram
 ٤. يجمع `ICE` المرشحين (host، `STUN`، `TURN`) ويختار أفضل مسار
 ٥. تتدفق مسارات الصوت/الفيديو عبر `SFU` الخاص بـ LiveKit
 
-للمسار الكامل للاتصال راجع [اتصال WebRTC](/docs/architecture/webrtc-connectivity).
+للمسار الكامل للاتصال راجع [اتصال WebRTC](/ar/docs/architecture/webrtc-connectivity).
 
 ## نموذج البيانات
 
@@ -237,7 +237,7 @@ sequenceDiagram
 
 كلاهما يُدار بملف ثنائي واحد. يتولى Traefik أو وكيل عكسي آخر إنهاء TLS وتوجيه حركة المرور.
 
-للتفاصيل راجع [دليل النشر](/docs/guides/deployment).
+للتفاصيل راجع [دليل النشر](/ar/docs/guides/deployment).
 
 ## المصطلحات الأساسية
 
@@ -256,6 +256,6 @@ sequenceDiagram
 
 ## انظر أيضًا
 
-- [اتصال WebRTC](/docs/architecture/webrtc-connectivity) - مسار الاتصال الكامل `STUN`/`ICE`/`TURN`/`SFU`
-- [دليل خادم TURN](/docs/architecture/turn-server) - بنية وتهيئة مرحل `TURN`
-- [تكامل LiveKit](/docs/backend/livekit) - كيف يُدمَج LiveKit في بدرود
+- [اتصال WebRTC](/ar/docs/architecture/webrtc-connectivity) - مسار الاتصال الكامل `STUN`/`ICE`/`TURN`/`SFU`
+- [دليل خادم TURN](/ar/docs/architecture/turn-server) - بنية وتهيئة مرحل `TURN`
+- [تكامل LiveKit](/ar/docs/backend/livekit) - كيف يُدمَج LiveKit في بدرود
