@@ -8,39 +8,26 @@ Bedrud; bir Go sunucusu, üç istemci uygulaması, Python bot aracıları ve ort
 
 ## Üst Düzey Diyagram
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                          Clients                             │
-│                                                              │
-│  ┌─────────┐  ┌──────────┐  ┌────────┐  ┌───────────────┐   │
-│  │  Web    │  │ Android  │  │  iOS   │  │ Desktop       │   │
-│  │ React   │  │ Compose  │  │SwiftUI │  │ Rust + Slint  │   │
-│  └────┬────┘  └────┬─────┘  └───┬────┘  └──────┬────────┘   │
-│       │            │            │              │             │
-│       └────────────┼────────────┼──────────────┘             │
-│                    │                                         │
-│               REST API + WebSocket                          │
-└────────────────────┼────────────────────────────────────────┘
-                           │
-┌────────────────────────┼────────────────────────────────┐
-│                   Bedrud Server                         │
-│                        │                                │
-│  ┌─────────────────────┴──────────────────────────┐     │
-│  │              Fiber HTTP Router                  │     │
-│  │  /api/auth/*  /api/room/*  /api/admin/*        │     │
-│  └──────────┬─────────────────────┬───────────────┘     │
-│             │                     │                     │
-│  ┌──────────┴──────────┐  ┌──────┴────────────────┐     │
-│  │   GORM / SQLite     │  │  LiveKit Protocol SDK │     │
-│  │   (or PostgreSQL)   │  │  (token generation,   │     │
-│  │                     │  │   room management)    │     │
-│  └─────────────────────┘  └──────────┬────────────┘     │
-│                                      │                  │
-│                           ┌──────────┴────────────┐     │
-│                           │  Embedded LiveKit      │     │
-│                           │  Media Server (WebRTC) │     │
-│                           └───────────────────────┘     │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph Clients ["Clients"]
+        Web["Web<br/>React"]
+        Android["Android<br/>Compose"]
+        iOS["iOS<br/>SwiftUI"]
+        Desktop["Desktop<br/>Rust + Slint"]
+    end
+
+    subgraph Server ["Bedrud Server"]
+        Router["Fiber HTTP Router<br/>/api/auth/* /api/room/* /api/admin/*"]
+        DB["GORM / SQLite<br/>(or PostgreSQL)"]
+        LKSDK["LiveKit Protocol SDK<br/>(token generation, room management)"]
+        LiveKit["Embedded LiveKit<br/>Media Server (WebRTC)"]
+    end
+
+    Clients -->|"REST API + WebSocket"| Router
+    Router --> DB
+    Router --> LKSDK
+    LKSDK --> LiveKit
 ```
 
 ## Bileşenler
@@ -123,17 +110,20 @@ Ayrıntılar için bkz. [Bot Aracıları](/tr/docs/architecture/agents).
 
 ## Kimlik Doğrulama Akışı
 
-```
-Client                    Server                    Database
-  │                         │                          │
-  ├─POST /api/auth/login───►│                          │
-  │                         ├──verify credentials─────►│
-  │                         │◄─────────────────────────┤
-  │◄──access + refresh JWT──┤                          │
-  │                         │                          │
-  ├─GET /api/room/list──────►│  (Authorization header)  │
-  │  (Bearer <access_token>)│                          │
-  │◄──room list─────────────┤                          │
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    participant Database
+
+    Client->>Server: POST /api/auth/login
+    Server->>Database: verify credentials
+    Database-->>Server: credentials valid
+    Server-->>Client: access + refresh JWT
+
+    Client->>Server: GET /api/room/list
+    Note right of Server: "Authorization: Bearer <access_token>"
+    Server-->>Client: room list
 ```
 
 Tüm kimlik doğrulaması yapılmış istekler `Authorization` başlığında JWT tokenları kullanır. Web ön ucundaki `authFetch` sarmalayıcısı token ekleme ve otomatik yenileme işlemlerini gerçekleştirir.
@@ -159,7 +149,6 @@ sequenceDiagram
     C->>S: POST /api/room/join
     S->>S: Validate permissions
     S->>C: LiveKit JWT token
-
     C->>LK: WebSocket connect (with token)
     LK->>C: SDP offer + join response
 

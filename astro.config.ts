@@ -7,6 +7,29 @@ import icon from "astro-icon";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
 
+const locales = [
+  "en",
+  "de",
+  "fr",
+  "es",
+  "zh",
+  "ja",
+  "tr",
+  "fa",
+  "ar",
+  "ru",
+] as const;
+
+const localeChunks = Object.fromEntries(
+  locales.map((lang) => [
+    lang,
+    (item: { url: string }) => {
+      const path = new URL(item.url).pathname;
+      return path.startsWith(`/${lang}/`) ? item : undefined;
+    },
+  ]),
+);
+
 export default defineConfig({
   compressHTML: true,
   output: "static",
@@ -21,6 +44,7 @@ export default defineConfig({
     react(),
     mdx(),
     sitemap({
+      chunks: localeChunks,
       filter: (page) => page !== "https://bedrud.org/",
       i18n: {
         defaultLocale: "en",
@@ -38,15 +62,15 @@ export default defineConfig({
         },
       },
       serialize(item) {
-        if (item.links && !item.links.some((l) => l.lang === "x-default")) {
-          const enLink = item.links.find(
-            (l) => l.lang === "en-US" || l.lang === "en",
-          );
-          if (enLink) {
-            item.links.push({
-              lang: "x-default",
-              url: enLink.url,
-            });
+        const path = new URL(item.url).pathname;
+        if (path === "/en" || path === "/en/") {
+          if (item.links && !item.links.some((l) => l.lang === "x-default")) {
+            const enLink = item.links.find(
+              (l) => l.lang === "en-US" || l.lang === "en",
+            );
+            if (enLink) {
+              item.links.push({ lang: "x-default", url: enLink.url });
+            }
           }
         }
         return item;

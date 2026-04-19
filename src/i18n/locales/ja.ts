@@ -354,7 +354,7 @@ export default {
     title: "利用規約",
     lastUpdated: "最終更新日：2026年4月17日",
     intro:
-      "本規約は bedrud.org ウェブサイトと demo.bedrud.org の公開デモインスタンスを対象としています。Bedrud をダウンロードしてセルフホストする場合、Apache 2.0 ライセンスが適用されます。",
+      "本規約は bedrud.org ウェブサイトと bedrud.xyz の公開デモインスタンスを対象としています。Bedrud をダウンロードしてセルフホストする場合、Apache 2.0 ライセンスが適用されます。",
     acceptance: {
       title: "Bedrud を使用することで本規約に同意したとみなされます",
       content:
@@ -446,7 +446,7 @@ export default {
       "architecture/agents": "Botエージェント",
       "architecture/webrtc-connectivity": "WebRTC接続性",
       "architecture/turn-server": "TURNサーバー",
-      "backend/index": "バックエンドドキュメント",
+      "backend/overview": "バックエンドドキュメント",
       "backend/structure": "コード構造",
       "backend/database": "データベースとモデル",
       "backend/authentication": "認証",

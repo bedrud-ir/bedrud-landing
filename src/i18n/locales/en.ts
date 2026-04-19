@@ -544,7 +544,7 @@ export default {
     title: "Terms of Service",
     lastUpdated: "Last updated: April 17, 2026",
     intro:
-      "These terms cover the bedrud.org website and the public demo instance at demo.bedrud.org. If you download and self-host Bedrud, the Apache 2.0 license governs your use of the software.",
+      "These terms cover the bedrud.org website and the public demo instance at bedrud.xyz. If you download and self-host Bedrud, the Apache 2.0 license governs your use of the software.",
     acceptance: {
       title: "Using Bedrud Means You Accept These Terms",
       content:
@@ -667,7 +667,7 @@ export default {
       "architecture/agents": "Bot Agents",
       "architecture/webrtc-connectivity": "WebRTC Connectivity",
       "architecture/turn-server": "TURN Server",
-      "backend/index": "Backend Documentation",
+      "backend/overview": "Backend Documentation",
       "backend/structure": "Code Structure",
       "backend/database": "Database & Models",
       "backend/authentication": "Authentication",
