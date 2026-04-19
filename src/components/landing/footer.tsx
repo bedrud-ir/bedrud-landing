@@ -17,6 +17,7 @@ const LOCALE_NAMES: Record<Locale, string> = {
   tr: "Türkçe",
   fa: "فارسی",
   ar: "العربية",
+  ru: "Русский",
 };
 
 export function Footer({ lang }: { lang: Locale }) {
