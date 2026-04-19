@@ -39,6 +39,24 @@
 :lang(ar) {
   --font-sans: "Vazirmatn", "Geist Sans", ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --line-height-body: 1.8;
+  --line-height-heading: 1.5;
+}
+
+:lang(fa),
+:lang(ar) {
+  line-height: var(--line-height-body);
+}
+
+:is(h1, h2, h3, h4, h5, h6):lang(fa),
+:is(h1, h2, h3, h4, h5, h6):lang(ar) {
+  letter-spacing: normal;
+  line-height: var(--line-height-heading);
+}
+
+:lang(fa) .prose,
+:lang(ar) .prose {
+  line-height: 1.9;
 }
 
 @layer base {

@@ -44,7 +44,7 @@ export function HeroSection({ lang }: { lang: Locale }) {
           <TextGenerateEffect
             words={t(lang, "hero.headline")}
             as="h1"
-            className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl xl:text-[3.5rem]"
+            className="mt-4 text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl xl:text-[3.5rem] rtl:leading-[1.4]"
             duration={0.4}
             delayIncrement={0.06}
           />
