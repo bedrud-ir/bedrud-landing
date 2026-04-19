@@ -82,7 +82,7 @@ const lang: Locale = isValidLocale(rawLang) ? rawLang : "en";
     >
       <p class="text-muted-foreground">{t(lang, "demoPage.selfHost.text")}</p>
       <a
-        href={DOCS_URL}
+        href={`/${lang}/docs`}
         class="mt-2 inline-flex items-center text-primary underline-offset-4 hover:underline"
       >
         {t(lang, "demoPage.selfHost.cta")}
