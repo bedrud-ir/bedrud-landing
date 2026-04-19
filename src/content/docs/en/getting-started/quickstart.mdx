@@ -6,7 +6,7 @@ order: 1
 
 Deploy Bedrud and join a video meeting in under 5 minutes.
 
-**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/docs/getting-started/installation). For config see [Configuration](/docs/getting-started/configuration).
+**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/en/docs/getting-started/installation). For config see [Configuration](/en/docs/getting-started/configuration).
 
 > **Single binary, no internet needed after download.** It includes an embedded media server and SQLite - it works on isolated networks. Transfer file, run one command, done.
 
@@ -55,7 +55,7 @@ Installs binary, generates config, creates systemd services, provisions TLS, sta
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/docs/guides/internal-tls).
+> This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/en/docs/guides/internal-tls).
 
 ---
 
@@ -101,7 +101,7 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-Custom config, Docker Compose, and env vars: see [Docker guide](/docs/guides/docker).
+Custom config, Docker Compose, and env vars: see [Docker guide](/en/docs/guides/docker).
 
 ### Build from Source
 
@@ -137,7 +137,7 @@ The `install` command is Linux-only. Place binary in PATH manually:
 
 ## Internal Networks
 
-No public domain or outbound internet? See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup and client trust store configuration.
+No public domain or outbound internet? See [Internal TLS Guide](/en/docs/guides/internal-tls) for private CA setup and client trust store configuration.
 
 ---
 
@@ -150,9 +150,9 @@ Change `jwtSecret` and `sessionSecret` for production, then restart:
 sudo systemctl restart bedrud livekit
 ```
 
-To adjust room capacity, timeouts, or media ports, see [LiveKit section in Configuration](/docs/getting-started/configuration#livekit-configuration).
+To adjust room capacity, timeouts, or media ports, see [LiveKit section in Configuration](/en/docs/getting-started/configuration#livekit-configuration).
 
-Full reference: [Configuration](/docs/getting-started/configuration)
+Full reference: [Configuration](/en/docs/getting-started/configuration)
 
 ---
 
@@ -166,7 +166,7 @@ Full reference: [Configuration](/docs/getting-started/configuration)
 | No video / WebRTC failed | HTTPS required for camera. Use `--tls`. Open UDP 50000–60000 on firewall |
 | LiveKit port conflicts | Use `--lk-port`, `--lk-tcp-port`, `--lk-udp-port` flags |
 | Firewall blocking media | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| Self-signed cert warnings | See [Internal TLS Guide](/docs/guides/internal-tls) for private CA setup |
+| Self-signed cert warnings | See [Internal TLS Guide](/en/docs/guides/internal-tls) for private CA setup |
 
 ---
 
@@ -187,9 +187,9 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## Next Steps
 
-- [Configuration Reference](/docs/getting-started/configuration) - ports, database, auth providers, TURN
-- [Installation Guide](/docs/getting-started/installation) - package managers, advanced flags, all methods
-- [Internal TLS Guide](/docs/guides/internal-tls) - air-gapped deployment, private CA
-- [Deployment Guide](/docs/guides/deployment) - production setup, reverse proxy, scaling
-- [Architecture Overview](/docs/architecture/overview) - how pieces fit together
+- [Configuration Reference](/en/docs/getting-started/configuration) - ports, database, auth providers, TURN
+- [Installation Guide](/en/docs/getting-started/installation) - package managers, advanced flags, all methods
+- [Internal TLS Guide](/en/docs/guides/internal-tls) - air-gapped deployment, private CA
+- [Deployment Guide](/en/docs/guides/deployment) - production setup, reverse proxy, scaling
+- [Architecture Overview](/en/docs/architecture/overview) - how pieces fit together
 - [API Docs](http://localhost:8090/api/swagger) - Swagger UI (running instance)

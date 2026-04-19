@@ -111,7 +111,7 @@ cd server
 swag init -g cmd/server/main.go
 ```
 
-> راجع [بنية الخادم](/docs/architecture/server) للاطلاع على هيكل الدليل الكامل والتصميم الطبقي.
+> راجع [بنية الخادم](/ar/docs/architecture/server) للاطلاع على هيكل الدليل الكامل والتصميم الطبقي.
 
 ## تطوير واجهة الويب
 
@@ -134,7 +134,7 @@ cd apps/web
 bun run check    # runs Biome lint + TypeScript type check
 ```
 
-> راجع [بنية واجهة الويب](/docs/architecture/web) للاطلاع على الهيكل الكامل والأنماط.
+> راجع [بنية واجهة الويب](/ar/docs/architecture/web) للاطلاع على الهيكل الكامل والأنماط.
 
 ## تطوير Android
 
@@ -157,7 +157,7 @@ make build-android          # Release APK (needs keystore)
 make release-android        # Build + install on device
 ```
 
-> راجع [بنية تطبيق Android](/docs/architecture/android) للاطلاع على بنية التطبيق المحمول بالتفصيل.
+> راجع [بنية تطبيق Android](/ar/docs/architecture/android) للاطلاع على بنية التطبيق المحمول بالتفصيل.
 
 ## تطوير iOS
 
@@ -189,7 +189,7 @@ make build-ios-sim      # Simulator build
 make export-ios         # Export IPA
 ```
 
-> راجع [بنية تطبيق iOS](/docs/architecture/ios) للاطلاع على بنية التطبيق المحمول بالتفصيل.
+> راجع [بنية تطبيق iOS](/ar/docs/architecture/ios) للاطلاع على بنية التطبيق المحمول بالتفصيل.
 
 ## تطوير سطح المكتب
 
@@ -225,7 +225,7 @@ make build-desktop           # optimised binary for the current platform
 - `apps/desktop/src/ui/bridge.rs` هو المكان الوحيد الذي تُربط فيه استدعيات Slint بمنطق Rust - أبقِ منطق الأعمال خارج ملفات `.slint`
 - استخدم `Weak<AppWindow>` عند تشغيل مهام خلفية تحتاج لتحديث الواجهة
 
-> راجع [بنية تطبيق سطح المكتب](/docs/architecture/desktop) للاطلاع على بنية تطبيق سطح المكتب بالتفصيل.
+> راجع [بنية تطبيق سطح المكتب](/ar/docs/architecture/desktop) للاطلاع على بنية تطبيق سطح المكتب بالتفصيل.
 
 ## تطوير وكلاء البوت
 
@@ -302,5 +302,5 @@ python agent.py "http://localhost:8090/m/test-room"
 
 ## انظر أيضًا
 
-- [مرجع Makefile](/docs/guides/makefile) - جميع أوامر البناء والتطوير
-- [نظرة عامة على البنية](/docs/architecture/overview) - كيف تتلاءم المكونات معًا
+- [مرجع Makefile](/ar/docs/guides/makefile) - جميع أوامر البناء والتطوير
+- [نظرة عامة على البنية](/ar/docs/architecture/overview) - كيف تتلاءم المكونات معًا

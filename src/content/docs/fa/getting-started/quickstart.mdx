@@ -6,7 +6,7 @@ order: 1
 
 راه‌اندازی بدرود و پیوستن به جلسه ویدیویی در کمتر از ۵ دقیقه.
 
-**این راهنما:** دانلود ← نصب ← تأیید ← پیوستن. برای گزینه‌های دیگر به [راهنمای نصب](/docs/getting-started/installation) مراجعه کنید. برای تنظیمات به [پیکربندی](/docs/getting-started/configuration) مراجعه کنید.
+**این راهنما:** دانلود ← نصب ← تأیید ← پیوستن. برای گزینه‌های دیگر به [راهنمای نصب](/fa/docs/getting-started/installation) مراجعه کنید. برای تنظیمات به [پیکربندی](/fa/docs/getting-started/configuration) مراجعه کنید.
 
 > **یک فایل باینری، بدون نیاز به اینترنت پس از دانلود.** شامل سرور مدیا جاسازی‌شده و SQLite است - در شبکه‌های ایزوله کار می‌کند. فایل را منتقل کنید، یک دستور اجرا کنید، تمام شد.
 
@@ -55,7 +55,7 @@ sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 > ```bash
 > sudo ./bedrud install --tls --ip 1.2.3.4
 > ```
-> این از گواهی خودامضا استفاده می‌کند. مرورگرها هشدار می‌دهند اما ویدیو کار می‌کند. برای گواهی‌های قابل اعتماد در شبکه‌های داخلی، به [راهنمای TLS داخلی](/docs/guides/internal-tls) مراجعه کنید.
+> این از گواهی خودامضا استفاده می‌کند. مرورگرها هشدار می‌دهند اما ویدیو کار می‌کند. برای گواهی‌های قابل اعتماد در شبکه‌های داخلی، به [راهنمای TLS داخلی](/fa/docs/guides/internal-tls) مراجعه کنید.
 
 ---
 
@@ -101,7 +101,7 @@ docker run -d --name bedrud \
   ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-تنظیمات سفارشی، Docker Compose، و متغیرهای محیطی: به [راهنمای Docker](/docs/guides/docker) مراجعه کنید.
+تنظیمات سفارشی، Docker Compose، و متغیرهای محیطی: به [راهنمای Docker](/fa/docs/guides/docker) مراجعه کنید.
 
 ### ساخت از منبع
 
@@ -137,7 +137,7 @@ sudo ./bedrud install --ip 127.0.0.1
 
 ## شبکه‌های داخلی
 
-بدون دامنه عمومی یا اینترنت خروجی؟ به [راهنمای TLS داخلی](/docs/guides/internal-tls) برای تنظیم CA خصوصی و پیکربندی ذخیره‌سازی اعتماد کلاینت مراجعه کنید.
+بدون دامنه عمومی یا اینترنت خروجی؟ به [راهنمای TLS داخلی](/fa/docs/guides/internal-tls) برای تنظیم CA خصوصی و پیکربندی ذخیره‌سازی اعتماد کلاینت مراجعه کنید.
 
 ---
 
@@ -150,9 +150,9 @@ sudo ./bedrud install --ip 127.0.0.1
 sudo systemctl restart bedrud livekit
 ```
 
-برای تنظیم ظرفیت اتاق، زمان‌های انقضا، یا پورت‌های مدیا، به [بخش LiveKit در پیکربندی](/docs/getting-started/configuration#livekit-configuration) مراجعه کنید.
+برای تنظیم ظرفیت اتاق، زمان‌های انقضا، یا پورت‌های مدیا، به [بخش LiveKit در پیکربندی](/fa/docs/getting-started/configuration#livekit-configuration) مراجعه کنید.
 
-مرجع کامل: [پیکربندی](/docs/getting-started/configuration)
+مرجع کامل: [پیکربندی](/fa/docs/getting-started/configuration)
 
 ---
 
@@ -166,7 +166,7 @@ sudo systemctl restart bedrud livekit
 | بدون ویدیو / WebRTC شکست خورد | برای دوربین HTTPS لازم است. از `--tls` استفاده کنید. UDP ۵۰۰۰۰–۶۰۰۰۰ را روی فایروال باز کنید |
 | تضاد پورت LiveKit | از پرچم‌های `--lk-port`، `--lk-tcp-port`، `--lk-udp-port` استفاده کنید |
 | فایروال مدیا را مسدود می‌کند | `sudo ufw allow 8090/tcp && sudo ufw allow 7880/tcp && sudo ufw allow 50000:60000/udp` |
-| هشدارهای گواهی خودامضا | به [راهنمای TLS داخلی](/docs/guides/internal-tls) برای تنظیم CA خصوصی مراجعه کنید |
+| هشدارهای گواهی خودامضا | به [راهنمای TLS داخلی](/fa/docs/guides/internal-tls) برای تنظیم CA خصوصی مراجعه کنید |
 
 ---
 
@@ -187,9 +187,9 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## مراحل بعدی
 
-- [مرجع پیکربندی](/docs/getting-started/configuration) - پورت‌ها، پایگاه داده، فراهم‌کنندگان احراز هویت، TURN
-- [راهنمای نصب](/docs/getting-started/installation) - مدیران بسته، پرچم‌های پیشرفته، تمام روش‌ها
-- [راهنمای TLS داخلی](/docs/guides/internal-tls) - استقرار بدون اتصال به اینترنت، CA خصوصی
-- [راهنمای استقرار](/docs/guides/deployment) - تنظیمات تولید، پروکسی معکوس، مقیاس‌پذیری
-- [نمای کلی معماری](/docs/architecture/overview) - نحوه اتصال اجزا به هم
+- [مرجع پیکربندی](/fa/docs/getting-started/configuration) - پورت‌ها، پایگاه داده، فراهم‌کنندگان احراز هویت، TURN
+- [راهنمای نصب](/fa/docs/getting-started/installation) - مدیران بسته، پرچم‌های پیشرفته، تمام روش‌ها
+- [راهنمای TLS داخلی](/fa/docs/guides/internal-tls) - استقرار بدون اتصال به اینترنت، CA خصوصی
+- [راهنمای استقرار](/fa/docs/guides/deployment) - تنظیمات تولید، پروکسی معکوس، مقیاس‌پذیری
+- [نمای کلی معماری](/fa/docs/architecture/overview) - نحوه اتصال اجزا به هم
 - [اسناد API](http://localhost:8090/api/swagger) - Swagger UI (نمونه در حال اجرا)

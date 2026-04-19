@@ -6,7 +6,7 @@ order: 4
 
 Bedrud uses YAML configuration files for both the main server and the embedded LiveKit media server.
 
-**See also:** [Quick Start](/docs/getting-started/quickstart) | [Installation](/docs/getting-started/installation) | [Deployment Guide](/docs/guides/deployment) | [Docker Guide](/docs/guides/docker)
+**See also:** [Quick Start](/en/docs/getting-started/quickstart) | [Installation](/en/docs/getting-started/installation) | [Deployment Guide](/en/docs/guides/deployment) | [Docker Guide](/en/docs/guides/docker)
 
 ## Minimum Production Config
 
@@ -141,7 +141,7 @@ room:
 
 LiveKit uses UDP ports for media streams. The default range `50000-60000` works for most setups. If running behind a firewall, ensure these ports are open.
 
-See [WebRTC Connectivity](/docs/architecture/webrtc-connectivity) for architecture and troubleshooting.
+See [WebRTC Connectivity](/en/docs/architecture/webrtc-connectivity) for architecture and troubleshooting.
 
 ### TURN Server
 
@@ -151,7 +151,7 @@ TURN is a last-resort relay - most clients (~80%) connect directly via UDP and n
 
 **TLS requirement:** TURN/TLS (port 5349) needs a valid TLS certificate. For production, set `turn.tls_port: 443` and point `cert_file`/`key_file` to your certificate, or place a Layer 4 load balancer in front with `external_tls: true`.
 
-See the [TURN Server Guide](/docs/architecture/turn-server) for architecture, config details, bandwidth calculations, and troubleshooting.
+See the [TURN Server Guide](/en/docs/architecture/turn-server) for architecture, config details, bandwidth calculations, and troubleshooting.
 
 ### Room Settings
 
@@ -174,7 +174,7 @@ The `room:` section controls meeting room behavior:
 
 Configuration values can be overridden with environment variables. The naming follows a per-section prefix convention:
 
-For Docker deployments, see the [Docker Guide](/docs/guides/docker).
+For Docker deployments, see the [Docker Guide](/en/docs/guides/docker).
 
 ```bash
 export SERVER_PORT=8090
@@ -230,4 +230,4 @@ export LIVEKIT_API_SECRET=prodsecret
 - [ ] Open LiveKit RTC port range in your firewall
 - [ ] Set up log rotation for `/var/log/bedrud/`
 
-For complete production setup, see the [Deployment Guide](/docs/guides/deployment).
+For complete production setup, see the [Deployment Guide](/en/docs/guides/deployment).
