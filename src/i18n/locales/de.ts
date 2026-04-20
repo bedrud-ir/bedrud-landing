@@ -192,6 +192,16 @@ export default {
       description:
         "In Minuten mit Ihrem Identitätsanbieter verbinden. Passkeys, OAuth 2.0, OIDC – alles ab Werk unterstützt. Keine Passwortdatenbanken zum Knacken.",
     },
+    guestJoin: {
+      title: "Gastzugang — Ohne Konto",
+      description:
+        "Einen Link teilen, sie klicken, sie sind drin. Keine Anmeldeformulare, keine Passwörter, keine App-Installationen. Funktioniert in jedem modernen Browser.",
+    },
+    recording: {
+      title: "Integrierte Aufnahme & Bildschirmfreigabe",
+      description:
+        "Meetings aufnehmen und den Bildschirm freigeben — direkt integriert. Aufzeichnungen werden auf Ihrem Server gespeichert — nicht in der Cloud eines Dritten.",
+    },
   },
   install: {
     title: "Ein Befehl. Fertig.",
@@ -279,6 +289,21 @@ export default {
       question: "Werden Aufzeichnung und Bildschirmfreigabe unterstützt?",
       answer:
         "Ja. Integrierte Bildschirmfreigabe und Meeting-Aufzeichnung sind enthalten. Aufzeichnungen werden auf Ihrem Server gespeichert – nicht in der Cloud eines Dritten. Bot-Agenten können Meetings außerdem in Echtzeit transkribieren.",
+    },
+    migrate: {
+      question: "Kann ich von Zoom oder Teams wechseln?",
+      answer:
+        "Ja. Bedrud läuft neben Ihren bestehenden Tools. Importieren Sie Ihr Team, richten Sie SSO ein und migrieren Sie Meetings in Ihrem Tempo. Kein Daten-Lock-in, niemals.",
+    },
+    pricing: {
+      question: "Ist es wirklich kostenlos?",
+      answer:
+        "Vollständig. Apache 2.0 lizenziert, keine Funktionsbeschränkungen, keine 'Kontakt Vertrieb'-Schaltflächen. Der Quellcode ist öffentlich. Hosten Sie selbst und zahlen Sie nur für Ihren Server — typischerweise $5/Monat.",
+    },
+    mobile: {
+      question: "Gibt es mobile Apps?",
+      answer:
+        "Ja. Native Apps für Android (Kotlin) und iOS (Swift), plus Desktop-Apps in Rust. Keine Web-Wrapper — echte native Leistung.",
     },
   },
   footer: {
@@ -883,6 +908,9 @@ export default {
       you: "Sie",
       chat: "Chat",
       messagePlaceholder: "Nachricht...",
+      chatMsg1: "Teile jetzt das Q4-Deck",
+      chatMsg2: "Das sieht toll aus!",
+      chatMsg3: "Können wir Folie 4 durchgehen?",
     },
     scale: {
       overview: "Übersicht",

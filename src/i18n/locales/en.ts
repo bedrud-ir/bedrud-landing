@@ -20,10 +20,10 @@ export default {
   },
   hero: {
     badge: "Open Source · Apache 2.0",
-    kicker: "Open-source Zoom alternative. Runs on a $5 VPS.",
-    headline: "Your Meetings. Your Server. Your Rules.",
+    kicker: "The self-hosted video platform. $5/month. 60-second deploy.",
+    headline: "Own Your Meetings. Own Your Infrastructure. Own Your Data.",
     subheadline:
-      "Self-hosted video meetings on your own hardware. Single binary, 512MB RAM, 60-second deploy. From private calls to broadcasts with thousands of viewers.",
+      "Stop paying per seat for video calls. Self-host Bedrud on any $5 VPS in 60 seconds. One binary, unlimited users, zero vendor lock-in.",
     trustBar:
       "Trusted by over 10,000 privacy-first developers and teams worldwide.",
     installMicrocopy: "Paste in your terminal. Deploy in 60 seconds.",
@@ -173,6 +173,16 @@ export default {
       description:
         "Connect to your identity provider in minutes. Passkeys, OAuth 2.0, OIDC - all supported out of the box. No password databases to breach.",
     },
+    guestJoin: {
+      title: "Guest Join — No Account Needed",
+      description:
+        "Share a link, they click, they're in. No sign-up forms, no passwords, no app installs. Works in any modern browser.",
+    },
+    recording: {
+      title: "Built-in Recording & Screen Share",
+      description:
+        "Record meetings and share your screen out of the box. Recordings are saved to your server — not someone else's cloud.",
+    },
   },
   install: {
     title: "One Command. Done.",
@@ -238,7 +248,7 @@ export default {
     subtitle:
       "Deploy on any $5 VPS in 60 seconds. No credit card, no vendor lock-in, no third-party servers.",
     installNow: "Deploy Your Server",
-    getStarted: "Read the Quickstart",
+    getStarted: "Get Bedrud Running in 60s",
     readDocs: "View Quickstart",
     starGithub: "Star on GitHub",
     copied: "Copied!",
@@ -260,6 +270,21 @@ export default {
       question: "Does it support recording and screen sharing?",
       answer:
         "Yes. Built-in screen sharing and meeting recording are included. Recordings are saved to your server - not someone else's cloud. Bot agents can also transcribe meetings in real-time.",
+    },
+    migrate: {
+      question: "Can I switch from Zoom or Teams?",
+      answer:
+        "Yes. Bedrud runs alongside your existing tools. Import your team, set up SSO, and start migrating meetings at your own pace. No data lock-in, ever.",
+    },
+    pricing: {
+      question: "Is it really free?",
+      answer:
+        "Completely. Apache 2.0 licensed, no feature gates, no 'contact sales' buttons. The source code is public. Host it yourself and pay only for your server — typically $5/month.",
+    },
+    mobile: {
+      question: "Do you have mobile apps?",
+      answer:
+        "Yes. Native apps for Android (Kotlin) and iOS (Swift), plus desktop apps built with Rust. Not web wrappers — real native performance.",
     },
   },
   footer: {
@@ -881,6 +906,9 @@ export default {
       you: "You",
       chat: "Chat",
       messagePlaceholder: "Message...",
+      chatMsg1: "Sharing the Q4 deck now",
+      chatMsg2: "This looks great!",
+      chatMsg3: "Can we go over slide 4?",
     },
     scale: {
       overview: "Overview",

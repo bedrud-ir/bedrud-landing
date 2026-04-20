@@ -194,6 +194,16 @@ export default {
       description:
         "Connectez-vous à votre fournisseur d'identité en quelques minutes. Passkeys, OAuth 2.0, OIDC - tout pris en charge nativement. Pas de bases de mots de passe à compromettre.",
     },
+    guestJoin: {
+      title: "Accès invité — Sans compte",
+      description:
+        "Partagez un lien, ils cliquent, ils entrent. Pas de formulaires d'inscription, pas de mots de passe, pas d'installation. Fonctionne dans tous les navigateurs modernes.",
+    },
+    recording: {
+      title: "Enregistrement et partage d'écran intégrés",
+      description:
+        "Enregistrez les réunions et partagez votre écran. Les enregistrements sont sauvegardés sur votre serveur — pas sur le cloud de quelqu'un d'autre.",
+    },
   },
   install: {
     title: "Une commande. Terminé.",
@@ -282,6 +292,21 @@ export default {
         "L'enregistrement et le partage d'écran sont-ils pris en charge ?",
       answer:
         "Oui. Le partage d'écran et l'enregistrement de réunion sont inclus. Les enregistrements sont sauvegardés sur votre serveur - pas sur le cloud de quelqu'un d'autre. Les agents bots peuvent aussi transcrire les réunions en temps réel.",
+    },
+    migrate: {
+      question: "Puis-je passer de Zoom ou Teams ?",
+      answer:
+        "Oui. Bedrud fonctionne alongside vos outils existants. Importez votre équipe, configurez le SSO et commencez la migration à votre rythme. Pas de verrouillage des données, jamais.",
+    },
+    pricing: {
+      question: "Est-ce vraiment gratuit ?",
+      answer:
+        "Entièrement. Sous licence Apache 2.0, pas de fonctionnalités limitées, pas de bouton 'Contacter les ventes'. Le code source est public. Hébergez-le vous-même et payez uniquement votre serveur — généralement 5$/mois.",
+    },
+    mobile: {
+      question: "Y a-t-il des applications mobiles ?",
+      answer:
+        "Oui. Applications natives pour Android (Kotlin) et iOS (Swift), plus des applications de bureau en Rust. Pas de web wrappers — de vraies performances natives.",
     },
   },
   footer: {
@@ -851,6 +876,9 @@ export default {
       you: "Vous",
       chat: "Chat",
       messagePlaceholder: "Message…",
+      chatMsg1: "Je partage le deck Q4 maintenant",
+      chatMsg2: "C'est génial !",
+      chatMsg3: "On peut revoir la slide 4 ?",
     },
     scale: {
       overview: "Vue d'ensemble",

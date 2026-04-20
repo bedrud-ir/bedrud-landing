@@ -10,6 +10,9 @@ const faqKeys = [
   "serverPower",
   "installCommand",
   "recordingScreenSharing",
+  "migrate",
+  "pricing",
+  "mobile",
 ] as const;
 
 export function FaqSection({ lang }: { lang: Locale }) {

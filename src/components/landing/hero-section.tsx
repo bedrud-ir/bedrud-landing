@@ -41,6 +41,14 @@ export function HeroSection({ lang }: { lang: Locale }) {
 
       <div className="mx-auto max-w-7xl px-6 pt-16 sm:pt-24 lg:pt-28 xl:pt-32">
         <div className="relative z-10 mx-auto max-w-2xl text-center">
+          <div className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background px-3.5 py-1.5 text-xs font-medium text-muted-foreground">
+            <span className="size-1.5 rounded-full bg-emerald-500" />
+            {t(lang, "hero.badge")}
+          </div>
+          <p className="mt-3 text-sm text-muted-foreground sm:text-base">
+            {t(lang, "hero.kicker")}
+          </p>
+
           <TextGenerateEffect
             words={t(lang, "hero.headline")}
             as="h1"
@@ -84,6 +92,10 @@ export function HeroSection({ lang }: { lang: Locale }) {
               {t(lang, "hero.installMicrocopy")}
             </p>
           </div>
+
+          <p className="mt-4 text-xs text-muted-foreground/70">
+            {t(lang, "hero.trustBar")}
+          </p>
 
           <div className="mt-4">
             <Button

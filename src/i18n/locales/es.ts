@@ -192,6 +192,16 @@ export default {
       description:
         "Conecta tu proveedor de identidad en minutos. Passkeys, OAuth 2.0, OIDC - todo soportado de fábrica. Sin bases de datos de contraseñas que puedan ser comprometidas.",
     },
+    guestJoin: {
+      title: "Acceso de invitado — Sin cuenta",
+      description:
+        "Comparte un enlace, hacen clic, entran. Sin formularios de registro, sin contraseñas, sin instalar apps. Funciona en cualquier navegador moderno.",
+    },
+    recording: {
+      title: "Grabación y compartir pantalla integradas",
+      description:
+        "Graba reuniones y comparte tu pantalla. Las grabaciones se guardan en tu servidor — no en la nube de alguien más.",
+    },
   },
   install: {
     title: "Un comando. Listo.",
@@ -279,6 +289,21 @@ export default {
       question: "¿Soporta grabación y compartir pantalla?",
       answer:
         "Sí. Compartir pantalla y grabación de reuniones están incluidos. Las grabaciones se guardan en tu servidor - no en la nube de alguien más. Los agentes bot también pueden transcribir reuniones en tiempo real.",
+    },
+    migrate: {
+      question: "¿Puedo cambiar de Zoom o Teams?",
+      answer:
+        "Sí. Bedrud funciona junto con tus herramientas existentes. Importa tu equipo, configura SSO y empieza a migrar reuniones a tu ritmo. Sin bloqueo de datos, nunca.",
+    },
+    pricing: {
+      question: "¿Es realmente gratis?",
+      answer:
+        "Completamente. Licencia Apache 2.0, sin límites de funciones, sin botones de 'contactar ventas'. El código fuente es público. Aloja tú mismo y paga solo tu servidor — típicamente $5/mes.",
+    },
+    mobile: {
+      question: "¿Tienen apps móviles?",
+      answer:
+        "Sí. Apps nativas para Android (Kotlin) y iOS (Swift), además de apps de escritorio en Rust. No son wrappers web — rendimiento nativo real.",
     },
   },
   footer: {
@@ -849,6 +874,9 @@ export default {
       you: "Tú",
       chat: "Chat",
       messagePlaceholder: "Mensaje...",
+      chatMsg1: "Compartiendo el deck de Q4 ahora",
+      chatMsg2: "¡Se ve genial!",
+      chatMsg3: "¿Podemos ver la diapositiva 4?",
     },
     scale: {
       overview: "Resumen",

@@ -37,6 +37,20 @@ const features = [
     iconColor: "text-amber-600 dark:text-amber-400",
     link: "/docs/backend/authentication",
   },
+  {
+    key: "guestJoin",
+    icon: "lucide:user-plus",
+    iconBg: "bg-rose-500/10 dark:bg-rose-500/15",
+    iconColor: "text-rose-600 dark:text-rose-400",
+    link: "/docs/getting-started/clients",
+  },
+  {
+    key: "recording",
+    icon: "lucide:video",
+    iconBg: "bg-sky-500/10 dark:bg-sky-500/15",
+    iconColor: "text-sky-600 dark:text-sky-400",
+    link: "/docs/architecture/webrtc-connectivity",
+  },
 ];
 ---
 
@@ -51,7 +65,7 @@ const features = [
       </p>
     </div>
 
-    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-2">
+    <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {features.map(({ key, icon, iconBg, iconColor, link }, i) => (
         <a
           href={`/${lang}${link}`}

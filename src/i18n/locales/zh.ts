@@ -190,6 +190,16 @@ export default {
       description:
         "几分钟内连接你的身份提供商。通行密钥、OAuth 2.0、OIDC--全部开箱即用。没有可能被泄露的密码数据库。",
     },
+    guestJoin: {
+      title: "访客加入 — 无需账号",
+      description:
+        "分享链接，点击即可加入。无需注册、无需密码、无需安装应用。支持所有现代浏览器。",
+    },
+    recording: {
+      title: "内置录制和屏幕共享",
+      description:
+        "直接录制会议和共享屏幕。录制文件保存到你的服务器——不是别人的云端。",
+    },
   },
   install: {
     title: "一条命令。完成。",
@@ -277,6 +287,21 @@ export default {
       question: "支持录制和屏幕共享吗？",
       answer:
         "支持。内置屏幕共享和会议录制。录制文件保存到你的服务器--不是别人的云上。机器人代理还可以实时转录会议内容。",
+    },
+    migrate: {
+      question: "可以从 Zoom 或 Teams 迁移吗？",
+      answer:
+        "可以。Bedrud 可以与现有工具并行运行。导入团队、设置 SSO，按自己的节奏迁移会议。永远不会出现数据锁定。",
+    },
+    pricing: {
+      question: "真的免费吗？",
+      answer:
+        "完全免费。Apache 2.0 许可证，没有功能限制，没有「联系销售」按钮。源代码公开。自己托管，只付服务器费用——通常每月 5 美元。",
+    },
+    mobile: {
+      question: "有移动应用吗？",
+      answer:
+        "有。Android（Kotlin）和 iOS（Swift）原生应用，还有 Rust 构建的桌面应用。不是网页封装——真正的原生性能。",
     },
   },
   footer: {
@@ -868,6 +893,9 @@ export default {
       you: "你",
       chat: "聊天",
       messagePlaceholder: "输入消息...",
+      chatMsg1: "正在分享第四季度报告",
+      chatMsg2: "看起来不错！",
+      chatMsg3: "能看一下第 4 页幻灯片吗？",
     },
     scale: {
       overview: "概览",

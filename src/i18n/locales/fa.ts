@@ -20,10 +20,10 @@ export default {
   },
   hero: {
     badge: "متن‌باز · Apache 2.0",
-    kicker: "جایگزین متن‌باز Zoom. روی یک VPS ۵ دلاری اجرا میشه.",
-    headline: "تماس‌های ویدیویی شما. روی سرور خودتان.",
+    kicker: "پلتفرم جلسات خودمیزبان. ۵ دلار در ماه. نصب ۶۰ ثانیه‌ای.",
+    headline: "جلسه‌های شما. سرور شما. کنترل شما.",
     subheadline:
-      "بدون هزینه‌های ماهانه. بدون وابستگی ابری. یک فایل باینری سبک برای جلسات بی‌نقص، از تیم‌های کوچک تا پخش زنده هزار نفری.",
+      "دیگه بابت جلسه‌هات پول نده. بدرود رو روی هر سرور ۵ دلاری تو ۶۰ ثانیه نصب کن. یک فایل باینری، کاربر نامحدود، بدون انحصار.",
     trustBar:
       "توسط بیش از ۱۰,۰۰۰ توسعه‌دهنده و تیم نگران حریم خصوصی در سراسر جهان مورد اعتماد است.",
     installMicrocopy: "در ترمینال پیست کنید. در ۶۰ ثانیه دیپلوی کنید.",
@@ -191,6 +191,16 @@ export default {
       description:
         "در چند دقیقه به ارائه‌دهنده هویت خود متصل شوید. Passkeys، OAuth 2.0، OIDC - همه از قبل پشتیبانی می‌شوند. بدون پایگاه داده رمز عبور برای هک شدن.",
     },
+    guestJoin: {
+      title: "ورود مهمان — بدون حساب کاربری",
+      description:
+        "یک لینک بفرستید، کلیک کنند، وارد می‌شوند. بدون فرم ثبت‌نام، بدون رمز عبور، بدون نصب اپلیکیشن. در تمام مرورگرهای مدرن کار می‌کند.",
+    },
+    recording: {
+      title: "ضبط و اشتراک‌گذاری صفحه داخلی",
+      description:
+        "جلسات را ضبط و صفحه‌تان را به اشتراک بگذارید. ضبط‌ها روی سرور شما ذخیره می‌شوند — نه در ابر شخص دیگر.",
+    },
   },
   install: {
     title: "یک دستور. تمام.",
@@ -199,19 +209,18 @@ export default {
     powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
     dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "یا",
-    whatItDoes:
-      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
-    flagsTitle: "Key Flags",
-    flagsDesc: "Description",
-    flagVersion: "Install a specific version (e.g. 0.12.0)",
-    flagInstallDir: "Custom install directory (default: ~/bin)",
-    flagSkipShell: "Skip modifying shell config files",
+    whatItDoes: "باینری Bedrud را در ~/bin دانلود و به PATH شما اضافه می‌کند.",
+    flagsTitle: "فلگ‌های مهم",
+    flagsDesc: "توضیحات",
+    flagVersion: "نسخه خاصی را نصب کنید (مثلاً 0.12.0)",
+    flagInstallDir: "مسیر نصب سفارشی (پیش‌فرض: ~/bin)",
+    flagSkipShell: "از تغییر فایل‌های کانفیگ شل صرف‌نظر کن",
     requirements:
       "روی هر لینوکس ۶۴ بیتی، macOS یا ویندوز با ۵۱۲ مگابایت رم کار می‌کند.",
-    fullDocsLink: "Full CLI installer docs",
-    fullServerDocsLink: "Full server installation guide",
-    dockerGuideLink: "Docker setup guide",
-    githubReleases: "Download binary from GitHub Releases",
+    fullDocsLink: "مستندات کامل نصب‌کننده CLI",
+    fullServerDocsLink: "راهنمای کامل نصب سرور",
+    dockerGuideLink: "راهنمای نصب با Docker",
+    githubReleases: "دانلود باینری از GitHub Releases",
   },
   platforms: {
     title: "اپلیکیشن‌های بومی، نه مرورگر وب",
@@ -252,7 +261,7 @@ export default {
     docs: "مستندات",
   },
   cta: {
-    title: "بابت جلسه‌هات اجاره نده",
+    title: "جلسه‌هات رو اجاره‌ای برگزار نکن — خودت صاحبش باش",
     subtitle:
       "در هر VPS ۵ دلاری در ۶۰ ثانیه دیپلوی کنید. بدون کارت اعتباری، بدون وابستگی به تأمین‌کننده، بدون سرور شخص ثالث.",
     installNow: "ساخت سرور من",
@@ -278,6 +287,21 @@ export default {
       question: "آیا از ضبط و اشتراک‌گذاری صفحه پشتیبانی می‌کند؟",
       answer:
         "بله. اشتراک‌گذاری صفحه و ضبط جلسه داخلی شامل است. ضبط‌ها در سرور شما ذخیره می‌شوند - نه در ابر شخص دیگر. عوامل ربات می‌توانند جلسات را در زمان واقعی رونوشت کنند.",
+    },
+    migrate: {
+      question: "آیا می‌توانم از Zoom یا Teams مهاجرت کنم؟",
+      answer:
+        "بله. بدرود در کنار ابزارهای فعلی شما کار می‌کند. تیم خود را وارد کنید، SSO راه‌اندازی کنید و جلسات را با سرعت خودتان مهاجرت کنید. بدون قفل داده، هیچ‌وقت.",
+    },
+    pricing: {
+      question: "آیا واقعاً رایگان است؟",
+      answer:
+        "کاملاً. مجوز Apache 2.0، بدون محدودیت قابلیت، بدون دکمه‌های «تماس با فروش». کد منبع عمومی است. خودتان میزبانی کنید و فقط هزینه سرور را بدهید — معمولاً ۵ دلار در ماه.",
+    },
+    mobile: {
+      question: "اپلیکیشن موبایل دارید؟",
+      answer:
+        "بله. اپلیکیشن بومی برای اندروید (Kotlin) و iOS (Swift)، و اپلیکیشن دسکتاپ با Rust. نه وب‌ویو — عملکرد واقعاً بومی.",
     },
   },
   footer: {
@@ -875,6 +899,9 @@ export default {
       you: "شما",
       chat: "چت",
       messagePlaceholder: "پیام...",
+      chatMsg1: "دک Q4 رو الان شیر می‌کنم",
+      chatMsg2: "عالیه!",
+      chatMsg3: "می‌شه یه نگاه به اسلاید ۴ بندازیم؟",
     },
     scale: {
       overview: "نمای کلی",

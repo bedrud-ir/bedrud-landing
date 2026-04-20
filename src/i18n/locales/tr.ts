@@ -193,6 +193,16 @@ export default {
       description:
         "Kimlik sağlayıcınıza dakikalar içinde bağlanın. Passkeys, OAuth 2.0, OIDC - hepsi kutudan çıkar çıkmaz desteklenir. İhlal edilecek şifre veritabanı yok.",
     },
+    guestJoin: {
+      title: "Misafir Katılımı — Hesap Gerekmez",
+      description:
+        "Bir bağlantı paylaşın, tıklasınlar, girsinler. Kayıt formu, şifre, uygulama kurulumu yok. Tüm modern tarayıcılarda çalışır.",
+    },
+    recording: {
+      title: "Yerleşik Kayıt ve Ekran Paylaşımı",
+      description:
+        "Toplantıları kaydedin ve ekranınızı paylaşın. Kayıtlar sunucunuza kaydedilir — başkasının bulutuna değil.",
+    },
   },
   install: {
     title: "Tek Komut. Bitti.",
@@ -280,6 +290,21 @@ export default {
       question: "Kayıt ve ekran paylaşımını destekliyor mu?",
       answer:
         "Evet. Yerleşik ekran paylaşımı ve toplantı kaydı dahil. Kayıtlar sunucunuza kaydedilir - başkasının bulutuna değil. Bot ajanları ayrıca toplantıları gerçek zamanlı olarak transkript edebilir.",
+    },
+    migrate: {
+      question: "Zoom veya Teams'ten geçiş yapabilir miyim?",
+      answer:
+        "Evet. Bedrud mevcut araçlarınızla birlikte çalışır. Ekibinizi içe aktarın, SSO kurun ve toplantıları kendi hızınızda taşıyın. Veri kilidi yok, asla.",
+    },
+    pricing: {
+      question: "Gerçekten ücretsiz mi?",
+      answer:
+        "Tamamen. Apache 2.0 lisanslı, özellik sınırı yok, 'satışla iletişim' butonu yok. Kaynak kodu açık. Kendi sunucunuzda barındırın ve sadece sunucu ücreti ödeyin — genellikle $5/ay.",
+    },
+    mobile: {
+      question: "Mobil uygulamanız var mı?",
+      answer:
+        "Evet. Android (Kotlin) ve iOS (Swift) için yerel uygulamalar, ayrıca Rust ile yapılmış masaüstü uygulamaları. Web wrapper değil — gerçek yerel performans.",
     },
   },
   footer: {
@@ -883,6 +908,9 @@ export default {
       you: "Siz",
       chat: "Sohbet",
       messagePlaceholder: "Mesaj...",
+      chatMsg1: "Q4 sunumunu şimdi paylaşıyorum",
+      chatMsg2: "Harika görünüyor!",
+      chatMsg3: "4. slayta bakabilir miyiz?",
     },
     scale: {
       overview: "Genel Bakış",
