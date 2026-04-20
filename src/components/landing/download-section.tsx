@@ -1,5 +1,6 @@
 import {
   ArrowDownToLine,
+  ArrowRight,
   BookOpen,
   Check,
   Copy,
@@ -8,9 +9,9 @@ import {
   Laptop,
   MessageSquare,
   Monitor,
+  Server,
   Smartphone,
   Tablet,
-  Terminal,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { type Locale, t } from "../../i18n/utils";
@@ -123,7 +124,7 @@ function HeroCards({ lang }: { lang: Locale }) {
       </div>
       <div className={cn(cardClass, "p-8")}>
         <div className="flex size-12 items-center justify-center rounded-lg bg-primary/8">
-          <Terminal className="size-5 text-primary" />
+          <Server className="size-5 text-primary" />
         </div>
         <h3 className="mt-5 text-lg font-semibold">
           {t(lang, "downloadPage.heroServerTitle")}
@@ -131,19 +132,19 @@ function HeroCards({ lang }: { lang: Locale }) {
         <p className="mt-1.5 text-[15px] leading-relaxed text-muted-foreground">
           {t(lang, "downloadPage.heroServerDesc")}
         </p>
-        <div
-          className="mt-4 inline-flex w-full items-center gap-2 rounded-lg bg-foreground/[0.03] px-4 py-2.5 font-mono text-sm text-muted-foreground dark:bg-foreground/[0.06]"
-          dir="ltr"
+        <a
+          href={`/${lang}/docs/getting-started/installation`}
+          className={cn(btnClass, "mt-4")}
         >
-          <span className="text-emerald-500">$</span> curl -fsSL
-          https://get.bedrud.org | bash
-        </div>
+          <ArrowRight className="size-4" />
+          {t(lang, "downloadPage.serverGuide")}
+        </a>
         <div className="mt-2">
           <a
             href={`/${lang}/install`}
             className="inline-flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
-            {t(lang, "downloadPage.serverGuide")}
+            {t(lang, "downloadPage.quickInstall")}
             <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
@@ -448,107 +449,6 @@ function PlatformContent({
   }
 }
 
-function ServerSection({ lang }: { lang: Locale }) {
-  return (
-    <div className="mt-16 border-t pt-12">
-      <h3 className="text-center text-2xl font-bold tracking-tight">
-        {t(lang, "downloadPage.server")}
-      </h3>
-      <p className="mt-2 text-center text-sm text-muted-foreground">
-        {t(lang, "downloadPage.serverDesc")}
-      </p>
-      <div className="mx-auto mt-8 grid max-w-4xl gap-4 sm:grid-cols-2">
-        <div className={cardClass}>
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/8">
-            <Monitor className="size-5 text-primary" />
-          </div>
-          <h4 className="mt-3 font-semibold">
-            {t(lang, "downloadPage.serverDocker")}
-          </h4>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t(lang, "downloadPage.serverDockerDesc")}
-          </p>
-          <CopyButton
-            text="docker pull ghcr.io/bedrud-ir/bedrud:latest"
-            label="docker pull"
-            className={cn(btnClass, "mt-4")}
-          />
-        </div>
-        <div className={cardClass}>
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/8">
-            <ArrowDownToLine className="size-5 text-primary" />
-          </div>
-          <h4 className="mt-3 font-semibold">
-            {t(lang, "downloadPage.serverBinary")}
-          </h4>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t(lang, "downloadPage.serverBinaryDesc")}
-          </p>
-          <div className="mt-4 flex flex-col gap-2">
-            <a
-              href={`${RELEASES_BASE}/download/bedrud_linux_amd64.tar.xz`}
-              className={cn(btnClass, "text-center")}
-            >
-              <ArrowDownToLine className="size-4" />
-              x86_64 tar.xz
-            </a>
-            <a
-              href={`${RELEASES_BASE}/download/bedrud_linux_arm64.tar.xz`}
-              className={cn(btnClass, "text-center")}
-            >
-              <ArrowDownToLine className="size-4" />
-              arm64 tar.xz
-            </a>
-          </div>
-        </div>
-        <div className={cardClass}>
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/8">
-            <Terminal className="size-5 text-primary" />
-          </div>
-          <h4 className="mt-3 font-semibold">
-            {t(lang, "downloadPage.serverQuickInstall")}
-          </h4>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t(lang, "downloadPage.serverQuickInstallDesc")}
-          </p>
-          <div
-            className="mt-4 rounded-lg bg-foreground/[0.03] px-4 py-2.5 font-mono text-sm text-muted-foreground dark:bg-foreground/[0.06]"
-            dir="ltr"
-          >
-            <span className="text-emerald-500">$</span> curl -fsSL
-            https://get.bedrud.org | bash
-          </div>
-        </div>
-        <div className={cardClass}>
-          <div className="flex size-10 items-center justify-center rounded-lg bg-primary/8">
-            <Laptop className="size-5 text-primary" />
-          </div>
-          <h4 className="mt-3 font-semibold">
-            {t(lang, "downloadPage.serverHelm")}
-          </h4>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {t(lang, "downloadPage.serverHelmDesc")}
-          </p>
-          <CopyButton
-            text="helm repo add bedrud https://charts.bedrud.org && helm install bedrud bedrud/server"
-            label="helm install"
-            className={cn(btnClass, "mt-4")}
-          />
-        </div>
-      </div>
-      <div className="mt-6 text-center">
-        <a
-          href={`/${lang}/install`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
-        >
-          {t(lang, "downloadPage.serverGuide")}
-          <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-    </div>
-  );
-}
-
 function ResourcesSection({ lang }: { lang: Locale }) {
   return (
     <div className="mt-16">
@@ -668,7 +568,6 @@ export function DownloadSection({ lang }: { lang: Locale }) {
             </div>
           </div>
 
-          <ServerSection lang={lang} />
           <ResourcesSection lang={lang} />
         </div>
       </div>
