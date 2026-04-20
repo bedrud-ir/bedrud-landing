@@ -468,9 +468,15 @@ html.theme-transitioning::view-transition-new(root) {
   border-radius: 3px;
 }
 
-pre,
 code {
   direction: ltr;
+  text-align: left;
+}
+
+[dir="rtl"] code,
+[dir="rtl"] pre {
+  direction: ltr;
+  unicode-bidi: isolate;
   text-align: left;
 }
 

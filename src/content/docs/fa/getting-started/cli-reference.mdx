@@ -12,7 +12,7 @@ order: 5
 # سبک زیردستور
 bedrud <command> [flags]
 
-# سبک پرچم
+# سبک فلگ
 bedrud --livekit --config <path>
 bedrud --run --config <path>
 ```
@@ -28,17 +28,17 @@ bedrud run    [--config <path>]
 bedrud server [--config <path>]
 ```
 
-| پرچم       | پیش‌فرض                                  | توضیح                     |
+| فلگ       | پیش‌فرض                                  | توضیح                     |
 |------------|------------------------------------------|---------------------------|
 | `--config` | متغیر محیطی `$CONFIG_PATH` → `"config.yaml"` | مسیر به فایل تنظیمات YAML بدرود |
 
 **رفتار:**
 - تنظیمات را از مسیر مشخص یا پیش‌فرض‌ها بارگذاری می‌کند
 - LiveKit جاسازی‌شده را در صورت پیکربندی برای حالت داخلی شروع می‌کند
-- پایگاه داده SQLite/PostgreSQL را مقداردهی اولیه می‌کند و مهاجرت‌ها را اجرا می‌کند
+- دیتابیس SQLite/PostgreSQL را مقداردهی اولیه می‌کند و مهاجرت‌ها را اجرا می‌کند
 - سرور HTTP Fiber با تمام مسیرهای API ایجاد می‌کند
 - فرانت‌اند React جاسازی‌شده را سرویس می‌دهد
-- از ACME (Let's Encrypt)، TLS خودامضا، TLS دستی، یا HTTP ساده پشتیبانی می‌کند
+- از ACME (Let's Encrypt)، self-signed TLS، TLS دستی، یا HTTP ساده پشتیبانی می‌کند
 - خاموش شدن ملایم در SIGTERM/SIGINT
 
 **پیاده‌سازی:** `server/internal/server/server.go`
@@ -47,13 +47,13 @@ bedrud server [--config <path>]
 
 ### `--livekit`
 
-فقط سرور مدیا LiveKit جاسازی‌شده را شروع کنید. باینری را از Go embed به یک دایرکتوری موقت استخراج می‌کند.
+فقط media server LiveKit جاسازی‌شده را شروع کنید. باینری را از Go embed به یک دایرکتوری موقت استخراج می‌کند.
 
 ```bash
 bedrud --livekit --config <path>
 ```
 
-| پرچم       | پیش‌فرض    | توضیح                      |
+| فلگ       | پیش‌فرض    | توضیح                      |
 |------------|------------|----------------------------|
 | `--config` | (مورد نیاز) | مسیر به فایل تنظیمات YAML LiveKit |
 
@@ -65,7 +65,7 @@ bedrud --livekit --config <path>
 
 ### `--run`
 
-نام مستعار برای `bedrud run` با رفتار پرچم `--config` یکسان. توسط systemd `bedrud.service` استفاده می‌شود.
+نام مستعار برای `bedrud run` با رفتار فلگ `--config` یکسان. توسط systemd `bedrud.service` استفاده می‌شود.
 
 ```bash
 bedrud --run --config <path>
@@ -81,13 +81,13 @@ bedrud --run --config <path>
 bedrud install [flags]
 ```
 
-| پرچم                 | پیش‌فرض                         | توضیح                                                              |
+| فلگ                 | پیش‌فرض                         | توضیح                                                              |
 |----------------------|---------------------------------|---------------------------------------------------------------------|
 | `--tls`              | `false`                         | فعال کردن HTTPS (مشابه `--self-signed`)                             |
-| `--self-signed`      | `false`                         | تولید گواهی TLS خودامضا                                            |
+| `--self-signed`      | `false`                         | تولید self-signed TLS certificate                                            |
 | `--no-tls`           | `false`                         | غیرفعال کردن TLS به طور کامل (HTTP ساده). بر `--tls` و `--self-signed` غلبه می‌کند |
 | `--ip`               | تشخیص خودکار                   | جایگزینی آدرس IP سرور تشخیص داده شده                               |
-| `--domain`           | `""`                            | نام دامنه برای Let's Encrypt یا گواهی خودامضا                      |
+| `--domain`           | `""`                            | نام دامنه برای Let's Encrypt یا self-signed certificate                      |
 | `--email`            | `""`                            | ایمیل برای ثبت‌نام Let's Encrypt                                    |
 | `--port`             | `"443"` (TLS) / `"8090"` (HTTP) | جایگزینی پورت شنیدن                                                 |
 | `--cert`             | `""`                            | مسیر به فایل گواهی موجود (PEM)                                     |
@@ -96,18 +96,18 @@ bedrud install [flags]
 | `--lk-tcp-port`      | `"7881"`                        | جایگزینی پورت TCP RTC LiveKit                                       |
 | `--lk-udp-port`      | `"7882"`                        | جایگزینی پورت UDP RTC LiveKit                                       |
 | `--fresh`            | `false`                         | حذف نصب موجود قبل از نصب                                           |
-| `--behind-proxy`     | `false`                         | سرور پشت CDN/پروکسی معکوس است (Cloudflare، nginx)                  |
+| `--behind-proxy`     | `false`                         | سرور پشت CDN/reverse proxy است (Cloudflare، nginx)                  |
 | `--external-livekit` | `""`                            | URL یک سرور LiveKit کاملاً خارجی (ماشین متفاوت)                     |
 | `--livekit-domain`   | `""`                            | دامنه جداگانه برای سرور LiveKit محلی (عبور از CDN)                |
 
 **کاری که انجام می‌دهد:**
 ۱. اگر `--fresh` نصب قبلی را متوقف و حذف می‌کند
-۲. برای IP، دامنه، ایمیل، حالت TLS درخواست می‌کند (اگر غیرتعاملی و پرچم‌ها ارائه نشده باشند)
+۲. برای IP، دامنه، ایمیل، حالت TLS درخواست می‌کند (اگر غیرتعاملی و فلگ‌ها ارائه نشده باشند)
 ۳. دایرکتوری‌ها را ایجاد می‌کند: `/etc/bedrud`، `/var/lib/bedrud`، `/var/lib/bedrud/certs`، `/var/log/bedrud`
 ۴. باینری را به `/usr/local/bin/bedrud` کپی می‌کند
 ۵. تنظیمات سرور بدرود را در `/etc/bedrud/config.yaml` تولید می‌کند
-۶. تنظیمات سرور مدیا LiveKit را در `/etc/bedrud/livekit.yaml` تولید می‌کند
-۷. گواهی‌های خودامضا را در `/etc/bedrud/cert.pem` + `/etc/bedrud/key.pem` تولید می‌کند (اگر TLS فعال است و گواهی سفارشی وجود ندارد)
+۶. تنظیمات media server LiveKit را در `/etc/bedrud/livekit.yaml` تولید می‌کند
+۷. self-signed certificates را در `/etc/bedrud/cert.pem` + `/etc/bedrud/key.pem` تولید می‌کند (اگر TLS فعال است و گواهی سفارشی وجود ندارد)
 ۸. systemd `livekit.service` را ایجاد می‌کند (مگر اینکه از LiveKit خارجی استفاده کنید)
 ۹. systemd `bedrud.service` را ایجاد می‌کند
 ۱۰. `systemctl daemon-reload`، فعال‌سازی و شروع هر دو سرویس را اجرا می‌کند
@@ -115,7 +115,7 @@ bedrud install [flags]
 
 **گزینه‌های TLS:**
 - `--domain` + `--email` → ACME (Let's Encrypt)
-- `--self-signed` یا `--tls` → گواهی خودامضا
+- `--self-signed` یا `--tls` → self-signed certificate
 - `--cert` + `--key` → گواهی‌های سفارشی
 - `--no-tls` → فقط HTTP ساده
 
@@ -152,15 +152,15 @@ bedrud uninstall
 
 ### `user`
 
-مدیریت کاربران در پایگاه داده بدرود.
+مدیریت کاربران در دیتابیس بدرود.
 
 ```bash
 bedrud user <subcommand> [--config <path>] <flags>
 ```
 
-| پرچم جهانی | پیش‌فرض                   | توضیح                                     |
+| فلگ جهانی | پیش‌فرض                   | توضیح                                     |
 |-------------|---------------------------|-------------------------------------------|
-| `--config`  | `/etc/bedrud/config.yaml` | مسیر به فایل تنظیمات بدرود (برای یافتن پایگاه داده) |
+| `--config`  | `/etc/bedrud/config.yaml` | مسیر به فایل تنظیمات بدرود (برای یافتن دیتابیس) |
 
 #### `create`
 
@@ -170,7 +170,7 @@ bedrud user <subcommand> [--config <path>] <flags>
 bedrud user create --email <email> --password <password> --name <name>
 ```
 
-**پرچم‌های مورد نیاز:**
+**فلگ‌های مورد نیاز:**
 - `--email`: آدرس ایمیل کاربر
 - `--password`: رمز عبور کاربر، قبل از ذخیره با bcrypt هش می‌شود
 - `--name`: نام نمایشی کاربر
@@ -207,7 +207,7 @@ bedrud user demote --email <email>
 
 ### `help`
 
-پیام استفاده را با تمام دستورات و پرچم‌ها نشان دهید.
+پیام استفاده را با تمام دستورات و فلگ‌ها نشان دهید.
 
 ```bash
 bedrud help
@@ -245,7 +245,7 @@ bedrud install
 bedrud install --domain example.com --email admin@example.com
 ```
 
-### TLS خودامضا با پورت‌های سفارشی
+### self-signed TLS با پورت‌های سفارشی
 
 ```bash
 bedrud install --self-signed --port 8443 --lk-port 7880 --lk-tcp-port 7881 --lk-udp-port 7882

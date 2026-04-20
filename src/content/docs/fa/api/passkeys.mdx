@@ -175,7 +175,7 @@ POST /api/auth/passkey/login/finish
 
 - **بک‌اند:** از `go-passkeys/go-passkeys` برای تأیید WebAuthn خالص Go استفاده می‌کند
 - **ذخیره‌سازی نشست:** چالش‌ها در نشست‌های Gorilla ذخیره می‌شوند (از طریق `gothic.Store`)
-- **پایگاه داده:** اعتبارنامه‌های کلید عبور در مدل `Passkey` ذخیره می‌شوند (شناسه اعتبار، کلید عمومی، شمارنده)
+- **دیتابیس:** اعتبارنامه‌های کلید عبور در مدل `Passkey` ذخیره می‌شوند (شناسه اعتبار، کلید عمومی، شمارنده)
 - **فرانت‌اند (وب):** API `navigator.credentials` با کمک‌های base64url در `src/lib/auth.ts`
 - **Android:** Credentials API برای پشتیبانی کلید عبور بومی
 - **iOS:** ASAuthorizationController برای پشتیبانی کلید عبور

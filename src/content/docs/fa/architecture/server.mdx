@@ -4,7 +4,7 @@ description: طراحی و اجزای سرور بک‌اند
 order: 7
 ---
 
-سرور بدرود یک اپلیکیشن Go است که API REST را فراهم می‌کند، فرانت‌اند وب جاسازی‌شده را سرویس می‌دهد، و سرور مدیا LiveKit را مدیریت می‌کند.
+سرور بدرود یک اپلیکیشن Go است که REST API را ارائه می‌دهد، frontend داخلی را سرو می‌کند و media server LiveKit را مدیریت می‌کند.
 
 ## پشته فناوری
 
@@ -15,7 +15,7 @@ order: 7
 | GORM | ORM برای SQLite و PostgreSQL |
 | LiveKit Protocol SDK | مدیریت اتاق و توکن WebRTC |
 | Zerolog | لاگ‌بندی ساختاریافته JSON |
-| Goth | OAuth2 چند فراهم‌کننده |
+| Goth | OAuth2 چند provider |
 | go-passkeys | پشتیبانی FIDO2/WebAuthn |
 | golang-jwt | ایجاد و تأیید توکن JWT |
 | gocron | زمان‌بندی کار پس‌زمینه |
@@ -27,20 +27,20 @@ order: 7
 server/
 ├── cmd/
 │   ├── server/main.go        # نقطه ورودی توسعه
-│   └── bedrud/main.go        # نقطه ورودی تولید (با پرچم‌های install/livekit)
+│   └── bedrud/main.go        # نقطه ورودی تولید (با فلگ‌های install/livekit)
 ├── internal/
 │   ├── auth/                  # خدمات احراز هویت
 │   │   ├── auth.go            # سرویس احراز هویت اصلی (ثبت‌نام، ورود، OAuth)
 │   │   ├── jwt.go             # ایجاد و تأیید توکن JWT
 │   │   └── session_store.go   # ذخیره جلسه Gorilla برای وضعیت OAuth
-│   ├── database/              # مقداردهی اولیه پایگاه داده و مهاجرت‌ها
+│   ├── database/              # مقداردهی اولیه دیتابیس و مهاجرت‌ها
 │   ├── handlers/              # هندلرهای درخواست HTTP (لایه کنترلر)
 │   │   ├── auth_handler.go    # نقاط پایانی احراز هویت
 │   │   ├── room.go            # نقاط پایانی اتاق
 │   │   └── users.go           # نقاط پایانی مدیریت کاربر
-│   ├── middleware/             # میل‌ور Fiber
+│   ├── middleware/             # middleware Fiber
 │   │   └── auth.go            # تأیید JWT، بررسی مجوزها
-│   ├── models/                # مدل‌های GORM (اسکیم‌های پایگاه داده)
+│   ├── models/                # مدل‌های GORM (اسکیم‌های دیتابیس)
 │   │   ├── user.go            # مدل کاربر
 │   │   ├── room.go            # مدل اتاق
 │   │   └── passkey.go         # مدل کلید عبور
@@ -87,7 +87,7 @@ var frontendFS embed.FS
 
 ### احراز هویت JWT
 
-میل‌ور JWT را از هدر `Authorization: Bearer <token>` استخراج می‌کند، آن را تأیید می‌کند، و زمینه کاربر را به درخواست متصل می‌کند. مسیرهای محافظت شده از میل‌ور `RequireAccess` برای بررسی نقش‌های کاربر استفاده می‌کنند.
+middleware JWT را از هدر `Authorization: Bearer <token>` استخراج می‌کند، آن را تأیید می‌کند، و زمینه کاربر را به درخواست متصل می‌کند. مسیرهای محافظت شده از middleware `RequireAccess` برای بررسی نقش‌های کاربر استفاده می‌کنند.
 
 ### تولید توکن LiveKit
 
@@ -102,19 +102,19 @@ var frontendFS embed.FS
 
 مستندات API به طور خودکار از حاشیه‌نویسی‌های کد با استفاده از swaggo تولید می‌شوند. در توسعه، در `/api/swagger/` در دسترس است.
 
-## پایگاه داده
+## دیتابیس
 
 ### SQLite (پیش‌فرض)
 
-برای توسعه و استقرارهای کوچک، بدرود از SQLite استفاده می‌کند. فایل پایگاه داده در `database.path` پیکربندی شده ذخیره می‌شود (پیش‌فرض: `data.db`).
+برای توسعه و استقرارهای کوچک. فایل دیتابیس در `database.path` ذخیره می‌شود (پیش‌فرض: `data.db`).
 
 ### PostgreSQL
 
-برای تولید با نیازهای همروندی بالاتر، یک رشته اتصال PostgreSQL پیکربندی کنید. GORM هر دو لهجه را به شفاف مدیریت می‌کند.
+برای production با concurrency بالا. GORM هر دو دیتابیس را شفاف مدیریت می‌کند.
 
-### مهاجرت‌ها
+### Migrationها
 
-GORM اسکیم را در شروع به صورت خودکار بر اساس ساختارهای مدل مهاجرت می‌کند. مدل‌ها در `internal/models/` تعریف شده‌اند.
+GORM schema را در شروع به‌صورت خودکار بر اساس structهای مدل migration می‌کند. مدل‌ها در `internal/models/` تعریف شده‌اند.
 
 ## کارهای پس‌زمینه
 
@@ -128,5 +128,5 @@ GORM اسکیم را در شروع به صورت خودکار بر اساس سا
 
 - [ساختار کد بک‌اند](/fa/docs/backend/structure) - نقشه دایرکتوری و استانداردهای کدنویسی
 - [هندلرهای API](/fa/docs/backend/api-handlers) - مسیریابی و چرخه عمر درخواست
-- [پایگاه داده و مدل‌ها](/fa/docs/backend/database) - مدل‌های GORM و الگوی repository
+- [دیتابیس و مدل‌ها](/fa/docs/backend/database) - مدل‌های GORM و الگوی repository
 - [جریان احراز هویت](/fa/docs/backend/authentication) - جزئیات داخلی JWT، OAuth، و کلیدهای عبور

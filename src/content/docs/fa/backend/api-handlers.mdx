@@ -1,71 +1,77 @@
 ---
-title: API Handlers
-description: REST API endpoint implementations
+title: هندلرهای API
+description: پیاده‌سازی endpointهای REST API
 order: 19
 ---
 
-Bedrud uses the **Fiber** web framework (Express-like API for Go).
+Bedrud از فریم‌ورک **Fiber** (مشابه Express برای Go) استفاده می‌کند.
 
-## Routing Logic
+## منطق مسیریابی
 
-The routes are defined in `internal/server/server.go`. We group routes to apply middleware or prefixes easily.
+مسیرها در `internal/server/server.go` تعریف شده‌اند. مسیرها به صورت گروهی سازماندهی شده‌اند تا middleware و prefixها به‌راحتی اعمال شوند.
 
-### Main Groups:
+### گروه‌های اصلی:
 
-- **`/api/auth`**: Public and protected routes for authentication.
-- **`/api/room`**: Protected routes for room management.
-- **`/api/admin`**: Routes restricted to users with the `superadmin` role.
-- **`/livekit`**: A special proxy group that sends requests to the embedded LiveKit audio/video server.
+- **`/api/auth`**: مسیرهای عمومی و محافظت‌شده برای احراز هویت.
+- **`/api/room`**: مسیرهای محافظت‌شده برای مدیریت اتاق.
+- **`/api/admin`**: مسیرهایی که فقط کاربران با نقش `superadmin` دسترسی دارند.
+- **`/livekit`**: گروه proxy ویژه که درخواست‌ها را به media server داخلی LiveKit ارسال می‌کند.
 
-## Specialized Handler Logic
+## منطق تخصصی هندلرها
 
-### Room Management (`internal/handlers/room.go`)
-The `RoomHandler` translates between Bedrud's room metadata and LiveKit's media engine.
+### مدیریت اتاق (`internal/handlers/room.go`)
 
-#### 1. Room Creation
-When a room is created via `POST /api/room/create`:
+`RoomHandler` بین متادیتای اتاق Bedrud و موتور media LiveKit ترجمه انجام می‌دهد.
 
-- **Normalization:** Room names are trimmed and lowercased.
-- **Auto-Generation:** If no name is provided, Bedrud generates a random URL-safe name (e.g., `fancy-blue-whale`).
-- **Synchronized Creation:** The backend first calls the internal LiveKit API to create the media session, then saves the metadata in the local database.
+#### ۱. ایجاد اتاق
 
-#### 2. Joining and Tokens
-When a user joins via `POST /api/room/join`:
+وقتی اتاقی از طریق `POST /api/room/create` ایجاد می‌شود:
 
-- **Access Control:** The backend checks if the room exists and if the user is authorized.
-- **Token Generation:** A signed JWT (Join Token) is generated with:
-  - `Identity`: The User ID from Bedrud.
-  - `Name`: The User's Display Name.
-  - `Grants`: Specific permissions like `CanJoin`, `CanPublish`, `CanSubscribe`.
-- **Client Handshake:** The frontend receives both the local room metadata and the LiveKit token to start the WebRTC connection.
+- **نرمال‌سازی:** نام اتاق trim و lowercase می‌شود.
+- **تولید خودکار:** اگر نامی ارائه نشود، Bedrud یک نام تصادفی امن برای URL تولید می‌کند (مثلاً `fancy-blue-whale`).
+- **ایجاد هماهنگ:** ابتدا از طریق API داخلی LiveKit جلسه media ایجاد می‌شود، سپس متادیتا در دیتابیس محلی ذخیره می‌شود.
 
-## Admin & User Management (`internal/handlers/users.go`)
-Routes under `/api/admin` are strictly guarded by the `RequireAccess("superadmin")` middleware.
+#### ۲. پیوستن و توکن‌ها
 
-### 1. User Control
-The `UsersHandler` allows administrators to:
+وقتی کاربری از طریق `POST /api/room/join` وارد می‌شود:
 
-- **List All Users:** Fetch a complete directory of registered users including their auth provider and last login metadata.
-- **Update Status:** Instantly activate or deactivate account access. Deactivating a user immediately blocks them from logging in or refreshing their tokens.
+- **کنترل دسترسی:** بررسی می‌شود که اتاق وجود داشته باشد و کاربر مجاز باشد.
+- **تولید توکن:** یک JWT امضا‌شده (Join Token) تولید می‌شود شامل:
+  - `Identity`: شناسه کاربر از Bedrud.
+  - `Name`: نام نمایشی کاربر.
+  - `Grants`: دسترسی‌های خاص مثل `CanJoin`، `CanPublish`، `CanSubscribe`.
+- **Handshake کلاینت:** frontend هم متادیتای اتاق محلی و هم توکن LiveKit را دریافت می‌کند تا اتصال WebRTC را آغاز کند.
 
-### 2. Room Overview
-Admin routes allow for listing all active and historical rooms across the entire platform, regardless of who created them. This is intended for platform moderation.
+## مدیریت کاربران و ادمین (`internal/handlers/users.go`)
 
-## Request Lifecycle
+مسیرهای `/api/admin` توسط middleware `RequireAccess("superadmin")` محافظت می‌شوند.
 
-1.  **Request arrives**: Fiber receives the HTTP request.
-2.  **Middleware**:
+### ۱. کنترل کاربران
 
-    - `recover`: Prevents the server from crashing if there is an error.
-    - `cors`: Handles Cross-Origin Resource Sharing.
-    - `Protected`: (Optional) Checks for a valid JWT in the `Authorization` header.
-3.  **Handler**: The function in `internal/handlers` is called.
+`UsersHandler` به مدیران اجازه می‌دهد:
 
-    - It parses the JSON body (if any) using `c.BodyParser`.
-    - It calls the necessary Service or Repository.
-    - It returns a JSON response using `c.JSON`.
+- **لیست همه کاربران:** دریافت دایرکتوری کامل کاربران ثبت‌نام‌شده شامل provider احراز هویت و متادیتای آخرین ورود.
+- **به‌روزرسانی وضعیت:** فعال یا غیرفعال کردن فوری حساب کاربری. غیرفعال کردن کاربر بلافاصله او را از ورود و refresh کردن توکن‌ها مسدود می‌کند.
 
-## Example: Create Room Handler
+### ۲. نمای کلی اتاق‌ها
+
+مسیرهای ادمین اجازه مشاهده همه اتاق‌های فعال و تاریخی در کل پلتفرم را می‌دهند، فارغ از اینکه چه کسی آن‌ها را ایجاد کرده. این قابلیت برای نظارت بر پلتفرم در نظر گرفته شده است.
+
+## چرخه عمر درخواست
+
+۱. **رسیدن درخواست:** Fiber درخواست HTTP را دریافت می‌کند.
+۲. **Middleware:**
+
+    - `recover`: از crash شدن سرور در صورت بروز خطا جلوگیری می‌کند.
+    - `cors`: Cross-Origin Resource Sharing را مدیریت می‌کند.
+    - `Protected`: (اختیاری) بررسی JWT معتبر در هدر `Authorization`.
+۳. **Handler:** تابع مربوطه در `internal/handlers` فراخوانی می‌شود.
+
+    - بدنه JSON را با `c.BodyParser` parse می‌کند.
+    - Service یا Repository لازم را فراخوانی می‌کند.
+    - پاسخ JSON را با `c.JSON` برمی‌گرداند.
+
+## مثال: هندلر ایجاد اتاق
 
 ```go
 func (h *RoomHandler) CreateRoom(c *fiber.Ctx) error {
@@ -88,8 +94,8 @@ func (h *RoomHandler) CreateRoom(c *fiber.Ctx) error {
 }
 ```
 
-## Static Files (Frontend)
+## فایل‌های استاتیک (Frontend)
 
-The web frontend is **embedded** in the Go binary at build time. Fiber serves the React files from the `frontend/` directory using `filesystem.New`.
+frontend وب در زمان ساخت در باینری Go **embedded** شده است. Fiber فایل‌های React را از دایرکتوری `frontend/` با استفاده از `filesystem.New` سرو می‌کند.
 
-Any route that doesn't start with `/api` is redirected to the React app's `index.html`. This enables client-side routing without 404s on page refresh.
+هر مسیری که با `/api` شروع نشود، به `index.html` اپلیکیشن React هدایت می‌شود. این کار client-side routing را بدون خطای 404 هنگام refresh صفحه فعال می‌کند.
