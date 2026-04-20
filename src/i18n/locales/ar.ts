@@ -196,10 +196,22 @@ export default {
     title: "أمر واحد. انتهى.",
     subtitle: "انسخ. الصق. يعمل. هذا هو الإعداد بالكامل.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "أو",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "يعمل على أي نظام Linux 64-بت أو macOS أو Windows بذاكرة 200 ميجابايت.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "تطبيقات أصلية، ليست أغلفة ويب",
@@ -434,6 +446,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "البدء السريع",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "تثبيت الخادم",
       "getting-started/clients": "تثبيت العملاء",
       "getting-started/configuration": "الإعداد",
@@ -501,13 +514,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "تثبيت بدرود - نشر بأمر واحد",
+      title: "تثبيت خادم بدرود - نشر بأمر واحد",
       description:
         "انشر بدرود على خادمك في أقل من دقيقة. ملف ثنائي واحد، 200 ميجابايت ذاكرة، بدون Docker.",
     },
-    title: "تثبيت بدرود",
+    title: "تثبيت خادم بدرود",
     subtitle:
-      "انشر اجتماعات الفيديو على خادمك في أقل من دقيقة. ملف ثنائي واحد، بدون تبعيات.",
+      "انشر الخادم ذاتي الاستضافة على خادمك في أقل من دقيقة. ملف ثنائي واحد، بدون تبعيات.",
   },
   blog: {
     meta: {
@@ -716,6 +729,7 @@ export default {
     server: "تثبيت الخادم",
     serverDesc: "انشر خادم بدرود على أجهزتك الخاصة.",
     serverGuide: "دليل تثبيت الخادم",
+    quickInstall: "Quick install",
     heroClientTitle: "نسخة العميل",
     heroClientDesc: "تطبيقات أصلية لسطح المكتب والهاتف لكل منصة.",
     heroServerTitle: "نسخة الخادم",

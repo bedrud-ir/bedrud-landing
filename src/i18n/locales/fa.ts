@@ -27,7 +27,7 @@ export default {
     trustBar:
       "توسط بیش از ۱۰,۰۰۰ توسعه‌دهنده و تیم نگران حریم خصوصی در سراسر جهان مورد اعتماد است.",
     installMicrocopy: "در ترمینال پیست کنید. در ۶۰ ثانیه دیپلوی کنید.",
-    tryDemo: "ورود فوری به جلسه",
+    tryDemo: "نسخه دمو را تست کنید",
     installNow: "کپی دستور نصب",
     objectionBullets: {
       screenSharing: "اشتراک‌گذاری صفحه و ضبط",
@@ -196,10 +196,22 @@ export default {
     title: "یک دستور. تمام.",
     subtitle: "کپی. جایگذاری. در حال اجرا. کل راه‌اندازی همین بود.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "یا",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "روی هر لینوکس ۶۴ بیتی، macOS یا ویندوز با ۵۱۲ مگابایت رم کار می‌کند.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "اپلیکیشن‌های بومی، نه مرورگر وب",
@@ -672,7 +684,8 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "شروع سریع",
-      "getting-started/installation": "نصب سرور",
+      "getting-started/cli-installer": "CLI Installer",
+      "getting-started/installation": "نصب روی سرور",
       "getting-started/clients": "نصب کلاینت",
       "getting-started/configuration": "پیکربندی",
       "getting-started/cli-reference": "مرجع CLI",
@@ -709,13 +722,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "نصب بدرود - دیپلوی با یک دستور",
+      title: "نصب روی سرور بدرود - دیپلوی با یک دستور",
       description:
         "بدرود را در کمتر از یک دقیقه روی سرور خود دیپلوی کنید. باینری واحد، ۵۱۲ مگابایت RAM، بدون نیاز به Docker.",
     },
-    title: "نصب بدرود",
+    title: "نصب روی سرور بدرود",
     subtitle:
-      "جلسات ویدیویی را در کمتر از یک دقیقه روی سرور خود دیپلوی کنید. یک باینری، بدون وابستگی.",
+      "سرور خودمیزبان بدرود را در کمتر از یک دقیقه روی سرور خود دیپلوی کنید. یک باینری، بدون وابستگی.",
   },
   blog: {
     meta: {
@@ -763,9 +776,10 @@ export default {
       "هر لینک جلسه‌ای را در Chrome، Firefox، Edge یا Safari باز کنید. دانلودی لازم نیست.",
     tryDemo: "امتحان دموی زنده",
     otherPlatforms: "مشاهده همه پلتفرم‌ها و مدیران بسته",
-    server: "نصب سرور",
+    server: "نصب روی سرور",
     serverDesc: "سرور Bedrud را روی سخت‌افزار خودتان دیپلوی کنید.",
-    serverGuide: "راهنمای نصب سرور",
+    serverGuide: "راهنمای نصب روی سرور",
+    quickInstall: "Quick install",
     heroClientTitle: "نسخه کلاینت",
     heroClientDesc: "اپلیکیشن‌های بومی دسکتاپ و موبایل برای هر پلتفرم.",
     heroServerTitle: "نسخه سرور",

@@ -195,10 +195,22 @@ export default {
     title: "一条命令。完成。",
     subtitle: "复制。粘贴。运行。安装完成。",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "或",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "支持任何 64 位 Linux、macOS 或 Windows，512MB 内存（空闲时约 200MB）。",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "原生应用，不是网页套壳",
@@ -461,6 +473,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "快速入门",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "服务器安装",
       "getting-started/clients": "客户端安装",
       "getting-started/configuration": "配置",
@@ -498,13 +511,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "安装 Bedrud - 一条命令完成部署",
+      title: "安装 Bedrud Server - 一条命令完成部署",
       description:
         "在不到一分钟内将 Bedrud 部署到你的服务器。单个二进制文件，512MB 内存，无需 Docker。",
     },
-    title: "安装 Bedrud",
+    title: "安装 Bedrud Server",
     subtitle:
-      "在不到一分钟内将视频会议部署到你的服务器。一个二进制文件，零依赖。",
+      "在不到一分钟内将自托管服务器部署到你的服务器。一个二进制文件，零依赖。",
   },
   downloadPage: {
     meta: {
@@ -531,6 +544,7 @@ export default {
     server: "服务器安装",
     serverDesc: "在你自己的硬件上部署 Bedrud 服务器。",
     serverGuide: "服务器安装指南",
+    quickInstall: "Quick install",
     heroClientTitle: "客户端版本",
     heroClientDesc: "适用于每个平台的原生桌面和移动应用。",
     heroServerTitle: "服务器版本",

@@ -177,9 +177,21 @@ export default {
     title: "Одна команда. Готово.",
     subtitle: "Одна команда. Шестьдесят секунд. Вы внутри.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "или",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements: "Работает на 64-битных Linux, macOS, Windows с 512 МБ ОЗУ.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Нативные приложения, не веб-обертки",
@@ -616,6 +628,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Быстрый старт",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Установка сервера",
       "getting-started/clients": "Установка клиентов",
       "getting-started/configuration": "Конфигурация",
@@ -653,11 +666,12 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Установка Bedrud - Развертывание одной командой",
+      title: "Установка Bedrud Server - Развертывание одной командой",
       description: "Разверните Bedrud менее чем за минуту. Один бинарник.",
     },
-    title: "Установка Bedrud",
-    subtitle: "Разверните видеовстречи на сервере менее чем за минуту.",
+    title: "Установка Bedrud Server",
+    subtitle:
+      "Разверните self-hosted сервер на вашем сервере менее чем за минуту.",
   },
   downloadPage: {
     meta: {
@@ -688,6 +702,7 @@ export default {
     server: "Установка сервера",
     serverDesc: "Разверните сервер Bedrud на своем оборудовании.",
     serverGuide: "Руководство по серверу",
+    quickInstall: "Quick install",
     heroClientTitle: "Клиент",
     heroClientDesc: "Нативные десктопные и мобильные приложения.",
     heroServerTitle: "Сервер",

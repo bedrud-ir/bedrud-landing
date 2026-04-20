@@ -197,10 +197,22 @@ export default {
     title: "Ein Befehl. Fertig.",
     subtitle: "Kopieren. Einfügen. Läuft. Das war's.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "oder",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "Funktioniert auf jedem 64-Bit Linux, macOS oder Windows mit 512MB RAM (~200MB idle).",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Native Apps, keine Web-Wrapper",
@@ -465,6 +477,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Schnellstart",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Server-Installation",
       "getting-started/clients": "Client-Installation",
       "getting-started/configuration": "Konfiguration",
@@ -502,13 +515,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Bedrud installieren - Bereitstellung mit einem Befehl",
+      title: "Bedrud Server installieren - Bereitstellung mit einem Befehl",
       description:
         "Stellen Sie Bedrud in unter einer Minute auf Ihrem Server bereit. Einzelne Binärdatei, 512MB RAM, kein Docker erforderlich.",
     },
-    title: "Bedrud installieren",
+    title: "Bedrud Server installieren",
     subtitle:
-      "Stellen Sie Videokonferenzen in unter einer Minute auf Ihrem Server bereit. Eine Binärdatei, null Abhängigkeiten.",
+      "Stellen Sie den selbstgehosteten Bedrud Server in unter einer Minute auf Ihrem Server bereit. Eine Binärdatei, null Abhängigkeiten.",
   },
   downloadPage: {
     meta: {
@@ -537,6 +550,7 @@ export default {
     server: "Server-Installation",
     serverDesc: "Bedrud-Server auf eigener Hardware bereitstellen.",
     serverGuide: "Server-Installationsanleitung",
+    quickInstall: "Quick install",
     heroClientTitle: "Client Version",
     heroClientDesc: "Native Desktop- und Mobile-Apps für jede Plattform.",
     heroServerTitle: "Server-Version",

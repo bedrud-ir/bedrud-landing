@@ -178,10 +178,22 @@ export default {
     title: "One Command. Done.",
     subtitle: "One command. Sixty seconds. You're in.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "or",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "Works on any 64-bit Linux, macOS, or Windows machine with 512MB RAM (~200MB idle).",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Native Apps, Not Web Wrappers",
@@ -654,6 +666,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Quick Start",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Server Installation",
       "getting-started/clients": "Client Installation",
       "getting-started/configuration": "Configuration",
@@ -691,13 +704,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Install Bedrud - One Command Deployment",
+      title: "Install Bedrud Server - One Command Deployment",
       description:
         "Deploy Bedrud on your server in under a minute. Single binary, 512MB RAM, no Docker required.",
     },
-    title: "Install Bedrud",
+    title: "Install Bedrud Server",
     subtitle:
-      "Deploy video meetings on your server in under a minute. One binary, zero dependencies.",
+      "Deploy the self-hosted server on your own hardware. One binary, zero dependencies.",
   },
   downloadPage: {
     meta: {
@@ -729,6 +742,7 @@ export default {
     server: "Server Installation",
     serverDesc: "Deploy the Bedrud server on your own hardware.",
     serverGuide: "Server installation guide",
+    quickInstall: "Quick install",
     heroClientTitle: "Client Version",
     heroClientDesc: "Native desktop and mobile apps for every platform.",
     heroServerTitle: "Server Version",

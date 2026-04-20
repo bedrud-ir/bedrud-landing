@@ -196,10 +196,22 @@ export default {
     title: "1つのコマンド。完了。",
     subtitle: "コピー。ペースト。実行中。セットアップはこれだけ。",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "または",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "任意の64ビット Linux、macOS、Windowsで動作。512MB RAMのみ必要。",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Webラッパーではないネイティブアプリ",
@@ -433,6 +445,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "クイックスタート",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "サーバーインストール",
       "getting-started/clients": "クライアントインストール",
       "getting-started/configuration": "設定",
@@ -470,13 +483,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "インストール - Bedrud - ワンコマンドデプロイ",
+      title: "Bedrud Server のインストール - ワンコマンドデプロイ",
       description:
         "Bedrud をサーバーに1分以内でデプロイ。単一バイナリ、512MB RAM、Docker 不要。",
     },
-    title: "Bedrud をインストール",
+    title: "Bedrud Server をインストール",
     subtitle:
-      "サーバーにビデオ会議を1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
+      "サーバーにself-hostedサーバーを1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
   },
   downloadPage: {
     meta: {
@@ -508,6 +521,7 @@ export default {
     server: "サーバーインストール",
     serverDesc: "自前ハードウェアにBedrudサーバーをデプロイ。",
     serverGuide: "サーバーインストールガイド",
+    quickInstall: "Quick install",
     heroClientTitle: "クライアント版",
     heroClientDesc:
       "全プラットフォーム向けネイティブデスクトップ & モバイルアプリ。",

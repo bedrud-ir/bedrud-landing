@@ -197,10 +197,22 @@ export default {
     title: "Un comando. Listo.",
     subtitle: "Copia. Pega. Funcionando. Eso es todo.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "o",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "Funciona en cualquier Linux de 64 bits, macOS o Windows con 512MB RAM (~200MB idle).",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Apps nativas, no wrappers",
@@ -434,6 +446,7 @@ export default {
     diagramError: "Error al renderizar diagrama",
     sidebarItems: {
       "getting-started/quickstart": "Inicio rápido",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Instalación del servidor",
       "getting-started/clients": "Instalación de clientes",
       "getting-started/configuration": "Configuración",
@@ -471,13 +484,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Instalar Bedrud - Despliegue en un comando",
+      title: "Instalar Bedrud Server - Despliegue en un comando",
       description:
         "Despliega Bedrud en tu servidor en menos de un minuto. Un solo binario, 512MB RAM, sin Docker.",
     },
-    title: "Instalar Bedrud",
+    title: "Instalar Bedrud Server",
     subtitle:
-      "Despliega videoconferencias en tu servidor en menos de un minuto. Un binario, cero dependencias.",
+      "Despliega el servidor self-hosted en tu servidor en menos de un minuto. Un binario, cero dependencias.",
   },
   downloadPage: {
     meta: {
@@ -505,6 +518,7 @@ export default {
     server: "Instalación del servidor",
     serverDesc: "Despliega el servidor Bedrud en tu propio hardware.",
     serverGuide: "Guía de instalación del servidor",
+    quickInstall: "Quick install",
     heroClientTitle: "Versión de cliente",
     heroClientDesc:
       "Aplicaciones nativas de escritorio y móvil para cada plataforma.",

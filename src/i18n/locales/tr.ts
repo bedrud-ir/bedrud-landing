@@ -198,10 +198,22 @@ export default {
     title: "Tek Komut. Bitti.",
     subtitle: "Kopyala. Yapıştır. Çalışıyor. Kurulum bu kadar.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "veya",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "512MB RAM ile herhangi bir 64-bit Linux, macOS veya Windows'ta çalışır.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Web Sarıcı Değil, Yerel Uygulamalar",
@@ -467,6 +479,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Hızlı Başlangıç",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Sunucu Kurulumu",
       "getting-started/clients": "İstemci Kurulumu",
       "getting-started/configuration": "Yapılandırma",
@@ -504,13 +517,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Kurulum - Bedrud - Tek Komutla Dağıtım",
+      title: "Bedrud Server Kurulumu - Tek Komutla Dağıtım",
       description:
         "Bedrud'u sunucunuza bir dakikadan kısa sürede dağıtın. Tek binary, 512MB RAM, Docker gerektirmez.",
     },
-    title: "Bedrud'u Kurun",
+    title: "Bedrud Server'ı Kurun",
     subtitle:
-      "Sunucunuza video toplantılarını bir dakikadan kısa sürede dağıtın. Tek binary, sıfır bağımlılık.",
+      "Sunucunuza self-hosted Bedrud sunucusunu bir dakikadan kısa sürede dağıtın. Tek binary, sıfır bağımlılık.",
   },
   blog: {
     meta: {
@@ -775,6 +788,7 @@ export default {
     server: "Sunucu Kurulumu",
     serverDesc: "Bedrud sunucusunu kendi donanımınıza dağıtın.",
     serverGuide: "Sunucu kurulum kılavuzu",
+    quickInstall: "Quick install",
     heroClientTitle: "İstemci Sürümü",
     heroClientDesc: "Her platform için yerel masaüstü ve mobil uygulamalar.",
     heroServerTitle: "Sunucu Sürümü",
