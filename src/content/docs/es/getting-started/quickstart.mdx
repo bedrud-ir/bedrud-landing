@@ -6,7 +6,18 @@ order: 1
 
 Implementa Bedrud y únete a una reunión de video en menos de 5 minutos.
 
-**Esta guía:** Descargar → Instalar → Verificar → Unirse. Para alternativas, consulta [Instalación](/es/docs/getting-started/installation). Para configuración, consulta [Configuración](/es/docs/getting-started/configuration).
+**En esta guía:**
+
+1. **Obtener la CLI** — instalación en un solo comando (o descarga manual)
+2. **Implementar el servidor** — `bedrud install` configura todo
+3. **Verificar** — confirma que los servicios están en ejecución
+4. **Crear administrador y unirse** — abre el navegador, promuévete a administrador, inicia la reunión
+
+**Más información:**
+
+- [CLI Installer](/es/docs/getting-started/cli-installer) — flags, plataformas, instalaciones sin conexión
+- [Instalación](/es/docs/getting-started/installation) — gestores de paquetes, Docker, opciones avanzadas
+- [Configuración](/es/docs/getting-started/configuration) — puertos, base de datos, autenticación, TURN
 
 > **Un solo binario, sin internet necesario después de la descarga.** Incluye un servidor de medios integrado y SQLite: funciona en redes aisladas. Transfiere el archivo, ejecuta un comando, listo.
 
@@ -16,30 +27,78 @@ Implementa Bedrud y únete a una reunión de video en menos de 5 minutos.
 
 | Requisito | Detalles |
 |-----------|---------|
-| Un servidor Linux | amd64, con acceso `sudo` y `systemd`. Windows: Docker o WSL2. macOS: compilar desde el código fuente |
+| Un servidor Linux | amd64 o arm64, con acceso `sudo` y `systemd`. macOS/Windows: usa Docker o WSL2 para el servidor |
 | Puertos abiertos | `8090`, `7880`, `50000–60000/udp`. Para TLS automático: también `80` y `443` |
-| Herramientas | `curl`, `tar` |
 | Un dominio (opcional) | Con registro DNS A que apunte a tu servidor. ¿Sin dominio? Funciona con IP - consulta las alternativas a continuación |
 
 > **Cómo funciona:** Ejecutas un **servidor** Bedrud. Las personas se unen a reuniones en su **navegador** (sin instalación) o a través de **aplicaciones nativas** (Android, Windows, macOS, Linux).
 
 ---
 
-## 1. Descargar
+## 1. Obtener la CLI de Bedrud
 
-```bash
-curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
-tar -xJf bedrud.tar.xz
-chmod +x bedrud
-```
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="macos-linux">macOS / Linux</TabsTrigger>
+    <TabsTrigger value="windows">Windows (PowerShell)</TabsTrigger>
+    <TabsTrigger value="manual">Descarga manual</TabsTrigger>
+  </TabsList>
+  <TabsContent value="macos-linux">
 
-> **¿Sin internet en el servidor?** Descarga en cualquier máquina, transfiere vía USB o `scp bedrud.tar.xz usuario@servidor:/tmp/`, luego extrae allí. El binario es completamente autónomo: cero solicitudes salientes después de la transferencia.
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
 
-> **¿La descarga falló?** Verifica el acceso a internet, o verifica la URL en [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+    Recarga tu shell después de la instalación:
+
+    ```bash
+    source ~/.bashrc  # o ~/.zshrc
+    ```
+
+    Verifica:
+
+    ```bash
+    bedrud --version
+    ```
+
+    Para flags (`--version`, `--install-dir`, `--skip-shell`, instalaciones sin conexión), consulta [CLI Installer](/es/docs/getting-started/cli-installer).
+  </TabsContent>
+  <TabsContent value="windows">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+    Cierra y vuelve a abrir tu terminal, luego verifica:
+
+    ```powershell
+    bedrud --version
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+
+    Descarga y extrae manualmente. Reemplaza `linux_amd64` con tu plataforma (`linux_arm64`, `darwin_amd64`, `darwin_arm64`):
+
+    ```bash
+    curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
+    tar -xJf bedrud.tar.xz
+    chmod +x bedrud
+    sudo mv bedrud /usr/local/bin/
+    ```
+
+    Para todas las plataformas, consulta [CLI Installer](/es/docs/getting-started/cli-installer#platform-targets).
+
+    > **¿Sin internet en el servidor?** Descarga en cualquier máquina, transfiere vía USB o `scp bedrud.tar.xz usuario@servidor:/tmp/`, luego extrae allí. El binario es completamente autónomo: cero solicitudes salientes después de la transferencia.
+
+    > **¿La descarga falló?** Verifica el acceso a internet, o verifica la URL en [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+  </TabsContent>
+</Tabs>
 
 ---
 
-## 2. Instalar
+## 2. Implementar el servidor
+
+> **La configuración del servidor requiere Linux con systemd.** macOS y Windows no soportan `bedrud install` directamente — usa [Docker](#docker) o [WSL2](#sistemas-no-linux) en su lugar.
 
 Reemplaza `meet.example.com` y `admin@example.com` con tus valores:
 
@@ -47,7 +106,7 @@ Reemplaza `meet.example.com` y `admin@example.com` con tus valores:
 sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-Instala el binario, genera configuración, crea servicios systemd, aprovisiona TLS, inicia todo.
+Instala el binario del servidor en `/usr/local/bin`, genera configuración, crea servicios systemd, aprovisiona TLS, inicia todo.
 
 > **¿Puerto 80 o 443 ocupado?** Detén servicios en conflicto: `sudo systemctl stop nginx apache2 caddy`, luego vuelve a ejecutar.
 
@@ -126,12 +185,13 @@ sudo ./bedrud install --ip 127.0.0.1
 
 ### Sistemas No Linux
 
-El comando `install` es solo para Linux. Coloca el binario en PATH manualmente:
+El comando `bedrud install` configura servicios systemd y es solo para Linux. El instalador CLI (paso 1) funciona en cualquier plataforma y coloca el binario en PATH. Para la configuración del servidor, usa Docker o WSL2.
 
-| SO      | Cómo                                       |
-|---------|-------------------------------------------|
-| macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | Mueve `bedrud.exe` a una carpeta en `%PATH%` |
+| SO      | Cómo                                                     |
+|---------|---------------------------------------------------------|
+| macOS   | El instalador CLI se instala automáticamente en `~/bin/`                 |
+| Windows | El instalador CLI se instala automáticamente en `%USERPROFILE%\bin\`     |
+| Docker  | Funciona en cualquier SO con Docker (ver arriba)                 |
 
 ---
 
@@ -187,9 +247,10 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## Próximos Pasos
 
-- [Referencia de Configuración](/es/docs/getting-started/configuration) - puertos, base de datos, proveedores de autenticación, TURN
-- [Guía de Instalación](/es/docs/getting-started/installation) - gestores de paquetes, indicadores avanzados, todos los métodos
-- [Guía de TLS Interno](/es/docs/guides/internal-tls) - implementación aislada, CA privada
-- [Guía de Implementación](/es/docs/guides/deployment) - configuración de producción, proxy inverso, escalado
-- [Visión General de la Arquitectura](/es/docs/architecture/overview) - cómo encajan las piezas
-- [Documentación de API](http://localhost:8090/api/swagger) - Swagger UI (instancia en ejecución)
+- [Referencia del CLI Installer](/es/docs/getting-started/cli-installer) — flags, plataformas, instalaciones sin conexión, solución de problemas
+- [Referencia de Configuración](/es/docs/getting-started/configuration) — puertos, base de datos, proveedores de autenticación, TURN
+- [Guía de Instalación](/es/docs/getting-started/installation) — gestores de paquetes, Docker, indicadores avanzados
+- [Guía de TLS Interno](/es/docs/guides/internal-tls) — implementación aislada, CA privada
+- [Guía de Implementación](/es/docs/guides/deployment) — configuración de producción, proxy inverso, escalado
+- [Visión General de la Arquitectura](/es/docs/architecture/overview) — cómo encajan las piezas
+- [Documentación de API](http://localhost:8090/api/swagger) — Swagger UI (instancia en ejecución)

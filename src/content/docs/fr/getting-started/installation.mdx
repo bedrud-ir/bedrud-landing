@@ -25,7 +25,50 @@ Ce guide couvre l'installation du **serveur Bedrud** (API, interface web, serveu
 
 ---
 
-## 1. Installation via gestionnaire de packages
+## 1. Installation en une commande (Recommandé)
+
+Télécharge et installe le binaire CLI Bedrud dans votre PATH. Fonctionne sous Linux, macOS et Windows.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Rechargez votre shell après l'installation :
+
+    ```bash
+    source ~/.bashrc  # ou ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Vérifiez :
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    Personnalisez l'installation ? Utilisez les flags comme `--version 0.12.0`, `--install-dir /opt/bedrud` ou `--skip-shell`. Référence complète : [CLI Installer](/fr/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Installation via gestionnaire de packages
 
 Installez via le gestionnaire de packages de votre distribution.
 
@@ -81,7 +124,7 @@ Installez via le gestionnaire de packages de votre distribution.
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Exécutez Bedrud dans un conteneur - pas de configuration de serveur Linux, pas de systemd, pas de téléchargement de binaire.
 
@@ -147,7 +190,7 @@ Documentation Docker complète incluant les volumes, le reverse proxy et la conf
 
 ---
 
-## 3. Installation interactive
+## 4. Installation interactive
 
 Si vous avez déjà le binaire `bedrud` sur le serveur :
 
@@ -168,7 +211,7 @@ Toutes les invites sont ignorées lorsque stdin est redirigé (mode non interact
 
 ---
 
-## 4. Non interactif (basé sur des drapeaux)
+## 5. Non interactif (basé sur des drapeaux)
 
 Ignorez toutes les invites en passant des drapeaux.
 
@@ -281,7 +324,7 @@ Utile lorsque le domaine principal est derrière Cloudflare mais que les médias
 
 ---
 
-## 5. Entièrement automatisé (CLI Python)
+## 6. Entièrement automatisé (CLI Python)
 
 Construisez, téléchargez et configurez votre serveur depuis votre machine locale.
 

@@ -25,7 +25,50 @@ This guide covers installing the **Bedrud server** (API, web UI, WebRTC media se
 
 ---
 
-## 1. Package Manager Install
+## 1. One-Command Install (Recommended)
+
+Downloads and installs the Bedrud CLI binary to your PATH. Works on Linux, macOS, and Windows.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Reload your shell after install:
+
+    ```bash
+    source ~/.bashrc  # or ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Verify:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    Want to customize the install? Use flags like `--version 0.12.0`, `--install-dir /opt/bedrud`, or `--skip-shell`. Full reference: [CLI Installer](/en/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Package Manager Install
 
 Install via your distribution's package manager.
 
@@ -81,7 +124,7 @@ Install via your distribution's package manager.
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Run Bedrud in a container - no Linux server setup, no systemd, no binary download.
 
@@ -147,7 +190,7 @@ Full Docker documentation including volumes, reverse proxy, and TLS setup: [Dock
 
 ---
 
-## 3. Interactive Install
+## 4. Interactive Install
 
 If you already have the `bedrud` binary on the server:
 
@@ -168,7 +211,7 @@ All prompts are skipped when stdin is piped (non-interactive mode) - flags and d
 
 ---
 
-## 4. Non-Interactive (Flag-Based)
+## 5. Non-Interactive (Flag-Based)
 
 Skip all prompts by passing flags.
 
@@ -281,7 +324,7 @@ Useful when the main domain is behind Cloudflare but WebRTC media needs a direct
 
 ---
 
-## 5. Fully Automated (Python CLI)
+## 6. Fully Automated (Python CLI)
 
 Build, upload, and configure your server from your local machine.
 

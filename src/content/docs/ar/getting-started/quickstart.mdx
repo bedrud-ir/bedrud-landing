@@ -6,7 +6,18 @@ order: 1
 
 انشر بدرود وانضم إلى اجتماع فيديو في أقل من ٥ دقائق.
 
-**هذا الدليل:** تنزيل ← تثبيت ← تحقق ← انضمام. للبدائل راجع [التثبيت](/ar/docs/getting-started/installation). للتهيئة راجع [التهيئة](/ar/docs/getting-started/configuration).
+**في هذا الدليل:**
+
+١. **الحصول على CLI** — تثبيت بأمر واحد (أو تنزيل يدوي)
+٢. **نشر الخادم** — `bedrud install` يُعدّ كل شيء
+٣. **التحقق** — تأكيد عمل الخدمات
+٤. **إنشاء مدير والانضمام** — افتح المتصفح، رقِّ نفسك، ابدأ الاجتماع
+
+**مزيد من المعلومات:**
+
+- [مُثبّت CLI](/ar/docs/getting-started/cli-installer) — المعاملات، المنصات، التثبيت دون اتصال
+- [تثبيت الخادم](/ar/docs/getting-started/installation) — مديرو الحزم، Docker، خيارات متقدمة
+- [التهيئة](/ar/docs/getting-started/configuration) — المنافذ، قاعدة البيانات، المصادقة، TURN
 
 > **ملف ثنائي واحد، لا حاجة للإنترنت بعد التنزيل.** يتضمن خادم وسائط مدمج و SQLite - يعمل على الشبكات المعزولة. انقل الملف، شغّل أمراً واحداً، انتهى.
 
@@ -16,44 +27,92 @@ order: 1
 
 | المتطلب | التفاصيل |
 |---------|----------|
-| خادم لينكس | amd64، مع وصول `sudo` و `systemd`. وندوز: Docker أو WSL2. macOS: البناء من المصدر |
+| خادم لينكس | amd64 أو arm64، مع وصول `sudo` و `systemd`. macOS/Windows: استخدم Docker أو WSL2 للخادم |
 | منافذ مفتوحة | `8090`، `7880`، `50000–60000/udp`. لـ TLS التلقائي: أيضاً `80` و `443` |
-| الأدوات | `curl`، `tar` |
 | نطاق (اختياري) | مع سجل DNS A يشير إلى خادمك. لا تملك نطاقاً؟ يعمل مع IP - راجع البدائل أدناه |
 
 > **كيف يعمل:** تشغّل خادم **بدرود** واحداً. ينضم الأشخاص للاجتماعات في **متصفحهم** (بدون تثبيت) أو عبر **تطبيقات أصلية** (Android، Windows، macOS، Linux).
 
 ---
 
-## ١. التنزيل
+## ١. الحصول على CLI بِدْرود
 
-```bash
-curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
-tar -xJf bedrud.tar.xz
-chmod +x bedrud
-```
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="macos-linux">macOS / Linux</TabsTrigger>
+    <TabsTrigger value="windows">Windows (PowerShell)</TabsTrigger>
+    <TabsTrigger value="manual">تنزيل يدوي</TabsTrigger>
+  </TabsList>
+  <TabsContent value="macos-linux">
 
-> **لا إنترنت على الخادم؟** نزّل على أي جهاز، انقل عبر USB أو `scp bedrud.tar.xz user@server:/tmp/`، ثم فك الضغط هناك. الملف الثنائي مكتفٍ ذاتياً - صفر طلبات صادرة بعد النقل.
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
 
-> **فشل التنزيل؟** تحقق من الوصول للإنترنت، أو تأكد من الرابط في [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+    أعد تحميل الصدفة بعد التثبيت:
+
+    ```bash
+    source ~/.bashrc  # أو ~/.zshrc
+    ```
+
+    تحقّق:
+
+    ```bash
+    bedrud --version
+    ```
+
+    للمعاملات (`--version`، `--install-dir`، `--skip-shell`، التثبيت دون اتصال)، راجع [مُثبّت CLI](/ar/docs/getting-started/cli-installer).
+  </TabsContent>
+  <TabsContent value="windows">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+    أغلق Terminal وأعد فتحه، ثم تحقّق:
+
+    ```powershell
+    bedrud --version
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+
+    نزّل واستخرج يدوياً. استبدل `linux_amd64` بمنصتك (`linux_arm64`، `darwin_amd64`، `darwin_arm64`):
+
+    ```bash
+    curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
+    tar -xJf bedrud.tar.xz
+    chmod +x bedrud
+    sudo mv bedrud /usr/local/bin/
+    ```
+
+    لجميع المنصات المستهدفة، راجع [مُثبّت CLI](/ar/docs/getting-started/cli-installer#platform-targets).
+
+    > **لا إنترنت على الخادم؟** نزّل على أي جهاز، انقل عبر USB أو `scp bedrud.tar.xz user@server:/tmp/`، ثم استخرج هناك. الملف الثنائي مكتفٍ ذاتياً - صفر طلبات صادرة بعد النقل.
+
+    > **فشل التنزيل؟** تحقق من الوصول للإنترنت، أو تأكد من الرابط في [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+  </TabsContent>
+</Tabs>
 
 ---
 
-## ٢. التثبيت
+## ٢. نشر الخادم
+
+> **إعداد الخادم يتطلب لينكس مع systemd.** macOS و Windows لا يدعمان `bedrud install` مباشرة - استخدم [Docker](#docker) أو [WSL2](#أنظمة-غير-لينكس) بدلاً من ذلك.
 
 استبدل `meet.example.com` و `admin@example.com` بقيمك:
 
 ```bash
-sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
+sudo bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-يثبّت الملف الثنائي، يولّد التهيئة، ينشئ خدمات systemd، يوفّر TLS، ويبدأ كل شيء.
+يثبّت الملف الثنائي في `/usr/local/bin`، يولّد التهيئة، ينشئ خدمات systemd، يوفّر TLS، ويبدأ كل شيء.
 
 > **المنفذ 80 أو 443 مشغول؟** أوقف الخدمات المتعارضة: `sudo systemctl stop nginx apache2 caddy`، ثم أعد التشغيل.
 
 > **لا تملك نطاقاً؟** استخدم IP الخادم بدلاً من ذلك:
 > ```bash
-> sudo ./bedrud install --tls --ip 1.2.3.4
+> sudo bedrud install --tls --ip 1.2.3.4
 > ```
 > يستخدم شهادة موقّعة ذاتياً. ستحذر المتصفحات لكن الفيديو يعمل. لشهادات موثوقة على الشبكات الداخلية، راجع [دليل TLS الداخلي](/ar/docs/guides/internal-tls).
 
@@ -77,12 +136,12 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:8090
 
 <CreateAdmin createOption />
 
-٣. سجّل الدخول (أو حدّث) - يظهر قسم **Admin** في الشريط الجانبي (نظرة عامة، المستخدمون، الغرف، الإعدادات). نجاح: أنت مدير.
-٤. **أنشئ غرفة** ← **انضم** ← **شارك الفيديو/الصوت** - امنح أذونات الكاميرا/الميكروفون عند الطلب
+١. سجّل الدخول (أو حدّث) — يظهر قسم **Admin** في الشريط الجانبي (نظرة عامة، المستخدمون، الغرف، الإعدادات). نجاح: أنت مدير.
+٢. **أنشئ غرفة** ← **انضم** ← **شارك الفيديو/الصوت** — امنح أذونات الكاميرا/الميكروفون عند الطلب
 
-> **لوحة تحكم المدير** - بعد الترقية، سجّل الدخول للوصول إلى لوحة المدير في `/dashboard/admin`. إدارة المستخدمين والغرف وإعدادات النظام ورموز الدعوة.
+> **لوحة تحكم المدير** — بعد الترقية، سجّل الدخول للوصول إلى لوحة المدير في `/dashboard/admin`. إدارة المستخدمين والغرف وإعدادات النظام ورموز الدعوة.
 
-> **مرجع CLI** - إدارة كاملة للمستخدمين: `bedrud user promote`، `demote`، `create`، `delete`.
+> **مرجع CLI** — إدارة كاملة للمستخدمين: `bedrud user promote`، `demote`، `create`، `delete`.
 
 **العملاء الأصليون** لـ Android، Windows، macOS، و Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). أو شارك رابط الاجتماع - ينضم المشاركون في أي متصفح.
 
@@ -119,19 +178,20 @@ make local-run
 ### HTTP عادي (للتطوير / localhost فقط)
 
 ```bash
-sudo ./bedrud install --ip 127.0.0.1
+sudo bedrud install --ip 127.0.0.1
 ```
 
 > **تحذير:** تمنع المتصفحات الكاميرا/الميكروفون على غير HTTPS باستثناء `localhost`. HTTP للتطوير فقط.
 
 ### أنظمة غير لينكس
 
-أمر `install` للينكس فقط. ضع الملف الثنائي في PATH يدوياً:
+أمر `bedrud install` يُعدّ خدمات systemd وهو مخصص للينكس فقط. مُثبّت CLI (الخطوة ١) يعمل على جميع المنصات ويضع الملف الثنائي في PATH. لإعداد الخادم، استخدم Docker أو WSL2.
 
 | نظام التشغيل | الطريقة |
 |--------------|---------|
-| macOS   | `sudo cp bedrud /usr/local/bin/` |
-| Windows | انقل `bedrud.exe` إلى مجلد في `%PATH%` |
+| macOS | مُثبّت CLI يُثبّت تلقائياً في `~/bin/` |
+| Windows | مُثبّت CLI يُثبّت تلقائياً في `%USERPROFILE%\bin\` |
+| Docker | يعمل على أي نظام تشغيل مع Docker (انظر أعلاه) |
 
 ---
 
@@ -174,7 +234,7 @@ sudo systemctl restart bedrud livekit
 
 ```bash
 # تثبيت ثنائي
-sudo ./bedrud uninstall
+sudo bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
@@ -187,9 +247,10 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## الخطوات التالية
 
-- [مرجع التهيئة](/ar/docs/getting-started/configuration) - المنافذ، قاعدة البيانات، مزوّدو المصادقة، TURN
-- [دليل التثبيت](/ar/docs/getting-started/installation) - مديرو الحزم، العلامات المتقدمة، جميع الطرق
-- [دليل TLS الداخلي](/ar/docs/guides/internal-tls) - النشر المعزول، CA خاص
-- [دليل النشر](/ar/docs/guides/deployment) - إعداد الإنتاج، البروكسي العكسي، التوسع
-- [نظرة عامة على البنية](/ar/docs/architecture/overview) - كيف تتلاءم الأجزاء معاً
-- [وثائق API](http://localhost:8090/api/swagger) - Swagger UI (نسخة تعمل)
+- [مرجع مُثبّت CLI](/ar/docs/getting-started/cli-installer) — المعاملات، المنصات المستهدفة، التثبيت دون اتصال، استكشاف الأخطاء
+- [مرجع التهيئة](/ar/docs/getting-started/configuration) — المنافذ، قاعدة البيانات، مزوّدو المصادقة، TURN
+- [دليل التثبيت](/ar/docs/getting-started/installation) — مديرو الحزم، Docker، العلامات المتقدمة
+- [دليل TLS الداخلي](/ar/docs/guides/internal-tls) — النشر المعزول، CA خاص
+- [دليل النشر](/ar/docs/guides/deployment) — إعداد الإنتاج، البروكسي العكسي، التوسع
+- [نظرة عامة على البنية](/ar/docs/architecture/overview) — كيف تتلاءم الأجزاء معاً
+- [وثائق API](http://localhost:8090/api/swagger) — Swagger UI (نسخة تعمل)

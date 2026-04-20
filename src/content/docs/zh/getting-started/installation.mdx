@@ -25,7 +25,50 @@ order: 2
 
 ---
 
-## 1. 包管理器安装
+## 1. 一键安装（推荐）
+
+下载并安装 Bedrud CLI 二进制文件到您的 PATH。支持 Linux、macOS 和 Windows。
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    安装后重新加载 shell：
+
+    ```bash
+    source ~/.bashrc  # 或 ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+验证：
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    自定义安装？使用 `--version 0.12.0`、`--install-dir /opt/bedrud` 或 `--skip-shell` 等参数。完整参考：[CLI 安装程序](/zh/docs/getting-started/cli-installer)。
+</Callout>
+
+---
+
+## 2. 包管理器安装
 
 通过发行版的包管理器安装。
 
@@ -81,7 +124,7 @@ order: 2
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 在容器中运行 Bedrud - 无需 Linux 服务器配置、无需 systemd、无需下载二进制文件。
 
@@ -147,7 +190,7 @@ docker run -d --name bedrud \
 
 ---
 
-## 3. 交互式安装
+## 4. 交互式安装
 
 如果服务器上已有 `bedrud` 二进制文件：
 
@@ -168,7 +211,7 @@ sudo ./bedrud install
 
 ---
 
-## 4. 非交互式（基于标志）
+## 5. 非交互式（基于标志）
 
 通过传入标志跳过所有提示。
 
@@ -281,7 +324,7 @@ sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 
 ---
 
-## 5. 全自动部署（Python CLI）
+## 6. 全自动部署（Python CLI）
 
 从本地机器构建、上传并配置服务器。
 

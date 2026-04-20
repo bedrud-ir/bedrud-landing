@@ -25,7 +25,50 @@ Esta guía cubre la instalación del **servidor Bedrud** (API, interfaz web, ser
 
 ---
 
-## 1. Instalación mediante Gestor de Paquetes
+## 1. Instalación en un solo comando (Recomendado)
+
+Descarga e instala el binario CLI de Bedrud en tu PATH. Funciona en Linux, macOS y Windows.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Recarga tu shell después de la instalación:
+
+    ```bash
+    source ~/.bashrc  # o ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Verifica:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    ¿Personalizar la instalación? Usa flags como `--version 0.12.0`, `--install-dir /opt/bedrud` o `--skip-shell`. Referencia completa: [CLI Installer](/es/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Instalación mediante Gestor de Paquetes
 
 Instala a través del gestor de paquetes de tu distribución.
 
@@ -81,7 +124,7 @@ Instala a través del gestor de paquetes de tu distribución.
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Ejecuta Bedrud en un contenedor: sin configuración de servidor Linux, sin systemd, sin descarga de binario.
 
@@ -147,7 +190,7 @@ Documentación completa de Docker incluyendo volúmenes, proxy inverso y configu
 
 ---
 
-## 3. Instalación Interactiva
+## 4. Instalación Interactiva
 
 Si ya tienes el binario `bedrud` en el servidor:
 
@@ -168,7 +211,7 @@ Todos los indicadores se omiten cuando stdin se redirige (modo no interactivo); 
 
 ---
 
-## 4. No Interactiva (mediante Flags)
+## 5. No Interactiva (mediante Flags)
 
 Omite todos los indicadores pasando flags.
 
@@ -281,7 +324,7 @@ sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 
 ---
 
-## 5. Totalmente Automatizada (CLI de Python)
+## 6. Totalmente Automatizada (CLI de Python)
 
 Compila, sube y configura tu servidor desde tu máquina local.
 
