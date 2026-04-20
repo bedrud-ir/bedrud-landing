@@ -22,6 +22,7 @@ export const sections: SidebarSection[] = [
           "Deploy Bedrud and join a video meeting in under 5 minutes",
         order: 1,
       },
+
       {
         slug: "getting-started/installation",
         title: "Server Installation",
@@ -41,10 +42,16 @@ export const sections: SidebarSection[] = [
         order: 4,
       },
       {
+        slug: "getting-started/cli-installer",
+        title: "CLI Installer",
+        description: "One-command install for all platforms",
+        order: 5,
+      },
+      {
         slug: "getting-started/cli-reference",
         title: "CLI Reference",
         description: "Command-line interface documentation",
-        order: 5,
+        order: 6,
       },
     ],
   },
