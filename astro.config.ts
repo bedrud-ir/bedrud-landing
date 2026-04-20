@@ -6,6 +6,7 @@ import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 import rehypePrettyCode from "rehype-pretty-code";
 import remarkGfm from "remark-gfm";
+import { rehypeCodeLtr } from "./scripts/rehype-code-ltr";
 
 const locales = [
   "en",
@@ -89,6 +90,7 @@ export default defineConfig({
           defaultTheme: "dark",
         },
       ],
+      rehypeCodeLtr,
     ],
     syntaxHighlight: false,
     remarkPlugins: [remarkGfm],
