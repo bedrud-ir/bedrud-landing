@@ -192,15 +192,37 @@ export default {
       description:
         "In Minuten mit Ihrem Identitätsanbieter verbinden. Passkeys, OAuth 2.0, OIDC – alles ab Werk unterstützt. Keine Passwortdatenbanken zum Knacken.",
     },
+    guestJoin: {
+      title: "Gastzugang — Ohne Konto",
+      description:
+        "Einen Link teilen, sie klicken, sie sind drin. Keine Anmeldeformulare, keine Passwörter, keine App-Installationen. Funktioniert in jedem modernen Browser.",
+    },
+    recording: {
+      title: "Integrierte Aufnahme & Bildschirmfreigabe",
+      description:
+        "Meetings aufnehmen und den Bildschirm freigeben — direkt integriert. Aufzeichnungen werden auf Ihrem Server gespeichert — nicht in der Cloud eines Dritten.",
+    },
   },
   install: {
     title: "Ein Befehl. Fertig.",
     subtitle: "Kopieren. Einfügen. Läuft. Das war's.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "oder",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "Funktioniert auf jedem 64-Bit Linux, macOS oder Windows mit 512MB RAM (~200MB idle).",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Native Apps, keine Web-Wrapper",
@@ -267,6 +289,21 @@ export default {
       question: "Werden Aufzeichnung und Bildschirmfreigabe unterstützt?",
       answer:
         "Ja. Integrierte Bildschirmfreigabe und Meeting-Aufzeichnung sind enthalten. Aufzeichnungen werden auf Ihrem Server gespeichert – nicht in der Cloud eines Dritten. Bot-Agenten können Meetings außerdem in Echtzeit transkribieren.",
+    },
+    migrate: {
+      question: "Kann ich von Zoom oder Teams wechseln?",
+      answer:
+        "Ja. Bedrud läuft neben Ihren bestehenden Tools. Importieren Sie Ihr Team, richten Sie SSO ein und migrieren Sie Meetings in Ihrem Tempo. Kein Daten-Lock-in, niemals.",
+    },
+    pricing: {
+      question: "Ist es wirklich kostenlos?",
+      answer:
+        "Vollständig. Apache 2.0 lizenziert, keine Funktionsbeschränkungen, keine 'Kontakt Vertrieb'-Schaltflächen. Der Quellcode ist öffentlich. Hosten Sie selbst und zahlen Sie nur für Ihren Server — typischerweise $5/Monat.",
+    },
+    mobile: {
+      question: "Gibt es mobile Apps?",
+      answer:
+        "Ja. Native Apps für Android (Kotlin) und iOS (Swift), plus Desktop-Apps in Rust. Keine Web-Wrapper — echte native Leistung.",
     },
   },
   footer: {
@@ -465,6 +502,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Schnellstart",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Server-Installation",
       "getting-started/clients": "Client-Installation",
       "getting-started/configuration": "Konfiguration",
@@ -502,13 +540,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Bedrud installieren - Bereitstellung mit einem Befehl",
+      title: "Bedrud Server installieren - Bereitstellung mit einem Befehl",
       description:
         "Stellen Sie Bedrud in unter einer Minute auf Ihrem Server bereit. Einzelne Binärdatei, 512MB RAM, kein Docker erforderlich.",
     },
-    title: "Bedrud installieren",
+    title: "Bedrud Server installieren",
     subtitle:
-      "Stellen Sie Videokonferenzen in unter einer Minute auf Ihrem Server bereit. Eine Binärdatei, null Abhängigkeiten.",
+      "Stellen Sie den selbstgehosteten Bedrud Server in unter einer Minute auf Ihrem Server bereit. Eine Binärdatei, null Abhängigkeiten.",
   },
   downloadPage: {
     meta: {
@@ -537,6 +575,7 @@ export default {
     server: "Server-Installation",
     serverDesc: "Bedrud-Server auf eigener Hardware bereitstellen.",
     serverGuide: "Server-Installationsanleitung",
+    quickInstall: "Quick install",
     heroClientTitle: "Client Version",
     heroClientDesc: "Native Desktop- und Mobile-Apps für jede Plattform.",
     heroServerTitle: "Server-Version",
@@ -869,6 +908,9 @@ export default {
       you: "Sie",
       chat: "Chat",
       messagePlaceholder: "Nachricht...",
+      chatMsg1: "Teile jetzt das Q4-Deck",
+      chatMsg2: "Das sieht toll aus!",
+      chatMsg3: "Können wir Folie 4 durchgehen?",
     },
     scale: {
       overview: "Übersicht",

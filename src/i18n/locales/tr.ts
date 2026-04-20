@@ -193,15 +193,37 @@ export default {
       description:
         "Kimlik sağlayıcınıza dakikalar içinde bağlanın. Passkeys, OAuth 2.0, OIDC - hepsi kutudan çıkar çıkmaz desteklenir. İhlal edilecek şifre veritabanı yok.",
     },
+    guestJoin: {
+      title: "Misafir Katılımı — Hesap Gerekmez",
+      description:
+        "Bir bağlantı paylaşın, tıklasınlar, girsinler. Kayıt formu, şifre, uygulama kurulumu yok. Tüm modern tarayıcılarda çalışır.",
+    },
+    recording: {
+      title: "Yerleşik Kayıt ve Ekran Paylaşımı",
+      description:
+        "Toplantıları kaydedin ve ekranınızı paylaşın. Kayıtlar sunucunuza kaydedilir — başkasının bulutuna değil.",
+    },
   },
   install: {
     title: "Tek Komut. Bitti.",
     subtitle: "Kopyala. Yapıştır. Çalışıyor. Kurulum bu kadar.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "veya",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "512MB RAM ile herhangi bir 64-bit Linux, macOS veya Windows'ta çalışır.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Web Sarıcı Değil, Yerel Uygulamalar",
@@ -268,6 +290,21 @@ export default {
       question: "Kayıt ve ekran paylaşımını destekliyor mu?",
       answer:
         "Evet. Yerleşik ekran paylaşımı ve toplantı kaydı dahil. Kayıtlar sunucunuza kaydedilir - başkasının bulutuna değil. Bot ajanları ayrıca toplantıları gerçek zamanlı olarak transkript edebilir.",
+    },
+    migrate: {
+      question: "Zoom veya Teams'ten geçiş yapabilir miyim?",
+      answer:
+        "Evet. Bedrud mevcut araçlarınızla birlikte çalışır. Ekibinizi içe aktarın, SSO kurun ve toplantıları kendi hızınızda taşıyın. Veri kilidi yok, asla.",
+    },
+    pricing: {
+      question: "Gerçekten ücretsiz mi?",
+      answer:
+        "Tamamen. Apache 2.0 lisanslı, özellik sınırı yok, 'satışla iletişim' butonu yok. Kaynak kodu açık. Kendi sunucunuzda barındırın ve sadece sunucu ücreti ödeyin — genellikle $5/ay.",
+    },
+    mobile: {
+      question: "Mobil uygulamanız var mı?",
+      answer:
+        "Evet. Android (Kotlin) ve iOS (Swift) için yerel uygulamalar, ayrıca Rust ile yapılmış masaüstü uygulamaları. Web wrapper değil — gerçek yerel performans.",
     },
   },
   footer: {
@@ -467,6 +504,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Hızlı Başlangıç",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Sunucu Kurulumu",
       "getting-started/clients": "İstemci Kurulumu",
       "getting-started/configuration": "Yapılandırma",
@@ -504,13 +542,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Kurulum - Bedrud - Tek Komutla Dağıtım",
+      title: "Bedrud Server Kurulumu - Tek Komutla Dağıtım",
       description:
         "Bedrud'u sunucunuza bir dakikadan kısa sürede dağıtın. Tek binary, 512MB RAM, Docker gerektirmez.",
     },
-    title: "Bedrud'u Kurun",
+    title: "Bedrud Server'ı Kurun",
     subtitle:
-      "Sunucunuza video toplantılarını bir dakikadan kısa sürede dağıtın. Tek binary, sıfır bağımlılık.",
+      "Sunucunuza self-hosted Bedrud sunucusunu bir dakikadan kısa sürede dağıtın. Tek binary, sıfır bağımlılık.",
   },
   blog: {
     meta: {
@@ -775,6 +813,7 @@ export default {
     server: "Sunucu Kurulumu",
     serverDesc: "Bedrud sunucusunu kendi donanımınıza dağıtın.",
     serverGuide: "Sunucu kurulum kılavuzu",
+    quickInstall: "Quick install",
     heroClientTitle: "İstemci Sürümü",
     heroClientDesc: "Her platform için yerel masaüstü ve mobil uygulamalar.",
     heroServerTitle: "Sunucu Sürümü",
@@ -869,6 +908,9 @@ export default {
       you: "Siz",
       chat: "Sohbet",
       messagePlaceholder: "Mesaj...",
+      chatMsg1: "Q4 sunumunu şimdi paylaşıyorum",
+      chatMsg2: "Harika görünüyor!",
+      chatMsg3: "4. slayta bakabilir miyiz?",
     },
     scale: {
       overview: "Genel Bakış",

@@ -25,7 +25,50 @@ Bu kılavuz, bir Linux sunucusuna **Bedrud sunucusunun** (API, web arayüzü, We
 
 ---
 
-## 1. Paket Yöneticisi ile Kurulum
+## 1. Tek Komutla Kurulum (Önerilen)
+
+Bedrud CLI ikili dosyasını indirir ve PATH'inize kurar. Linux, macOS ve Windows'ta çalışır.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Kurulumdan sonra kabuğunuzu yeniden yükleyin:
+
+    ```bash
+    source ~/.bashrc  # veya ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Doğrulayın:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    Kurulumu özelleştirmek mi istiyorsunuz? `--version 0.12.0`, `--install-dir /opt/bedrud` veya `--skip-shell` gibi parametreleri kullanın. Tam referans: [CLI Kurulumu](/tr/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Paket Yöneticisi ile Kurulum
 
 Dağıtımınızın paket yöneticisi aracılığıyla kurun.
 
@@ -81,7 +124,7 @@ Dağıtımınızın paket yöneticisi aracılığıyla kurun.
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Bedrud'u bir konteynerde çalıştırın - Linux sunucu kurulumu, systemd veya ikili dosya indirmesi gerekmez.
 
@@ -147,7 +190,7 @@ Birimler, ters vekil sunucu ve TLS kurulumu dahil tam Docker belgeleri: [Docker 
 
 ---
 
-## 3. Etkileşimli Kurulum
+## 4. Etkileşimli Kurulum
 
 Sunucuda zaten `bedrud` ikili dosyasına sahipseniz:
 
@@ -168,7 +211,7 @@ stdin borulandığında (etkileşimli olmayan mod) tüm istemler atlanır - bunu
 
 ---
 
-## 4. Etkileşimli Olmayan (Bayrak Tabanlı)
+## 5. Etkileşimli Olmayan (Bayrak Tabanlı)
 
 Bayrakları geçirerek tüm istemleri atlayın.
 
@@ -281,7 +324,7 @@ Ana alan adı Cloudflare arkasındayken WebRTC medyasının doğrudan bağlantı
 
 ---
 
-## 5. Tamamen Otomatik (Python CLI)
+## 6. Tamamen Otomatik (Python CLI)
 
 Yerel makinenizden derleyin, yükleyin ve sunucunuzu yapılandırın.
 

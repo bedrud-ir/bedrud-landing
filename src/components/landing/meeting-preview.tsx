@@ -73,26 +73,28 @@ interface ChatMsg {
   time: string;
 }
 
-const chatMessages: ChatMsg[] = [
-  {
-    avatar: avatarThumbs[2],
-    name: "Jordan",
-    text: "Sharing the Q4 deck now 📊",
-    time: "2:34 PM",
-  },
-  {
-    avatar: avatarThumbs[0],
-    name: "Sarah",
-    text: "This looks great!",
-    time: "2:35 PM",
-  },
-  {
-    avatar: avatarThumbs[1],
-    name: "Alex",
-    text: "Can we go over slide 4?",
-    time: "2:36 PM",
-  },
-];
+function getChatMessages(lang: Locale): ChatMsg[] {
+  return [
+    {
+      avatar: avatarThumbs[2],
+      name: "Jordan",
+      text: t(lang, "mockups.preview.chatMsg1"),
+      time: "2:34 PM",
+    },
+    {
+      avatar: avatarThumbs[0],
+      name: "Sarah",
+      text: t(lang, "mockups.preview.chatMsg2"),
+      time: "2:35 PM",
+    },
+    {
+      avatar: avatarThumbs[1],
+      name: "Alex",
+      text: t(lang, "mockups.preview.chatMsg3"),
+      time: "2:36 PM",
+    },
+  ];
+}
 
 /* Floating reactions */
 const reactions = [
@@ -291,7 +293,7 @@ export function MeetingPreview({ lang }: { lang: Locale }) {
             </div>
             {/* Messages */}
             <div className="flex flex-1 flex-col justify-end gap-2.5 px-2.5 pb-2.5">
-              {chatMessages.map((msg) => (
+              {getChatMessages(lang).map((msg) => (
                 <div key={msg.time} className="flex gap-1.5">
                   <img
                     src={msg.avatar}

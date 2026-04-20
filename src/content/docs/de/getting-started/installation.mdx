@@ -25,7 +25,50 @@ Diese Anleitung behandelt die Installation des **Bedrud-Servers** (API, Web-UI, 
 
 ---
 
-## 1. Installation über Paketmanager
+## 1. Ein-Klick-Installation (Empfohlen)
+
+Lädt die Bedrud-CLI herunter und installiert sie in Ihrem PATH. Funktioniert unter Linux, macOS und Windows.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Shell nach der Installation neu laden:
+
+    ```bash
+    source ~/.bashrc  # oder ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Überprüfen:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    Installation anpassen? Nutzen Sie Flags wie `--version 0.12.0`, `--install-dir /opt/bedrud` oder `--skip-shell`. Vollständige Referenz: [CLI-Installer](/de/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Installation über Paketmanager
 
 Installieren Sie über den Paketmanager Ihrer Distribution.
 
@@ -81,7 +124,7 @@ Installieren Sie über den Paketmanager Ihrer Distribution.
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Bedrud in einem Container ausführen - kein Linux-Server-Setup, kein systemd, kein Binär-Download.
 
@@ -147,7 +190,7 @@ Vollständige Docker-Dokumentation inklusive Volumes, Reverse Proxy und TLS-Einr
 
 ---
 
-## 3. Interaktive Installation
+## 4. Interaktive Installation
 
 Wenn Sie die `bedrud`-Binärdatei bereits auf dem Server haben:
 
@@ -168,7 +211,7 @@ Alle Abfragen werden übersprungen, wenn stdin gepiped wird (nicht-interaktiver 
 
 ---
 
-## 4. Nicht-interaktiv (flag-basiert)
+## 5. Nicht-interaktiv (flag-basiert)
 
 Alle Abfragen durch Angabe von Flags überspringen.
 
@@ -281,7 +324,7 @@ Nützlich, wenn die Hauptdomain hinter Cloudflare liegt, WebRTC-Medien aber eine
 
 ---
 
-## 5. Vollautomatisch (Python-CLI)
+## 6. Vollautomatisch (Python-CLI)
 
 Kompilieren, hochladen und konfigurieren Sie Ihren Server von Ihrem lokalen Rechner aus.
 

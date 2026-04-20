@@ -6,9 +6,20 @@ order: 1
 
 Deploy Bedrud and join a video meeting in under 5 minutes.
 
-**This guide:** Download → Install → Verify → Join. For alternatives see [Installation](/en/docs/getting-started/installation). For config see [Configuration](/en/docs/getting-started/configuration).
+**In this guide:**
 
-> **Single binary, no internet needed after download.** It includes an embedded media server and SQLite - it works on isolated networks. Transfer file, run one command, done.
+1. **Get the CLI** — one-command install (or manual download)
+2. **Deploy the server** — `bedrud install` sets up everything
+3. **Verify** — confirm services are running
+4. **Create admin & join** — open browser, promote yourself, start meeting
+
+**More info:**
+
+- [CLI Installer](/en/docs/getting-started/cli-installer) — flags, platforms, offline installs
+- [Server Installation](/en/docs/getting-started/installation) — package managers, Docker, advanced options
+- [Configuration](/en/docs/getting-started/configuration) — ports, database, auth, TURN
+
+> **Single binary, no internet needed after download.** It includes an embedded media server and SQLite — works on isolated networks. Transfer file, run one command, done.
 
 ---
 
@@ -16,44 +27,92 @@ Deploy Bedrud and join a video meeting in under 5 minutes.
 
 | Requirement | Details |
 |-------------|---------|
-| A Linux server | amd64, with `sudo` access and `systemd`. Windows: Docker or WSL2. macOS: build from source |
+| A Linux server | amd64 or arm64, with `sudo` access and `systemd`. macOS/Windows: use Docker or WSL2 for server |
 | Open ports | `8090`, `7880`, `50000–60000/udp`. For auto-TLS: also `80` and `443` |
-| Tools | `curl`, `tar` |
-| A domain (optional) | With DNS A record pointing to your server. No domain? Works with IP - see alternatives below |
+| A domain (optional) | With DNS A record pointing to your server. No domain? Works with IP — see alternatives below |
 
 > **How it works:** You run one Bedrud **server**. People join meetings in their **browser** (no install) or via **native apps** (Android, Windows, macOS, Linux).
 
 ---
 
-## 1. Download
+## 1. Get the Bedrud CLI
 
-```bash
-curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
-tar -xJf bedrud.tar.xz
-chmod +x bedrud
-```
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="macos-linux">macOS / Linux</TabsTrigger>
+    <TabsTrigger value="windows">Windows (PowerShell)</TabsTrigger>
+    <TabsTrigger value="manual">Manual Download</TabsTrigger>
+  </TabsList>
+  <TabsContent value="macos-linux">
 
-> **No internet on server?** Download on any machine, transfer via USB or `scp bedrud.tar.xz user@server:/tmp/`, then extract there. Binary is fully self-contained - zero outbound requests after transfer.
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
 
-> **Download failed?** Check internet access, or verify URL at [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+    Reload your shell after install:
+
+    ```bash
+    source ~/.bashrc  # or ~/.zshrc
+    ```
+
+    Verify:
+
+    ```bash
+    bedrud --version
+    ```
+
+    For flags (`--version`, `--install-dir`, `--skip-shell`, offline installs), see [CLI Installer](/en/docs/getting-started/cli-installer).
+  </TabsContent>
+  <TabsContent value="windows">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+    Close and reopen your terminal, then verify:
+
+    ```powershell
+    bedrud --version
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+
+    Download and extract manually. Replace `linux_amd64` with your platform (`linux_arm64`, `darwin_amd64`, `darwin_arm64`):
+
+    ```bash
+    curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
+    tar -xJf bedrud.tar.xz
+    chmod +x bedrud
+    sudo mv bedrud /usr/local/bin/
+    ```
+
+    For all platform targets, see [CLI Installer](/en/docs/getting-started/cli-installer#platform-targets).
+
+    > **No internet on server?** Download on any machine, transfer via USB or `scp bedrud.tar.xz user@server:/tmp/`, then extract there. Binary is fully self-contained — zero outbound requests after transfer.
+
+    > **Download failed?** Check internet access, or verify URL at [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest).
+  </TabsContent>
+</Tabs>
 
 ---
 
-## 2. Install
+## 2. Deploy the Server
+
+> **Server setup requires Linux with systemd.** macOS and Windows don't support `bedrud install` directly — use [Docker](#docker) or [WSL2](#non-linux-systems) instead.
 
 Replace `meet.example.com` and `admin@example.com` with your values:
 
 ```bash
-sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
+sudo bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-Installs binary, generates config, creates systemd services, provisions TLS, starts everything.
+Installs server binary to `/usr/local/bin`, generates config, creates systemd services, provisions TLS, starts everything.
 
 > **Port 80 or 443 busy?** Stop conflicting services: `sudo systemctl stop nginx apache2 caddy`, then re-run.
 
 > **No domain?** Use your server IP instead:
 > ```bash
-> sudo ./bedrud install --tls --ip 1.2.3.4
+> sudo bedrud install --tls --ip 1.2.3.4
 > ```
 > This uses a self-signed certificate. Browsers will warn but video works. For trusted certs on internal networks, see [Internal TLS Guide](/en/docs/guides/internal-tls).
 
@@ -77,14 +136,14 @@ Open `https://meet.example.com` (or `https://<your-ip>:8090`) in your browser:
 
 <CreateAdmin createOption />
 
-3. Log in (or refresh) - **Admin** section appears in sidebar (Overview, Users, Rooms, Settings). Success: you're admin.
-4. **Create a room** → **Join** → **Share video/audio** - grant camera/mic permissions when prompted
+1. Log in (or refresh) — **Admin** section appears in sidebar (Overview, Users, Rooms, Settings). Success: you're admin.
+2. **Create a room** → **Join** → **Share video/audio** — grant camera/mic permissions when prompted
 
-> **Admin dashboard** - After promoting, log in to access admin panel at `/dashboard/admin`. Manage users, rooms, system settings, and invite tokens.
+> **Admin dashboard** — After promoting, log in to access admin panel at `/dashboard/admin`. Manage users, rooms, system settings, and invite tokens.
 
-> **CLI reference** - Full user management: `bedrud user promote`, `demote`, `create`, `delete`.
+> **CLI reference** — Full user management: `bedrud user promote`, `demote`, `create`, `delete`.
 
-**Native clients** for Android, Windows, macOS, and Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Or share the meeting link - participants join in any browser.
+**Native clients** for Android, Windows, macOS, and Linux: [GitHub Releases](https://github.com/bedrud-ir/bedrud/releases/latest). Or share the meeting link — participants join in any browser.
 
 ---
 
@@ -119,19 +178,20 @@ make local-run
 ### Plain HTTP (dev / localhost only)
 
 ```bash
-sudo ./bedrud install --ip 127.0.0.1
+sudo bedrud install --ip 127.0.0.1
 ```
 
 > **Warning:** Browsers block camera/mic on non-HTTPS except `localhost`. HTTP is dev-only.
 
 ### Non-Linux Systems
 
-The `install` command is Linux-only. Place binary in PATH manually:
+The `bedrud install` command sets up systemd services and is Linux-only. The CLI installer (step 1) works everywhere and puts the binary in PATH. For server setup, use Docker or WSL2.
 
-| OS      | How                                       |
-|---------|-------------------------------------------|
-| macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | Move `bedrud.exe` to a folder in `%PATH%` |
+| OS      | How                                                     |
+|---------|---------------------------------------------------------|
+| macOS   | CLI installer auto-installs to `~/bin/`                 |
+| Windows | CLI installer auto-installs to `%USERPROFILE%\bin\`     |
+| Docker  | Works on any OS with Docker (see above)                 |
 
 ---
 
@@ -174,7 +234,7 @@ Full reference: [Configuration](/en/docs/getting-started/configuration)
 
 ```bash
 # Binary install
-sudo ./bedrud uninstall
+sudo bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
@@ -187,9 +247,10 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## Next Steps
 
-- [Configuration Reference](/en/docs/getting-started/configuration) - ports, database, auth providers, TURN
-- [Installation Guide](/en/docs/getting-started/installation) - package managers, advanced flags, all methods
-- [Internal TLS Guide](/en/docs/guides/internal-tls) - air-gapped deployment, private CA
-- [Deployment Guide](/en/docs/guides/deployment) - production setup, reverse proxy, scaling
-- [Architecture Overview](/en/docs/architecture/overview) - how pieces fit together
-- [API Docs](http://localhost:8090/api/swagger) - Swagger UI (running instance)
+- [CLI Installer Reference](/en/docs/getting-started/cli-installer) — flags, platform targets, offline installs, troubleshooting
+- [Configuration Reference](/en/docs/getting-started/configuration) — ports, database, auth providers, TURN
+- [Installation Guide](/en/docs/getting-started/installation) — package managers, Docker, advanced flags
+- [Internal TLS Guide](/en/docs/guides/internal-tls) — air-gapped deployment, private CA
+- [Deployment Guide](/en/docs/guides/deployment) — production setup, reverse proxy, scaling
+- [Architecture Overview](/en/docs/architecture/overview) — how pieces fit together
+- [API Docs](http://localhost:8090/api/swagger) — Swagger UI (running instance)

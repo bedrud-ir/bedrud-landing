@@ -25,7 +25,50 @@ order: 2
 
 ---
 
-## 1. Установка через пакетный менеджер
+## 1. Установка одной командой (Рекомендуется)
+
+Скачивает и устанавливает бинарный файл Bedrud CLI в ваш PATH. Работает на Linux, macOS и Windows.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    Перезагрузите оболочку после установки:
+
+    ```bash
+    source ~/.bashrc  # или ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+Проверьте:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    Хотите настроить установку? Используйте флаги: `--version 0.12.0`, `--install-dir /opt/bedrud` или `--skip-shell`. Полная документация: [CLI Установщик](/ru/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## 2. Установка через пакетный менеджер
 
 Установите через пакетный менеджер вашего дистрибутива.
 
@@ -81,7 +124,7 @@ order: 2
 
 ---
 
-## 2. Docker
+## 3. Docker
 
 Запустите Bedrud в контейнере - не требуется настройка Linux-сервера, systemd или загрузка бинарного файла.
 
@@ -147,7 +190,7 @@ docker run -d --name bedrud \
 
 ---
 
-## 3. Интерактивная установка
+## 4. Интерактивная установка
 
 Если бинарный файл `bedrud` уже есть на сервере:
 
@@ -168,7 +211,7 @@ sudo ./bedrud install
 
 ---
 
-## 4. Неинтерактивная установка (через флаги)
+## 5. Неинтерактивная установка (через флаги)
 
 Пропустите все запросы, передавая флаги.
 
@@ -281,7 +324,7 @@ sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 
 ---
 
-## 5. Полностью автоматическая установка (Python CLI)
+## 6. Полностью автоматическая установка (Python CLI)
 
 Соберите, загрузите и настройте сервер с вашего локального компьютера.
 

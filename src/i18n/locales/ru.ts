@@ -172,14 +172,36 @@ export default {
       description:
         "Подключите свой IdP за минуты. Passkeys, OAuth 2.0, OIDC из коробки. Больше никаких баз паролей, которые можно украсть.",
     },
+    guestJoin: {
+      title: "Гостевой доступ — без аккаунта",
+      description:
+        "Поделитесь ссылкой — гость кликнет и войдёт. Без форм регистрации, паролей и установки приложений. Работает в любом современном браузере.",
+    },
+    recording: {
+      title: "Встроенная запись и демонстрация экрана",
+      description:
+        "Записывайте встречи и делитесь экраном. Записи сохраняются на вашем сервере — не в чужом облаке.",
+    },
   },
   install: {
     title: "Одна команда. Готово.",
     subtitle: "Одна команда. Шестьдесят секунд. Вы внутри.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "или",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements: "Работает на 64-битных Linux, macOS, Windows с 512 МБ ОЗУ.",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Нативные приложения, не веб-обертки",
@@ -228,6 +250,21 @@ export default {
       question: "Поддерживается ли запись и демонстрация экрана?",
       answer:
         "Да. Встроено. Записи сохраняются на вашем сервере. Боты могут транскрибировать встречи.",
+    },
+    migrate: {
+      question: "Можно перейти с Zoom или Teams?",
+      answer:
+        "Да. Bedrud работает параллельно с вашими текущими инструментами. Импортируйте команду, настройте SSO и начинайте миграцию встреч в своём темпе. Никакой привязки данных, никогда.",
+    },
+    pricing: {
+      question: "Это действительно бесплатно?",
+      answer:
+        "Полностью. Лицензия Apache 2.0, никаких ограничений функций, никаких кнопок 'Связаться с отделом продаж'. Исходный код открыт. Размещайте самостоятельно и платите только за сервер — обычно $5/мес.",
+    },
+    mobile: {
+      question: "Есть мобильные приложения?",
+      answer:
+        "Да. Нативные приложения для Android (Kotlin) и iOS (Swift), а также десктопные приложения на Rust. Не веб-обёртки — настоящая нативная производительность.",
     },
   },
   footer: {
@@ -616,6 +653,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "Быстрый старт",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Установка сервера",
       "getting-started/clients": "Установка клиентов",
       "getting-started/configuration": "Конфигурация",
@@ -653,11 +691,12 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Установка Bedrud - Развертывание одной командой",
+      title: "Установка Bedrud Server - Развертывание одной командой",
       description: "Разверните Bedrud менее чем за минуту. Один бинарник.",
     },
-    title: "Установка Bedrud",
-    subtitle: "Разверните видеовстречи на сервере менее чем за минуту.",
+    title: "Установка Bedrud Server",
+    subtitle:
+      "Разверните self-hosted сервер на вашем сервере менее чем за минуту.",
   },
   downloadPage: {
     meta: {
@@ -688,6 +727,7 @@ export default {
     server: "Установка сервера",
     serverDesc: "Разверните сервер Bedrud на своем оборудовании.",
     serverGuide: "Руководство по серверу",
+    quickInstall: "Quick install",
     heroClientTitle: "Клиент",
     heroClientDesc: "Нативные десктопные и мобильные приложения.",
     heroServerTitle: "Сервер",
@@ -824,6 +864,9 @@ export default {
       you: "Вы",
       chat: "Чат",
       messagePlaceholder: "Сообщение...",
+      chatMsg1: "Делюсь презентацией за Q4",
+      chatMsg2: "Выглядит отлично!",
+      chatMsg3: "Можем посмотреть слайд 4?",
     },
     scale: {
       overview: "Обзор",

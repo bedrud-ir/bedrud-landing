@@ -192,15 +192,37 @@ export default {
       description:
         "Conecta tu proveedor de identidad en minutos. Passkeys, OAuth 2.0, OIDC - todo soportado de fábrica. Sin bases de datos de contraseñas que puedan ser comprometidas.",
     },
+    guestJoin: {
+      title: "Acceso de invitado — Sin cuenta",
+      description:
+        "Comparte un enlace, hacen clic, entran. Sin formularios de registro, sin contraseñas, sin instalar apps. Funciona en cualquier navegador moderno.",
+    },
+    recording: {
+      title: "Grabación y compartir pantalla integradas",
+      description:
+        "Graba reuniones y comparte tu pantalla. Las grabaciones se guardan en tu servidor — no en la nube de alguien más.",
+    },
   },
   install: {
     title: "Un comando. Listo.",
     subtitle: "Copia. Pega. Funcionando. Eso es todo.",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "o",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "Funciona en cualquier Linux de 64 bits, macOS o Windows con 512MB RAM (~200MB idle).",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Apps nativas, no wrappers",
@@ -267,6 +289,21 @@ export default {
       question: "¿Soporta grabación y compartir pantalla?",
       answer:
         "Sí. Compartir pantalla y grabación de reuniones están incluidos. Las grabaciones se guardan en tu servidor - no en la nube de alguien más. Los agentes bot también pueden transcribir reuniones en tiempo real.",
+    },
+    migrate: {
+      question: "¿Puedo cambiar de Zoom o Teams?",
+      answer:
+        "Sí. Bedrud funciona junto con tus herramientas existentes. Importa tu equipo, configura SSO y empieza a migrar reuniones a tu ritmo. Sin bloqueo de datos, nunca.",
+    },
+    pricing: {
+      question: "¿Es realmente gratis?",
+      answer:
+        "Completamente. Licencia Apache 2.0, sin límites de funciones, sin botones de 'contactar ventas'. El código fuente es público. Aloja tú mismo y paga solo tu servidor — típicamente $5/mes.",
+    },
+    mobile: {
+      question: "¿Tienen apps móviles?",
+      answer:
+        "Sí. Apps nativas para Android (Kotlin) y iOS (Swift), además de apps de escritorio en Rust. No son wrappers web — rendimiento nativo real.",
     },
   },
   footer: {
@@ -434,6 +471,7 @@ export default {
     diagramError: "Error al renderizar diagrama",
     sidebarItems: {
       "getting-started/quickstart": "Inicio rápido",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "Instalación del servidor",
       "getting-started/clients": "Instalación de clientes",
       "getting-started/configuration": "Configuración",
@@ -471,13 +509,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "Instalar Bedrud - Despliegue en un comando",
+      title: "Instalar Bedrud Server - Despliegue en un comando",
       description:
         "Despliega Bedrud en tu servidor en menos de un minuto. Un solo binario, 512MB RAM, sin Docker.",
     },
-    title: "Instalar Bedrud",
+    title: "Instalar Bedrud Server",
     subtitle:
-      "Despliega videoconferencias en tu servidor en menos de un minuto. Un binario, cero dependencias.",
+      "Despliega el servidor self-hosted en tu servidor en menos de un minuto. Un binario, cero dependencias.",
   },
   downloadPage: {
     meta: {
@@ -505,6 +543,7 @@ export default {
     server: "Instalación del servidor",
     serverDesc: "Despliega el servidor Bedrud en tu propio hardware.",
     serverGuide: "Guía de instalación del servidor",
+    quickInstall: "Quick install",
     heroClientTitle: "Versión de cliente",
     heroClientDesc:
       "Aplicaciones nativas de escritorio y móvil para cada plataforma.",
@@ -835,6 +874,9 @@ export default {
       you: "Tú",
       chat: "Chat",
       messagePlaceholder: "Mensaje...",
+      chatMsg1: "Compartiendo el deck de Q4 ahora",
+      chatMsg2: "¡Se ve genial!",
+      chatMsg3: "¿Podemos ver la diapositiva 4?",
     },
     scale: {
       overview: "Resumen",

@@ -6,54 +6,113 @@ order: 1
 
 Bedrud'u dağıtın ve 5 dakikadan kısa sürede video toplantısına katılın.
 
-**Bu kılavuz:** İndir → Kur → Doğrula → Katıl. Alternatifler için bkz. [Kurulum](/tr/docs/getting-started/installation). Yapılandırma için bkz. [Yapılandırma](/tr/docs/getting-started/configuration).
+**Bu kılavuz:**
+
+1. **CLI'yi edinin** — tek komutla kurulum (veya manuel indirme)
+2. **Sunucuyu dağıtın** — `bedrud install` her şeyi ayarlar
+3. **Doğrulayın** — servislerin çalıştığını onaylayın
+4. **Yönetici oluşturun & katılın** — tarayıcıyı açın, kendinizi yükseltin, toplantıyı başlatın
+
+**Daha fazla bilgi:**
+
+- [CLI Kurulumu](/tr/docs/getting-started/cli-installer) — bayraklar, platformlar, çevrimdışı kurulumlar
+- [Sunucu Kurulumu](/tr/docs/getting-started/installation) — paket yöneticileri, Docker, gelişmiş seçenekler
+- [Yapılandırma](/tr/docs/getting-started/configuration) — bağlantı noktaları, veritabanı, kimlik doğrulama, TURN
 
 > **Tek ikili dosya, indirdikten sonra internet gerekmez.** Gömülü medya sunucusu ve SQLite içerir - izole ağlarda çalışır. Dosyayı aktarın, bir komut çalıştırın, bitti.
 
 ---
 
-## Gereksinimler
+## İhtiyacınız Olanlar
 
 | Gereksinim | Detaylar |
 |-------------|---------|
-| Bir Linux sunucusu | amd64, `sudo` erişimi ve `systemd` ile. Windows: Docker veya WSL2. macOS: kaynaktan derleyin |
+| Bir Linux sunucusu | amd64 veya arm64, `sudo` erişimi ve `systemd` ile. macOS/Windows: sunucu için Docker veya WSL2 kullanın |
 | Açık bağlantı noktaları | `8090`, `7880`, `50000–60000/udp`. Otomatik TLS için: ayrıca `80` ve `443` |
-| Araçlar | `curl`, `tar` |
-| Bir alan adı (isteğe bağlı) | Sunucunuza işaret eden DNS A kaydı ile. Alan adınız yok mu? IP ile çalışır - aşağıdaki alternatiflere bakın |
+| Bir alan adı (isteğe bağlı) | Sunucunuza işaret eden DNS A kaydı ile. Alan adınız yok mu? IP ile çalışır — aşağıdaki alternatiflere bakın |
 
 > **Nasıl çalışır:** Bir Bedrud **sunucusu** çalıştırırsınız. Kişiler **tarayıcıda** (kurulum gerekmez) veya **yerel uygulamalarla** (Android, Windows, macOS, Linux) toplantılara katılır.
 
 ---
 
-## 1. İndirin
+## 1. Bedrud CLI'yi Kurun
 
-```bash
-curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
-tar -xJf bedrud.tar.xz
-chmod +x bedrud
-```
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="macos-linux">macOS / Linux</TabsTrigger>
+    <TabsTrigger value="windows">Windows (PowerShell)</TabsTrigger>
+    <TabsTrigger value="manual">Manuel İndirme</TabsTrigger>
+  </TabsList>
+  <TabsContent value="macos-linux">
 
-> **Sunucuda internet yok mu?** Herhangi bir makinede indirin, USB ile veya `scp bedrud.tar.xz user@server:/tmp/` ile aktarın, ardından orada çıkarın. İkili dosya tamamen kendi kendine yetlidir - aktarımdan sonra sıfır dışarıya istek.
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
 
-> **İndirme başarısız oldu mu?** İnternet erişimini kontrol edin veya URL'yi [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) adresinden doğrulayın.
+    Kurulumdan sonra kabuğunuzu yeniden yükleyin:
+
+    ```bash
+    source ~/.bashrc  # veya ~/.zshrc
+    ```
+
+    Doğrulayın:
+
+    ```bash
+    bedrud --version
+    ```
+
+    Bayraklar (`--version`, `--install-dir`, `--skip-shell`, çevrimdışı kurulumlar) için bkz. [CLI Kurulumu](/tr/docs/getting-started/cli-installer).
+  </TabsContent>
+  <TabsContent value="windows">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+    Terminalinizi kapatıp yeniden açın, ardından doğrulayın:
+
+    ```powershell
+    bedrud --version
+    ```
+  </TabsContent>
+  <TabsContent value="manual">
+
+    Manuel olarak indirin ve çıkarın. `linux_amd64` değerini platformunuza göre değiştirin (`linux_arm64`, `darwin_amd64`, `darwin_arm64`):
+
+    ```bash
+    curl -fsSL -o bedrud.tar.xz https://github.com/bedrud-ir/bedrud/releases/latest/download/bedrud_linux_amd64.tar.xz
+    tar -xJf bedrud.tar.xz
+    chmod +x bedrud
+    sudo mv bedrud /usr/local/bin/
+    ```
+
+    Tüm platform hedefleri için bkz. [CLI Kurulumu](/tr/docs/getting-started/cli-installer#platform-targets).
+
+    > **Sunucuda internet yok mu?** Herhangi bir makinede indirin, USB ile veya `scp bedrud.tar.xz user@server:/tmp/` ile aktarın, ardından orada çıkarın. İkili dosya tamamen kendi kendine yetkidir - aktarımdan sonra sıfır dışarıya istek.
+
+    > **İndirme başarısız oldu mu?** İnternet erişimini kontrol edin veya URL'yi [github.com/bedrud-ir/bedrud/releases](https://github.com/bedrud-ir/bedrud/releases/latest) adresinden doğrulayın.
+  </TabsContent>
+</Tabs>
 
 ---
 
-## 2. Kurun
+## 2. Sunucuyu Dağıtın
+
+> **Sunucu kurulumu Linux ve systemd gerektirir.** macOS ve Windows `bedrud install` komutunu doğrudan desteklemez — bunun yerine [Docker](#docker) veya [WSL2](#linux-dışı-sistemler) kullanın.
 
 `meet.example.com` ve `admin@example.com` değerlerini kendinize göre değiştirin:
 
 ```bash
-sudo ./bedrud install --tls --domain meet.example.com --email admin@example.com
+sudo bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-İkili dosyayı kurar, yapılandırma oluşturur, systemd servislerini oluşturur, TLS sağlar ve her şeyi başlatır.
+Sunucu ikili dosyasını `/usr/local/bin` dizinine kurar, yapılandırma oluşturur, systemd servislerini oluşturur, TLS sağlar ve her şeyi başlatır.
 
 > **80 veya 443 bağlantı noktası meşgul mü?** Çakışan servisleri durdurun: `sudo systemctl stop nginx apache2 caddy`, ardından tekrar çalıştırın.
 
 > **Alan adınız yok mu?** Bunun yerine sunucu IP'nizi kullanın:
 > ```bash
-> sudo ./bedrud install --tls --ip 1.2.3.4
+> sudo bedrud install --tls --ip 1.2.3.4
 > ```
 > Bu, kendi imzalı bir sertifika kullanır. Tarayıcılar uyarı verir ama video çalışır. Dahili ağlarda güvenilir sertifikalar için bkz. [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls).
 
@@ -77,14 +136,14 @@ Tarayıcınızda `https://meet.example.com` (veya `https://<sizin-ip>:8090`) adr
 
 <CreateAdmin createOption />
 
-3. Giriş yapın (veya sayfayı yenileyin) - kenar çubuğunda **Yönetici** bölümü görünür (Genel Bakış, Kullanıcılar, Odalar, Ayarlar). Başarılı: yöneticisiniz.
-4. **Bir oda oluşturun** → **Katılın** → **Video/ ses paylaşın** - istendiğinde kamera/mikrofon izinlerini verin
+1. Giriş yapın (veya sayfayı yenileyin) — kenar çubuğunda **Yönetici** bölümü görünür (Genel Bakış, Kullanıcılar, Odalar, Ayarlar). Başarılı: yöneticisiniz.
+2. **Bir oda oluşturun** → **Katılın** → **Video/ ses paylaşın** - istendiğinde kamera/mikrofon izinlerini verin
 
-> **Yönetici paneli** - Terfi ettikten sonra, `/dashboard/admin` adresinden yönetici paneline erişmek için giriş yapın. Kullanıcıları, odaları, sistem ayarlarını ve davet jetonlarını yönetin.
+> **Yönetici paneli** — Terfi ettikten sonra, giriş yaparak `/dashboard/admin` adresinden yönetici paneline erişin. Kullanıcıları, odaları, sistem ayarlarını ve davet jetonlarını yönetin.
 
-> **CLI referansı** - Tam kullanıcı yönetimi: `bedrud user promote`, `demote`, `create`, `delete`.
+> **CLI referansı** — Tam kullanıcı yönetimi: `bedrud user promote`, `demote`, `create`, `delete`.
 
-Android, Windows, macOS ve Linux için **yerel istemciler**: [GitHub Sürümleri](https://github.com/bedrud-ir/bedrud/releases/latest). Veya toplantı bağlantısını paylaşın - katılımcılar herhangi bir tarayıcıda katılır.
+**Yerel istemciler** için Android, Windows, macOS ve Linux: [GitHub Sürümleri](https://github.com/bedrud-ir/bedrud/releases/latest). Veya toplantı bağlantısını paylaşın — katılımcılar herhangi bir tarayıcıda katılır.
 
 ---
 
@@ -119,19 +178,20 @@ make local-run
 ### Düz HTTP (yalnızca geliştirme / localhost)
 
 ```bash
-sudo ./bedrud install --ip 127.0.0.1
+sudo bedrud install --ip 127.0.0.1
 ```
 
 > **Uyarı:** Tarayıcılar `localhost` dışında HTTPS olmayan sitelerde kamera/mikrofonu engeller. HTTP yalnızca geliştirme içindir.
 
 ### Linux Dışı Sistemler
 
-`install` komutu yalnızca Linux içindir. İkili dosyayı PATH'e el ile ekleyin:
+`bedrud install` komutu systemd servislerini ayarlar ve yalnızca Linux içindir. CLI kurulumu (1. adım) her platformda çalışır ve ikili dosyayı PATH'e yerleştirir. Sunucu kurulumu için Docker veya WSL2 kullanın.
 
-| İşletim Sistemi | Nasıl                                       |
-|---------|-------------------------------------------|
-| macOS   | `sudo cp bedrud /usr/local/bin/`          |
-| Windows | `bedrud.exe` dosyasını `%PATH%` içindeki bir klasöre taşıyın |
+| İşletim Sistemi | Nasıl |
+|---------|-------|
+| macOS   | CLI kurulumu otomatik olarak `~/bin/` dizinine kurar |
+| Windows | CLI kurulumu otomatik olarak `%USERPROFILE%\bin\` dizinine kurar |
+| Docker  | Docker yüklü herhangi bir işletim sisteminde çalışır (yukarıya bakın) |
 
 ---
 
@@ -174,7 +234,7 @@ Tam referans: [Yapılandırma](/tr/docs/getting-started/configuration)
 
 ```bash
 # İkili dosya kurulumu
-sudo ./bedrud uninstall
+sudo bedrud uninstall
 
 # Docker
 docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
@@ -187,9 +247,10 @@ docker stop bedrud && docker rm bedrud && docker volume rm bedrud-data
 
 ## Sonraki Adımlar
 
-- [Yapılandırma Referansı](/tr/docs/getting-started/configuration) - bağlantı noktaları, veritabanı, kimlik doğrulama sağlayıcıları, TURN
-- [Kurulum Kılavuzu](/tr/docs/getting-started/installation) - paket yöneticileri, gelişmiş bayraklar, tüm yöntemler
-- [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls) - izole dağıtım, özel CA
-- [Dağıtım Kılavuzu](/tr/docs/guides/deployment) - üretim kurulumu, ters vekil sunucu, ölçeklendirme
-- [Mimari Genel Bakış](/tr/docs/architecture/overview) - parçalar nasıl bir araya gelir
-- [API Belgeleri](http://localhost:8090/api/swagger) - Swagger UI (çalışan örnek)
+- [CLI Kurulumu Referansı](/tr/docs/getting-started/cli-installer) — bayraklar, platform hedefleri, çevrimdışı kurulumlar, sorun giderme
+- [Yapılandırma Referansı](/tr/docs/getting-started/configuration) — bağlantı noktaları, veritabanı, kimlik doğrulama sağlayıcıları, TURN
+- [Kurulum Kılavuzu](/tr/docs/getting-started/installation) — paket yöneticileri, Docker, gelişmiş bayraklar
+- [Dahili TLS Kılavuzu](/tr/docs/guides/internal-tls) — izole dağıtım, özel CA
+- [Dağıtım Kılavuzu](/tr/docs/guides/deployment) — üretim kurulumu, ters vekil sunucu, ölçeklendirme
+- [Mimari Genel Bakış](/tr/docs/architecture/overview) — parçalar nasıl bir araya gelir
+- [API Belgeleri](http://localhost:8090/api/swagger) — Swagger UI (çalışan örnek)

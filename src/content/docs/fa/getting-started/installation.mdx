@@ -25,7 +25,50 @@ order: 2
 
 ---
 
-## ۱. نصب از طریق package manager
+## ۱. نصب با یک دستور (توصیه‌شده)
+
+باینری CLI بِدْرود را دانلود و در PATH شما نصب می‌کند. روی لینوکس، مک‌او‌اس و ویندوز کار می‌کند.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    پس از نصب، شل را بارگذاری مجدد کنید:
+
+    ```bash
+    source ~/.bashrc  # یا ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+بررسی:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    نصب سفارشی؟ از پارامترهایی مثل `--version 0.12.0`، `--install-dir /opt/bedrud` یا `--skip-shell` استفاده کنید. مرجع کامل: [نصب‌کننده CLI](/fa/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## ۲. نصب از طریق package manager
 
 از طریق package manager توزیع خود نصب کنید.
 
@@ -81,7 +124,7 @@ order: 2
 
 ---
 
-## ۲. Docker
+## ۳. Docker
 
 بدرود را در یک container اجرا کنید — بدون نصب مستقیم روی سرور لینوکس، بدون systemd، بدون دانلود باینری.
 
@@ -147,7 +190,7 @@ docker run -d --name bedrud \
 
 ---
 
-## ۳. نصب تعاملی
+## ۴. نصب تعاملی
 
 اگر فایل باینری `bedrud` را قبلاً روی سرور دارید:
 
@@ -164,11 +207,11 @@ sudo ./bedrud install
 | **ایمیل** | خالی | برای ثبت‌نام Let's Encrypt استفاده می‌شود (فقط اگر دامنه تنظیم شده باشد) |
 | **self-signed TLS** | بله | هنگامی که دامنه ارائه نشده ارائه می‌شود. پیش‌فرض `Y` است |
 
-وقتی stdin pipe بشه (حالت non-interactive) سوالا پرسیده نمیشن و از فلگ‌ها و پیش‌فرض‌ها استفاده میشه.
+وقتی stdin به pipe تبدیل شود (حالت غیرتعاملی)، هیچ سوالی پرسیده نمی‌شود و از فلگ‌ها و پیش‌فرض‌ها استفاده می‌شود.
 
 ---
 
-## ۴. غیرتعاملی (مبتنی بر فلگ)
+## ۵. غیرتعاملی (مبتنی بر فلگ)
 
 با فلگ، تمام سوالات را رد کنید.
 
@@ -281,7 +324,7 @@ sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 
 ---
 
-## ۵. کاملاً خودکار (CLI Python)
+## ۶. کاملاً خودکار (CLI Python)
 
 سرور را از ماشین локального build، آپلود و پیکربندی کنید.
 

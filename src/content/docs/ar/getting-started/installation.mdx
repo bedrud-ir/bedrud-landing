@@ -25,7 +25,50 @@ order: 2
 
 ---
 
-## ١. التثبيت عبر مدير الحزم
+## ١. التثبيت بأمر واحد (موصى به)
+
+يُنزّل ويُثبّت ملف Bedrud CLI الثنائي في مسار PATH الخاص بك. يعمل على لينكس وماك‌أو‌إس وويندوز.
+
+<Tabs>
+  <TabsList>
+    <TabsTrigger value="bash">macOS / Linux (Bash)</TabsTrigger>
+    <TabsTrigger value="powershell">Windows (PowerShell)</TabsTrigger>
+  </TabsList>
+  <TabsContent value="bash">
+
+    ```bash
+    curl -fsSL https://get.bedrud.org | bash
+    ```
+
+    أعد تحميل الصدفة بعد التثبيت:
+
+    ```bash
+    source ~/.bashrc  # أو ~/.zshrc
+    ```
+
+  </TabsContent>
+  <TabsContent value="powershell">
+
+    ```powershell
+    irm https://get.bedrud.org/install.ps1 | iex
+    ```
+
+  </TabsContent>
+</Tabs>
+
+تحقّق:
+
+```bash
+bedrud --version
+```
+
+<Callout type="tip">
+    تخصيص التثبيت؟ استخدم المعاملات مثل `--version 0.12.0` أو `--install-dir /opt/bedrud` أو `--skip-shell`. المرجع الكامل: [مُثبّت CLI](/ar/docs/getting-started/cli-installer).
+</Callout>
+
+---
+
+## ٢. التثبيت عبر مدير الحزم
 
 ثبّت عبر مدير حزم توزيعتك.
 
@@ -81,7 +124,7 @@ order: 2
 
 ---
 
-## ٢. Docker
+## ٣. Docker
 
 شغّل بدرود في حاوية - بدون إعداد خادم لينكس، بدون systemd، بدون تنزيل ثنائي.
 
@@ -147,7 +190,7 @@ docker run -d --name bedrud \
 
 ---
 
-## ٣. التثبيت التفاعلي
+## ٤. التثبيت التفاعلي
 
 إذا كان لديك الملف الثنائي `bedrud` بالفعل على الخادم:
 
@@ -168,7 +211,7 @@ sudo ./bedrud install
 
 ---
 
-## ٤. غير تفاعلي (بالعلامات)
+## ٥. غير تفاعلي (بالعلامات)
 
 تخطَّ جميع المطالبات بتمرير العلامات.
 
@@ -281,7 +324,7 @@ sudo ./bedrud install --livekit-domain lk.example.com --domain meet.example.com
 
 ---
 
-## ٥. مؤتمت بالكامل (CLI Python)
+## ٦. مؤتمت بالكامل (CLI Python)
 
 ابنِ، ارفع، وتهيّئ خادمك من جهازك المحلي.
 

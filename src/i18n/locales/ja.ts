@@ -191,15 +191,37 @@ export default {
       description:
         "数分でIDプロバイダーに接続。パスキー、OAuth 2.0、OIDC - すべて標準対応。侵害されるパスワードデータベースなし。",
     },
+    guestJoin: {
+      title: "ゲスト参加 — アカウント不要",
+      description:
+        "リンクを共有するだけ。クリックして参加。登録フォーム、パスワード、アプリのインストール不要。すべてのモダンブラウザで動作。",
+    },
+    recording: {
+      title: "内蔵録画と画面共有",
+      description:
+        "ミーティングの録画と画面共有が組み込み。録画はあなたのサーバーに保存 — 誰かのクラウドではない。",
+    },
   },
   install: {
     title: "1つのコマンド。完了。",
     subtitle: "コピー。ペースト。実行中。セットアップはこれだけ。",
     command: "curl -fsSL https://get.bedrud.org | bash",
-    dockerCommand: "docker run -d -p 8080:8080 bedrud/bedrud",
+    powershellCommand: "irm https://get.bedrud.org/install.ps1 | iex",
+    dockerCommand: "docker pull ghcr.io/bedrud-ir/bedrud:latest",
     or: "または",
+    whatItDoes:
+      "Downloads the Bedrud CLI binary to ~/bin and adds it to your PATH.",
+    flagsTitle: "Key Flags",
+    flagsDesc: "Description",
+    flagVersion: "Install a specific version (e.g. 0.12.0)",
+    flagInstallDir: "Custom install directory (default: ~/bin)",
+    flagSkipShell: "Skip modifying shell config files",
     requirements:
       "任意の64ビット Linux、macOS、Windowsで動作。512MB RAMのみ必要。",
+    fullDocsLink: "Full CLI installer docs",
+    fullServerDocsLink: "Full server installation guide",
+    dockerGuideLink: "Docker setup guide",
+    githubReleases: "Download binary from GitHub Releases",
   },
   platforms: {
     title: "Webラッパーではないネイティブアプリ",
@@ -266,6 +288,21 @@ export default {
       question: "録画と画面共有に対応していますか？",
       answer:
         "はい。画面共有とミーティング録画を内蔵。録画はあなたのサーバーに保存 - 誰かのクラウドではない。Botエージェントによるリアルタイム文字起こしも可能。",
+    },
+    migrate: {
+      question: "ZoomやTeamsから移行できますか？",
+      answer:
+        "はい。Bedrudは既存のツールと並行して動作します。チームをインポートし、SSOを設定し、自分のペースでミーティングの移行を始めましょう。データのロックインはありません。",
+    },
+    pricing: {
+      question: "本当に無料ですか？",
+      answer:
+        "完全に無料です。Apache 2.0ライセンス、機能制限なし、「営業に連絡」ボタンなし。ソースコードは公開されています。自分でホストして、サーバー代だけ払えばOK — 通常月額5ドル。",
+    },
+    mobile: {
+      question: "モバイルアプリはありますか？",
+      answer:
+        "はい。Android（Kotlin）とiOS（Swift）のネイティブアプリに加え、Rust製のデスクトップアプリ。Webラッパーではありません — 本物のネイティブパフォーマンス。",
     },
   },
   footer: {
@@ -433,6 +470,7 @@ export default {
     },
     sidebarItems: {
       "getting-started/quickstart": "クイックスタート",
+      "getting-started/cli-installer": "CLI Installer",
       "getting-started/installation": "サーバーインストール",
       "getting-started/clients": "クライアントインストール",
       "getting-started/configuration": "設定",
@@ -470,13 +508,13 @@ export default {
   },
   installPage: {
     meta: {
-      title: "インストール - Bedrud - ワンコマンドデプロイ",
+      title: "Bedrud Server のインストール - ワンコマンドデプロイ",
       description:
         "Bedrud をサーバーに1分以内でデプロイ。単一バイナリ、512MB RAM、Docker 不要。",
     },
-    title: "Bedrud をインストール",
+    title: "Bedrud Server をインストール",
     subtitle:
-      "サーバーにビデオ会議を1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
+      "サーバーにself-hostedサーバーを1分以内でデプロイ。1つのバイナリ、依存関係ゼロ。",
   },
   downloadPage: {
     meta: {
@@ -508,6 +546,7 @@ export default {
     server: "サーバーインストール",
     serverDesc: "自前ハードウェアにBedrudサーバーをデプロイ。",
     serverGuide: "サーバーインストールガイド",
+    quickInstall: "Quick install",
     heroClientTitle: "クライアント版",
     heroClientDesc:
       "全プラットフォーム向けネイティブデスクトップ & モバイルアプリ。",
@@ -832,6 +871,9 @@ export default {
       you: "あなた",
       chat: "チャット",
       messagePlaceholder: "メッセージ...",
+      chatMsg1: "Q4のデッキを共有します",
+      chatMsg2: "素晴らしい！",
+      chatMsg3: "スライド4を見てもいい？",
     },
     scale: {
       overview: "概要",
