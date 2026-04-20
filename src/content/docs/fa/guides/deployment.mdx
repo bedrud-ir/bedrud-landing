@@ -14,15 +14,15 @@ order: 28
 | [CLI خودکار](#automated-cli-deployment) | راه‌اندازی سریع از راه دور |
 | [نصب دستی](#manual-installation) | کنترل کامل بر پیکربندی |
 | [Docker](#docker-deployment) | محیط‌های کانتینری |
-| [حالت لوازم](/fa/docs/guides/appliance) | تنظیمات همه‌کاره تک‌باینری |
+| [حالت appliance](/fa/docs/guides/appliance) | تنظیمات همه‌کاره تک‌باینری |
 
 ---
 
 ## مدیریت بسته
 
-Bedrud را در Debian/Ubuntu یا Arch Linux با استفاده از مدیر بسته بومی نصب کنید. این روش برای استقرارهای سرور مداوم که می‌خواهید به‌روزرسانی‌های خودکار از طریق `apt upgrade` یا AUR داشته باشید، توصیه می‌شود.
+Bedrud را در Debian/Ubuntu یا Arch Linux با استفاده از package manager بومی نصب کنید. این روش برای استقرارهای سرور مداوم که می‌خواهید به‌روزرسانی‌های خودکار از طریق `apt upgrade` یا AUR داشته باشید، توصیه می‌شود.
 
-به [راهنمای نصب بسته](/fa/docs/guides/packages) برای دستورالعمل‌های کامل، از جمله افزودن کلید GPG apt و مخزن مراجعه کنید.
+به [راهنمای نصب بسته](/fa/docs/guides/packages) برای دستورالعمل‌های کامل، از جمله افزودن کلید GPG apt و مخزن ببینید.
 
 ```bash
 # Ubuntu / Debian
@@ -32,7 +32,7 @@ sudo apt install bedrud
 yay -S bedrud-bin
 ```
 
-پس از نصب، نصب‌کننده تعاملی را برای پیکربندی TLS، سرویس‌های systemd و پایگاه داده اجرا کنید:
+پس از نصب، نصب‌کننده تعاملی را برای پیکربندی TLS، سرویس‌های systemd و دیتابیس اجرا کنید:
 
 ```bash
 sudo bedrud install
@@ -66,7 +66,7 @@ uv run python bedrud.py --auto-config \
 
 ### گزینه‌های CLI
 
-| پرچم | توضیحات |
+| فلگ | توضیحات |
 |------|-------------|
 | `--ip` | آدرس IP سرور |
 | `--user` | کاربر SSH (پیش‌فرض: root) |
@@ -101,7 +101,7 @@ ssh root@server
 sudo /tmp/bedrud install --tls --domain meet.example.com --email admin@example.com
 ```
 
-به [راهنمای نصب](/fa/docs/getting-started/installation) برای تمام سناریوهای نصب مراجعه کنید.
+به [راهنمای نصب](/fa/docs/getting-started/installation) برای تمام سناریوهای نصب ببینید.
 
 ### ۴. ایجاد کاربر مدیر
 
@@ -124,7 +124,7 @@ docker run -d --name bedrud -p 8090:8090 -p 7880:7880 -v bedrud-data:/var/lib/be
 docker pull ghcr.io/bedrud-ir/bedrud:latest
 ```
 
-به [راهنمای Docker](/fa/docs/guides/docker) برای جزئیات کامل شامل حجم‌ها، پیکربندی و Docker Compose مراجعه کنید.
+به [راهنمای Docker](/fa/docs/guides/docker) برای جزئیات کامل شامل حجم‌ها، پیکربندی و Docker Compose ببینید.
 
 ---
 
@@ -147,7 +147,7 @@ flowchart TB
 | 7881 | TCP | بازگشت ICE/TCP |
 | 50000-60000 | UDP | جریان‌های رسانه RTC |
 
-به [اتصال WebRTC](/fa/docs/architecture/webrtc-connectivity) برای پشته اتصال کامل مراجعه کنید.
+به [اتصال WebRTC](/fa/docs/architecture/webrtc-connectivity) برای پشته اتصال کامل ببینید.
 
 <SystemdServices />
 
@@ -157,7 +157,7 @@ flowchart TB
 # بررسی وضعیت
 systemctl status bedrud livekit
 
-# راه‌اندازی مجدد
+# restart
 systemctl restart bedrud
 
 # مشاهده لاگ‌ها
@@ -174,7 +174,7 @@ tail -f /var/log/bedrud/bedrud.log
 | `/usr/local/bin/bedrud` | باینری |
 | `/etc/bedrud/config.yaml` | پیکربندی سرور |
 | `/etc/bedrud/livekit.yaml` | پیکربندی LiveKit |
-| `/var/lib/bedrud/bedrud.db` | پایگاه داده SQLite |
+| `/var/lib/bedrud/bedrud.db` | دیتابیس SQLite |
 | `/var/log/bedrud/bedrud.log` | لاگ‌های برنامه |
 
 ---

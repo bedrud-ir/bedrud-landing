@@ -228,7 +228,7 @@ POST /api/auth/logout
 
 ### ورود OAuth
 
-شروع یک فرآیند OAuth با یک ارائه‌دهنده اجتماعی.
+شروع یک فرآیند OAuth با یک provider اجتماعی.
 
 ```
 GET /api/auth/:provider/login
@@ -236,13 +236,13 @@ GET /api/auth/:provider/login
 
 **ارائه‌دهندگان پشتیبانی‌شده:**
 
-| ارائه‌دهنده | مسیر |
+| provider | مسیر |
 |----------|------|
 | Google | `/api/auth/google/login` |
 | GitHub | `/api/auth/github/login` |
 | Twitter | `/api/auth/twitter/login` |
 
-سرور کاربر را به صفحه مجوز ارائه‌دهنده هدایت می‌کند. پس از موافقت، ارائه‌دهنده کاربر را به URL برگشت هدایت می‌کند و سرور توکن‌های JWT را برمی‌گرداند.
+سرور کاربر را به صفحه مجوز provider هدایت می‌کند. پس از موافقت، provider کاربر را به URL برگشت هدایت می‌کند و سرور توکن‌های JWT را برمی‌گرداند.
 
 ---
 

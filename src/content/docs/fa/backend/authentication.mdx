@@ -1,38 +1,43 @@
 ---
-title: Authentication
-description: Auth implementation details
+title: احراز هویت
+description: جزئیات پیاده‌سازی احراز هویت
 order: 18
 ---
 
-Bedrud supports multiple authentication methods.
+Bedrud از چندین روش احراز هویت پشتیبانی می‌کند.
 
 ## JWT (JSON Web Tokens)
-Bedrud uses JWT for session management. On login, the server returns two tokens:
 
-1.  **Access Token:** Short-lived (e.g., 1 hour). Used to access protected API endpoints.
-2.  **Refresh Token:** Long-lived (e.g., 30 days). Used to get a new Access Token without logging in again.
+Bedrud از JWT برای مدیریت جلسه استفاده می‌کند. هنگام ورود، سرور دو توکن برمی‌گرداند:
 
-The backend validates these tokens in the `internal/middleware/auth.go` file.
+۱. **Access Token:** کوتاه‌مدت (مثلاً ۱ ساعت). برای دسترسی به endpointهای محافظت‌شده استفاده می‌شود.
+۲. **Refresh Token:** طولانی‌مدت (مثلاً ۳۰ روز). برای دریافت Access Token جدید بدون نیاز به ورود مجدد استفاده می‌شود.
 
-## Token Management & Security
+سرور این توکن‌ها را در `internal/middleware/auth.go` تأیید می‌کند.
 
-### 1. Token Pair Strategy (Rotation)
-Bedrud uses a secure token rotation strategy. When a user authenticates, they receive:
+## مدیریت توکن و امنیت
 
-- **Access Token:** Signed with HS256, contains user ID, name, and permissions. Valid for a short duration (configured via `tokenDuration`).
-- **Refresh Token:** A separate long-lived token.
+### ۱. استراتژی جفت توکن (Rotation)
 
-**Rotation:** When the Access Token expires, the client sends the Refresh Token to `/api/auth/refresh`. The server then issues a **brand new pair** of tokens and updates the stored refresh token in the database. This limits the window of opportunity even if a token is stolen.
+Bedrud از یک استراتژی امن rotation توکن استفاده می‌کند. وقتی کاربر احراز هویت می‌شود، دریافت می‌کند:
 
-### 2. Token Revocation (Blacklisting)
-To support secure logout, Bedrud implements a **Token Blacklist**.
+- **Access Token:** با HS256 امضا شده، شامل شناسه کاربر، نام و دسترسی‌ها. برای مدت کوتاهی معتبر است (از طریق `tokenDuration` پیکربندی می‌شود).
+- **Refresh Token:** یک توکن طولانی‌مدت جداگانه.
 
-- When a user logs out, their current Refresh Token is added to the `blocked_refresh_tokens` table.
-- Before refreshing any session, the server checks this table. If a token is blocked, the request is rejected immediately.
-- A background task (Scheduler) is designed to clean up these blocked tokens once they naturally expire.
+**Rotation:** وقتی Access Token منقضی شود، کلاینت Refresh Token را به `/api/auth/refresh` ارسال می‌کند. سرور یک **جفت توکن کاملاً جدید** صادر می‌کند و refresh token ذخیره‌شده در دیتابیس را به‌روزرسانی می‌کند. این کار پنجره فرصت سوءاستفاده را حتی در صورت دزدیده شدن توکن محدود می‌کند.
 
-### 3. JWT Claims Structure
-The tokens carry metadata that allows the backend and frontend to make quick decisions without database hits:
+### ۲. ابطال توکن (Blacklisting)
+
+برای پشتیبانی از خروج امن، Bedrud یک **Token Blacklist** پیاده‌سازی کرده است.
+
+- وقتی کاربری خارج می‌شود، Refresh Token فعلی او به جدول `blocked_refresh_tokens` اضافه می‌شود.
+- قبل از refresh هر جلسه، سرور این جدول را بررسی می‌کند. اگر توکنی مسدود باشد، درخواست فوراً رد می‌شود.
+- یک task پس‌زمینه (Scheduler) توکن‌های مسدود شده را پس از انقضای طبیعی‌شان پاک‌سازی می‌کند.
+
+### ۳. ساختار Claims توکن JWT
+
+توکن‌ها متادیتایی حمل می‌کنند که به backend و frontend اجازه می‌دهد بدون hit به دیتابیس تصمیم‌گیری سریع انجام دهند:
+
 ```json
 {
   "userId": "uuid-string",
@@ -44,47 +49,52 @@ The tokens carry metadata that allows the backend and frontend to make quick dec
 }
 ```
 
-## Authentication Methods
+## روش‌های احراز هویت
 
-### 1. Local Email & Password
+### ۱. ایمیل و رمز عبور محلی
 
-- Passwords are hashed using **bcrypt** - never stored as plain text.
-- When you register, a new User record is created in the database.
+- رمزهای عبور با **bcrypt** هش می‌شوند — هرگز به صورت متن ساده ذخیره نمی‌شوند.
+- هنگام ثبت‌نام، یک رکورد User جدید در دیتابیس ایجاد می‌شود.
 
-### 2. Social Login (OAuth2)
-Bedrud uses the `Goth` library to support:
+### ۲. ورود اجتماعی (OAuth2)
+
+Bedrud از کتابخانه `Goth` برای پشتیبانی از:
 
 - **Google**
 - **GitHub**
 - **Twitter**
 
-You can enable these by filling in the `auth:` section in your `config.yaml` with your Client ID and API Secret.
+برای فعال‌سازی، بخش `auth:` در `config.yaml` را با Client ID و API Secret خود پر کنید.
 
-### 3. Passkeys (WebAuthn/FIDO2)
-Bedrud supports passwordless authentication via the FIDO2 standard (WebAuthn).
+### ۳. Passkeyها (WebAuthn/FIDO2)
 
-- **Registration Ceremony:**
-  1.  **Begin:** The server generates a cryptographically secure **Challenge** and stores it in the user's session.
-  2.  **Finish:** The client's authenticator (e.g., TouchID, YubiKey) signs the challenge. The server verifies the attestation, extracts the **Public Key**, and saves it in the `passkeys` table.
-- **Authentication Ceremony:**
-  1.  **Begin:** The server issues a new challenge.
-  2.  **Finish:** The client signs the challenge with their private key. The server retrieves the Public Key from the database, verifies the signature, and checks the **Sign Counter**.
-- **Security:** The matching of the `Counter` field prevents **Replay Attacks**. If the authenticator's counter is not higher than the stored counter, the login is rejected.
+Bedrud از احراز هویت بدون رمز عبور بر اساس استاندارد FIDO2 (WebAuthn) پشتیبانی می‌کند.
 
-### 4. Guest Login
-Allows users to join a meeting instantly with just a name. The server creates a temporary user record with the role `guest`.
+- **مراسم ثبت‌نام:**
+  ۱. **شروع:** سرور یک **Challenge** رمزنگاری‌شده تولید و در جلسه کاربر ذخیره می‌کند.
+  ۲. **پایان:** authenticator کلاینت (مثلاً TouchID، YubiKey) challenge را امضا می‌کند. سرور attestation را تأیید، **Public Key** را استخراج و در جدول `passkeys` ذخیره می‌کند.
+- **مراسم احراز هویت:**
+  ۱. **شروع:** سرور یک challenge جدید صادر می‌کند.
+  ۲. **پایان:** کلاینت challenge را با کلید خصوصی خود امضا می‌کند. سرور Public Key را از دیتابیس بازیابی، امضا را تأیید و **Sign Counter** را بررسی می‌کند.
+- **امنیت:** تطبیق فیلد `Counter` از **Replay Attack** جلوگیری می‌کند. اگر counter authenticator از counter ذخیره‌شده بیشتر نباشد، ورود رد می‌شود.
 
-## Interoperability & CORS
-Bedrud is designed to be accessible from multiple origins, which is crucial for development (React dev server) and production (different subdomains).
+### ۴. ورود مهمان
 
-- **CORS Policy:** Defined in `config.yaml`. It supports `AllowCredentials: true`, which is required for the session cookies used during OAuth and Passkey ceremonies.
-- **Allowed Origins:** By default, it allows the server's own domain and `localhost:3000` (the React dev server port).
+به کاربران اجازه می‌دهد فقط با یک نام فوراً به جلسه بپیوندند. سرور یک رکورد کاربر موقت با نقش `guest` ایجاد می‌کند.
 
-## User Roles (Access Control)
-Each user has a list of "accesses" (roles).
+## همکاری‌پذیری و CORS
 
-- `user`: Standard user. Can join and create rooms.
-- `guest`: Temporary user. Can join rooms.
-- `superadmin`: Can manage all users and rooms through the `/admin` dashboard.
+Bedrud برای دسترسی از چند origin طراحی شده است — این موضوع برای توسعه (React dev server) و تولید (subdomainهای مختلف) حیاتی است.
 
-The `middleware.RequireAccess("superadmin")` guard protects admin routes.
+- **سیاست CORS:** در `config.yaml` تعریف شده. از `AllowCredentials: true` پشتیبانی می‌کند که برای session cookieهای استفاده‌شده در OAuth و مراسم Passkey لازم است.
+- **Originهای مجاز:** به‌طور پیش‌فرض، domain خود سرور و `localhost:3000` (پورت React dev server) مجاز هستند.
+
+## نقش‌های کاربر (کنترل دسترسی)
+
+هر کاربر لیستی از «access» (نقش) دارد.
+
+- `user`: کاربر استاندارد. می‌تواند اتاق ایجاد و به آن‌ها بپیوندد.
+- `guest`: کاربر موقت. فقط می‌تواند به اتاق‌ها بپیوندد.
+- `superadmin`: می‌تواند همه کاربران و اتاق‌ها را از طریق داشبورد `/admin` مدیریت کند.
+
+محافظ `middleware.RequireAccess("superadmin")` مسیرهای ادمین را حفاظت می‌کند.
